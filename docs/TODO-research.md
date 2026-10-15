@@ -23,3 +23,7 @@ Research and write down, with official sources (trai.gov.in, not vendor blogs):
 ## Supabase (skipped for now, founder's decision)
 - The company directory lives in `backend/app/directory/companies.json` until Phase 6. No Supabase table or seed script yet.
 - Revisit at Phase 6 (mobile app needs login and a shared database).
+
+## Phase 9: run-to-run drift and meaning check
+- Same prompt and model gave different answers on different runs (see `docs/baseline-history.md`). Score each problem 3-5 times and report mean and spread.
+- The meaning-based fact check is a cheap word-overlap test (lenient). Add a stronger judge (a small model or careful rules) and compare.

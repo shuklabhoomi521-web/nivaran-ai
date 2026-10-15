@@ -1,4 +1,5 @@
 """Scoring for the test set. Reused later as the Phase 9 baseline."""
+import difflib
 import json
 import re
 from collections import defaultdict
@@ -31,6 +32,40 @@ def _company_ok(expected: str | None, aliases: list[str], got: str | None) -> bo
     return any(_norm(a) and (_norm(a) in g or g in _norm(a)) for a in [expected, *aliases]) and bool(g)
 
 
+# Facts whose NAME says they are an id, number, amount or date must be copied exactly.
+# Every other fact (product, description, payment method...) only needs to carry the same meaning.
+EXACT_TOKENS = {"id", "ids", "order", "booking", "pnr", "ticket", "claim", "policy", "consumer", "phone", "mobile",
+                "number", "no", "amount", "price", "date", "time", "account", "reference", "docket", "transaction",
+                "invoice", "imei", "serial"}
+
+
+def is_exact_fact(name: str) -> bool:
+    tokens = [t for t in re.split(r"[\W_]+", name.casefold()) if t]
+    return any(t in EXACT_TOKENS or (len(t) > 2 and t.endswith("id")) for t in tokens)
+
+
+def _tokens(s: str) -> list[str]:
+    return [t for t in re.split(r"[\W_]+", s.casefold()) if len(t) >= 3]
+
+
+def _same_meaning(value: str, message: str) -> bool:
+    """Cheap meaning check, no AI call: some word of the value matches a word of the message
+    (spelling slips like 'greeen' vs 'green' allowed). Lenient on purpose: Phase 9 adds a stronger judge."""
+    msg_tokens = _tokens(message)
+    for t in _tokens(value):
+        if any(difflib.SequenceMatcher(None, t, m).ratio() >= 0.8 for m in msg_tokens):
+            return True
+    return False
+
+
+def fact_ok(name: str, value: str, message: str, strict: bool) -> bool:
+    if _norm(value) in _norm(message):
+        return True
+    if strict or is_exact_fact(name):
+        return False
+    return _same_meaning(value, message)
+
+
 def _all_strings(obj) -> list[str]:
     if isinstance(obj, str):
         return [obj]
@@ -60,7 +95,7 @@ class Result:
         return all(self.checks.values())
 
 
-def evaluate(problem: dict, resp: UnderstandResponse) -> Result:
+def evaluate(problem: dict, resp: UnderstandResponse, strict: bool = False) -> Result:
     exp = problem["expected"]
     case = resp.case
     res = Result(problem["id"], problem["language"], exp["category"])
@@ -73,8 +108,7 @@ def evaluate(problem: dict, resp: UnderstandResponse) -> Result:
     res.checks["user_goal"] = case.user_goal.value == exp["user_goal"]
 
     # details_known may only hold facts that are really in the user's message.
-    message = _norm(problem["message"])
-    bad = [f for f in case.details_known if _norm(f.value) not in message]
+    bad = [f for f in case.details_known if not fact_ok(f.name, f.value, problem["message"], strict)]
     res.checks["facts_grounded"] = not bad
     res.notes += [f"invented fact: {f.name}={f.value!r}" for f in bad]
 
@@ -125,3 +159,35 @@ def redaction_selfcheck(problems: list[dict]) -> list[str]:
             if re.sub(r"\D", "", clean).find(p["card_in_message"][:12]) != -1:
                 out.append(p["id"])
     return out
+
+
+def baseline_markdown(problems: list[dict], responses: dict, meta: dict, stale: list[str] | None = None) -> tuple[str, list[Result], list[Result]]:
+    """Score the same answers two ways and build docs/baseline-phase1.md.
+    strict = every fact copied exactly. meaning = exact only for ids, numbers, amounts, dates; same meaning is enough otherwise."""
+    strict = [evaluate(p, responses[p["id"]], strict=True) for p in problems]
+    meaning = [evaluate(p, responses[p["id"]], strict=False) for p in problems]
+    n = len(problems)
+    sc, mc = sum(r.correct for r in strict), sum(r.correct for r in meaning)
+    sp, mp = sum(r.passed for r in strict), sum(r.passed for r in meaning)
+    md = ["# Phase 1 baseline (understand endpoint)", "",
+          f"- Date: {meta['date']}", f"- Provider: `{meta['provider']}`; model: `{meta['model']}`",
+          f"- Problems: {n}",
+          "- Same answers, scored two ways (no new API calls for the second):", "",
+          "| Rule | Correct (company, category, goal, facts) | Fully passed (plus safety and asking checks) |", "|---|---|---|",
+          f"| **Meaning-based (current rule)** | **{mc}/{n} ({mc / n:.0%})** | {mp}/{n} |",
+          f"| Strict (old rule: every fact copied exactly) | {sc}/{n} ({sc / n:.0%}) | {sp}/{n} |", "",
+          "Meaning-based rule: ids, order/booking/claim numbers, phone numbers, amounts and dates must be copied exactly. "
+          "Other facts (product names, descriptions, payment method names) pass if they keep the same meaning "
+          "(fixed typos and translated words are fine). The check is a cheap word-overlap test, so it is lenient: "
+          "Phase 9 should add a stronger judge.", ""]
+    if stale:
+        md += [f"- **{len(stale)} answers carried over from an earlier run (not re-run):** {', '.join(stale)}", ""]
+    md += ["## Meaning-based (current rule)", "", score_tables(meaning), "", "### Failures (meaning-based)", ""]
+    fails = [r for r in meaning if not r.passed]
+    md += [f"- `{r.id}`: " + ", ".join(k for k, v in r.checks.items() if not v)
+           + ((" | " + "; ".join(r.notes)) if r.notes else "") for r in fails] or ["- none"]
+    md += ["", "## Strict (old rule), for comparison", "", score_tables(strict), "", "### Failures (strict)", ""]
+    fails = [r for r in strict if not r.passed]
+    md += [f"- `{r.id}`: " + ", ".join(k for k, v in r.checks.items() if not v)
+           + ((" | " + "; ".join(r.notes)) if r.notes else "") for r in fails] or ["- none"]
+    return "\n".join(md) + "\n", strict, meaning

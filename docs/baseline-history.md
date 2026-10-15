@@ -28,3 +28,13 @@ The table above is run 3 (the latest).
 - Miss `f-02`: wrote `product = 'green kurti'`. The user wrote "greeen kurti" (typo). It fixed the spelling.
 - Both misses are true facts restated, not made-up facts, but our rule is "copy exactly as typed", so they count as failures. Both passed in run 3: same prompt, different luck (run-to-run drift).
 - Not changed: the scoring rule. Candidate fixes for later: tell the model again to copy typos and scripts unchanged, or relax the check to allow close spellings (needs the founder's decision).
+
+## Run 5 re-scored with a new grading rule (founder's decision, no new API calls)
+- Rule change (the prompt was NOT changed): exact copy is required only for ids, order/booking/claim numbers, phone numbers, amounts and dates.
+  Other facts (product names, descriptions, payment method names) pass if they keep the same meaning (fixed typos and translated words are fine).
+- Same 30 saved answers: **strict 28/30 (93%)**, **meaning-based 30/30 (100%)**. Both are kept in `docs/baseline-phase1.md`.
+- The "same meaning" test is a cheap word-overlap check (no AI judge), so it is lenient. It would miss a wrong word if another word of the fact matches.
+
+## Run-to-run drift (note for Phase 9)
+- Same prompt, same model, different runs, different answers. Seen so far: `f-04` flipped category between run 1 and run 3; `ta-06` and `f-02` passed in run 3 but were restated in run 5.
+- A single run of 30 problems is not a stable score. In Phase 9: run every problem 3-5 times, report the mean and the spread, and keep a stronger meaning judge.

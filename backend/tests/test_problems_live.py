@@ -17,7 +17,7 @@ from app.brain.llm import make_llm
 from app.brain.ratelimit import DailyQuotaExceeded
 from app.brain.understand import understand
 from app.config import get_settings
-from app.evaluation import evaluate, load_problems, score_tables
+from app.evaluation import baseline_markdown, load_problems
 from app.models.case import UnderstandResponse
 
 pytestmark = pytest.mark.live_api
@@ -41,8 +41,7 @@ def results():
     cache = json.loads(cache_file.read_text()) if cache_file.exists() else {}
     llm = make_llm()
 
-    res = []
-    stale = []  # answers saved before category_confidence existed: carried over, NOT re-run
+    responses, stale = {}, []  # stale = answers saved before category_confidence existed: carried over, NOT re-run
     for i, p in enumerate(PROBLEMS, 1):
         if p["id"] in cache and "category_confidence" not in cache[p["id"]]["case"] and p["id"] in RERUN_IDS:
             del cache[p["id"]]
@@ -50,7 +49,7 @@ def results():
             if "category_confidence" not in cache[p["id"]]["case"]:
                 cache[p["id"]]["case"]["category_confidence"] = "high"
                 stale.append(p["id"])
-            resp = UnderstandResponse.model_validate(cache[p["id"]])
+            responses[p["id"]] = UnderstandResponse.model_validate(cache[p["id"]])
         else:
             try:
                 resp = understand(p["message"], llm)
@@ -59,31 +58,18 @@ def results():
                 pytest.fail(f"{e} {len(cache)} of {len(PROBLEMS)} done and saved. Run again later to continue.")
             cache[p["id"]] = resp.model_dump(mode="json")
             cache_file.write_text(json.dumps(cache, ensure_ascii=False))
+            responses[p["id"]] = resp
             print(f"  [{i}/{len(PROBLEMS)}] {p['id']} done")
-        res.append(evaluate(p, resp))
 
-    n_ok = sum(r.correct for r in res)
-    n_pass = sum(r.passed for r in res)
-    md = [
-        "# Phase 1 baseline (understand endpoint)", "",
-        f"- Date: {date.today()}", f"- Provider: `{provider}`; model: `{model}`",
-        f"- Problems: {len(res)}; correct (company, category, goal, no invented facts): {n_ok}; "
-        f"fully passed (plus safety and asking checks): {n_pass}", "",
-        *([f"- **{len(stale)} answers carried over from an earlier run (old prompt, not re-run):** {', '.join(stale)}", ""] if stale else []),
-        score_tables(res), "", "### Failures", "",
-    ]
-    fails = [r for r in res if not r.passed]
-    md += [f"- `{r.id}`: " + ", ".join(k for k, v in r.checks.items() if not v)
-           + ((" | " + "; ".join(r.notes)) if r.notes else "") for r in fails] or ["- none"]
+    meta = {"date": str(date.today()), "provider": provider, "model": model}
+    md, strict, meaning = baseline_markdown(PROBLEMS, responses, meta, stale)
     DOCS.mkdir(exist_ok=True)
-    (DOCS / "baseline-phase1.md").write_text("\n".join(md) + "\n", encoding="utf-8")
+    (DOCS / "baseline-phase1.md").write_text(md, encoding="utf-8")
     (DOCS / "baseline-phase1.json").write_text(json.dumps(
-        {"provider": provider, "model": model, "date": str(date.today()),
-         "results": [{"id": r.id, "language": r.language, "category": r.category,
-                      "checks": r.checks, "notes": r.notes} for r in res]},
+        {**meta, "results_meaning_based": [r.__dict__ for r in meaning], "results_strict": [r.__dict__ for r in strict]},
         indent=2, ensure_ascii=False), encoding="utf-8")
-    print("\n" + score_tables(res))
-    return {r.id: r for r in res}
+    print("\n" + md)
+    return {r.id: r for r in meaning}
 
 
 @pytest.mark.parametrize("problem", PROBLEMS, ids=[p["id"] for p in PROBLEMS])

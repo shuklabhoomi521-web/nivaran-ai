@@ -82,3 +82,33 @@ def test_low_confidence_without_a_question_fails():
     r = evaluate(VAGUE, resp(company=None, category="railways", category_confidence="low", user_goal="refund",
                              details_known=[], details_missing=[]))
     assert not r.checks["low_confidence_asks"]
+
+
+def test_exact_copy_needed_for_ids_numbers_amounts_dates():
+    from app.evaluation import fact_ok
+    msg = "Swiggy order 4839201 came late, I paid Rs 599 on 12 October"
+    assert fact_ok("order_id", "4839201", msg, strict=False)
+    assert not fact_ok("order_id", "4839202", msg, strict=False)
+    assert not fact_ok("amount", "Rs 600", msg, strict=False)
+    assert not fact_ok("ride_id", "ABC123", msg, strict=False)
+    assert not fact_ok("date", "13 October", msg, strict=False)
+
+
+def test_meaning_is_enough_for_product_and_payment_method():
+    from app.evaluation import fact_ok
+    assert fact_ok("product", "green kurti", "amazon se greeen kurti order kari", strict=False)
+    assert fact_ok("payment_method", "SBI card", "SBI கார்டு மூலம் பணம் கட்டினேன்", strict=False)
+    assert not fact_ok("product", "green kurti", "amazon se greeen kurti order kari", strict=True)
+    assert not fact_ok("payment_method", "SBI card", "SBI கார்டு மூலம் பணம் கட்டினேன்", strict=True)
+
+
+def test_invented_product_is_still_caught_under_meaning_rule():
+    from app.evaluation import fact_ok
+    assert not fact_ok("product", "red laptop", "my phone screen is broken", strict=False)
+
+
+def test_ride_details_name_is_not_treated_as_an_id():
+    from app.evaluation import is_exact_fact
+    assert not is_exact_fact("ride_details")
+    assert not is_exact_fact("product")
+    assert is_exact_fact("order_id") and is_exact_fact("pnr") and is_exact_fact("phone_number")
