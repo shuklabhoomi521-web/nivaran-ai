@@ -13,6 +13,9 @@ Rules:
    not clearly name a company, or only hinted at one (for example "the orange food app"). Never guess a
    company from hints.
 2. category: pick the closest one from the allowed list. Use "other" only if none fits.
+   Choose the category by WHAT the problem is about, not WHERE it was bought. A faulty laptop, phone or
+   fridge is electronics_appliances even if it was bought online. Use ecommerce when the problem is with
+   the shopping service itself (delivery, wrong or missing item, return or refund of an order).
 3. user_goal: what the user wants: refund, repair, replace, cancel, info, or other
    (use "other" for things like a complaint about behaviour or an appeal).
 4. problem_summary: one or two plain English sentences.

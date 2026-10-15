@@ -34,3 +34,9 @@
 ### Failures
 
 - `hg-05`: category
+
+## Addendum: category prompt fix (same day)
+- Change: rule 2 of the understand prompt now says to choose the category by what the problem is about, not where it was bought.
+- Re-run of `hg-05` only: before = `ecommerce` (wrong), after = `electronics_appliances` (correct). Company, goal and question unchanged.
+- Score for the 30 problems: before 29/30 (97%); after 30/30 if no other problem changed. **Not verified**: the other 29 were not re-run with the new prompt.
+  Risk to check: `en-02` (broken mixer grinder from Amazon, expected ecommerce) could now drift to electronics_appliances.
