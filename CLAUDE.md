@@ -1,6 +1,6 @@
 # Nivaran — project guide for Claude
 
-**Current phase: 1 (brain, text only). Baseline run done: 29 of 30 correct. Not tagged yet; waiting for founder decision on the one miss (hg-05).**
+**Current phase: 1 done (29/30, partly). Waiting for founder OK to plan Phase 2.**
 
 Founder: ECE student. Explain in simple words, short sentences. One line for each hard term.
 Full plan: `docs/PLAN.md` (the master prompt). Follow it.
