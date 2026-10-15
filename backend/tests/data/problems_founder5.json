@@ -1,1 +1,14 @@
-[]
+[
+  {"id": "f-01", "language": "hinglish", "message": "maine zomato se khana mangaya,mera khana thanda .mujhe refund chahye",
+   "expected": {"company": "Zomato", "category": "food_delivery", "user_goal": "refund"}, "tags": ["founder"]},
+  {"id": "f-02", "language": "hinglish", "message": "maine amazon se greeen kurti order kari thi thi jo ki ekk dum diffrent aaye hai real picture se. ise return krna hai or refu d chahiye",
+   "expected": {"company": "Amazon", "category": "ecommerce", "user_goal": "refund"}, "tags": ["founder"]},
+  {"id": "f-03", "language": "hinglish", "message": "mera naykaa ka complete. order deliver ni hua tha,itni baar call kar chuki hu bab takk refund ni aaya",
+   "expected": {"company": "Nykaa", "category": "ecommerce", "user_goal": "refund"}, "tags": ["founder"]},
+  {"id": "f-04", "language": "tamil", "message": "ticket cancel panniten, refund innum varala",
+   "expected": {"company": null, "category": "other", "user_goal": "refund"},
+   "must_ask": true, "tags": ["founder", "missing_details", "unclear_company"]},
+  {"id": "f-05", "language": "english", "message": "upi payment failed but money got deducted from my account",
+   "expected": {"company": null, "category": "banking_upi", "user_goal": "refund"},
+   "must_ask": true, "tags": ["founder", "missing_details", "unclear_company"]}
+]

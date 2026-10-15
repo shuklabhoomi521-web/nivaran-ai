@@ -1,0 +1,409 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "date": "2026-10-15",
+  "results": [
+    {
+      "id": "en-01",
+      "language": "english",
+      "category": "food_delivery",
+      "checks": {
+        "company": true,
+        "category": true,
+        "user_goal": true,
+        "facts_grounded": true,
+        "asks_when_missing": true
+      },
+      "notes": []
+    },
+    {
+      "id": "en-02",
+      "language": "english",
+      "category": "ecommerce",
+      "checks": {
+        "company": true,
+        "category": true,
+        "user_goal": true,
+        "facts_grounded": true,
+        "asks_when_missing": true
+      },
+      "notes": []
+    },
+    {
+      "id": "en-03",
+      "language": "english",
+      "category": "telecom",
+      "checks": {
+        "company": true,
+        "category": true,
+        "user_goal": true,
+        "facts_grounded": true,
+        "asks_when_missing": true
+      },
+      "notes": []
+    },
+    {
+      "id": "en-04",
+      "language": "english",
+      "category": "airlines",
+      "checks": {
+        "company": true,
+        "category": true,
+        "user_goal": true,
+        "facts_grounded": true,
+        "asks_when_missing": true
+      },
+      "notes": []
+    },
+    {
+      "id": "en-05",
+      "language": "english",
+      "category": "electronics_appliances",
+      "checks": {
+        "company": true,
+        "category": true,
+        "user_goal": true,
+        "facts_grounded": true,
+        "asks_when_missing": true,
+        "asks_when_needed": true
+      },
+      "notes": []
+    },
+    {
+      "id": "en-06",
+      "language": "english",
+      "category": "cabs",
+      "checks": {
+        "company": true,
+        "category": true,
+        "user_goal": true,
+        "facts_grounded": true,
+        "asks_when_missing": true,
+        "other_issues_found": true
+      },
+      "notes": []
+    },
+    {
+      "id": "en-07",
+      "language": "english",
+      "category": "ecommerce",
+      "checks": {
+        "company": true,
+        "category": true,
+        "user_goal": true,
+        "facts_grounded": true,
+        "asks_when_missing": true,
+        "no_card_leak": true
+      },
+      "notes": []
+    },
+    {
+      "id": "hi-01",
+      "language": "hindi",
+      "category": "food_delivery",
+      "checks": {
+        "company": true,
+        "category": true,
+        "user_goal": true,
+        "facts_grounded": true,
+        "asks_when_missing": true
+      },
+      "notes": []
+    },
+    {
+      "id": "hi-02",
+      "language": "hindi",
+      "category": "railways",
+      "checks": {
+        "company": true,
+        "category": true,
+        "user_goal": true,
+        "facts_grounded": true,
+        "asks_when_missing": true
+      },
+      "notes": []
+    },
+    {
+      "id": "hi-03",
+      "language": "hindi",
+      "category": "banking_upi",
+      "checks": {
+        "company": true,
+        "category": true,
+        "user_goal": true,
+        "facts_grounded": true,
+        "asks_when_missing": true
+      },
+      "notes": []
+    },
+    {
+      "id": "hi-04",
+      "language": "hindi",
+      "category": "insurance",
+      "checks": {
+        "company": true,
+        "category": true,
+        "user_goal": true,
+        "facts_grounded": true,
+        "asks_when_missing": true
+      },
+      "notes": []
+    },
+    {
+      "id": "hi-05",
+      "language": "hindi",
+      "category": "food_delivery",
+      "checks": {
+        "company": true,
+        "category": true,
+        "user_goal": true,
+        "facts_grounded": true,
+        "asks_when_missing": true,
+        "asks_when_needed": true
+      },
+      "notes": []
+    },
+    {
+      "id": "hi-06",
+      "language": "hindi",
+      "category": "electronics_appliances",
+      "checks": {
+        "company": true,
+        "category": true,
+        "user_goal": true,
+        "facts_grounded": true,
+        "asks_when_missing": true
+      },
+      "notes": []
+    },
+    {
+      "id": "ta-01",
+      "language": "tamil",
+      "category": "ecommerce",
+      "checks": {
+        "company": true,
+        "category": true,
+        "user_goal": true,
+        "facts_grounded": true,
+        "asks_when_missing": true
+      },
+      "notes": []
+    },
+    {
+      "id": "ta-02",
+      "language": "tamil",
+      "category": "telecom",
+      "checks": {
+        "company": true,
+        "category": true,
+        "user_goal": true,
+        "facts_grounded": true,
+        "asks_when_missing": true
+      },
+      "notes": []
+    },
+    {
+      "id": "ta-03",
+      "language": "tamil",
+      "category": "cabs",
+      "checks": {
+        "company": true,
+        "category": true,
+        "user_goal": true,
+        "facts_grounded": true,
+        "asks_when_missing": true
+      },
+      "notes": []
+    },
+    {
+      "id": "ta-04",
+      "language": "tamil",
+      "category": "airlines",
+      "checks": {
+        "company": true,
+        "category": true,
+        "user_goal": true,
+        "facts_grounded": true,
+        "asks_when_missing": true,
+        "asks_when_needed": true
+      },
+      "notes": []
+    },
+    {
+      "id": "ta-05",
+      "language": "tamil",
+      "category": "telecom",
+      "checks": {
+        "company": true,
+        "category": true,
+        "user_goal": true,
+        "facts_grounded": true,
+        "asks_when_missing": true,
+        "other_issues_found": true
+      },
+      "notes": []
+    },
+    {
+      "id": "ta-06",
+      "language": "tamil",
+      "category": "food_delivery",
+      "checks": {
+        "company": true,
+        "category": true,
+        "user_goal": true,
+        "facts_grounded": true,
+        "asks_when_missing": true,
+        "no_card_leak": true
+      },
+      "notes": []
+    },
+    {
+      "id": "ta-07",
+      "language": "tamil",
+      "category": "utilities",
+      "checks": {
+        "company": true,
+        "category": true,
+        "user_goal": true,
+        "facts_grounded": true,
+        "asks_when_missing": true
+      },
+      "notes": []
+    },
+    {
+      "id": "hg-01",
+      "language": "hinglish",
+      "category": "ecommerce",
+      "checks": {
+        "company": true,
+        "category": true,
+        "user_goal": true,
+        "facts_grounded": true,
+        "asks_when_missing": true,
+        "no_card_leak": true
+      },
+      "notes": []
+    },
+    {
+      "id": "hg-02",
+      "language": "hinglish",
+      "category": "banking_upi",
+      "checks": {
+        "company": true,
+        "category": true,
+        "user_goal": true,
+        "facts_grounded": true,
+        "asks_when_missing": true
+      },
+      "notes": []
+    },
+    {
+      "id": "hg-03",
+      "language": "hinglish",
+      "category": "cabs",
+      "checks": {
+        "company": true,
+        "category": true,
+        "user_goal": true,
+        "facts_grounded": true,
+        "asks_when_missing": true,
+        "asks_when_needed": true
+      },
+      "notes": []
+    },
+    {
+      "id": "hg-04",
+      "language": "hinglish",
+      "category": "insurance",
+      "checks": {
+        "company": true,
+        "category": true,
+        "user_goal": true,
+        "facts_grounded": true,
+        "asks_when_missing": true
+      },
+      "notes": []
+    },
+    {
+      "id": "hg-05",
+      "language": "hinglish",
+      "category": "electronics_appliances",
+      "checks": {
+        "company": true,
+        "category": false,
+        "user_goal": true,
+        "facts_grounded": true,
+        "asks_when_missing": true,
+        "asks_when_needed": true
+      },
+      "notes": []
+    },
+    {
+      "id": "f-01",
+      "language": "hinglish",
+      "category": "food_delivery",
+      "checks": {
+        "company": true,
+        "category": true,
+        "user_goal": true,
+        "facts_grounded": true,
+        "asks_when_missing": true
+      },
+      "notes": []
+    },
+    {
+      "id": "f-02",
+      "language": "hinglish",
+      "category": "ecommerce",
+      "checks": {
+        "company": true,
+        "category": true,
+        "user_goal": true,
+        "facts_grounded": true,
+        "asks_when_missing": true
+      },
+      "notes": []
+    },
+    {
+      "id": "f-03",
+      "language": "hinglish",
+      "category": "ecommerce",
+      "checks": {
+        "company": true,
+        "category": true,
+        "user_goal": true,
+        "facts_grounded": true,
+        "asks_when_missing": true
+      },
+      "notes": []
+    },
+    {
+      "id": "f-04",
+      "language": "tamil",
+      "category": "other",
+      "checks": {
+        "company": true,
+        "category": true,
+        "user_goal": true,
+        "facts_grounded": true,
+        "asks_when_missing": true,
+        "asks_when_needed": true
+      },
+      "notes": []
+    },
+    {
+      "id": "f-05",
+      "language": "english",
+      "category": "banking_upi",
+      "checks": {
+        "company": true,
+        "category": true,
+        "user_goal": true,
+        "facts_grounded": true,
+        "asks_when_missing": true,
+        "asks_when_needed": true
+      },
+      "notes": []
+    }
+  ]
+}

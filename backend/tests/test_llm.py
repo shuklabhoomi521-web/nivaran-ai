@@ -43,3 +43,31 @@ def test_rpm_setting_is_read_from_env(monkeypatch):
     monkeypatch.setenv("GEMINI_RPD", "20")
     s = get_settings()
     assert (s.gemini_rpm, s.gemini_rpd) == (3, 20)
+
+
+def test_busy_server_is_retried_then_succeeds(monkeypatch):
+    from google.genai import errors
+
+    monkeypatch.setenv("GEMINI_API_KEY", "test-key")
+    monkeypatch.setattr("time.sleep", lambda s: None)
+
+    class Resp:
+        text = '{"ok": true}'
+
+    class Models:
+        calls = 0
+
+        def generate_content(self, **kw):
+            Models.calls += 1
+            if Models.calls < 3:
+                raise errors.ServerError(503, {"error": {"message": "busy"}})
+            return Resp()
+
+    class Limiter:
+        def acquire(self):
+            pass
+
+    g = llm.GeminiLLM(limiter=Limiter())
+    g._client = type("C", (), {"models": Models()})()
+    assert g.complete_json(system="s", user="u", schema={"type": "object"}) == {"ok": True}
+    assert Models.calls == 3

@@ -36,7 +36,8 @@ def simplify_schema(schema: dict) -> dict:
 
 
 class GeminiLLM:
-    MAX_RETRIES = 3
+    MAX_RETRIES = 4
+    BUSY_WAITS = (10, 20, 40, 60)  # seconds to wait after a 5xx 'server busy' answer
 
     def __init__(self, limiter: RateLimiter | None = None) -> None:
         from google import genai  # imported here so Claude-only setups do not need it
@@ -71,6 +72,11 @@ class GeminiLLM:
                         time.sleep(float(m.group(1)) + 1 if m else 30)
                         continue
                     raise LLMError("Gemini is rate limiting us. Try again in a minute.") from e
+                if e.code in (500, 502, 503, 504):  # Google is busy: wait and try again
+                    if attempt < self.MAX_RETRIES:
+                        time.sleep(self.BUSY_WAITS[min(attempt, len(self.BUSY_WAITS) - 1)])
+                        continue
+                    raise LLMError("Gemini is busy right now. Try again in a few minutes.") from e
                 raise LLMError(f"Gemini error {e.code}: {e.message}") from e
         text = response.text
         if not text:

@@ -1,6 +1,6 @@
 # Nivaran — project guide for Claude
 
-**Current phase: 1 (brain, text only). Code built; waiting for founder's 5 test problems and the Anthropic key before the paid run.**
+**Current phase: 1 (brain, text only). Baseline run done: 29 of 30 correct. Not tagged yet; waiting for founder decision on the one miss (hg-05).**
 
 Founder: ECE student. Explain in simple words, short sentences. One line for each hard term.
 Full plan: `docs/PLAN.md` (the master prompt). Follow it.
