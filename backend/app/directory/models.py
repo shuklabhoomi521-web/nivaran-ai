@@ -45,6 +45,7 @@ class ContactPoint(Strict):
     value: str
     label: str | None = None      # e.g. "Customer care", "Grievance officer"
     hours: str | None = None
+    role: str | None = None       # "complaints" (a line for complaints), "sales", "officer" (an officer's own line), "senior"
     sources: list[Source]
 
     @property

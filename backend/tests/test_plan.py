@@ -57,7 +57,7 @@ def test_plan_for_company_not_in_directory_cannot_proceed(client_with):
 
 def test_plan_for_company_with_empty_directory_entry_cannot_proceed(client_with):
     client, _ = client_with(PLAN)
-    body = client.post("/cases/plan", json={"case": _case(company="Myntra", category="ecommerce")}).json()
+    body = client.post("/cases/plan", json={"case": _case(company="Meru Cabs", category="cabs")}).json()
     assert body["can_proceed"] is False
     assert body["contact"]["channels_available"] == []
     assert "needs_check" in " ".join(body["contact"]["warnings"])

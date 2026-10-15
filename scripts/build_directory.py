@@ -86,18 +86,20 @@ def main() -> None:
     out = []
     for c in COMPANIES:
         helplines, emails = [], []
-        for number, label, hours, srcs in c.get("phones", []):
+        for number, label, hours, srcs, *rest in c.get("phones", []):
+            role = rest[0] if rest else None
             sources = [make_source(s, pages) for s in srcs]
             for s in sources:
                 if not value_in(number, s["quote"], "phone"):
                     raise SystemExit(f"{c['name']}: {number} not inside its quote: {s['quote'][:120]}")
-            helplines.append({"kind": "phone", "value": number, "label": label, "hours": hours, "sources": sources})
-        for value, label, srcs in c.get("emails", []):
+            helplines.append({"kind": "phone", "value": number, "label": label, "hours": hours, "role": role, "sources": sources})
+        for value, label, srcs, *rest in c.get("emails", []):
+            role = rest[0] if rest else None
             sources = [make_source(s, pages) for s in srcs]
             for s in sources:
                 if not value_in(value, s["quote"], "email"):
                     raise SystemExit(f"{c['name']}: {value} not inside its quote: {s['quote'][:120]}")
-            emails.append({"kind": "email", "value": value, "label": label, "hours": None, "sources": sources})
+            emails.append({"kind": "email", "value": value, "label": label, "hours": None, "role": role, "sources": sources})
         g = c.get("grievance")
         grievance = None
         if g:

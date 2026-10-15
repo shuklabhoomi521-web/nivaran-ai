@@ -19,6 +19,7 @@
         "value": "grievances@swiggy.in",
         "label": "Grievance officer",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.swiggy.com/privacy-policy",
@@ -41,6 +42,7 @@
         "value": "support@swiggy.in",
         "label": "Data and consent requests",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.swiggy.com/privacy-policy",
@@ -85,6 +87,7 @@
         "value": "order@zomato.com",
         "label": "Order complaints (first written step)",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.zomato.com/conditions",
@@ -100,6 +103,7 @@
         "value": "grievance@zomato.com",
         "label": "Grievance officer",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.zomato.com/conditions",
@@ -157,6 +161,7 @@
         "value": "grievance-officer@amazon.in",
         "label": "Grievance officer",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.amazon.in/gp/help/customer/display.html?nodeId=GX7NJQ4ZB8MHFRNJ",
@@ -194,6 +199,7 @@
         "value": "044-67415800",
         "label": "Grievance officer / head office line",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.flipkart.com/pages/terms",
@@ -216,6 +222,7 @@
         "value": "044-45614700",
         "label": "Head office line",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.flipkart.com/helpcentre",
@@ -233,6 +240,7 @@
         "value": "grievance.officer@flipkart.com",
         "label": "Grievance officer",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.flipkart.com/pages/terms",
@@ -269,6 +277,7 @@
         "value": "198",
         "label": "Complaints, toll free",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.airtel.in/contact-us/",
@@ -284,6 +293,7 @@
         "value": "121",
         "label": "Enquiries and requests (from an Airtel number)",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.airtel.in/contact-us/",
@@ -299,6 +309,7 @@
         "value": "1800-23400",
         "label": "Any query (Airtel subscribers)",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.airtel.in/contact-us/",
@@ -314,6 +325,7 @@
         "value": "9810012345",
         "label": "From a non-Airtel number",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.airtel.in/contact-us/",
@@ -353,6 +365,7 @@
         "value": "198",
         "label": "Concerns and complaints",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.myvi.in/help-support/vi-customer-care-number",
@@ -368,6 +381,7 @@
         "value": "199",
         "label": "Customer care executives",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.myvi.in/help-support/vi-customer-care-number",
@@ -383,6 +397,7 @@
         "value": "9654297000",
         "label": "WhatsApp number",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.myvi.in/help-support/vi-customer-care-number",
@@ -400,6 +415,7 @@
         "value": "customercare@vodafoneidea.com",
         "label": "Customer care",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.myvi.in/help-support/vi-customer-care-number",
@@ -436,6 +452,7 @@
         "value": "14646",
         "label": "Customer care within India",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://contents.irctc.co.in/en/ContactUsEn.html",
@@ -451,6 +468,7 @@
         "value": "+91-8044647999",
         "label": "Outside India",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://contents.irctc.co.in/en/ContactUsEn.html",
@@ -466,6 +484,7 @@
         "value": "+91-8035734999",
         "label": "Outside India",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://contents.irctc.co.in/en/ContactUsEn.html",
@@ -483,6 +502,7 @@
         "value": "etickets@irctc.co.in",
         "label": "Cancellation and TDR issues (from the registered email only)",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://contents.irctc.co.in/en/ContactUsEn.html",
@@ -519,6 +539,7 @@
         "value": "0124-4973838",
         "label": "Call centre",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.goindigo.in/contact-us.html",
@@ -534,6 +555,7 @@
         "value": "0124-6173838",
         "label": "Call centre",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.goindigo.in/contact-us.html",
@@ -551,6 +573,7 @@
         "value": "customer.experience@goindigo.in",
         "label": "Customer experience",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.goindigo.in/contact-us.html",
@@ -566,6 +589,7 @@
         "value": "nodalofficer@goindigo.in",
         "label": "Nodal officer (level 2)",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.goindigo.in/contact-us.html",
@@ -581,6 +605,7 @@
         "value": "appellateauthority@goindigo.in",
         "label": "Appellate authority (level 3)",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.goindigo.in/contact-us.html",
@@ -615,6 +640,7 @@
         "value": "+91 9606 11 21 31",
         "label": "Customer care",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.akasaair.com/contact-us",
@@ -632,6 +658,7 @@
         "value": "nodalofficer@akasaair.com",
         "label": "Nodal officer (level 1)",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.akasaair.com/contact-us",
@@ -647,6 +674,7 @@
         "value": "appellateauthority@akasaair.com",
         "label": "Appellate authority (level 2)",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.akasaair.com/contact-us",
@@ -683,6 +711,7 @@
         "value": "nodalofficer@airindia.com",
         "label": "Nodal officer (after the support portal)",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.airindia.com/in/en/contact-us/grievance-resolution.html",
@@ -698,6 +727,7 @@
         "value": "appellateauthority@airindia.com",
         "label": "Appellate authority",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.airindia.com/in/en/contact-us/grievance-resolution.html",
@@ -727,15 +757,48 @@
     "official_domains": [
       "olacabs.com"
     ],
-    "source_url": "https://www.olacabs.com/contact",
+    "source_url": "https://help.olacabs.com/support/dreport/10610878990865",
     "checked_on": "2026-10-15",
     "helplines": [],
     "emails": [
       {
         "kind": "email",
+        "value": "grievance@olacabs.com",
+        "label": "Grievance officer (Mon - Fri, 10 AM to 7 PM)",
+        "hours": null,
+        "role": null,
+        "sources": [
+          {
+            "url": "https://help.olacabs.com/support/dreport/10610878990865",
+            "kind": "website",
+            "quote": "Email id : grievance@olacabs.com",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "email",
+        "value": "nodal.officer@olacabs.com",
+        "label": "Nodal officer",
+        "hours": null,
+        "role": null,
+        "sources": [
+          {
+            "url": "https://help.olacabs.com/support/dreport/10610878990865",
+            "kind": "website",
+            "quote": "Email id : nodal.officer@olacabs.com",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "email",
         "value": "security@olacabs.com",
         "label": "Security concerns",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.olacabs.com/contact",
@@ -747,14 +810,25 @@
         ]
       }
     ],
-    "grievance_officer": null,
+    "grievance_officer": {
+      "name": "Ramesh S (Grievance officer); Aparna VS (Nodal officer)",
+      "email": "grievance@olacabs.com",
+      "phone": null,
+      "address": null,
+      "sources": [
+        {
+          "url": "https://help.olacabs.com/support/dreport/10610878990865",
+          "kind": "website",
+          "quote": "Working hours - 10 AM to 7 PM from Monday to Friday excluding public holidays",
+          "checked_on": "2026-10-15",
+          "machine_checked": false
+        }
+      ]
+    },
     "working_hours": null,
-    "channel_notes": null,
+    "channel_notes": "Escalate to the grievance officer only after the 24x7 in-app support fails, quoting the complaint ticket. Officer names change: use the emails. No customer phone number is listed on olacabs.com/contact (checked in a browser).",
     "official_no_phone": null,
-    "needs_check": [
-      "Grievance officer email (grievance@olacabs.com) and nodal officer email (nodal.officer@olacabs.com) were seen only in a search summary. Open https://help.olacabs.com/support/dreport/10610878990865 and copy the exact lines.",
-      "Ola says its old phone number is gone and support is in the app: confirm on https://www.olacabs.com/contact."
-    ]
+    "needs_check": []
   },
   {
     "name": "Myntra",
@@ -767,15 +841,61 @@
     ],
     "source_url": "https://www.myntra.com/termsofuse",
     "checked_on": "2026-10-15",
-    "helplines": [],
-    "emails": [],
-    "grievance_officer": null,
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "080-40011450",
+        "label": "Grievance officer line (Mon - Fri, 9:00 - 18:00)",
+        "hours": "Mon - Fri (9:00 - 18:00)",
+        "role": "officer",
+        "sources": [
+          {
+            "url": "https://www.myntra.com/termsofuse",
+            "kind": "website",
+            "quote": "Email: customergrievance@myntra.com Phone: 080‑40011450 Time: Mon - Fri (9:00 - 18:00)",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "customergrievance@myntra.com",
+        "label": "Grievance officer",
+        "hours": null,
+        "role": null,
+        "sources": [
+          {
+            "url": "https://www.myntra.com/termsofuse",
+            "kind": "website",
+            "quote": "Email: customergrievance@myntra.com Phone: 080‑40011450 Time: Mon - Fri (9:00 - 18:00)",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "grievance_officer": {
+      "name": "Mr. Arshwaal Singh (Manager - CC - Social Media)",
+      "email": "customergrievance@myntra.com",
+      "phone": "080-40011450",
+      "address": null,
+      "sources": [
+        {
+          "url": "https://www.myntra.com/termsofuse",
+          "kind": "website",
+          "quote": "Mr. Arshwaal Singh Designation: Manager - CC - Social Media",
+          "checked_on": "2026-10-15",
+          "machine_checked": false
+        }
+      ]
+    },
     "working_hours": null,
-    "channel_notes": null,
+    "channel_notes": "The page says to reach customer support by choosing your order in the Myntra app or website (link on the page). The phone above is the grievance officer's line.",
     "official_no_phone": null,
-    "needs_check": [
-      "Customer care phone, support email and grievance officer details: the Terms of Use page hides them in a collapsed section and the contact page needs a login. Open https://www.myntra.com/termsofuse, expand '22. Grievance Officer', and copy the exact lines."
-    ]
+    "needs_check": []
   },
   {
     "name": "Meesho",
@@ -796,6 +916,7 @@
         "value": "legalsupport@meesho.com",
         "label": "Grievance officer (privacy policy)",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.meesho.com/legal/privacy",
@@ -827,13 +948,31 @@
     ],
     "source_url": "https://www.nykaa.com/policy",
     "checked_on": "2026-10-15",
-    "helplines": [],
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "1800-267-88888",
+        "label": "Customer Service Desk (Mon to Sun, 8 AM to 10 PM)",
+        "hours": "Mon to Sun, 8 AM to 10 PM",
+        "role": null,
+        "sources": [
+          {
+            "url": "https://www.nykaa.com/policy",
+            "kind": "website",
+            "quote": "Call at Customer Service Desk Phone: 1800-267-88888 (Mon to Sun, 8 AM to 10 PM)",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
     "emails": [
       {
         "kind": "email",
         "value": "grievanceofficercs@nykaa.com",
         "label": "Grievance / nodal officer, customer services",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.nykaa.com/policy",
@@ -849,6 +988,7 @@
         "value": "support@nykaa.com",
         "label": "Customer support",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.nykaa.com/policy",
@@ -878,9 +1018,7 @@
     "working_hours": null,
     "channel_notes": "Officer names differ between Nykaa pages: use the email address, not the name.",
     "official_no_phone": null,
-    "needs_check": [
-      "Customer care phone number: not on the policy page and the contact page blocked our tools. Open https://www.nykaa.com/contact-us and copy it."
-    ]
+    "needs_check": []
   },
   {
     "name": "Jio",
@@ -902,6 +1040,7 @@
         "value": "198",
         "label": "Consumer care (toll free, from a Jio number)",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://myjiostatic.cdn.jio.com/jio/regulatory/rjil-telecom-charter-2025.pdf",
@@ -917,6 +1056,7 @@
         "value": "199",
         "label": "General information (from a Jio number)",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://myjiostatic.cdn.jio.com/jio/regulatory/rjil-telecom-charter-2025.pdf",
@@ -932,6 +1072,7 @@
         "value": "1800-88-99999",
         "label": "Jio Mobile, from any number",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://myjiostatic.cdn.jio.com/jio/regulatory/rjil-telecom-charter-2025.pdf",
@@ -947,6 +1088,7 @@
         "value": "1800-896-9999",
         "label": "Jio Fiber, from any number",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://myjiostatic.cdn.jio.com/jio/regulatory/rjil-telecom-charter-2025.pdf",
@@ -964,6 +1106,7 @@
         "value": "care@jio.com",
         "label": "Customer care",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://myjiostatic.cdn.jio.com/jio/regulatory/rjil-telecom-charter-2025.pdf",
@@ -994,16 +1137,98 @@
     "official_domains": [
       "bsnl.co.in"
     ],
-    "source_url": "https://www.bsnl.co.in/customer-care.html",
+    "source_url": "https://bsnl.co.in/contact-support",
     "checked_on": "2026-10-15",
-    "helplines": [],
-    "emails": [],
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "1800-4444",
+        "label": "Wireline (landline / FTTH), from any network",
+        "hours": null,
+        "role": null,
+        "sources": [
+          {
+            "url": "https://bsnl.co.in/contact-support",
+            "kind": "website",
+            "quote": "Call 1800-4444",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "1800-180-1503",
+        "label": "Wireless (mobile), from another network",
+        "hours": null,
+        "role": null,
+        "sources": [
+          {
+            "url": "https://bsnl.co.in/contact-support",
+            "kind": "website",
+            "quote": "Call 1800-180-1503",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "1503",
+        "label": "Wireless (mobile), from a BSNL number",
+        "hours": null,
+        "role": null,
+        "sources": [
+          {
+            "url": "https://bsnl.co.in/contact-support",
+            "kind": "website",
+            "quote": "Call 1503",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "1800-425-1957",
+        "label": "Enterprise services",
+        "hours": null,
+        "role": null,
+        "sources": [
+          {
+            "url": "https://bsnl.co.in/contact-support",
+            "kind": "website",
+            "quote": "Call 1800-425-1957",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "care-mobile@bsnl.co.in",
+        "label": "UCC (unsolicited commercial communication) complaints only",
+        "hours": null,
+        "role": null,
+        "sources": [
+          {
+            "url": "https://bsnl.co.in/contact-support",
+            "kind": "website",
+            "quote": "📧 care-mobile@bsnl.co.in",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
     "grievance_officer": null,
     "working_hours": null,
-    "channel_notes": null,
+    "channel_notes": "The page also has a 'Register Feedback/Complaint' link on the same page.",
     "official_no_phone": null,
     "needs_check": [
-      "Helpline numbers and grievance contacts: bsnl.co.in blocked our browser and our script. Open the BSNL customer care page and the consumer grievance page and copy the exact lines (BSNL also has circle-wise nodal officers)."
+      "cmdcomplaints@bsnl.co.in, ddgpg@bsnl.co.in and 011-23372200 were reported by an AI second check on the old grievance page, but that page now redirects to the BSNL home page, so no exact line could be captured. NOT added. They may be outdated. Check by hand if you need them. The old Dataone and Sancharnet numbers were deliberately left out."
     ]
   },
   {
@@ -1023,6 +1248,7 @@
         "value": "+91 80 4685 2525",
         "label": "Grievance officer office",
         "hours": "10:00 AM to 7:00 PM, Monday to Friday excluding public holidays",
+        "role": null,
         "sources": [
           {
             "url": "https://help.uber.com/en/riders/article/grievance-redressal?nodeId=c04af4d0-930c-4098-b099-5f6f2a2fff84",
@@ -1038,6 +1264,7 @@
         "value": "+91 891 451 2030",
         "label": "Customer care helpline",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://help.uber.com/en/riders/article/grievance-redressal?nodeId=c04af4d0-930c-4098-b099-5f6f2a2fff84",
@@ -1055,6 +1282,7 @@
         "value": "grievanceredressaloffice@uber.com",
         "label": "Grievance officer",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://help.uber.com/en/riders/article/grievance-redressal?nodeId=c04af4d0-930c-4098-b099-5f6f2a2fff84",
@@ -1104,6 +1332,7 @@
         "value": "shoutout@rapido.bike",
         "label": "Customer care",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.rapido.bike/Terms",
@@ -1119,6 +1348,7 @@
         "value": "nodalofficer@rapido.bike",
         "label": "Grievance officer",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.rapido.bike/Terms",
@@ -1170,6 +1400,7 @@
         "value": "080-68727374",
         "label": "Customer support centre",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.phonepe.com/grievance-policy/",
@@ -1185,6 +1416,7 @@
         "value": "022-68727374",
         "label": "Customer support centre",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.phonepe.com/grievance-policy/",
@@ -1244,6 +1476,7 @@
         "value": "0120-4440440",
         "label": "Helpline",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://webappsstatic.paytm.com/webapps/pages/privacy.html",
@@ -1261,6 +1494,7 @@
         "value": "grievanceofficer@paytm.com",
         "label": "Grievance officer",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://webappsstatic.paytm.com/webapps/pages/privacy.html",
@@ -1298,6 +1532,7 @@
         "value": "022 6827 6827",
         "label": "Call centre services",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://licindia.in/customers-corner",
@@ -1315,6 +1550,7 @@
         "value": "co_complaints@licindia.com",
         "label": "Policy-related grievances",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://licindia.in/customers-corner",
@@ -1342,48 +1578,20 @@
     "official_domains": [
       "starhealth.in"
     ],
-    "source_url": "https://www.starhealth.in/grievance-redressal/",
+    "source_url": "https://www.starhealth.in/contact/",
     "checked_on": "2026-10-15",
     "helplines": [
       {
         "kind": "phone",
-        "value": "1800-425-2255",
-        "label": "Toll free",
+        "value": "044 4366 4600",
+        "label": "Grievance Care",
         "hours": null,
+        "role": "complaints",
         "sources": [
           {
             "url": "https://www.starhealth.in/contact/",
             "kind": "website",
-            "quote": "Toll Free Number -1800-425-2255 / 1800-102-4477 | Corporate Customers - 044 43664666",
-            "checked_on": "2026-10-15",
-            "machine_checked": false
-          },
-          {
-            "url": "https://www.starhealth.in/grievance-redressal/",
-            "kind": "website",
-            "quote": "Toll Free Number -1800-425-2255 / 1800-102-4477 | Corporate Customers - 044 43664666",
-            "checked_on": "2026-10-15",
-            "machine_checked": false
-          }
-        ]
-      },
-      {
-        "kind": "phone",
-        "value": "1800-102-4477",
-        "label": "Toll free",
-        "hours": null,
-        "sources": [
-          {
-            "url": "https://www.starhealth.in/contact/",
-            "kind": "website",
-            "quote": "Toll Free Number -1800-425-2255 / 1800-102-4477 | Corporate Customers - 044 43664666",
-            "checked_on": "2026-10-15",
-            "machine_checked": false
-          },
-          {
-            "url": "https://www.starhealth.in/grievance-redressal/",
-            "kind": "website",
-            "quote": "Toll Free Number -1800-425-2255 / 1800-102-4477 | Corporate Customers - 044 43664666",
+            "quote": "Grievance Care - 044 4366 4600",
             "checked_on": "2026-10-15",
             "machine_checked": false
           }
@@ -1392,9 +1600,17 @@
       {
         "kind": "phone",
         "value": "044 6900 6900",
-        "label": "Customer care helpline",
+        "label": "General Helpline (claims assistance)",
         "hours": null,
+        "role": null,
         "sources": [
+          {
+            "url": "https://www.starhealth.in/contact/",
+            "kind": "website",
+            "quote": "General Helpline - 044 6900 6900",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          },
           {
             "url": "https://www.starhealth.in/grievance-redressal/",
             "kind": "website",
@@ -1406,14 +1622,84 @@
       },
       {
         "kind": "phone",
-        "value": "044 4002 0888",
-        "label": "Senior citizens helpline",
+        "value": "044 6900 7500",
+        "label": "Senior Citizen Grievance",
         "hours": null,
+        "role": "senior",
         "sources": [
+          {
+            "url": "https://www.starhealth.in/contact/",
+            "kind": "website",
+            "quote": "Senior Citizen Grievance - 044 6900 7500",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "044 4002 0888",
+        "label": "Senior Citizen Claims / Senior Citizens Helpline",
+        "hours": null,
+        "role": "senior",
+        "sources": [
+          {
+            "url": "https://www.starhealth.in/contact/",
+            "kind": "website",
+            "quote": "Senior Citizen Claims - 044 4002 0888",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          },
           {
             "url": "https://www.starhealth.in/grievance-redressal/",
             "kind": "website",
             "quote": "Senior Citizens Helpline: 044 4002 0888",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "1800 425 2255",
+        "label": "Buy Policy (sales line)",
+        "hours": null,
+        "role": "sales",
+        "sources": [
+          {
+            "url": "https://www.starhealth.in/contact/",
+            "kind": "website",
+            "quote": "Buy Policy - 1800 425 2255",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          },
+          {
+            "url": "https://www.starhealth.in/grievance-redressal/",
+            "kind": "website",
+            "quote": "Toll Free Number -1800-425-2255 / 1800-102-4477 | Corporate Customers - 044 43664666",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "1800 102 4477",
+        "label": "Renew Policy (sales line)",
+        "hours": null,
+        "role": "sales",
+        "sources": [
+          {
+            "url": "https://www.starhealth.in/contact/",
+            "kind": "website",
+            "quote": "Renew Policy - 1800 102 4477",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          },
+          {
+            "url": "https://www.starhealth.in/grievance-redressal/",
+            "kind": "website",
+            "quote": "Toll Free Number -1800-425-2255 / 1800-102-4477 | Corporate Customers - 044 43664666",
             "checked_on": "2026-10-15",
             "machine_checked": false
           }
@@ -1426,11 +1712,12 @@
         "value": "support@starhealth.in",
         "label": "Support and grievances (from the registered email)",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.starhealth.in/grievance-redressal/",
             "kind": "website",
-            "quote": "You can also write to us at support@starhealth.in from your registered email ID.",
+            "quote": "You can write to us at support@starhealth.in from your registered email ID.",
             "checked_on": "2026-10-15",
             "machine_checked": false
           }
@@ -1439,7 +1726,7 @@
     ],
     "grievance_officer": null,
     "working_hours": null,
-    "channel_notes": "The grievance page says to visit the designated Grievance Officer at your nearest branch office; no officer email is published there.",
+    "channel_notes": "1800 425 2255 and 1800 102 4477 are sales lines (Buy and Renew policy). For complaints use Grievance Care. The grievance page also says to visit the designated Grievance Officer at your nearest branch.",
     "official_no_phone": null,
     "needs_check": []
   },
@@ -1461,6 +1748,7 @@
         "value": "1800 5 7267864",
         "label": "Customer care (toll free)",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.samsung.com/in/support/contact/",
@@ -1501,6 +1789,7 @@
         "value": "94987 94987",
         "label": "Minnagam call centre (for complaints)",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.tnpdcl.org/en/tnpdcl/",
@@ -1525,6 +1814,7 @@
         "value": "cpro@tnebnet.org",
         "label": "Public relations (listed on the site)",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.tnpdcl.org/en/tnpdcl/consumer-info/consumer-guidance/faq/",
@@ -1565,6 +1855,7 @@
         "value": "1800-208-1234",
         "label": "Customer care (toll free)",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.dominos.co.in/contact",
@@ -1582,6 +1873,7 @@
         "value": "guestcaredominos@jublfood.com",
         "label": "Guest care: feedback, queries, complaints",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.jubilantfoodworks.com/contact/",
@@ -1654,6 +1946,7 @@
         "value": "+91 (0)124 4983410",
         "label": "Customer care and reservations (24 hours)",
         "hours": "24 hours",
+        "role": null,
         "sources": [
           {
             "url": "https://corporate.spicejet.com/contactus.aspx",
@@ -1669,6 +1962,7 @@
         "value": "+91 (0)124 7101600",
         "label": "Customer care and reservations (24 hours)",
         "hours": "24 hours",
+        "role": null,
         "sources": [
           {
             "url": "https://corporate.spicejet.com/contactus.aspx",
@@ -1684,6 +1978,7 @@
         "value": "+91 124-3913939",
         "label": "Nodal officer and appellate authority",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://corporate.spicejet.com/contactus.aspx",
@@ -1701,6 +1996,7 @@
         "value": "custrelations@spicejet.com",
         "label": "Customer experience (first written step)",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://corporate.spicejet.com/contactus.aspx",
@@ -1716,6 +2012,7 @@
         "value": "nodalofficer@spicejet.com",
         "label": "Nodal officer",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://corporate.spicejet.com/contactus.aspx",
@@ -1731,6 +2028,7 @@
         "value": "appellateauthority@spicejet.com",
         "label": "Appellate authority",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://corporate.spicejet.com/contactus.aspx",
@@ -1813,6 +2111,7 @@
         "value": "1-800-419-0157",
         "label": "Customer care (toll free; Hindi, English, Tamil, Telugu, Kannada)",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://support.google.com/pay/india/answer/7562363?hl=en",
@@ -1859,6 +2158,7 @@
         "value": "1800 1600",
         "label": "Customer care (toll free, India)",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.hdfcbank.com/personal/need-help/contact-us",
@@ -1874,6 +2174,7 @@
         "value": "1800 2600",
         "label": "Customer care (toll free, India)",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.hdfcbank.com/personal/need-help/contact-us",
@@ -1891,6 +2192,7 @@
         "value": "cardsales.complaint@hdfc.bank.in",
         "label": "Credit cards: mis-selling, harassment complaints",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.hdfcbank.com/personal/need-help/contact-us",
@@ -1933,6 +2235,7 @@
         "value": "gm.customer@sbi.co.in",
         "label": "Customer service (email shown on the contact page)",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.sbi.co.in/web/customer-care/contact-us",
@@ -1948,6 +2251,7 @@
         "value": "pno@sbi.co.in",
         "label": "Principal nodal officer (email shown on the contact page)",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.sbi.co.in/web/customer-care/contact-us",
@@ -1986,6 +2290,7 @@
         "value": "1800-266-9777",
         "label": "Toll free (labelled 'All Days & Toll free' on the page)",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.hdfclife.com/customer-service/grievance-redressal",
@@ -2001,6 +2306,7 @@
         "value": "022-68446530",
         "label": "Customer service (Mon to Sat, 10 am to 7 pm; call charges apply)",
         "hours": "Mon to Sat, 10 am to 7 pm",
+        "role": null,
         "sources": [
           {
             "url": "https://www.hdfclife.com/customer-service/grievance-redressal",
@@ -2018,6 +2324,7 @@
         "value": "service@hdfclife.com",
         "label": "Service and grievance level 1 (from the registered email ID)",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.hdfclife.com/customer-service/grievance-redressal",
@@ -2067,6 +2374,7 @@
         "value": "1800 2666",
         "label": "Customer care, 24x7 (toll free)",
         "hours": "24 x 7",
+        "role": null,
         "sources": [
           {
             "url": "https://www.icicilombard.com/customer-support",
@@ -2084,6 +2392,7 @@
         "value": "customersupport@icicilombard.com",
         "label": "Customer support",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.icicilombard.com/customer-support",
@@ -2119,6 +2428,7 @@
         "value": "08069379999",
         "label": "Customer care",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.lg.com/in/support/contact-us/",
@@ -2136,6 +2446,7 @@
         "value": "serviceindia@lge.com",
         "label": "Service",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.lg.com/in/support/contact-us/",
@@ -2172,6 +2483,7 @@
         "value": "000800 040 1966",
         "label": "Apple Online Store: orders and sales (Mon-Sun 09:00-21:00)",
         "hours": "Mon-Sun 09:00-21:00",
+        "role": null,
         "sources": [
           {
             "url": "https://www.apple.com/in/contact/",
@@ -2210,6 +2522,7 @@
         "value": "1800 102 9322",
         "label": "Toll free number on the contact page (the page's label for it was not captured)",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.daikinindia.com/contact-us",
@@ -2227,6 +2540,7 @@
         "value": "customerservice@daikinindia.com",
         "label": "Customer service",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.daikinindia.com/contact-us",
@@ -2288,6 +2602,7 @@
         "value": "19123",
         "label": "Customer care (24x7 toll free)",
         "hours": "24x7",
+        "role": null,
         "sources": [
           {
             "url": "https://www.bsesdelhi.com/web/brpl/contact-us",
@@ -2303,6 +2618,7 @@
         "value": "1800-200-3030",
         "label": "24x7 toll free",
         "hours": "24x7",
+        "role": null,
         "sources": [
           {
             "url": "https://www.bsesdelhi.com/web/brpl/contact-us",
@@ -2320,6 +2636,7 @@
         "value": "brpl.customercare@reliancegroupindia.com",
         "label": "Customer care",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.bsesdelhi.com/web/brpl/contact-us",
@@ -2357,6 +2674,7 @@
         "value": "19122",
         "label": "Toll free helpline (24x7)",
         "hours": "24x7",
+        "role": null,
         "sources": [
           {
             "url": "https://www.adanielectricity.com/Contact-us",
@@ -2374,6 +2692,7 @@
         "value": "helpdesk.mumbaielectricity@adani.com",
         "label": "Helpdesk",
         "hours": null,
+        "role": null,
         "sources": [
           {
             "url": "https://www.adanielectricity.com/Contact-us",

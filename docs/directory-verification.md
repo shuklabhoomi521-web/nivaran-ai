@@ -156,18 +156,35 @@ Main page: https://www.airindia.com/in/en/contact-us/grievance-resolution.html
 - [ ] **NEEDS CHECK (you fill in or drop):** Customer care phone numbers: the contact page loads them with JavaScript and our capture missed them. Open https://www.airindia.com/in/en/contact-us.html and copy the India numbers shown.
 
 ## Ola (cabs)
-Main page: https://www.olacabs.com/contact
+Main page: https://help.olacabs.com/support/dreport/10610878990865
 
+- [ ] **Email grievance@olacabs.com** (Grievance officer (Mon - Fri, 10 AM to 7 PM))
+  - https://help.olacabs.com/support/dreport/10610878990865 (machine_checked: no)
+    > Email id : grievance@olacabs.com
+- [ ] **Email nodal.officer@olacabs.com** (Nodal officer)
+  - https://help.olacabs.com/support/dreport/10610878990865 (machine_checked: no)
+    > Email id : nodal.officer@olacabs.com
 - [ ] **Email security@olacabs.com** (Security concerns)
   - https://www.olacabs.com/contact (machine_checked: yes)
     > If you have security concerns, please report your issues with Ola at security@olacabs.com
-- [ ] **NEEDS CHECK (you fill in or drop):** Grievance officer email (grievance@olacabs.com) and nodal officer email (nodal.officer@olacabs.com) were seen only in a search summary. Open https://help.olacabs.com/support/dreport/10610878990865 and copy the exact lines.
-- [ ] **NEEDS CHECK (you fill in or drop):** Ola says its old phone number is gone and support is in the app: confirm on https://www.olacabs.com/contact.
+- [ ] **Grievance officer** Ramesh S (Grievance officer); Aparna VS (Nodal officer) grievance@olacabs.com
+  - https://help.olacabs.com/support/dreport/10610878990865 (machine_checked: no)
+    > Working hours - 10 AM to 7 PM from Monday to Friday excluding public holidays
+- Notes: Escalate to the grievance officer only after the 24x7 in-app support fails, quoting the complaint ticket. Officer names change: use the emails. No customer phone number is listed on olacabs.com/contact (checked in a browser).
 
 ## Myntra (ecommerce)
 Main page: https://www.myntra.com/termsofuse
 
-- [ ] **NEEDS CHECK (you fill in or drop):** Customer care phone, support email and grievance officer details: the Terms of Use page hides them in a collapsed section and the contact page needs a login. Open https://www.myntra.com/termsofuse, expand '22. Grievance Officer', and copy the exact lines.
+- [ ] **Phone 080-40011450** (Grievance officer line (Mon - Fri, 9:00 - 18:00)) `single_source`
+  - https://www.myntra.com/termsofuse (machine_checked: no)
+    > Email: customergrievance@myntra.com Phone: 080‑40011450 Time: Mon - Fri (9:00 - 18:00)
+- [ ] **Email customergrievance@myntra.com** (Grievance officer)
+  - https://www.myntra.com/termsofuse (machine_checked: no)
+    > Email: customergrievance@myntra.com Phone: 080‑40011450 Time: Mon - Fri (9:00 - 18:00)
+- [ ] **Grievance officer** Mr. Arshwaal Singh (Manager - CC - Social Media) customergrievance@myntra.com
+  - https://www.myntra.com/termsofuse (machine_checked: no)
+    > Mr. Arshwaal Singh Designation: Manager - CC - Social Media
+- Notes: The page says to reach customer support by choosing your order in the Myntra app or website (link on the page). The phone above is the grievance officer's line.
 
 ## Meesho (ecommerce)
 Main page: https://www.meesho.com/legal/privacy
@@ -180,6 +197,9 @@ Main page: https://www.meesho.com/legal/privacy
 ## Nykaa (ecommerce)
 Main page: https://www.nykaa.com/policy
 
+- [ ] **Phone 1800-267-88888** (Customer Service Desk (Mon to Sun, 8 AM to 10 PM)) `single_source`
+  - https://www.nykaa.com/policy (machine_checked: no)
+    > Call at Customer Service Desk Phone: 1800-267-88888 (Mon to Sun, 8 AM to 10 PM)
 - [ ] **Email grievanceofficercs@nykaa.com** (Grievance / nodal officer, customer services)
   - https://www.nykaa.com/policy (machine_checked: no)
     > Email : grievanceofficercs@nykaa.com
@@ -190,7 +210,6 @@ Main page: https://www.nykaa.com/policy
   - https://www.nykaa.com/policy (machine_checked: no)
     > Name : Mr. Pratiek Varma
 - Notes: Officer names differ between Nykaa pages: use the email address, not the name.
-- [ ] **NEEDS CHECK (you fill in or drop):** Customer care phone number: not on the policy page and the contact page blocked our tools. Open https://www.nykaa.com/contact-us and copy it.
 
 ## Jio (telecom)
 Main page: https://myjiostatic.cdn.jio.com/jio/regulatory/rjil-telecom-charter-2025.pdf
@@ -214,9 +233,25 @@ Main page: https://myjiostatic.cdn.jio.com/jio/regulatory/rjil-telecom-charter-2
 - [ ] **NEEDS CHECK (you fill in or drop):** Appellate authority contacts: https://www.jio.com/en-in/help-support/appellate-authority (regional list, not captured).
 
 ## BSNL (telecom)
-Main page: https://www.bsnl.co.in/customer-care.html
+Main page: https://bsnl.co.in/contact-support
 
-- [ ] **NEEDS CHECK (you fill in or drop):** Helpline numbers and grievance contacts: bsnl.co.in blocked our browser and our script. Open the BSNL customer care page and the consumer grievance page and copy the exact lines (BSNL also has circle-wise nodal officers).
+- [ ] **Phone 1800-4444** (Wireline (landline / FTTH), from any network) `single_source`
+  - https://bsnl.co.in/contact-support (machine_checked: yes)
+    > Call 1800-4444
+- [ ] **Phone 1800-180-1503** (Wireless (mobile), from another network) `single_source`
+  - https://bsnl.co.in/contact-support (machine_checked: yes)
+    > Call 1800-180-1503
+- [ ] **Phone 1503** (Wireless (mobile), from a BSNL number) `single_source`
+  - https://bsnl.co.in/contact-support (machine_checked: yes)
+    > Call 1503
+- [ ] **Phone 1800-425-1957** (Enterprise services) `single_source`
+  - https://bsnl.co.in/contact-support (machine_checked: yes)
+    > Call 1800-425-1957
+- [ ] **Email care-mobile@bsnl.co.in** (UCC (unsolicited commercial communication) complaints only)
+  - https://bsnl.co.in/contact-support (machine_checked: yes)
+    > 📧 care-mobile@bsnl.co.in
+- Notes: The page also has a 'Register Feedback/Complaint' link on the same page.
+- [ ] **NEEDS CHECK (you fill in or drop):** cmdcomplaints@bsnl.co.in, ddgpg@bsnl.co.in and 011-23372200 were reported by an AI second check on the old grievance page, but that page now redirects to the BSNL home page, so no exact line could be captured. NOT added. They may be outdated. Check by hand if you need them. The old Dataone and Sancharnet numbers were deliberately left out.
 
 ## Uber (cabs)
 Main page: https://help.uber.com/en/riders/article/grievance-redressal?nodeId=c04af4d0-930c-4098-b099-5f6f2a2fff84
@@ -288,28 +323,38 @@ Main page: https://licindia.in/customers-corner
     > If you have a Grievance you may write to the dedicated e-mail id co_complaints@licindia.com (or)
 
 ## Star Health (insurance)
-Main page: https://www.starhealth.in/grievance-redressal/
+Main page: https://www.starhealth.in/contact/
 
-- [ ] **Phone 1800-425-2255** (Toll free) `two_sources`
+- [ ] **Phone 044 4366 4600** (Grievance Care) `single_source`
   - https://www.starhealth.in/contact/ (machine_checked: no)
-    > Toll Free Number -1800-425-2255 / 1800-102-4477 | Corporate Customers - 044 43664666
-  - https://www.starhealth.in/grievance-redressal/ (machine_checked: no)
-    > Toll Free Number -1800-425-2255 / 1800-102-4477 | Corporate Customers - 044 43664666
-- [ ] **Phone 1800-102-4477** (Toll free) `two_sources`
+    > Grievance Care - 044 4366 4600
+- [ ] **Phone 044 6900 6900** (General Helpline (claims assistance)) `two_sources`
   - https://www.starhealth.in/contact/ (machine_checked: no)
-    > Toll Free Number -1800-425-2255 / 1800-102-4477 | Corporate Customers - 044 43664666
-  - https://www.starhealth.in/grievance-redressal/ (machine_checked: no)
-    > Toll Free Number -1800-425-2255 / 1800-102-4477 | Corporate Customers - 044 43664666
-- [ ] **Phone 044 6900 6900** (Customer care helpline) `single_source`
+    > General Helpline - 044 6900 6900
   - https://www.starhealth.in/grievance-redressal/ (machine_checked: no)
     > Customer Care Helpline: 044 6900 6900
-- [ ] **Phone 044 4002 0888** (Senior citizens helpline) `single_source`
+- [ ] **Phone 044 6900 7500** (Senior Citizen Grievance) `single_source`
+  - https://www.starhealth.in/contact/ (machine_checked: no)
+    > Senior Citizen Grievance - 044 6900 7500
+- [ ] **Phone 044 4002 0888** (Senior Citizen Claims / Senior Citizens Helpline) `two_sources`
+  - https://www.starhealth.in/contact/ (machine_checked: no)
+    > Senior Citizen Claims - 044 4002 0888
   - https://www.starhealth.in/grievance-redressal/ (machine_checked: no)
     > Senior Citizens Helpline: 044 4002 0888
+- [ ] **Phone 1800 425 2255** (Buy Policy (sales line)) `two_sources`
+  - https://www.starhealth.in/contact/ (machine_checked: no)
+    > Buy Policy - 1800 425 2255
+  - https://www.starhealth.in/grievance-redressal/ (machine_checked: no)
+    > Toll Free Number -1800-425-2255 / 1800-102-4477 | Corporate Customers - 044 43664666
+- [ ] **Phone 1800 102 4477** (Renew Policy (sales line)) `two_sources`
+  - https://www.starhealth.in/contact/ (machine_checked: no)
+    > Renew Policy - 1800 102 4477
+  - https://www.starhealth.in/grievance-redressal/ (machine_checked: no)
+    > Toll Free Number -1800-425-2255 / 1800-102-4477 | Corporate Customers - 044 43664666
 - [ ] **Email support@starhealth.in** (Support and grievances (from the registered email))
   - https://www.starhealth.in/grievance-redressal/ (machine_checked: no)
-    > You can also write to us at support@starhealth.in from your registered email ID.
-- Notes: The grievance page says to visit the designated Grievance Officer at your nearest branch office; no officer email is published there.
+    > You can write to us at support@starhealth.in from your registered email ID.
+- Notes: 1800 425 2255 and 1800 102 4477 are sales lines (Buy and Renew policy). For complaints use Grievance Care. The grievance page also says to visit the designated Grievance Officer at your nearest branch.
 
 ## Samsung (electronics_appliances)
 Main page: https://www.samsung.com/in/support/contact/

@@ -9,7 +9,8 @@ from app.models.case import Channel
 
 _NOT_FOR_CALLS = re.compile(r"whatsapp|outside india|nodal|appellate|grievance|senior|head office|investor|corporate|office line", re.I)
 _ESCALATION = re.compile(r"grievance|nodal|appellate", re.I)
-_NOT_SUPPORT = re.compile(r"grievance|nodal|appellate|investor|security|data and consent|mis-selling|harassment|public relations", re.I)
+_NOT_SUPPORT = re.compile(r"grievance|nodal|appellate|investor|security|data and consent|mis-selling|harassment|public relations|ucc", re.I)
+_SKIP_ROLES = {"sales", "officer", "senior"}   # never the first phone to call about a complaint
 
 
 class ContactItem(BaseModel):
@@ -41,7 +42,10 @@ def _item(cp: ContactPoint) -> ContactItem:
 
 
 def pick_contact(company: Company) -> ContactChoice:
-    phone = next((p for p in company.helplines if not _NOT_FOR_CALLS.search(p.label or "")), None)
+    callable_ = [p for p in company.helplines if p.role not in _SKIP_ROLES and not (p.role is None and _NOT_FOR_CALLS.search(p.label or ""))]
+    # a line made for complaints (role "complaints" or "Complaints" in its label) comes first
+    phone = next((p for p in callable_ if p.role == "complaints" or re.search("complaint", p.label or "", re.I)), None) \
+        or (callable_[0] if callable_ else None)
     support = next((e for e in company.emails if not _NOT_SUPPORT.search(e.label or "")), None)
     escalation = next((e for e in company.emails if _ESCALATION.search(e.label or "")), None)
     if escalation is None and company.grievance_officer and company.grievance_officer.email:
