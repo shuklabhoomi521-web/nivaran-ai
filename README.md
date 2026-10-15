@@ -22,3 +22,8 @@ python -m pytest -m paid_api     # tests that call paid APIs (only when you choo
 ```
 
 Secrets live in `.env` (git-ignored). Never commit them.
+
+## Phase 1: try the brain
+Needs `ANTHROPIC_API_KEY` and `CLAUDE_MODEL` in `.env`. Then open http://127.0.0.1:8000/chat
+Endpoints: `POST /cases/understand`, `POST /cases/plan`.
+Paid baseline run (30 problems, real API): `cd backend && python -m pytest -m paid_api -s`

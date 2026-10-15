@@ -1,6 +1,6 @@
 # Nivaran — project guide for Claude
 
-**Current phase: 0 done. Waiting for founder OK to start Phase 1.**
+**Current phase: 1 (brain, text only). Code built; waiting for founder's 5 test problems and the Anthropic key before the paid run.**
 
 Founder: ECE student. Explain in simple words, short sentences. One line for each hard term.
 Full plan: `docs/PLAN.md` (the master prompt). Follow it.
