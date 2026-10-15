@@ -36,3 +36,7 @@ Option B: open the user's own email app with the complaint pre-filled (mailto / 
 - Voice delay (~1.5s) is a goal, not pass/fail.
 - Paid-API tests use the `paid_api` marker and do not run by default.
 - A call that ends safely without solving the issue counts as "partial", not "solved".
+
+## Update 2026-10-15: new master prompt (Gemini free tier)
+- PLAN.md replaced with the new master prompt. The brain now uses the free Gemini API; Phase 9 builds our own models to replace it.
+- Free-tier note: Google's pricing page says free-tier content may be used to improve Google products. Test data only.

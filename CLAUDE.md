@@ -9,16 +9,21 @@ Full plan: `docs/PLAN.md` (the master prompt). Follow it.
 One app that handles any company's customer care for the user. User states the problem once, in their language. The app finds the official contact, calls or emails, and escalates until solved.
 
 ## Stack
-Python 3.11+, FastAPI, Pydantic · Supabase (Postgres, auth) · Anthropic Claude API · Pipecat voice pipeline ·
-Indian speech provider (e.g. Sarvam) and phone provider (Exotel/Plivo/other) behind swappable interfaces ·
+Python 3.11+, FastAPI, Pydantic · Supabase (Postgres, auth) ·
+AI brain now: Google Gemini API, free tier (default; `LLM_PROVIDER=gemini`). Claude is an optional provider (`LLM_PROVIDER=anthropic`).
+AI brain later: our own fine-tuned open-source models (Phase 9), swapped in one job at a time; Gemini stays as backup until each scores close enough.
+Pipecat voice pipeline · Indian speech provider (e.g. Sarvam) behind a swappable interface ·
+Phone: Twilio trial (Phase 4), Exotel with KYC (Phase 5), behind `channels/phone/base.py` ·
 React Native + Expo (TypeScript) · PyTorch + Hugging Face (MuRIL/IndicBERT) · pytest, Jest.
-Check current docs before using any library or API.
+The founder does not want to pay for any API. Prefer free tiers. Check current docs before using any library or API.
+Gemini free tier: Google may use free-tier prompts to improve its products. Use only test data there. Never send real users' private data through the free tier (decide on paid tier or own models before real users, Phase 10).
+Tests that call the real LLM carry the `live_api` marker and run only on request (`pytest -m live_api`).
 
 ## How we work
 1. One phase at a time. Never start the next phase until the founder says so.
 2. Plan first; wait for OK.
 3. Small steps; run tests after each; show results.
-4. Tests for everything. Paid-API tests carry the `paid_api` marker and run only on request (`pytest -m paid_api`).
+4. Tests for everything. Tests that call the real LLM carry the `live_api` marker and run only on request (`pytest -m live_api`).
 5. Explain new concepts in one simple line.
 6. Secrets only in `.env`. Never in code, logs, or git.
 7. Git/GitHub handled by Claude: clean commits, push after each working step, tag `phase-N-done`, private repo `nivaran`. Never force-push, never delete the repo.

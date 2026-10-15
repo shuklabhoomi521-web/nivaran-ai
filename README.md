@@ -18,12 +18,12 @@ uvicorn app.main:app --reload   # http://127.0.0.1:8000/health
 ```bash
 cd backend
 python -m pytest                 # free tests only
-python -m pytest -m paid_api     # tests that call paid APIs (only when you choose)
+python -m pytest -m live_api     # tests that call the real LLM (only when you choose)
 ```
 
 Secrets live in `.env` (git-ignored). Never commit them.
 
 ## Phase 1: try the brain
-Needs `ANTHROPIC_API_KEY` and `CLAUDE_MODEL` in `.env`. Then open http://127.0.0.1:8000/chat
+Needs `GEMINI_API_KEY` in `.env` (free key from https://aistudio.google.com/apikey). Claude is optional: `LLM_PROVIDER=anthropic`. Then open http://127.0.0.1:8000/chat
 Endpoints: `POST /cases/understand`, `POST /cases/plan`.
-Paid baseline run (30 problems, real API): `cd backend && python -m pytest -m paid_api -s`
+Real baseline run (30 problems, slows itself to the free limits): `cd backend && python -m pytest -m live_api -s`

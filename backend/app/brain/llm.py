@@ -1,10 +1,14 @@
-"""Claude wrapper. Everything else talks to the LLMClient interface, so tests can use a fake."""
+"""LLM wrappers. Everything else talks to the LLMClient interface, so tests can use a fake.
+
+Default provider is Gemini (free tier). Set LLM_PROVIDER=anthropic in .env to use Claude.
+"""
 import json
+import re
+import time
 from typing import Protocol
 
-import anthropic
-
-from app.config import get_settings
+from app.brain.ratelimit import DailyQuotaExceeded, RateLimiter
+from app.config import ConfigError, get_settings
 
 
 class LLMError(RuntimeError):
@@ -15,13 +19,81 @@ class LLMClient(Protocol):
     def complete_json(self, *, system: str, user: str, schema: dict) -> dict: ...
 
 
+def simplify_schema(schema: dict) -> dict:
+    """Inline $ref pointers and drop 'title' keys: the plainest JSON schema Gemini accepts."""
+    defs = schema.get("$defs", {})
+
+    def walk(node):
+        if isinstance(node, list):
+            return [walk(x) for x in node]
+        if not isinstance(node, dict):
+            return node
+        if "$ref" in node:
+            return walk(defs[node["$ref"].split("/")[-1]])
+        return {k: walk(v) for k, v in node.items() if k not in ("$defs", "title")}
+
+    return walk(schema)
+
+
+class GeminiLLM:
+    MAX_RETRIES = 3
+
+    def __init__(self, limiter: RateLimiter | None = None) -> None:
+        from google import genai  # imported here so Claude-only setups do not need it
+
+        self._settings = get_settings()
+        self._client = genai.Client()  # reads GEMINI_API_KEY from the environment
+        self._limiter = limiter or RateLimiter(self._settings.gemini_rpm, self._settings.gemini_rpd)
+
+    def complete_json(self, *, system: str, user: str, schema: dict) -> dict:
+        from google.genai import errors, types
+
+        config = types.GenerateContentConfig(
+            system_instruction=system,
+            response_mime_type="application/json",
+            response_json_schema=simplify_schema(schema),
+        )
+        for attempt in range(self.MAX_RETRIES + 1):
+            try:
+                self._limiter.acquire()
+                response = self._client.models.generate_content(
+                    model=self._settings.gemini_model, contents=user, config=config)
+                break
+            except DailyQuotaExceeded:
+                raise
+            except errors.APIError as e:
+                if e.code == 429:
+                    text = str(e)
+                    if re.search(r"PerDay|per day|daily", text, re.I):
+                        raise DailyQuotaExceeded("Gemini daily free limit reached.") from e
+                    if attempt < self.MAX_RETRIES:
+                        m = re.search(r"retry in ([\d.]+)s", text, re.I)
+                        time.sleep(float(m.group(1)) + 1 if m else 30)
+                        continue
+                    raise LLMError("Gemini is rate limiting us. Try again in a minute.") from e
+                raise LLMError(f"Gemini error {e.code}: {e.message}") from e
+        text = response.text
+        if not text:
+            raise LLMError("Gemini returned no text (blocked or empty).")
+        try:
+            return json.loads(text)
+        except json.JSONDecodeError as e:
+            raise LLMError("Gemini returned invalid JSON.") from e
+
+
 class AnthropicLLM:
     def __init__(self) -> None:
+        import anthropic
+
         self._settings = get_settings()
+        if not self._settings.claude_model:
+            raise ConfigError("CLAUDE_MODEL is not set. Add it to .env (see .env.example).")
         self._client = anthropic.Anthropic()  # reads ANTHROPIC_API_KEY from the environment
 
     def complete_json(self, *, system: str, user: str, schema: dict) -> dict:
-        output_config: dict = {"format": {"type": "json_schema", "schema": schema}}
+        import anthropic
+
+        output_config: dict = {"format": {"type": "json_schema", "schema": anthropic.transform_schema(schema)}}
         if self._settings.claude_effort:
             output_config["effort"] = self._settings.claude_effort
         response = self._client.messages.create(
@@ -44,6 +116,12 @@ class AnthropicLLM:
             raise LLMError("The AI returned invalid JSON.") from e
 
 
-def schema_for(model_cls: type) -> dict:
-    """JSON schema in the shape Claude's structured output accepts."""
-    return anthropic.transform_schema(model_cls)
+def make_llm() -> LLMClient:
+    provider = get_settings().provider
+    try:
+        return GeminiLLM() if provider == "gemini" else AnthropicLLM()
+    except ConfigError:
+        raise
+    except Exception as e:  # a missing API key shows up here
+        key = "GEMINI_API_KEY" if provider == "gemini" else "ANTHROPIC_API_KEY"
+        raise ConfigError(f"Could not start the {provider} client. Is {key} set in .env? ({e})") from e

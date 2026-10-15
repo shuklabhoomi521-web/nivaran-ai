@@ -1,6 +1,6 @@
 from pydantic import ValidationError
 
-from app.brain.llm import LLMClient, LLMError, schema_for
+from app.brain.llm import LLMClient, LLMError
 from app.models.case import Case, Plan
 from app.safety.redact import scrub
 
@@ -26,7 +26,7 @@ def make_plan(case: Case, llm: LLMClient) -> Plan:
     raw = llm.complete_json(
         system=SYSTEM_PROMPT,
         user=case.model_dump_json(),
-        schema=schema_for(Plan),
+        schema=Plan.model_json_schema(),
     )
     raw, _ = scrub(raw)
     try:

@@ -1,6 +1,6 @@
 from pydantic import ValidationError
 
-from app.brain.llm import LLMClient, LLMError, schema_for
+from app.brain.llm import LLMClient, LLMError
 from app.models.case import Case, UnderstandOutput, UnderstandResponse
 from app.safety.redact import redact, scrub
 
@@ -42,7 +42,7 @@ def understand(message: str, llm: LLMClient) -> UnderstandResponse:
     raw = llm.complete_json(
         system=SYSTEM_PROMPT,
         user=clean_message,
-        schema=schema_for(UnderstandOutput),
+        schema=UnderstandOutput.model_json_schema(),
     )
     raw, removed_again = scrub(raw)  # belt and braces: clean the AI's answer too
     for kind in removed_again:

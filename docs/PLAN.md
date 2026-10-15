@@ -1,319 +1,624 @@
-You are the lead engineer on a project called **Nivaran**. I am the founder. I am an ECE student who knows deep learning, is learning ML and app development, and will build this whole project with you. Read this entire message carefully before doing anything. It explains what we are building, how we work, and every stage from start to finish.
+<!-- Master prompt v2 (12 Oct 2026), converted from PDF text. Previous version is in git history. -->
 
-Explain things to me in simple words. Short sentences. When you use a hard term, explain it in one line.
 
----
+Nivaran — AI Customer Care Agent: Project
+Plan
+​Oct 12, 2026
 
-# PART 1 — WHAT WE ARE BUILDING
+· ​@Bhoomi
 
-## The one-line idea
-Nivaran (Hindi for "solution") is one app that handles any company's customer care for the user. The user tells it the problem once, in their own language. The app contacts the company, talks for them, and does not give up until the problem is solved.
+What the app does
+Nivaran (working name, Hindi for "solution") is one app that handles any company's
+customer care for you. You tell it your problem once, in your own language. It contacts the
+company, talks for you, and keeps going until the problem is solved.
+The one-line pitch: Tell it once. It doesn't give up until it's fixed.
 
-## The problem it solves
-Every company has customer care: food delivery, shopping, telecom, banks, UPI apps, airlines, trains, cabs, appliances, electronics. Every one is painful: phone menus ("press 1 for…"), long hold times, repeating yourself, being ignored. Elders and non-tech users suffer the most. Nobody has built a good solution for India: Indian languages, Indian companies, Indian complaint escalation.
+What the user does
+1. Opens the app and types or speaks the problem. Example: "My Swiggy order came
+cold and they didn't refund me."
+2. Picks a language (Tamil, Hindi, Telugu, English, Hinglish and more).
+3. Taps Go. That's it.
 
-## What the user does
-1. Opens the app. Types or speaks the problem. Example: "My Swiggy order came cold and they didn't refund me."
-2. Picks a language (Tamil, Hindi, Telugu, English, Hinglish, and more).
-3. Taps Go.
+What the app does behind the scenes
+1. Understands the problem. It finds the company, the category (food, telecom, airline,
+bank, appliance…) and what you want (refund, repair, replacement, cancellation).
+2. Asks only what's missing. For example, the order ID. Nothing else.
+3. Finds the official contact. From its own verified list of helplines, emails and grievance
+officers.
+4. Picks the best channel. Phone call, email, or written complaint.
+5. Handles the call. Presses the menu buttons, waits on hold, talks to the agent, explains,
+and pushes politely.
+6. Handles verification safely. OTPs, booking IDs, registered email (see the safety rules).
+7. Pulls you in only when needed. "The agent wants to talk to you. Tap to join."
+8. Escalates if ignored. Customer care, then grievance officer, then the National
+Consumer Helpline. It writes every letter for you.
+9. Reports back. A short summary, the full transcript, and what happens next.
 
-## What the app does
-1. **Understands** the problem: company, category, what the user wants (refund, repair, replace, cancel, info).
-2. **Asks only what is missing** (for example an order ID). Never invents details.
-3. **Finds the official contact** from our own verified company directory.
-4. **Picks the best channel:** phone call, email, or written complaint.
-5. **Handles the call:** presses menu buttons, waits on hold, talks to the agent, explains, pushes politely.
-6. **Handles verification safely** (OTPs and other proof — see the safety rules).
-7. **Pulls the user in only when needed:** "The agent wants to talk to you. Tap to join."
-8. **Escalates if ignored:** customer care → company grievance officer → National Consumer Helpline. Writes every letter.
-9. **Reports back:** short summary, full transcript, next steps.
+Nivaran — AI Customer Care Agent: Project Plan
 
-## Languages
-The user speaks to the app in any language they choose. The AI speaks to the company in whatever language the company uses. Example: a grandmother explains in Tamil; the AI handles the call in English.
+Full feature list
+Feature
 
-## Feature list
-- Any category of company
-- Any language (user side and company side handled separately)
-- AI phone calls (menus, hold, live conversation)
-- Complaint emails with follow-ups
-- Escalation ladder
-- Smart OTP handling (4 layers, below)
-- Live join (user can listen or jump into the call anytime)
-- Case tracker (every complaint, status, proof)
-- Menu memory (remembers each company's phone menu path; next call is faster)
-- Proof locker (bills, photos, screenshots saved with each case)
+What it means in simple words
 
-## OTP handling — 4 layers
-1. **Auto-read:** with the user's permission, read the OTP from notifications. Only from that company's sender, only during a call the user started, processed on the phone.
-2. **Avoid OTP:** first offer other proof (order ID, booking ID, registered email, last 4 digits).
-3. **One-tap:** lock-screen notification "Share OTP with <company>? Yes / No".
-4. **Pause and resume:** if no reply, ask the agent for a callback or retry later.
+Any category
 
----
+Food, shopping, telecom, banks, UPI apps, airlines,
+trains, cabs, appliances, electronics
 
-# PART 2 — HOW IT IS BUILT
+Any language
 
-## Architecture (four parts)
-- **Mobile app** — the window. User raises problems, watches live calls, sees cases.
-- **Backend brain** — does the real work. Three modules: Understand problem (message → case + plan), Pick contact (from verified directory), Safety guard (blocks forbidden data).
-- **Channels** — Phone calls, Email, Escalation ladder.
-- **Database** — cases, company directory, menu memory, users.
-- **Our own ML models** (Phase 9) — classifier, menu memory, success predictor.
+You speak your language; the AI speaks the
+company's language
 
+AI phone calls
+
+It calls, presses buttons, waits on hold and talks for
+you
+
+Emails and complaints
+
+It writes strong, polite complaints and follows up
+
+Escalation ladder
+
+If ignored, it goes higher, step by step
+
+Smart OTP handling
+
+Auto-reads safe OTPs, avoids OTPs when it can,
+never shares payment OTPs
+
+Live join
+
+You can listen to the call live or jump in anytime
+
+Case tracker
+
+Every complaint, its status and its proof in one
+place
+
+Menu memory
+
+It remembers each company's phone menu, so the
+next call is faster
+
+Proof locker
+
+Bills, photos and order screenshots saved with
+each case
+
+How it works inside
+The app has four parts: the mobile app you see, the brain on a server, three ways to reach
+companies, and a database that remembers everything.
+
+Nivaran — AI Customer Care Agent: Project Plan
+
+Nivaran system · app, brain, three channels
+
+Read it top to bottom: the user talks to the app, the brain understands and checks safety,
+then it reaches the company by call, email, or escalation.
+
+The tech we use
+Part
+
+Tool
+
+Why this one
+
+Backend (server)
+
+Python + FastAPI
+
+You already know Python; FastAPI is
+simple and fast
+
+Database + login
+
+Supabase
+
+Free to start; database and user
+login in one place
+
+AI brain (now)
+
+Google Gemini API, free tier
+
+Free, no credit card; good with
+Indian languages
+
+AI brain (later)
+
+Your own fine-tuned opensource model
+
+No outside API; built in Phase 9
+
+Voice pipeline
+
+Pipecat
+
+Free tool made for voice AI; joins
+speech, AI and phone
+
+Indian-language
+speech
+
+An Indian speech provider (e.g.
+Sarvam)
+
+Built for Indian languages and
+accents
+
+Nivaran — AI Customer Care Agent: Project Plan
+
+Part
+
+Tool
+
+Why this one
+
+Phone calls
+
+Twilio trial (Phase 4), Exotel
+with KYC (Phase 5)
+
+Trial for testing; Exotel for real
+company calls
+
+Mobile app
+
+React Native + Expo
+
+One code for Android and iPhone
+
+Your own ML
+
+PyTorch + Hugging Face
+
+Fine-tune open-source models for
+free on Colab/Kaggle
+
+Prices and features change, so check each tool's current free plan in Phase 0.
+
+Where to start: backend first
+We start with the backend (the brain on a server), not the app screens.
+Why:
+The magic of this app is the AI that understands, calls and argues. That lives in the
+backend.
+The mobile app is only a window into the brain. A window is easy to build once the brain
+works.
+If the screens come first, you get a pretty app that can't do anything. That impresses
+nobody.
+So the order is: brain → phone calls → app screens → safety → escalation → your own ML
+→ real users.
+Until the mobile app is ready, we test everything with a simple web page and the terminal
+(the black command window).
+
+The rules for moving step by step
+We move to the next phase only when every box in the current phase's "Done when" list is
+ticked. No exceptions.
+1. One phase at a time. Never start Phase 4 work while Phase 3 has open boxes.
+2. Test before you trust. Every phase has automatic tests. Tests = small programs that
+check your code works. If a test fails, the phase is not done.
+3. Save a checkpoint. At the end of each phase, save the code to GitHub with a tag like
+phase-3-done . If something breaks later, you can go back.
+
+4. Write 5 lines of notes. What you built, what broke, what you learned. You'll need this
+for interviews and your research paper.
+
+Nivaran — AI Customer Care Agent: Project Plan
+
+5. Record a 30-second clip. A screen recording of the phase working. These become your
+demo video later.
+6. Ask Claude Code to review. Before closing a phase, ask it: "Review this phase against
+the Done-when list. What is missing or weak?"
+Small steps are fine. Skipped steps are not.
+
+Roadmap: 11 phases, about 16 weeks
+Each phase has a goal, the tasks, and a "Done when" checklist. Times assume you work
+alone with Claude Code, a few hours a day.
+
+Phase 0 — Setup (3–4 days)
+Goal: Every tool and account ready, so nothing blocks you later.
+Tasks:
+Install Python, Node.js, Git, VS Code and Claude Code.
+Create a GitHub repo called nivaran .
+Create accounts: Anthropic API (the AI brain), Supabase (database + login), a phonecall provider (Exotel or Plivo, which give Indian numbers), and an Indian-language
+speech provider (for example Sarvam).
+Put all secret keys in a .env file. Never in the code.
+Add the CLAUDE.md file from the Claude Code section below.
+Done when:
+Claude Code runs inside the repo and has read CLAUDE.md
+A "hello world" backend runs on your laptop
+.env is listed in .gitignore (so keys never reach GitHub)
+
+First commit pushed, tagged phase-0-done
+
+Phase 1 — The brain, text only (1 week)
+Goal: You type a problem in any language. The AI turns it into a clean "case" and a plan.
+Tasks:
+Build a backend (FastAPI, a Python tool for making web servers).
+Make a "case" format: company, category, problem, what the user wants, details
+needed, language.
+The AI reads the user's message and fills the case. If details are missing, it asks one
+short question.
+
+Nivaran — AI Customer Care Agent: Project Plan
+
+The AI writes a plan: which channel to use and what to say.
+Make a simple chat web page to test it.
+Done when:
+30 test problems across 8 categories and 4 languages all become correct cases
+Missing details are always asked for, never invented
+Automatic tests pass
+30-second clip recorded, tagged phase-1-done
+
+Phase 2 — Company directory (1 week)
+Goal: A trusted list of official contacts for companies in every category.
+Tasks:
+Database table for companies: name, category, helpline numbers, emails, grievance
+officer, working hours, notes.
+Every entry stores where you got it (the official website link) and when you checked
+it.
+Fill 40 companies across 10 categories by hand from official websites.
+The brain from Phase 1 now picks the right company and contact.
+Done when:
+40 companies, every entry has an official source link
+Zero numbers taken from random Google results (fake helpline numbers are a common
+scam)
+The brain picks the right contact for all 30 test problems
+Tagged phase-2-done
+
+Phase 3 — Voice in the browser (1 week)
+Goal: You talk to the AI out loud, in your language, and it talks back. No phone yet.
+Tasks:
+Add speech-to-text (turns your voice into words) and text-to-speech (turns words into
+voice).
+Use Pipecat, a free tool for building voice AI, to connect the pieces.
+Make it fast: the AI should reply within about 1.5 seconds.
+Support at least English, Hindi, Tamil and Hinglish.
+Done when:
+
+Nivaran — AI Customer Care Agent: Project Plan
+
+A full conversation works in all 4 languages
+You can interrupt the AI mid-sentence and it stops and listens
+Reply delay measured and written in your notes
+Tagged phase-3-done
+
+Phase 4 — First real phone call, to a friend (1.5 weeks)
+Goal: The AI calls a real phone. Your friend pretends to be a customer care agent.
+Tasks:
+Connect the voice AI to the phone-call provider.
+At the start of every call, the AI says it is an AI assistant calling for the user.
+Build a fake phone menu ("press 1 for…") so the AI learns to press buttons.
+Detect hold music and wait quietly.
+Save the full transcript of every call.
+A "join call" button so you can jump into the call live.
+Done when:
+10 test calls with your friend, at least 8 handled well
+The AI gets through the fake menu every time
+It waits through 5 minutes of hold music without hanging up
+You can join a live call successfully
+Tagged phase-4-done
+
+Phase 5 — First real company calls (1.5–2 weeks)
+Goal: The AI solves real problems with real companies.
+Tasks:
+Pick 5 real small problems (yours, friends', family's) in different categories.
+Let the AI call. You listen live every time, ready to jump in.
+Fix every weak spot you hear.
+Save each company's phone menu path for next time.
+Done when:
+At least 3 of 5 real problems solved by the AI
+Every call ended safely (no wrong info shared)
+One great call recorded for your demo video (with permission)
+Tagged phase-5-done — you can start applying for internships now
+
+Nivaran — AI Customer Care Agent: Project Plan
+
+Phase 6 — The mobile app (2 weeks)
+Goal: A clean Android app that anyone can use.
+Tasks:
+Build with React Native (one codebase for Android and iPhone) using Expo.
+Screens: login, new problem (type or speak), language choice, live call view, case list,
+case details with transcript.
+Push notifications: "Your refund was approved", "Agent wants to talk to you".
+Done when:
+A friend who has never seen it can raise a problem without your help
+Live call view shows what is happening in real time
+Works on 2 different Android phones
+Tagged phase-6-done
+
+Phase 7 — OTP and safety (1.5 weeks)
+Goal: The four OTP layers, plus hard safety rules.
+Tasks:
+Layer 1: with permission, read OTPs from notifications, only from that company, only
+during a call the user started.
+Layer 2: try other proof first (order ID, booking ID, registered email).
+Layer 3: one-tap "Share OTP?" on the lock screen.
+Layer 4: if no reply, ask for a callback or retry later.
+Hard block: never share payment OTPs, UPI PIN, card number, CVV or passwords. Ever.
+Keep private details encrypted (locked so only your app can read them).
+Done when:
+All 4 layers tested on real calls
+20 "trick" tests (an agent asking for UPI PIN, card number, etc.) all refused
+A friend reviews the safety rules and finds no gap
+Tagged phase-7-done
+
+Phase 8 — Email and the escalation ladder (1.5 weeks)
+Goal: If the company ignores you, the AI goes higher, step by step.
+Tasks:
+
+Nivaran — AI Customer Care Agent: Project Plan
+
+AI writes complaint emails with proof attached, sent from the user's own email (with
+permission).
+Automatic follow-up if no reply in a set number of days.
+Ladder: customer care → grievance officer → National Consumer Helpline.
+Each case shows which step it is on and what happens next.
+Done when:
+A complete ladder runs end to end on one test case
+Every email is shown to the user before sending (the user approves)
+Tagged phase-8-done
+
+Phase 9 — Your own models: replace the outside brain (2–3 weeks)
+Goal: Nivaran runs on models you trained and host, not on Gemini or anyone else's API.
+This is what makes the project truly yours, and what impresses interviewers most.
+Why it's possible: you don't build a brain from zero (that needs crores of rupees and huge
+teams). You take a free open-source model (a ready-made smart brain anyone can
+download, like Llama, Qwen or Gemma) and fine-tune it (teach it Nivaran's specific jobs).
+Tasks, step by step:
+1. Problem classifier (small model). Fine-tune MuRIL or IndicBERT to sort complaints by
+category and goal. Compare it against a simple baseline and against the Phase 1 Gemini
+scores.
+2. Safety model. A small model, plus hard rules, that spots card numbers, PINs and OTPs
+in any language. Must catch 100% of the trick tests.
+3. Menu memory. A map of each company's phone menu that improves after every call.
+Measure time saved on repeat calls.
+4. Channel picker. A small model that guesses which channel works best for a company
+and problem.
+5. Own conversation brain (the big one). Fine-tune a small open-source chat model on
+Nivaran's real call transcripts and letters. Test it on the same jobs Gemini does: talking
+on calls, writing emails, summarising.
+6. Swap step by step. Replace Gemini one job at a time with your own model, only when
+yours scores close enough. Keep Gemini as a backup until then.
+Where the computing power comes from:
+Training: free GPUs on Google Colab and Kaggle (GPU = a powerful chip for AI training).
+
+Nivaran — AI Customer Care Agent: Project Plan
+
+Running all day: needs a server that's always on. Options: startup credit programs
+(Google, Microsoft, AWS), the IndiaAI Mission's GPU access for startups and
+researchers (check current rules), or a small paid server once the app has users.
+Done when:
+Your classifier beats the baseline, with numbers in a table per language
+Safety model catches every trick test
+Menu memory measurably speeds up repeat calls
+Your own chat model handles at least the simple jobs (understanding and
+summarising) as well as Gemini did in Phase 1
+A results table: "our model vs Gemini" for every job, ready for your paper and resume
+Tagged phase-9-done
+
+Phase 10 — Real users and launch kit (2 weeks)
+Goal: Real people use it, and you have everything to show companies.
+Tasks:
+Put the app on the Play Store (closed testing is fine).
+Get 20–50 friends, classmates and family to use it.
+Collect feedback and fix the top 5 problems.
+Make: a 1–2 minute demo video, a clean GitHub README, a short write-up, and a
+resume line with numbers.
+Done when:
+At least 20 real users, at least 30 real cases handled
+Demo video, README and write-up done
+Sent to at least 15 companies
+Tagged v1.0
+
+Claude Code: setup file and prompts
+Claude Code reads a file called CLAUDE.md in your project folder every time it starts.
+Think of it as the project's rulebook. Put it there in Phase 0. Then, for each phase, paste
+that phase's prompt.
+
+How to use the prompts
+1. Open the terminal in your project folder and type claude .
+2. Paste the phase prompt.
+
+Nivaran — AI Customer Care Agent: Project Plan
+
+3. Claude Code will first show a plan. Read it. Ask questions. Only then say "go ahead".
+4. When it says the phase is done, paste the review prompt (at the end of this section).
+5. Tick the Done-when boxes in this doc yourself. Don't just trust it.
+
+CLAUDE.md (copy this whole block into the file)
+# Nivaran — AI customer care agent
+## What this project is
+One app that handles any company's customer care for the user. The user
+describes
+a problem once, in any Indian language. The AI finds the official contact,
+calls or
+emails the company, handles the conversation, and escalates if ignored.
+## Who I am
+I am an ECE student learning ML and app development. Explain your choices in
+simple words. When you use a hard term, explain it in one line.
 ## Tech stack
 - Backend: Python 3.11+, FastAPI, Pydantic
-- Database + auth: Supabase (Postgres)
+- Database + login: Supabase (Postgres)
 - AI brain: Anthropic Claude API
-- Voice pipeline: Pipecat
-- Indian-language speech-to-text and text-to-speech: an Indian speech provider (for example Sarvam); keep it swappable behind an interface
-- Phone calls: Exotel or Plivo (Indian numbers); keep it swappable behind an interface
-- Mobile app: React Native + Expo, TypeScript
-- ML: PyTorch + Hugging Face (MuRIL / IndicBERT)
-- Tests: pytest (backend), Jest (mobile)
+- Voice: Pipecat; Indian-language speech-to-text and text-to-speech
+- Phone calls: Exotel or Plivo (Indian numbers)
+- Mobile app (Phase 6+): React Native with Expo, TypeScript
+- ML (Phase 9): PyTorch + Hugging Face (MuRIL / IndicBERT)
+## How we work
+- We build in phases. Only work on the current phase. Never start the next
+one.
+- Before writing code, show me a short plan and wait for my OK.
+- Small steps. After each step, run the tests and tell me the result.
+- Every feature gets automatic tests (pytest for Python).
+- Keep code simple and readable. Comments for anything non-obvious.
+- All secrets live in .env. Never write a key in code. Never print keys.
+## Safety rules (never break these)
+- Never share or ask the AI to speak: UPI PIN, card number, CVV, passwords,
+or any OTP that approves a payment.
+- Only use company contacts from the verified directory. Never a number
+found by web search.
+- Every outgoing call starts by saying it is an AI assistant calling for the
+user.
+- The user must approve every email before it is sent.
 
-Before using any library or API, check its current documentation, because versions and prices change. If something in this plan is outdated or a better option exists, tell me and explain why before switching.
+Nivaran — AI Customer Care Agent: Project Plan
 
-## Folder structure
-```
-nivaran/
-  CLAUDE.md
-  README.md
-  .env.example
-  .gitignore
-  docs/
-    PLAN.md
-    notes/phase-N.md      (5-line notes per phase)
-  backend/
-    app/
-      main.py
-      api/                (routes)
-      brain/              (understand, plan, pick contact)
-      safety/             (safety guard)
-      channels/
-        phone/
-        email/
-        escalation/
-      directory/          (company directory)
-      models/             (Pydantic models)
-      db/
-    tests/
-  mobile/                 (Phase 6+)
-  ml/                     (Phase 9)
-  scripts/
-```
-
----
-
-# PART 3 — HOW WE WORK (follow every time)
-
-1. **One phase at a time.** Only build the current phase. Never start the next phase until I say so.
-2. **Plan first.** At the start of each phase, show me a short plan (steps, files, tools) and wait for my OK.
-3. **Small steps.** After each step, run the tests and show me the result.
-4. **Tests for everything.** Every feature gets automatic tests. A phase is not done if any test fails.
-5. **Explain as you go.** One simple line for every new concept.
-6. **Secrets.** All keys live in `.env`. Never write a key in code, never print it, never commit it.
-7. **Git and GitHub — you handle all of it, fully on your own:**
-   - My GitHub login is already set up on this machine. Use it directly. Do not ask me to log in or do anything on GitHub.
-   - Initialise git, create `.gitignore`, make clean commits with clear messages after each working step.
-   - Create the GitHub repo `nivaran` yourself (with the GitHub CLI `gh` or git, whichever is already authenticated). Make it private for now.
-   - Push after every working step. At the end of each phase, create a tag `phase-N-done` and push it.
-   - Write the README, keep it updated, and manage branches if useful. Never force-push over history and never delete the repo.
-   - If an auth error ever happens, try the other authenticated method first; only tell me if both fail.
-8. **End of every phase, do all of this:**
-   - Check every "Done when" item. For each: done / partly / missing, with proof (test name, file, or command I can run).
-   - List the 3 weakest parts of what we built and how to fix them.
-   - Write `docs/notes/phase-N.md`: what we built, what broke, what we learned (5 lines).
-   - Tell me what to record as a 30-second demo clip.
-   - Update the "Current phase" line in CLAUDE.md.
-   - Commit, tag, push. Then STOP and wait for me.
-9. **Do everything yourself except these few things** (tell me exactly when and how, step by step, then wait):
-   - Creating accounts on outside services and getting their API keys (Anthropic, Supabase, phone provider, speech provider). You set up everything around them; I only paste the keys into `.env`.
-   - Anything that needs payment details or identity verification (KYC).
-   - Phone permissions on my physical phone.
-   - Saying OK before each real call to a real company (this is a safety rule, not a skill limit).
-   Group these asks together so I'm interrupted as little as possible.
-10. **Design for the future, build for now.** Keep the code ready for future scope, but do not build it early.
-
----
-
-# PART 4 — SAFETY RULES (never break these, in any phase)
-
-- Never share, store in plain text, or let the AI speak: UPI PIN, card number, CVV, passwords, or any OTP that approves a payment. Build this as a hard block in the safety guard, with tests that try to trick it.
-- Only use company contacts from the verified directory. Every entry must have an official source link and a "checked on" date. Never use a number from web search results (fake helpline numbers are a common scam).
-- Every outgoing call starts with the AI saying it is an AI assistant calling on behalf of the user. It never pretends to be the user.
-- The user approves every email before it is sent.
 - Private user details are stored encrypted.
-- The user can stop any call or action at any time.
-- When reading emails, SMS or other apps: read only. Never buy, pay, cancel or change anything. Show what was found and wait for a yes.
+## Current phase
+Phase 0 (update this line at the start of each phase)
 
----
+Phase 0 prompt
+We are starting Phase 0 (Setup) of Nivaran. Read CLAUDE.md first.
+Goal: a clean project skeleton so nothing blocks us later.
+Please:
+1. Create this folder structure: backend/ (FastAPI app), mobile/ (empty for
+now),
+ml/ (empty for now), docs/, tests/.
+2. Set up a Python virtual environment and a requirements.txt.
+3. Create a minimal FastAPI app with a /health route that returns {"status":
+"ok"}.
+4. Create .env.example listing every key we will need later (no real values),
+and make sure .env is in .gitignore.
+5. Add one pytest test for /health.
+6. Write a short README with how to run it.
+Show me the plan first. After building, run the test and show me the result.
 
-# PART 5 — THE ROADMAP (11 phases)
+Phase 1 prompt
+We are starting Phase 1 (The brain, text only). Read CLAUDE.md first.
+Goal: the user types a problem in any language, and the AI turns it into a
+clean "case" plus a plan.
+Please:
+1. Define a Case model with: company, category, problem_summary, user_goal
+(refund / repair / replace / cancel / info / other), details_known,
+details_missing, user_language, urgency.
+2. Build a POST /cases/understand endpoint. It sends the user's message to
+Claude and returns a filled Case. Use structured output so the result
+always matches the model.
+3. If details are missing, return ONE short follow-up question in the
+user's language. Never invent details like order IDs.
+4. Build a POST /cases/plan endpoint that returns: best channel (call / email
+/ complaint), what to say first, and what proof the user should keep
+ready.
+5. Make a very simple chat web page to test both endpoints.
 
-## Phase 0 — Setup (3–4 days)
-Goal: every tool ready; nothing blocks us later.
-Tasks:
-- Create `CLAUDE.md` containing Part 1 summary, Part 2 stack, Part 3 rules, Part 4 safety rules, and a "Current phase" line. Create `docs/PLAN.md` containing this whole message.
-- Create the folder structure above.
-- Python virtual environment, `requirements.txt`, minimal FastAPI app with `/health` returning `{"status": "ok"}`.
-- `.env.example` listing every key we will need in later phases (no real values). `.env` in `.gitignore`.
-- One pytest test for `/health`.
-- README with how to run.
-- git init, create the private GitHub repo yourself using my existing login, first push.
-- Give me ONE short checklist of accounts to create (Anthropic API, Supabase, phone provider, speech provider) with simple steps and where to paste each key. We only need the Anthropic key for Phase 1; the rest can wait until their phase.
-Done when:
-- [ ] `/health` runs locally and its test passes
-- [ ] `.env` is ignored by git
-- [ ] CLAUDE.md and docs/PLAN.md exist
-- [ ] Repo on GitHub, tagged `phase-0-done`
+Nivaran — AI Customer Care Agent: Project Plan
 
-## Phase 1 — The brain, text only (1 week)
-Goal: the user types a problem in any language; the AI turns it into a clean case and a plan.
-Tasks:
-- `Case` model: company, category, problem_summary, user_goal (refund/repair/replace/cancel/info/other), details_known, details_missing, user_language, urgency.
-- `POST /cases/understand`: sends the message to Claude, returns a filled Case using structured output.
-- If details are missing, return ONE short follow-up question in the user's language. Never invent details.
-- `POST /cases/plan`: best channel (call/email/complaint), opening line, proof the user should keep ready.
-- Simple web chat page to test both endpoints.
-- Test set of 30 problems: 8+ categories; English, Hindi, Tamil, Hinglish. Tests check each becomes a correct case.
-Done when:
-- [ ] All 30 test problems become correct cases
-- [ ] Missing details are asked, never invented
-- [ ] All tests pass; tagged `phase-1-done`
+6. Create a test set of 30 problems: 8+ categories, in English, Hindi,
+Tamil and Hinglish. Write tests that check each becomes a correct case.
+Show me the plan first. Explain any hard term in one line.
 
-## Phase 2 — Company directory (1 week)
-Goal: trusted official contacts for companies in every category.
-Tasks:
-- Supabase table `companies`: name, aliases, category, helpline numbers, emails, grievance officer name and email, working hours, channel notes, source_url, checked_on.
-- Seed script and data file for 40 companies across 10 categories. You prepare the structure and a list of companies; I will verify each contact on the official website (or you fetch the official page and show me the source for each so I can confirm).
-- The brain now matches the right company and picks the right contact and channel.
-Done when:
-- [ ] 40 companies, every entry has an official source_url and checked_on
-- [ ] No contact taken from random search results
-- [ ] Correct contact picked for all 30 test problems; tagged `phase-2-done`
+Prompts for Phases 2–10
+Same pattern each time: start with "We are starting Phase X. Read CLAUDE.md first.",
+then paste that phase's Goal, Tasks and Done when from the roadmap above, and end
+with:
+Show me the plan first. Build in small steps. Run the tests after each step.
+Explain any hard term in one line. Do not start the next phase.
 
-## Phase 3 — Voice in the browser (1 week)
-Goal: I talk to the AI out loud, in my language; it talks back. No phone yet.
-Tasks:
-- Pipecat pipeline: speech-to-text → Claude → text-to-speech, behind swappable interfaces.
-- Interruptions: if I talk while the AI is speaking, it stops and listens.
-- English, Hindi, Tamil, Hinglish.
-- Measure reply delay; target about 1.5 seconds.
-Done when:
-- [ ] Full conversation works in all 4 languages
-- [ ] Interruptions work
-- [ ] Delay measured and written in notes; tagged `phase-3-done`
+Extra lines to add for the tricky phases:
+Phase 4: "Build a fake phone menu I can test against before calling real numbers."
+Phase 5: "Before each real call, show me the full plan and wait for my OK."
+Phase 7: "Write the safety tests first, then the code. Try hard to break our own rules."
+Phase 9: "Explain each ML step like I'm learning it. Show baseline vs our model in a
+table."
 
-## Phase 4 — First real phone call, to a friend (1.5 weeks)
-Goal: the AI calls a real phone; my friend pretends to be an agent.
-Tasks:
-- Connect the voice pipeline to the phone provider.
-- AI disclosure line at the start of every call.
-- A fake phone menu (IVR) we host ourselves, so the AI learns to press buttons (DTMF tones).
-- Hold-music detection: wait quietly, don't hang up.
-- Save full transcript of every call.
-- "Join call" so I can jump in live.
-Done when:
-- [ ] 10 test calls, at least 8 handled well
-- [ ] Gets through the fake menu every time
-- [ ] Waits through 5 minutes of hold music
-- [ ] Live join works; tagged `phase-4-done`
+Review prompt (end of every phase)
+Review the current phase against its Done-when list in this message:
+[paste the Done-when list]
+For each item: done, partly done, or missing — with proof (a test name,
+a file, or a command I can run). Then list the 3 weakest parts of what we
+built and how to fix them. Do not write new code yet.
 
-## Phase 5 — First real company calls (1.5–2 weeks)
-Goal: solve real problems with real companies.
-Tasks:
-- 5 real small problems in different categories (I will provide them).
-- Before EACH real call, show me the full plan and wait for my OK. I listen live every time.
-- Fix every weak spot found.
-- Save each company's menu path (menu memory, simple version).
-Done when:
-- [ ] At least 3 of 5 solved by the AI
-- [ ] Every call ended safely
-- [ ] One great call recorded for the demo (with permission); tagged `phase-5-done`
-- Tell me: "You can start applying for internships now."
+Safety and legal rules
+This app talks to companies with the user's private details. One mistake can cost
+someone money. These rules are not optional.
+Never shared, ever: UPI PIN, card number, CVV, passwords, and any OTP that approves a
+payment.
+Always honest: every call starts with the AI saying it is an AI assistant calling for the user.
+Pretending to be the user is wrong and can get the app banned.
+Only official contacts: every number and email comes from the company's own website,
+with the link saved.
 
-## Phase 6 — Mobile app (2 weeks)
-Goal: a clean Android app anyone can use.
-Tasks:
-- React Native + Expo, TypeScript.
-- Screens: login, new problem (type or speak), language choice, live call view, case list, case details with transcript.
-- Push notifications ("Refund approved", "Agent wants to talk to you").
-- Large text and simple layout, friendly for elders.
-Done when:
-- [ ] A friend who never saw it raises a problem without help
-- [ ] Live call view updates in real time
-- [ ] Works on 2 Android phones; tagged `phase-6-done`
+Nivaran — AI Customer Care Agent: Project Plan
 
-## Phase 7 — OTP and safety (1.5 weeks)
-Goal: the 4 OTP layers plus hard safety rules.
-Tasks:
-- Write the safety tests FIRST, then the code. Try hard to break our own rules.
-- OTP layers 1–4 exactly as described in Part 1.
-- Hard block on payment OTPs, UPI PIN, card number, CVV, passwords.
-- Encrypt private details at rest.
-- Check current Play Store policy for notification access before building Layer 1, and tell me what it allows.
-Done when:
-- [ ] All 4 layers tested on real calls
-- [ ] 20 trick tests all refused
-- [ ] Safety review done; tagged `phase-7-done`
+The user is in control: the user approves every email, can listen to every call, and can stop
+anything anytime.
+Privacy: private details are stored encrypted and deleted when the user asks.
+Open questions to check before public launch (rules change, so check the current
+versions):
+Rules on recording phone calls and telling the other side
+Telecom (TRAI) rules for automated outgoing calls
+India's data protection law (DPDP Act) — what consent you need
+Play Store rules for reading notifications (needed for OTP Layer 1)
 
-## Phase 8 — Email and escalation ladder (1.5 weeks)
-Goal: if ignored, the AI goes higher, step by step.
-Tasks:
-- Complaint emails with proof attached, sent from the user's own email with permission; user approves each one.
-- Automatic follow-up after a set number of days.
-- Ladder: customer care → grievance officer → National Consumer Helpline.
-- Each case shows its current step and what happens next.
-Done when:
-- [ ] Full ladder runs end to end on one test case
-- [ ] Every email approved by the user before sending; tagged `phase-8-done`
+When to start applying for internships
+Start applying after Phase 5 (about week 8). Don't wait for the full app.
+By then you have a real recording of the AI solving a real problem with a real company.
+That one clip is stronger than most student portfolios. Keep building while you wait for
+replies, and send updates as new phases finish.
+Who to send it to:
+Voice AI and agent startups — this is exactly their work
+Indian-language AI companies — your multilingual calls show their use case
+Customer-support software companies — you've built the other side of their product
+Big tech (Google, Microsoft, Amazon, Samsung) — on-device and agent work is a hot
+area
+Your resume line (fill the numbers in Phase 10): "Built Nivaran, an AI agent that calls
+customer care in X Indian languages; handled Y real cases for Z users with a W% success
+rate."
 
-## Phase 9 — Our own ML layer (1.5 weeks)
-Goal: real ML/DL we built ourselves, with numbers.
-Tasks (explain each ML step like I am learning it):
-- **Problem classifier:** fine-tune MuRIL or IndicBERT to classify category and user_goal from multilingual complaints. Build the dataset (real anonymised cases + carefully generated examples), train/validation/test split, compare against a simple baseline (for example TF-IDF + logistic regression). Show results in a table per language.
-- **Menu memory:** a graph of each company's phone menu that improves after every call; measure time saved on repeat calls.
-- **Success predictor:** small model predicting which channel works best for a company + problem type.
-- Results table ready for a research paper and resume.
-Done when:
-- [ ] Classifier beats the baseline, numbers recorded
-- [ ] Menu memory measurably speeds up repeat calls
-- [ ] Results table in docs; tagged `phase-9-done`
+Future scope
+"Find it for me" mode (for elders and non-tech users)
+The problem: Many older people don't know where to find an order ID, booking number or
+bill. So they can't even start a complaint.
+The idea: The user just says, "The mixer I ordered last week from Amazon is broken." The
+app finds the order by itself and shares the needed details with the company.
+How it can find the details, from easiest to hardest:
 
-## Phase 10 — Real users and launch kit (2 weeks)
-Goal: real people use it; everything ready to show companies.
-Tasks:
-- Play Store closed testing build (guide me through the console steps only I can do).
-- Support 20–50 real users; collect feedback; fix top 5 problems.
-- Polished README with architecture diagram, demo GIFs, setup steps, results.
-- Help me write: a 1–2 minute demo video script, a short technical write-up, and a resume line with real numbers.
-Done when:
-- [ ] 20+ users, 30+ real cases
-- [ ] README, write-up, demo script done; tagged `v1.0`
+Nivaran — AI Customer Care Agent: Project Plan
 
----
+1. Read order emails and SMS (do this first). Almost every order sends a confirmation
+email or SMS with the order ID, date and amount. With permission, the app searches
+these. It's safer and much more reliable.
+2. Open the company's app and look (later). The app opens Amazon, goes to "My
+Orders" and finds the matching item, like a human would. This uses Android's
+accessibility feature (a tool that lets one app read and tap on another app's screen). It
+is powerful but fragile: if Amazon changes its screens, it breaks. Play Store rules for this
+feature are also strict, so check them first.
+Safety rules for this mode:
+The app shows what it found ("Is this the order? Prestige mixer, ₹2,499, 4 Oct") and
+waits for a yes.
+It only reads. It never buys, cancels, pays or changes anything in another app.
+It shares only what the complaint needs (order ID, date, item), nothing more.
 
-# PART 6 — FUTURE SCOPE (design for it, do NOT build until I ask)
+Family confirmation (son or daughter approves)
+The problem: An elderly user may not understand a question from the agent, may miss an
+OTP, or may feel unsure about sharing details. Today they wait for a child to come home
+and help.
+The idea: The user links one or two trusted family members (a son, daughter or anyone
+they choose). When the app needs a confirmation, it can ask them instead.
+When the app asks family:
+The elder doesn't answer a confirmation within a set time (for example, 2 minutes).
+The elder taps "Ask my son/daughter".
+The step is sensitive: sharing an OTP, sending a complaint email, or confirming which
+order it is.
+How it works:
+1. The family member gets a notification: "Amma's complaint to Amazon needs your OK. Is
+this the right order? Prestige mixer, ₹2,499, 4 Oct."
+2. They tap Approve, Reject, or Call Amma.
+3. If they approve, the AI continues the call or sends the email. The elder sees what was
+approved.
+4. If no one responds, the AI pauses safely and retries later (OTP Layer 4).
+Safety rules for family confirmation:
+The elder decides. Only the elder can add or remove a family member.
+Family sees only what is needed to approve that one step, not the whole account.
 
-## "Find it for me" mode
-For elders who can't find an order ID. The user says "the mixer I ordered last week from Amazon is broken"; the app finds the order itself.
-- First approach: with permission, search order confirmation emails and SMS.
-- Later approach: open the company's app and read "My Orders" using Android accessibility (fragile; check Play Store rules first).
-- Show what was found and wait for a yes. Read only. Share only what the complaint needs.
+Nivaran — AI Customer Care Agent: Project Plan
 
-## Family confirmation (son or daughter approves)
-The elder links one or two trusted family members. When a confirmation is needed (OTP, sending an email, confirming the order) and the elder doesn't respond, taps "Ask my son/daughter", or the step is sensitive, the family member gets a notification: Approve / Reject / Call.
-- Only the elder can add or remove family members.
-- Family sees only what is needed for that one step.
-- Payment OTPs, UPI PIN and card details are never shared, even with family approval.
-- Every approval is logged: who, what, when.
+Payment OTPs, UPI PIN and card details are still never shared, even with family
+approval.
+Every approval is logged: who approved, what, and when.
 
-Keep the data model ready for these (for example a `trusted_contacts` table and an `approvals` log), but do not build the features yet.
-
----
-
-# START NOW
-
-1. Confirm in a few lines that you understand the project, the way we work, and the safety rules.
-2. Point out anything in this plan that looks outdated, risky or unclear, with your suggestion.
-3. Then show me your plan for **Phase 0 only**, and wait for my OK before building.
+
