@@ -330,7 +330,7 @@
       "category": "electronics_appliances",
       "checks": {
         "company": true,
-        "category": false,
+        "category": true,
         "user_goal": true,
         "facts_grounded": true,
         "asks_when_missing": true,
@@ -383,7 +383,7 @@
       "category": "other",
       "checks": {
         "company": true,
-        "category": true,
+        "category": false,
         "user_goal": true,
         "facts_grounded": true,
         "asks_when_missing": true,
