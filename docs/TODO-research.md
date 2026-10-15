@@ -14,3 +14,8 @@ Research and write down, with official sources (trai.gov.in, not vendor blogs):
 
 ## Before Phase 7
 - Re-check the Google Play policy for notification access (not confirmed in Phase 0).
+
+## Phase 9: bigger test set
+- The 30-problem set is small and mostly written by us. In Phase 9, build a much bigger one (100+ problems, real anonymised cases, more languages and messy spellings).
+- Run each problem several times, because the same prompt can give a different answer on a different run (seen in Phase 1: `f-04` flipped between runs).
+- Use it to compare our own models against Gemini (`docs/baseline-phase1.md` is the Phase 1 starting point).

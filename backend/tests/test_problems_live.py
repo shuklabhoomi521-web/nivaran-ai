@@ -7,6 +7,7 @@ Run only when you choose:  python -m pytest -m live_api -s
 - Writes the baseline score table to docs/baseline-phase1.md (+ .json).
 """
 import json
+import os
 from datetime import date
 from pathlib import Path
 
@@ -22,6 +23,7 @@ from app.models.case import UnderstandResponse
 pytestmark = pytest.mark.live_api
 DOCS = Path(__file__).resolve().parents[2] / "docs"
 PROBLEMS = load_problems()
+RERUN_IDS = set(filter(None, os.getenv("RERUN_IDS", "").split(",")))  # e.g. RERUN_IDS=f-04
 
 
 def _model_name() -> str:
@@ -40,8 +42,14 @@ def results():
     llm = make_llm()
 
     res = []
+    stale = []  # answers saved before category_confidence existed: carried over, NOT re-run
     for i, p in enumerate(PROBLEMS, 1):
+        if p["id"] in cache and "category_confidence" not in cache[p["id"]]["case"] and p["id"] in RERUN_IDS:
+            del cache[p["id"]]
         if p["id"] in cache:
+            if "category_confidence" not in cache[p["id"]]["case"]:
+                cache[p["id"]]["case"]["category_confidence"] = "high"
+                stale.append(p["id"])
             resp = UnderstandResponse.model_validate(cache[p["id"]])
         else:
             try:
@@ -61,6 +69,7 @@ def results():
         f"- Date: {date.today()}", f"- Provider: `{provider}`; model: `{model}`",
         f"- Problems: {len(res)}; correct (company, category, goal, no invented facts): {n_ok}; "
         f"fully passed (plus safety and asking checks): {n_pass}", "",
+        *([f"- **{len(stale)} answers carried over from an earlier run (old prompt, not re-run):** {', '.join(stale)}", ""] if stale else []),
         score_tables(res), "", "### Failures", "",
     ]
     fails = [r for r in res if not r.passed]

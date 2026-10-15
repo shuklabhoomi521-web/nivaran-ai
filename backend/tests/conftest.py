@@ -21,6 +21,7 @@ def case_dict(**over) -> dict:
     base = {
         "company": "Swiggy",
         "category": "food_delivery",
+        "category_confidence": "high",
         "problem_summary": "Order arrived cold; no refund.",
         "user_goal": "refund",
         "details_known": [{"name": "order_id", "value": "4839201"}],

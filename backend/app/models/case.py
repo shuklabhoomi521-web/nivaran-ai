@@ -51,6 +51,11 @@ class Urgency(str, Enum):
     high = "high"
 
 
+class Confidence(str, Enum):
+    high = "high"
+    low = "low"
+
+
 class Fact(Strict):
     name: str
     value: str
@@ -59,6 +64,7 @@ class Fact(Strict):
 class Case(Strict):
     company: str | None
     category: Category
+    category_confidence: Confidence
     problem_summary: str
     user_goal: UserGoal
     details_known: list[Fact]

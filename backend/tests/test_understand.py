@@ -54,3 +54,13 @@ def test_schema_sent_to_ai_forbids_extra_fields(client_with):
     client.post("/cases/understand", json={"message": "x problem"})
     schema = fake.calls[0]["schema"]
     assert schema["additionalProperties"] is False
+
+
+def test_low_confidence_is_returned_with_a_question(client_with):
+    client, fake = client_with(case_dict(
+        company=None, category="other", category_confidence="low", details_known=[], details_missing=["company"],
+        follow_up_question="Which kind of ticket is this?"))
+    body = client.post("/cases/understand", json={"message": "ticket cancel panniten"}).json()
+    assert body["case"]["category_confidence"] == "low"
+    assert body["follow_up_question"]
+    assert "category_confidence" in fake.calls[0]["schema"]["properties"]

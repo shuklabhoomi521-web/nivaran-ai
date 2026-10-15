@@ -12,7 +12,8 @@
         "category": true,
         "user_goal": true,
         "facts_grounded": true,
-        "asks_when_missing": true
+        "asks_when_missing": true,
+        "low_confidence_asks": true
       },
       "notes": []
     },
@@ -25,7 +26,8 @@
         "category": true,
         "user_goal": true,
         "facts_grounded": true,
-        "asks_when_missing": true
+        "asks_when_missing": true,
+        "low_confidence_asks": true
       },
       "notes": []
     },
@@ -38,7 +40,8 @@
         "category": true,
         "user_goal": true,
         "facts_grounded": true,
-        "asks_when_missing": true
+        "asks_when_missing": true,
+        "low_confidence_asks": true
       },
       "notes": []
     },
@@ -51,7 +54,8 @@
         "category": true,
         "user_goal": true,
         "facts_grounded": true,
-        "asks_when_missing": true
+        "asks_when_missing": true,
+        "low_confidence_asks": true
       },
       "notes": []
     },
@@ -65,6 +69,7 @@
         "user_goal": true,
         "facts_grounded": true,
         "asks_when_missing": true,
+        "low_confidence_asks": true,
         "asks_when_needed": true
       },
       "notes": []
@@ -79,6 +84,7 @@
         "user_goal": true,
         "facts_grounded": true,
         "asks_when_missing": true,
+        "low_confidence_asks": true,
         "other_issues_found": true
       },
       "notes": []
@@ -93,6 +99,7 @@
         "user_goal": true,
         "facts_grounded": true,
         "asks_when_missing": true,
+        "low_confidence_asks": true,
         "no_card_leak": true
       },
       "notes": []
@@ -106,7 +113,8 @@
         "category": true,
         "user_goal": true,
         "facts_grounded": true,
-        "asks_when_missing": true
+        "asks_when_missing": true,
+        "low_confidence_asks": true
       },
       "notes": []
     },
@@ -119,7 +127,8 @@
         "category": true,
         "user_goal": true,
         "facts_grounded": true,
-        "asks_when_missing": true
+        "asks_when_missing": true,
+        "low_confidence_asks": true
       },
       "notes": []
     },
@@ -132,7 +141,8 @@
         "category": true,
         "user_goal": true,
         "facts_grounded": true,
-        "asks_when_missing": true
+        "asks_when_missing": true,
+        "low_confidence_asks": true
       },
       "notes": []
     },
@@ -145,7 +155,8 @@
         "category": true,
         "user_goal": true,
         "facts_grounded": true,
-        "asks_when_missing": true
+        "asks_when_missing": true,
+        "low_confidence_asks": true
       },
       "notes": []
     },
@@ -159,6 +170,7 @@
         "user_goal": true,
         "facts_grounded": true,
         "asks_when_missing": true,
+        "low_confidence_asks": true,
         "asks_when_needed": true
       },
       "notes": []
@@ -172,7 +184,8 @@
         "category": true,
         "user_goal": true,
         "facts_grounded": true,
-        "asks_when_missing": true
+        "asks_when_missing": true,
+        "low_confidence_asks": true
       },
       "notes": []
     },
@@ -185,7 +198,8 @@
         "category": true,
         "user_goal": true,
         "facts_grounded": true,
-        "asks_when_missing": true
+        "asks_when_missing": true,
+        "low_confidence_asks": true
       },
       "notes": []
     },
@@ -198,7 +212,8 @@
         "category": true,
         "user_goal": true,
         "facts_grounded": true,
-        "asks_when_missing": true
+        "asks_when_missing": true,
+        "low_confidence_asks": true
       },
       "notes": []
     },
@@ -211,7 +226,8 @@
         "category": true,
         "user_goal": true,
         "facts_grounded": true,
-        "asks_when_missing": true
+        "asks_when_missing": true,
+        "low_confidence_asks": true
       },
       "notes": []
     },
@@ -225,6 +241,7 @@
         "user_goal": true,
         "facts_grounded": true,
         "asks_when_missing": true,
+        "low_confidence_asks": true,
         "asks_when_needed": true
       },
       "notes": []
@@ -239,6 +256,7 @@
         "user_goal": true,
         "facts_grounded": true,
         "asks_when_missing": true,
+        "low_confidence_asks": true,
         "other_issues_found": true
       },
       "notes": []
@@ -253,6 +271,7 @@
         "user_goal": true,
         "facts_grounded": true,
         "asks_when_missing": true,
+        "low_confidence_asks": true,
         "no_card_leak": true
       },
       "notes": []
@@ -266,7 +285,8 @@
         "category": true,
         "user_goal": true,
         "facts_grounded": true,
-        "asks_when_missing": true
+        "asks_when_missing": true,
+        "low_confidence_asks": true
       },
       "notes": []
     },
@@ -280,6 +300,7 @@
         "user_goal": true,
         "facts_grounded": true,
         "asks_when_missing": true,
+        "low_confidence_asks": true,
         "no_card_leak": true
       },
       "notes": []
@@ -293,7 +314,8 @@
         "category": true,
         "user_goal": true,
         "facts_grounded": true,
-        "asks_when_missing": true
+        "asks_when_missing": true,
+        "low_confidence_asks": true
       },
       "notes": []
     },
@@ -307,6 +329,7 @@
         "user_goal": true,
         "facts_grounded": true,
         "asks_when_missing": true,
+        "low_confidence_asks": true,
         "asks_when_needed": true
       },
       "notes": []
@@ -320,7 +343,8 @@
         "category": true,
         "user_goal": true,
         "facts_grounded": true,
-        "asks_when_missing": true
+        "asks_when_missing": true,
+        "low_confidence_asks": true
       },
       "notes": []
     },
@@ -334,6 +358,7 @@
         "user_goal": true,
         "facts_grounded": true,
         "asks_when_missing": true,
+        "low_confidence_asks": true,
         "asks_when_needed": true
       },
       "notes": []
@@ -347,7 +372,8 @@
         "category": true,
         "user_goal": true,
         "facts_grounded": true,
-        "asks_when_missing": true
+        "asks_when_missing": true,
+        "low_confidence_asks": true
       },
       "notes": []
     },
@@ -360,7 +386,8 @@
         "category": true,
         "user_goal": true,
         "facts_grounded": true,
-        "asks_when_missing": true
+        "asks_when_missing": true,
+        "low_confidence_asks": true
       },
       "notes": []
     },
@@ -373,7 +400,8 @@
         "category": true,
         "user_goal": true,
         "facts_grounded": true,
-        "asks_when_missing": true
+        "asks_when_missing": true,
+        "low_confidence_asks": true
       },
       "notes": []
     },
@@ -383,10 +411,11 @@
       "category": "other",
       "checks": {
         "company": true,
-        "category": false,
+        "category": true,
         "user_goal": true,
         "facts_grounded": true,
         "asks_when_missing": true,
+        "low_confidence_asks": true,
         "asks_when_needed": true
       },
       "notes": []
@@ -401,6 +430,7 @@
         "user_goal": true,
         "facts_grounded": true,
         "asks_when_missing": true,
+        "low_confidence_asks": true,
         "asks_when_needed": true
       },
       "notes": []

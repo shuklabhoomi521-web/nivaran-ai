@@ -6,7 +6,7 @@ PROBLEM = {"id": "x-1", "language": "english", "message": "Swiggy order 4839201 
 
 
 def resp(**over):
-    case = {"company": "Swiggy", "category": "food_delivery", "problem_summary": "s", "user_goal": "refund",
+    case = {"company": "Swiggy", "category": "food_delivery", "category_confidence": "high", "problem_summary": "s", "user_goal": "refund",
             "details_known": [{"name": "order_id", "value": "4839201"}], "details_missing": [],
             "user_language": "english", "urgency": "medium", "other_issues": []}
     follow = over.pop("follow_up_question", None)
@@ -58,3 +58,27 @@ def test_alias_matching_and_tables():
     assert r.checks["company"]
     table = score_tables([r])
     assert "Accuracy by language" in table and "Accuracy by category" in table
+
+
+VAGUE = {"id": "v-1", "language": "tamil", "message": "ticket cancel panniten, refund innum varala",
+         "expected": {"company": None, "category": "other", "user_goal": "refund",
+                      "category_alternatives_if_low": ["railways"]}, "must_ask": True}
+
+
+def test_alternative_category_accepted_only_when_low_confidence_and_asking():
+    ok = evaluate(VAGUE, resp(company=None, category="railways", category_confidence="low", user_goal="refund",
+                              details_known=[], details_missing=["company"],
+                              follow_up_question="Which ticket is this?"))
+    assert ok.passed
+
+
+def test_alternative_category_rejected_when_sure():
+    r = evaluate(VAGUE, resp(company=None, category="railways", category_confidence="high", user_goal="refund",
+                             details_known=[], details_missing=["company"], follow_up_question="Which?"))
+    assert not r.checks["category"]
+
+
+def test_low_confidence_without_a_question_fails():
+    r = evaluate(VAGUE, resp(company=None, category="railways", category_confidence="low", user_goal="refund",
+                             details_known=[], details_missing=[]))
+    assert not r.checks["low_confidence_asks"]

@@ -16,6 +16,9 @@ Rules:
    Choose the category by WHAT the problem is about, not WHERE it was bought. A faulty laptop, phone or
    fridge is electronics_appliances even if it was bought online. Use ecommerce when the problem is with
    the shopping service itself (delivery, wrong or missing item, return or refund of an order).
+   category_confidence: "high" when the message clearly shows the category. "low" when you are guessing
+   from vague words (for example only "ticket" or "payment" with no company or service named). When it is
+   low, still give your best guess, and follow_up_question must also ask the user to confirm it.
 3. user_goal: what the user wants: refund, repair, replace, cancel, info, or other
    (use "other" for things like a complaint about behaviour or an appeal).
 4. problem_summary: one or two plain English sentences.
@@ -27,9 +30,9 @@ Rules:
 6. details_missing: things a company agent would need that the user did not give (short English names like
    order_id, pnr, ride_date, what_happened, product_model). Only what is really needed. At most 3.
    Leave it empty if nothing important is missing. NEVER invent a value for a missing detail.
-7. follow_up_question: if details_missing is not empty OR company is null, write ONE short question, in the
+7. follow_up_question: if details_missing is not empty OR company is null OR category_confidence is low, write ONE short question, in the
    user's own language and script, asking for the single most important missing thing. If the company is
-   null, ask for the company name first. Otherwise null. Never ask for a card number, CVV, PIN,
+   null, ask for the company name first. If only the category is uncertain, ask what kind of service it is. Otherwise null. Never ask for a card number, CVV, PIN,
    password or OTP.
 8. If the message holds more than one problem, the case is about the main one (the one the user calls
    main, otherwise the first one). Put the other problems in other_issues as short English phrases.

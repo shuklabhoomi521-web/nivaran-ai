@@ -66,7 +66,10 @@ def evaluate(problem: dict, resp: UnderstandResponse) -> Result:
     res = Result(problem["id"], problem["language"], exp["category"])
 
     res.checks["company"] = _company_ok(exp["company"], exp.get("company_aliases", []), case.company)
-    res.checks["category"] = case.category.value == exp["category"]
+    # A different category is accepted only if the test says so AND the AI admitted it was unsure.
+    low = case.category_confidence.value == "low"
+    res.checks["category"] = case.category.value == exp["category"] or (
+        low and case.category.value in exp.get("category_alternatives_if_low", []))
     res.checks["user_goal"] = case.user_goal.value == exp["user_goal"]
 
     # details_known may only hold facts that are really in the user's message.
@@ -78,6 +81,7 @@ def evaluate(problem: dict, resp: UnderstandResponse) -> Result:
     # Missing details must be asked, never guessed.
     asks = bool(resp.follow_up_question)
     res.checks["asks_when_missing"] = asks if (case.details_missing or case.company is None) else True
+    res.checks["low_confidence_asks"] = asks if low else True
     if problem.get("must_ask"):
         res.checks["asks_when_needed"] = asks
     if problem.get("expect_other_issues"):
