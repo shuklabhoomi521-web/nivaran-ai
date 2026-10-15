@@ -164,3 +164,172 @@ Main page: https://www.olacabs.com/contact
 - [ ] **NEEDS CHECK (you fill in or drop):** Grievance officer email (grievance@olacabs.com) and nodal officer email (nodal.officer@olacabs.com) were seen only in a search summary. Open https://help.olacabs.com/support/dreport/10610878990865 and copy the exact lines.
 - [ ] **NEEDS CHECK (you fill in or drop):** Ola says its old phone number is gone and support is in the app: confirm on https://www.olacabs.com/contact.
 
+## Myntra (ecommerce)
+Main page: https://www.myntra.com/termsofuse
+
+- [ ] **NEEDS CHECK (you fill in or drop):** Customer care phone, support email and grievance officer details: the Terms of Use page hides them in a collapsed section and the contact page needs a login. Open https://www.myntra.com/termsofuse, expand '22. Grievance Officer', and copy the exact lines.
+
+## Meesho (ecommerce)
+Main page: https://www.meesho.com/legal/privacy
+
+- [ ] **Email legalsupport@meesho.com** (Grievance officer (privacy policy))
+  - https://www.meesho.com/legal/privacy (machine_checked: no)
+    > email id: legalsupport@meesho.com
+- [ ] **NEEDS CHECK (you fill in or drop):** Customer support phone and email: the help page blocked our tools. Open https://www.meesho.com/help and copy the exact lines.
+
+## Nykaa (ecommerce)
+Main page: https://www.nykaa.com/policy
+
+- [ ] **Email grievanceofficercs@nykaa.com** (Grievance / nodal officer, customer services)
+  - https://www.nykaa.com/policy (machine_checked: no)
+    > Email : grievanceofficercs@nykaa.com
+- [ ] **Email support@nykaa.com** (Customer support)
+  - https://www.nykaa.com/policy (machine_checked: no)
+    > Contact Email Address: support@nykaa.com
+- [ ] **Grievance officer** Mr. Pratiek Varma (Senior Manager - Customer Experience) grievanceofficercs@nykaa.com
+  - https://www.nykaa.com/policy (machine_checked: no)
+    > Name : Mr. Pratiek Varma
+- Notes: Officer names differ between Nykaa pages: use the email address, not the name.
+- [ ] **NEEDS CHECK (you fill in or drop):** Customer care phone number: not on the policy page and the contact page blocked our tools. Open https://www.nykaa.com/contact-us and copy it.
+
+## Jio (telecom)
+Main page: https://myjiostatic.cdn.jio.com/jio/regulatory/rjil-telecom-charter-2025.pdf
+
+- [ ] **Phone 198** (Consumer care (toll free, from a Jio number)) `single_source`
+  - https://myjiostatic.cdn.jio.com/jio/regulatory/rjil-telecom-charter-2025.pdf (machine_checked: yes)
+    > • call us on consumer care number 198 (toll free) or general information number 199 (toll
+- [ ] **Phone 199** (General information (from a Jio number)) `single_source`
+  - https://myjiostatic.cdn.jio.com/jio/regulatory/rjil-telecom-charter-2025.pdf (machine_checked: yes)
+    > • call us on consumer care number 198 (toll free) or general information number 199 (toll
+- [ ] **Phone 1800-88-99999** (Jio Mobile, from any number) `single_source`
+  - https://myjiostatic.cdn.jio.com/jio/regulatory/rjil-telecom-charter-2025.pdf (machine_checked: yes)
+    > • call us on 1800-88-99999(for Jio Mobile),1800-896-9999(for Jio Fiber) from any number.
+- [ ] **Phone 1800-896-9999** (Jio Fiber, from any number) `single_source`
+  - https://myjiostatic.cdn.jio.com/jio/regulatory/rjil-telecom-charter-2025.pdf (machine_checked: yes)
+    > • call us on 1800-88-99999(for Jio Mobile),1800-896-9999(for Jio Fiber) from any number.
+- [ ] **Email care@jio.com** (Customer care)
+  - https://myjiostatic.cdn.jio.com/jio/regulatory/rjil-telecom-charter-2025.pdf (machine_checked: yes)
+    > • write to us at our e-mail id: care@jio.com.
+- [ ] **NEEDS CHECK (you fill in or drop):** Second source for each phone number: the Jio contact pages load with JavaScript and gave us nothing. Open https://www.jio.com/help/contact-us and confirm the numbers.
+- [ ] **NEEDS CHECK (you fill in or drop):** Appellate authority contacts: https://www.jio.com/en-in/help-support/appellate-authority (regional list, not captured).
+
+## BSNL (telecom)
+Main page: https://www.bsnl.co.in/customer-care.html
+
+- [ ] **NEEDS CHECK (you fill in or drop):** Helpline numbers and grievance contacts: bsnl.co.in blocked our browser and our script. Open the BSNL customer care page and the consumer grievance page and copy the exact lines (BSNL also has circle-wise nodal officers).
+
+## Uber (cabs)
+Main page: https://help.uber.com/en/riders/article/grievance-redressal?nodeId=c04af4d0-930c-4098-b099-5f6f2a2fff84
+
+- [ ] **Phone +91 80 4685 2525** (Grievance officer office) `single_source`
+  - https://help.uber.com/en/riders/article/grievance-redressal?nodeId=c04af4d0-930c-4098-b099-5f6f2a2fff84 (machine_checked: no)
+    > Phone number: +91 80 4685 2525
+- [ ] **Phone +91 891 451 2030** (Customer care helpline) `single_source`
+  - https://help.uber.com/en/riders/article/grievance-redressal?nodeId=c04af4d0-930c-4098-b099-5f6f2a2fff84 (machine_checked: no)
+    > Customer Care Helpline: +91 891 451 2030
+- [ ] **Email grievanceredressaloffice@uber.com** (Grievance officer)
+  - https://help.uber.com/en/riders/article/grievance-redressal?nodeId=c04af4d0-930c-4098-b099-5f6f2a2fff84 (machine_checked: no)
+    > Email ID: grievanceredressaloffice@uber.com
+- [ ] **Grievance officer** Pavan Nawander grievanceredressaloffice@uber.com
+  - https://help.uber.com/en/riders/article/grievance-redressal?nodeId=c04af4d0-930c-4098-b099-5f6f2a2fff84 (machine_checked: no)
+    > Grievance Officer and Nodal Point of Contact Name: Pavan Nawander
+- Notes: Normal support is in the Uber app. Escalate to the grievance officer only after app support fails.
+
+## Rapido (cabs)
+Main page: https://www.rapido.bike/Terms
+
+- [ ] **Email shoutout@rapido.bike** (Customer care)
+  - https://www.rapido.bike/Terms (machine_checked: yes)
+    > Customer Care details: shoutout@rapido.bike
+- [ ] **Email nodalofficer@rapido.bike** (Grievance officer)
+  - https://www.rapido.bike/Terms (machine_checked: yes)
+    > e-mail: nodalofficer@rapido.bike
+- [ ] **Grievance officer** Manasvi Mann nodalofficer@rapido.bike
+  - https://www.rapido.bike/Terms (machine_checked: yes)
+    > Grievance Officer : Manasvi Mann
+- [ ] **NEEDS CHECK (you fill in or drop):** Customer care phone number: the Terms page mentions a 'customer care number' but lists only an email. Check the Rapido app and https://www.rapido.bike/Contact.
+
+## PhonePe (banking_upi)
+Main page: https://www.phonepe.com/grievance-policy/
+
+- [ ] **Phone 080-68727374** (Customer support centre) `single_source`
+  - https://www.phonepe.com/grievance-policy/ (machine_checked: yes)
+    > Alternatively, customers can raise a complaint by calling our customer support center on 080-68727374 / 022-68727374.
+- [ ] **Phone 022-68727374** (Customer support centre) `single_source`
+  - https://www.phonepe.com/grievance-policy/ (machine_checked: yes)
+    > Alternatively, customers can raise a complaint by calling our customer support center on 080-68727374 / 022-68727374.
+- [ ] **Grievance officer** Ms. Deepa Shetty (Nodal Officer); Mr. Aniket Baheti (Principal Nodal Officer)
+  - https://www.phonepe.com/grievance-policy/ (machine_checked: yes)
+    > Nodal Officer: Ms. Deepa Shetty
+  - https://www.phonepe.com/contact-us/ (machine_checked: yes)
+    > Nodal Officer: Ms. Deepa Shetty
+- Notes: Names of officers change: check the page. First step is support in the app, then the grievance portal, then the nodal officer.
+- [ ] **NEEDS CHECK (you fill in or drop):** Nodal officer email and phone: shown behind a button on https://www.phonepe.com/contact-us/. Open it and copy them.
+
+## Paytm (banking_upi)
+Main page: https://webappsstatic.paytm.com/webapps/pages/privacy.html
+
+- [ ] **Phone 0120-4440440** (Helpline) `single_source`
+  - https://webappsstatic.paytm.com/webapps/pages/privacy.html (machine_checked: yes)
+    > Helpline - 0120-4440440
+- [ ] **Email grievanceofficer@paytm.com** (Grievance officer)
+  - https://webappsstatic.paytm.com/webapps/pages/privacy.html (machine_checked: yes)
+    > Email: grievanceofficer@paytm.com
+- Notes: Loans, credit cards and Payments Bank have separate grievance officers; this entry is for the main Paytm app.
+
+## LIC (insurance)
+Main page: https://licindia.in/customers-corner
+
+- [ ] **Phone 022 6827 6827** (Call centre services) `single_source`
+  - https://licindia.in/customers-corner (machine_checked: yes)
+    > You may contact our Call Centre Services at 022 6827 6827 (or)
+- [ ] **Email co_complaints@licindia.com** (Policy-related grievances)
+  - https://licindia.in/customers-corner (machine_checked: yes)
+    > If you have a Grievance you may write to the dedicated e-mail id co_complaints@licindia.com (or)
+
+## Star Health (insurance)
+Main page: https://www.starhealth.in/grievance-redressal/
+
+- [ ] **Phone 1800-425-2255** (Toll free) `two_sources`
+  - https://www.starhealth.in/contact/ (machine_checked: no)
+    > Toll Free Number -1800-425-2255 / 1800-102-4477 | Corporate Customers - 044 43664666
+  - https://www.starhealth.in/grievance-redressal/ (machine_checked: no)
+    > Toll Free Number -1800-425-2255 / 1800-102-4477 | Corporate Customers - 044 43664666
+- [ ] **Phone 1800-102-4477** (Toll free) `two_sources`
+  - https://www.starhealth.in/contact/ (machine_checked: no)
+    > Toll Free Number -1800-425-2255 / 1800-102-4477 | Corporate Customers - 044 43664666
+  - https://www.starhealth.in/grievance-redressal/ (machine_checked: no)
+    > Toll Free Number -1800-425-2255 / 1800-102-4477 | Corporate Customers - 044 43664666
+- [ ] **Phone 044 6900 6900** (Customer care helpline) `single_source`
+  - https://www.starhealth.in/grievance-redressal/ (machine_checked: no)
+    > Customer Care Helpline: 044 6900 6900
+- [ ] **Phone 044 4002 0888** (Senior citizens helpline) `single_source`
+  - https://www.starhealth.in/grievance-redressal/ (machine_checked: no)
+    > Senior Citizens Helpline: 044 4002 0888
+- [ ] **Email support@starhealth.in** (Support and grievances (from the registered email))
+  - https://www.starhealth.in/grievance-redressal/ (machine_checked: no)
+    > You can also write to us at support@starhealth.in from your registered email ID.
+- Notes: The grievance page says to visit the designated Grievance Officer at your nearest branch office; no officer email is published there.
+
+## Samsung (electronics_appliances)
+Main page: https://www.samsung.com/in/support/contact/
+
+- [ ] **Phone 1800 5 7267864** (Customer care (toll free)) `single_source`
+  - https://www.samsung.com/in/support/contact/ (machine_checked: yes)
+    > For more information or e-waste pick up, please call 1800 5 7267864 or click here for more details.
+- Notes: Other Samsung lines (Care+, business, WhatsApp) exist on other pages; not added yet.
+
+## TNEB (utilities)
+Main page: https://www.tnpdcl.org/en/tnpdcl/
+
+- [ ] **Phone 94987 94987** (Minnagam call centre (for complaints)) `two_sources`
+  - https://www.tnpdcl.org/en/tnpdcl/ (machine_checked: yes)
+    > FOR COMPLAINTS 94987 94987
+  - https://www.tnpdcl.org/en/tnpdcl/consumer-info/consumer-guidance/faq/ (machine_checked: yes)
+    > Phone : 94987 94987
+- [ ] **Email cpro@tnebnet.org** (Public relations (listed on the site))
+  - https://www.tnpdcl.org/en/tnpdcl/consumer-info/consumer-guidance/faq/ (machine_checked: yes)
+    > cpro@tnebnet.org
+- Notes: TANGEDCO was renamed TNPDCL in 2024. Formal complaints go to the Consumer Grievance Redressal Forum of your circle (online or in writing).
+- [ ] **NEEDS CHECK (you fill in or drop):** Opening hours and any short power-failure number (such as 1912): not copied from an official page line yet. Check https://www.tnpdcl.org/en/tnpdcl/.
+

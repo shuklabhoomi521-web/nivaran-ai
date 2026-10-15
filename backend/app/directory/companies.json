@@ -755,5 +755,793 @@
       "Grievance officer email (grievance@olacabs.com) and nodal officer email (nodal.officer@olacabs.com) were seen only in a search summary. Open https://help.olacabs.com/support/dreport/10610878990865 and copy the exact lines.",
       "Ola says its old phone number is gone and support is in the app: confirm on https://www.olacabs.com/contact."
     ]
+  },
+  {
+    "name": "Myntra",
+    "aliases": [
+      "Myntra Designs"
+    ],
+    "category": "ecommerce",
+    "official_domains": [
+      "myntra.com"
+    ],
+    "source_url": "https://www.myntra.com/termsofuse",
+    "checked_on": "2026-10-15",
+    "helplines": [],
+    "emails": [],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": null,
+    "official_no_phone": null,
+    "needs_check": [
+      "Customer care phone, support email and grievance officer details: the Terms of Use page hides them in a collapsed section and the contact page needs a login. Open https://www.myntra.com/termsofuse, expand '22. Grievance Officer', and copy the exact lines."
+    ]
+  },
+  {
+    "name": "Meesho",
+    "aliases": [
+      "Meesho Limited",
+      "Fashnear"
+    ],
+    "category": "ecommerce",
+    "official_domains": [
+      "meesho.com"
+    ],
+    "source_url": "https://www.meesho.com/legal/privacy",
+    "checked_on": "2026-10-15",
+    "helplines": [],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "legalsupport@meesho.com",
+        "label": "Grievance officer (privacy policy)",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.meesho.com/legal/privacy",
+            "kind": "website",
+            "quote": "email id: legalsupport@meesho.com",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": null,
+    "official_no_phone": null,
+    "needs_check": [
+      "Customer support phone and email: the help page blocked our tools. Open https://www.meesho.com/help and copy the exact lines."
+    ]
+  },
+  {
+    "name": "Nykaa",
+    "aliases": [
+      "FSN E-Commerce Ventures",
+      "Nykaa Fashion"
+    ],
+    "category": "ecommerce",
+    "official_domains": [
+      "nykaa.com"
+    ],
+    "source_url": "https://www.nykaa.com/policy",
+    "checked_on": "2026-10-15",
+    "helplines": [],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "grievanceofficercs@nykaa.com",
+        "label": "Grievance / nodal officer, customer services",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.nykaa.com/policy",
+            "kind": "website",
+            "quote": "Email : grievanceofficercs@nykaa.com",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "email",
+        "value": "support@nykaa.com",
+        "label": "Customer support",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.nykaa.com/policy",
+            "kind": "website",
+            "quote": "Contact Email Address: support@nykaa.com",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "grievance_officer": {
+      "name": "Mr. Pratiek Varma (Senior Manager - Customer Experience)",
+      "email": "grievanceofficercs@nykaa.com",
+      "phone": null,
+      "address": null,
+      "sources": [
+        {
+          "url": "https://www.nykaa.com/policy",
+          "kind": "website",
+          "quote": "Name : Mr. Pratiek Varma",
+          "checked_on": "2026-10-15",
+          "machine_checked": false
+        }
+      ]
+    },
+    "working_hours": null,
+    "channel_notes": "Officer names differ between Nykaa pages: use the email address, not the name.",
+    "official_no_phone": null,
+    "needs_check": [
+      "Customer care phone number: not on the policy page and the contact page blocked our tools. Open https://www.nykaa.com/contact-us and copy it."
+    ]
+  },
+  {
+    "name": "Jio",
+    "aliases": [
+      "Reliance Jio",
+      "JioFiber",
+      "Jio Fiber",
+      "MyJio"
+    ],
+    "category": "telecom",
+    "official_domains": [
+      "jio.com"
+    ],
+    "source_url": "https://myjiostatic.cdn.jio.com/jio/regulatory/rjil-telecom-charter-2025.pdf",
+    "checked_on": "2026-10-15",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "198",
+        "label": "Consumer care (toll free, from a Jio number)",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://myjiostatic.cdn.jio.com/jio/regulatory/rjil-telecom-charter-2025.pdf",
+            "kind": "website",
+            "quote": "• call us on consumer care number 198 (toll free) or general information number 199 (toll",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "199",
+        "label": "General information (from a Jio number)",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://myjiostatic.cdn.jio.com/jio/regulatory/rjil-telecom-charter-2025.pdf",
+            "kind": "website",
+            "quote": "• call us on consumer care number 198 (toll free) or general information number 199 (toll",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "1800-88-99999",
+        "label": "Jio Mobile, from any number",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://myjiostatic.cdn.jio.com/jio/regulatory/rjil-telecom-charter-2025.pdf",
+            "kind": "website",
+            "quote": "• call us on 1800-88-99999(for Jio Mobile),1800-896-9999(for Jio Fiber) from any number.",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "1800-896-9999",
+        "label": "Jio Fiber, from any number",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://myjiostatic.cdn.jio.com/jio/regulatory/rjil-telecom-charter-2025.pdf",
+            "kind": "website",
+            "quote": "• call us on 1800-88-99999(for Jio Mobile),1800-896-9999(for Jio Fiber) from any number.",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "care@jio.com",
+        "label": "Customer care",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://myjiostatic.cdn.jio.com/jio/regulatory/rjil-telecom-charter-2025.pdf",
+            "kind": "website",
+            "quote": "• write to us at our e-mail id: care@jio.com.",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": null,
+    "official_no_phone": null,
+    "needs_check": [
+      "Second source for each phone number: the Jio contact pages load with JavaScript and gave us nothing. Open https://www.jio.com/help/contact-us and confirm the numbers.",
+      "Appellate authority contacts: https://www.jio.com/en-in/help-support/appellate-authority (regional list, not captured)."
+    ]
+  },
+  {
+    "name": "BSNL",
+    "aliases": [
+      "Bharat Sanchar Nigam",
+      "Bharat Sanchar Nigam Limited"
+    ],
+    "category": "telecom",
+    "official_domains": [
+      "bsnl.co.in"
+    ],
+    "source_url": "https://www.bsnl.co.in/customer-care.html",
+    "checked_on": "2026-10-15",
+    "helplines": [],
+    "emails": [],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": null,
+    "official_no_phone": null,
+    "needs_check": [
+      "Helpline numbers and grievance contacts: bsnl.co.in blocked our browser and our script. Open the BSNL customer care page and the consumer grievance page and copy the exact lines (BSNL also has circle-wise nodal officers)."
+    ]
+  },
+  {
+    "name": "Uber",
+    "aliases": [
+      "Uber India"
+    ],
+    "category": "cabs",
+    "official_domains": [
+      "uber.com"
+    ],
+    "source_url": "https://help.uber.com/en/riders/article/grievance-redressal?nodeId=c04af4d0-930c-4098-b099-5f6f2a2fff84",
+    "checked_on": "2026-10-15",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "+91 80 4685 2525",
+        "label": "Grievance officer office",
+        "hours": "10:00 AM to 7:00 PM, Monday to Friday excluding public holidays",
+        "sources": [
+          {
+            "url": "https://help.uber.com/en/riders/article/grievance-redressal?nodeId=c04af4d0-930c-4098-b099-5f6f2a2fff84",
+            "kind": "website",
+            "quote": "Phone number: +91 80 4685 2525",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "+91 891 451 2030",
+        "label": "Customer care helpline",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://help.uber.com/en/riders/article/grievance-redressal?nodeId=c04af4d0-930c-4098-b099-5f6f2a2fff84",
+            "kind": "website",
+            "quote": "Customer Care Helpline: +91 891 451 2030",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "grievanceredressaloffice@uber.com",
+        "label": "Grievance officer",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://help.uber.com/en/riders/article/grievance-redressal?nodeId=c04af4d0-930c-4098-b099-5f6f2a2fff84",
+            "kind": "website",
+            "quote": "Email ID: grievanceredressaloffice@uber.com",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "grievance_officer": {
+      "name": "Pavan Nawander",
+      "email": "grievanceredressaloffice@uber.com",
+      "phone": "+91 80 4685 2525",
+      "address": null,
+      "sources": [
+        {
+          "url": "https://help.uber.com/en/riders/article/grievance-redressal?nodeId=c04af4d0-930c-4098-b099-5f6f2a2fff84",
+          "kind": "website",
+          "quote": "Grievance Officer and Nodal Point of Contact Name: Pavan Nawander",
+          "checked_on": "2026-10-15",
+          "machine_checked": false
+        }
+      ]
+    },
+    "working_hours": null,
+    "channel_notes": "Normal support is in the Uber app. Escalate to the grievance officer only after app support fails.",
+    "official_no_phone": null,
+    "needs_check": []
+  },
+  {
+    "name": "Rapido",
+    "aliases": [
+      "Roppen Transportation"
+    ],
+    "category": "cabs",
+    "official_domains": [
+      "rapido.bike"
+    ],
+    "source_url": "https://www.rapido.bike/Terms",
+    "checked_on": "2026-10-15",
+    "helplines": [],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "shoutout@rapido.bike",
+        "label": "Customer care",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.rapido.bike/Terms",
+            "kind": "website",
+            "quote": "Customer Care details: shoutout@rapido.bike",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      },
+      {
+        "kind": "email",
+        "value": "nodalofficer@rapido.bike",
+        "label": "Grievance officer",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.rapido.bike/Terms",
+            "kind": "website",
+            "quote": "e-mail: nodalofficer@rapido.bike",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "grievance_officer": {
+      "name": "Manasvi Mann",
+      "email": "nodalofficer@rapido.bike",
+      "phone": null,
+      "address": null,
+      "sources": [
+        {
+          "url": "https://www.rapido.bike/Terms",
+          "kind": "website",
+          "quote": "Grievance Officer : Manasvi Mann",
+          "checked_on": "2026-10-15",
+          "machine_checked": true
+        }
+      ]
+    },
+    "working_hours": null,
+    "channel_notes": null,
+    "official_no_phone": null,
+    "needs_check": [
+      "Customer care phone number: the Terms page mentions a 'customer care number' but lists only an email. Check the Rapido app and https://www.rapido.bike/Contact."
+    ]
+  },
+  {
+    "name": "PhonePe",
+    "aliases": [
+      "Phone Pe",
+      "PhonePe Limited"
+    ],
+    "category": "banking_upi",
+    "official_domains": [
+      "phonepe.com"
+    ],
+    "source_url": "https://www.phonepe.com/grievance-policy/",
+    "checked_on": "2026-10-15",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "080-68727374",
+        "label": "Customer support centre",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.phonepe.com/grievance-policy/",
+            "kind": "website",
+            "quote": "Alternatively, customers can raise a complaint by calling our customer support center on 080-68727374 / 022-68727374.",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "022-68727374",
+        "label": "Customer support centre",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.phonepe.com/grievance-policy/",
+            "kind": "website",
+            "quote": "Alternatively, customers can raise a complaint by calling our customer support center on 080-68727374 / 022-68727374.",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "emails": [],
+    "grievance_officer": {
+      "name": "Ms. Deepa Shetty (Nodal Officer); Mr. Aniket Baheti (Principal Nodal Officer)",
+      "email": null,
+      "phone": null,
+      "address": null,
+      "sources": [
+        {
+          "url": "https://www.phonepe.com/grievance-policy/",
+          "kind": "website",
+          "quote": "Nodal Officer: Ms. Deepa Shetty",
+          "checked_on": "2026-10-15",
+          "machine_checked": true
+        },
+        {
+          "url": "https://www.phonepe.com/contact-us/",
+          "kind": "website",
+          "quote": "Nodal Officer: Ms. Deepa Shetty",
+          "checked_on": "2026-10-15",
+          "machine_checked": true
+        }
+      ]
+    },
+    "working_hours": null,
+    "channel_notes": "Names of officers change: check the page. First step is support in the app, then the grievance portal, then the nodal officer.",
+    "official_no_phone": null,
+    "needs_check": [
+      "Nodal officer email and phone: shown behind a button on https://www.phonepe.com/contact-us/. Open it and copy them."
+    ]
+  },
+  {
+    "name": "Paytm",
+    "aliases": [
+      "One97 Communications",
+      "Paytm Payments Bank"
+    ],
+    "category": "banking_upi",
+    "official_domains": [
+      "paytm.com"
+    ],
+    "source_url": "https://webappsstatic.paytm.com/webapps/pages/privacy.html",
+    "checked_on": "2026-10-15",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "0120-4440440",
+        "label": "Helpline",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://webappsstatic.paytm.com/webapps/pages/privacy.html",
+            "kind": "website",
+            "quote": "Helpline - 0120-4440440",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "grievanceofficer@paytm.com",
+        "label": "Grievance officer",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://webappsstatic.paytm.com/webapps/pages/privacy.html",
+            "kind": "website",
+            "quote": "Email: grievanceofficer@paytm.com",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": "Loans, credit cards and Payments Bank have separate grievance officers; this entry is for the main Paytm app.",
+    "official_no_phone": null,
+    "needs_check": []
+  },
+  {
+    "name": "LIC",
+    "aliases": [
+      "Life Insurance Corporation",
+      "LIC of India",
+      "Life Insurance Corporation of India"
+    ],
+    "category": "insurance",
+    "official_domains": [
+      "licindia.in",
+      "licindia.com"
+    ],
+    "source_url": "https://licindia.in/customers-corner",
+    "checked_on": "2026-10-15",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "022 6827 6827",
+        "label": "Call centre services",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://licindia.in/customers-corner",
+            "kind": "website",
+            "quote": "You may contact our Call Centre Services at 022 6827 6827 (or)",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "co_complaints@licindia.com",
+        "label": "Policy-related grievances",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://licindia.in/customers-corner",
+            "kind": "website",
+            "quote": "If you have a Grievance you may write to the dedicated e-mail id co_complaints@licindia.com (or)",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": null,
+    "official_no_phone": null,
+    "needs_check": []
+  },
+  {
+    "name": "Star Health",
+    "aliases": [
+      "Star Health Insurance",
+      "Star Health and Allied Insurance"
+    ],
+    "category": "insurance",
+    "official_domains": [
+      "starhealth.in"
+    ],
+    "source_url": "https://www.starhealth.in/grievance-redressal/",
+    "checked_on": "2026-10-15",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "1800-425-2255",
+        "label": "Toll free",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.starhealth.in/contact/",
+            "kind": "website",
+            "quote": "Toll Free Number -1800-425-2255 / 1800-102-4477 | Corporate Customers - 044 43664666",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          },
+          {
+            "url": "https://www.starhealth.in/grievance-redressal/",
+            "kind": "website",
+            "quote": "Toll Free Number -1800-425-2255 / 1800-102-4477 | Corporate Customers - 044 43664666",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "1800-102-4477",
+        "label": "Toll free",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.starhealth.in/contact/",
+            "kind": "website",
+            "quote": "Toll Free Number -1800-425-2255 / 1800-102-4477 | Corporate Customers - 044 43664666",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          },
+          {
+            "url": "https://www.starhealth.in/grievance-redressal/",
+            "kind": "website",
+            "quote": "Toll Free Number -1800-425-2255 / 1800-102-4477 | Corporate Customers - 044 43664666",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "044 6900 6900",
+        "label": "Customer care helpline",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.starhealth.in/grievance-redressal/",
+            "kind": "website",
+            "quote": "Customer Care Helpline: 044 6900 6900",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "044 4002 0888",
+        "label": "Senior citizens helpline",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.starhealth.in/grievance-redressal/",
+            "kind": "website",
+            "quote": "Senior Citizens Helpline: 044 4002 0888",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "support@starhealth.in",
+        "label": "Support and grievances (from the registered email)",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.starhealth.in/grievance-redressal/",
+            "kind": "website",
+            "quote": "You can also write to us at support@starhealth.in from your registered email ID.",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": "The grievance page says to visit the designated Grievance Officer at your nearest branch office; no officer email is published there.",
+    "official_no_phone": null,
+    "needs_check": []
+  },
+  {
+    "name": "Samsung",
+    "aliases": [
+      "Samsung India",
+      "Samsung Electronics India"
+    ],
+    "category": "electronics_appliances",
+    "official_domains": [
+      "samsung.com"
+    ],
+    "source_url": "https://www.samsung.com/in/support/contact/",
+    "checked_on": "2026-10-15",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "1800 5 7267864",
+        "label": "Customer care (toll free)",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.samsung.com/in/support/contact/",
+            "kind": "website",
+            "quote": "For more information or e-waste pick up, please call 1800 5 7267864 or click here for more details.",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "emails": [],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": "Other Samsung lines (Care+, business, WhatsApp) exist on other pages; not added yet.",
+    "official_no_phone": null,
+    "needs_check": []
+  },
+  {
+    "name": "TNEB",
+    "aliases": [
+      "TANGEDCO",
+      "TNPDCL",
+      "Tamil Nadu Electricity Board",
+      "Tamil Nadu Power Distribution Corporation",
+      "Minnagam"
+    ],
+    "category": "utilities",
+    "official_domains": [
+      "tnpdcl.org",
+      "tnebltd.gov.in"
+    ],
+    "source_url": "https://www.tnpdcl.org/en/tnpdcl/",
+    "checked_on": "2026-10-15",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "94987 94987",
+        "label": "Minnagam call centre (for complaints)",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.tnpdcl.org/en/tnpdcl/",
+            "kind": "website",
+            "quote": "FOR COMPLAINTS 94987 94987",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          },
+          {
+            "url": "https://www.tnpdcl.org/en/tnpdcl/consumer-info/consumer-guidance/faq/",
+            "kind": "website",
+            "quote": "Phone : 94987 94987",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "cpro@tnebnet.org",
+        "label": "Public relations (listed on the site)",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.tnpdcl.org/en/tnpdcl/consumer-info/consumer-guidance/faq/",
+            "kind": "website",
+            "quote": "cpro@tnebnet.org",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": "TANGEDCO was renamed TNPDCL in 2024. Formal complaints go to the Consumer Grievance Redressal Forum of your circle (online or in writing).",
+    "official_no_phone": null,
+    "needs_check": [
+      "Opening hours and any short power-failure number (such as 1912): not copied from an official page line yet. Check https://www.tnpdcl.org/en/tnpdcl/."
+    ]
   }
 ]

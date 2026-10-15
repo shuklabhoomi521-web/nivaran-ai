@@ -82,7 +82,6 @@ def test_forty_companies_across_ten_categories():
     assert len({c.category for c in COMPANIES}) >= 10
 
 
-@pytest.mark.xfail(reason="Phase 2 in progress: all test-set companies not added yet", strict=False)
 def test_every_company_in_the_30_problems_is_in_the_directory():
     missing = []
     for p in load_problems():
