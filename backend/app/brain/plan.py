@@ -1,13 +1,17 @@
+import json
+
 from pydantic import ValidationError
 
 from app.brain.llm import LLMClient, LLMError
-from app.models.case import Case, Plan
+from app.models.case import Case, Channel, Plan
 from app.safety.redact import scrub
 
 SYSTEM_PROMPT = """You plan how to get a customer-care problem solved for an Indian user.
 You get a case (JSON). Return a plan.
 
 Rules:
+0. You get "available_channels": the channels this company really supports (from our verified directory).
+   Your channel MUST be one of them. If "no_phone_line" is true, the company officially has no customer phone line.
 1. channel: "call" for urgent or simple problems where a phone agent can fix it fast (stuck refund,
    cancelled booking, service down). "email" when a written record or attached proof is needed (billing
    disputes, claims, damaged goods). "complaint" for a formal written complaint when the problem is serious,
@@ -22,10 +26,14 @@ Rules:
 """
 
 
-def make_plan(case: Case, llm: LLMClient) -> Plan:
+def make_plan(case: Case, llm: LLMClient, available_channels: list[Channel] | None = None,
+              no_phone_line: bool = False) -> Plan:
+    payload = {"case": case.model_dump(mode="json"),
+               "available_channels": [c.value for c in (available_channels or list(Channel))],
+               "no_phone_line": no_phone_line}
     raw = llm.complete_json(
         system=SYSTEM_PROMPT,
-        user=case.model_dump_json(),
+        user=json.dumps(payload, ensure_ascii=False),
         schema=Plan.model_json_schema(),
     )
     raw, _ = scrub(raw)

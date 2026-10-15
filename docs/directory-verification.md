@@ -65,12 +65,12 @@ Main page: https://www.flipkart.com/pages/terms
 ## Airtel (telecom)
 Main page: https://www.airtel.in/contact-us/
 
-- [ ] **Phone 121** (Enquiries and requests (from an Airtel number)) `single_source`
-  - https://www.airtel.in/contact-us/ (machine_checked: yes)
-    > For Enquiries and Requests Call 121 from your Airtel number (Chargeable at 50p/3 mins for advisor access
 - [ ] **Phone 198** (Complaints, toll free) `single_source`
   - https://www.airtel.in/contact-us/ (machine_checked: yes)
     > For Complaints Call 198 (Toll Fee)
+- [ ] **Phone 121** (Enquiries and requests (from an Airtel number)) `single_source`
+  - https://www.airtel.in/contact-us/ (machine_checked: yes)
+    > For Enquiries and Requests Call 121 from your Airtel number (Chargeable at 50p/3 mins for advisor access
 - [ ] **Phone 1800-23400** (Any query (Airtel subscribers)) `single_source`
   - https://www.airtel.in/contact-us/ (machine_checked: yes)
     > In case of any query, Airtel subscribers can call 1800-23400.
@@ -82,10 +82,10 @@ Main page: https://www.airtel.in/contact-us/
 ## Vi (telecom)
 Main page: https://www.myvi.in/help-support/vi-customer-care-number
 
-- [ ] **Phone 199** (Customer care executives) `single_source`
+- [ ] **Phone 198** (Concerns and complaints) `single_source`
   - https://www.myvi.in/help-support/vi-customer-care-number (machine_checked: yes)
     > Call us on 199 to connect with our customer care executives, or dial 198 for concerns/complaints.
-- [ ] **Phone 198** (Concerns and complaints) `single_source`
+- [ ] **Phone 199** (Customer care executives) `single_source`
   - https://www.myvi.in/help-support/vi-customer-care-number (machine_checked: yes)
     > Call us on 199 to connect with our customer care executives, or dial 198 for concerns/complaints.
 - [ ] **Phone 9654297000** (WhatsApp number) `single_source`

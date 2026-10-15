@@ -266,21 +266,6 @@
     "helplines": [
       {
         "kind": "phone",
-        "value": "121",
-        "label": "Enquiries and requests (from an Airtel number)",
-        "hours": null,
-        "sources": [
-          {
-            "url": "https://www.airtel.in/contact-us/",
-            "kind": "website",
-            "quote": "For Enquiries and Requests Call 121 from your Airtel number (Chargeable at 50p/3 mins for advisor access",
-            "checked_on": "2026-10-15",
-            "machine_checked": true
-          }
-        ]
-      },
-      {
-        "kind": "phone",
         "value": "198",
         "label": "Complaints, toll free",
         "hours": null,
@@ -289,6 +274,21 @@
             "url": "https://www.airtel.in/contact-us/",
             "kind": "website",
             "quote": "For Complaints Call 198 (Toll Fee)",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "121",
+        "label": "Enquiries and requests (from an Airtel number)",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.airtel.in/contact-us/",
+            "kind": "website",
+            "quote": "For Enquiries and Requests Call 121 from your Airtel number (Chargeable at 50p/3 mins for advisor access",
             "checked_on": "2026-10-15",
             "machine_checked": true
           }
@@ -350,8 +350,8 @@
     "helplines": [
       {
         "kind": "phone",
-        "value": "199",
-        "label": "Customer care executives",
+        "value": "198",
+        "label": "Concerns and complaints",
         "hours": null,
         "sources": [
           {
@@ -365,8 +365,8 @@
       },
       {
         "kind": "phone",
-        "value": "198",
-        "label": "Concerns and complaints",
+        "value": "199",
+        "label": "Customer care executives",
         "hours": null,
         "sources": [
           {
