@@ -20,3 +20,11 @@ The table above is run 3 (the latest).
 - The other 29 are answers from run 3 (old prompt). They were given `category_confidence = high` only so the table could be built;
   they were **not** checked with the new prompt. So "30/30" in `baseline-phase1.md` is partly carried over.
 - Note: the question for `f-04` asks which company or app it was, not explicitly what kind of ticket. It passes our check but could be sharper.
+
+## Run 5: full re-run, cache cleared, nothing carried over (new question rule + confidence)
+- Result: **28/30 correct (93%)**. Not 30/30.
+- `f-04` passes and the question is better: "which company, and which kind of ticket (train, bus, or flight)?" (in Tamil).
+- Miss `ta-06`: wrote `payment_method = 'SBI card'`. The user wrote "SBI கார்டு" in Tamil script. Not verbatim (it translated "கார்டு" to "card").
+- Miss `f-02`: wrote `product = 'green kurti'`. The user wrote "greeen kurti" (typo). It fixed the spelling.
+- Both misses are true facts restated, not made-up facts, but our rule is "copy exactly as typed", so they count as failures. Both passed in run 3: same prompt, different luck (run-to-run drift).
+- Not changed: the scoring rule. Candidate fixes for later: tell the model again to copy typos and scripts unchanged, or relax the check to allow close spellings (needs the founder's decision).

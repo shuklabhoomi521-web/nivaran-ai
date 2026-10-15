@@ -269,12 +269,14 @@
         "company": true,
         "category": true,
         "user_goal": true,
-        "facts_grounded": true,
+        "facts_grounded": false,
         "asks_when_missing": true,
         "low_confidence_asks": true,
         "no_card_leak": true
       },
-      "notes": []
+      "notes": [
+        "invented fact: payment_method='SBI card'"
+      ]
     },
     {
       "id": "ta-07",
@@ -385,11 +387,13 @@
         "company": true,
         "category": true,
         "user_goal": true,
-        "facts_grounded": true,
+        "facts_grounded": false,
         "asks_when_missing": true,
         "low_confidence_asks": true
       },
-      "notes": []
+      "notes": [
+        "invented fact: product='green kurti'"
+      ]
     },
     {
       "id": "f-03",

@@ -32,7 +32,8 @@ Rules:
    Leave it empty if nothing important is missing. NEVER invent a value for a missing detail.
 7. follow_up_question: if details_missing is not empty OR company is null OR category_confidence is low, write ONE short question, in the
    user's own language and script, asking for the single most important missing thing. If the company is
-   null, ask for the company name first. If only the category is uncertain, ask what kind of service it is. Otherwise null. Never ask for a card number, CVV, PIN,
+   null, ask for the company name first. If the category is uncertain, the question must also ask what kind of service it is, naming the likely
+   options (for example for a vague "ticket": train, bus or flight). Otherwise null. Never ask for a card number, CVV, PIN,
    password or OTP.
 8. If the message holds more than one problem, the case is about the main one (the one the user calls
    main, otherwise the first one). Put the other problems in other_issues as short English phrases.
