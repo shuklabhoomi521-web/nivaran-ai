@@ -1543,5 +1543,852 @@
     "needs_check": [
       "Opening hours and any short power-failure number (such as 1912): not copied from an official page line yet. Check https://www.tnpdcl.org/en/tnpdcl/."
     ]
+  },
+  {
+    "name": "Domino's India",
+    "aliases": [
+      "Dominos",
+      "Domino's Pizza",
+      "Dominos Pizza",
+      "Jubilant FoodWorks"
+    ],
+    "category": "food_delivery",
+    "official_domains": [
+      "dominos.co.in",
+      "jubilantfoodworks.com"
+    ],
+    "source_url": "https://www.dominos.co.in/contact",
+    "checked_on": "2026-10-15",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "1800-208-1234",
+        "label": "Customer care (toll free)",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.dominos.co.in/contact",
+            "kind": "website",
+            "quote": "1800-208-1234",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "guestcaredominos@jublfood.com",
+        "label": "Guest care: feedback, queries, complaints",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.jubilantfoodworks.com/contact/",
+            "kind": "website",
+            "quote": "E-mail: guestcaredominos@jublfood.com",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          },
+          {
+            "url": "https://www.dominos.co.in/contact",
+            "kind": "website",
+            "quote": "Have any feedback or queries? We'd love to hear from you. Write to us at guestcaredominos@jublfood.com",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": null,
+    "official_no_phone": null,
+    "needs_check": []
+  },
+  {
+    "name": "Zepto",
+    "aliases": [
+      "Zepto Cafe",
+      "Zeptonow",
+      "ZMPL"
+    ],
+    "category": "food_delivery",
+    "official_domains": [
+      "zepto.com",
+      "zeptonow.com"
+    ],
+    "source_url": "https://www.zepto.com/s/customer-support",
+    "checked_on": "2026-10-15",
+    "helplines": [],
+    "emails": [],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": "No customer phone line. Use the in-app chat.",
+    "official_no_phone": {
+      "url": "https://www.zepto.com/s/customer-support",
+      "kind": "website",
+      "quote": "Zepto does not have an official customer support phone number.",
+      "checked_on": "2026-10-15",
+      "machine_checked": false
+    },
+    "needs_check": [
+      "Support email and grievance officer email: not copied from an official page yet. Open https://www.zepto.com/s/terms-of-use-zmpl-copy and copy the Grievance Officer lines."
+    ]
+  },
+  {
+    "name": "SpiceJet",
+    "aliases": [
+      "Spice Jet",
+      "SG"
+    ],
+    "category": "airlines",
+    "official_domains": [
+      "spicejet.com"
+    ],
+    "source_url": "https://corporate.spicejet.com/contactus.aspx",
+    "checked_on": "2026-10-15",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "+91 (0)124 4983410",
+        "label": "Customer care and reservations (24 hours)",
+        "hours": "24 hours",
+        "sources": [
+          {
+            "url": "https://corporate.spicejet.com/contactus.aspx",
+            "kind": "website",
+            "quote": "+91 (0)124 4983410 +91 (0)124 7101600",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "+91 (0)124 7101600",
+        "label": "Customer care and reservations (24 hours)",
+        "hours": "24 hours",
+        "sources": [
+          {
+            "url": "https://corporate.spicejet.com/contactus.aspx",
+            "kind": "website",
+            "quote": "+91 (0)124 4983410 +91 (0)124 7101600",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "+91 124-3913939",
+        "label": "Nodal officer and appellate authority",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://corporate.spicejet.com/contactus.aspx",
+            "kind": "website",
+            "quote": "Contact No. : +91 124-3913939",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "custrelations@spicejet.com",
+        "label": "Customer experience (first written step)",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://corporate.spicejet.com/contactus.aspx",
+            "kind": "website",
+            "quote": "custrelations@spicejet.com or Click here.",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      },
+      {
+        "kind": "email",
+        "value": "nodalofficer@spicejet.com",
+        "label": "Nodal officer",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://corporate.spicejet.com/contactus.aspx",
+            "kind": "website",
+            "quote": "E-Mail: nodalofficer@spicejet.com",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      },
+      {
+        "kind": "email",
+        "value": "appellateauthority@spicejet.com",
+        "label": "Appellate authority",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://corporate.spicejet.com/contactus.aspx",
+            "kind": "website",
+            "quote": "E-Mail: appellateauthority@spicejet.com",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": "Officer names differ between SpiceJet pages: use the emails.",
+    "official_no_phone": null,
+    "needs_check": []
+  },
+  {
+    "name": "Indian Railways",
+    "aliases": [
+      "Rail Madad",
+      "RailMadad",
+      "Railways",
+      "Indian Railway"
+    ],
+    "category": "railways",
+    "official_domains": [
+      "indianrailways.gov.in"
+    ],
+    "source_url": "https://railmadad.indianrailways.gov.in/",
+    "checked_on": "2026-10-15",
+    "helplines": [],
+    "emails": [],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": null,
+    "official_no_phone": null,
+    "needs_check": [
+      "Helpline number and complaint routes (RailMadad): the page loaded but our capture timed out. Open https://railmadad.indianrailways.gov.in/ and copy the helpline line."
+    ]
+  },
+  {
+    "name": "Meru Cabs",
+    "aliases": [
+      "Meru",
+      "Meru Cab"
+    ],
+    "category": "cabs",
+    "official_domains": [
+      "merucabs.com"
+    ],
+    "source_url": "https://www.merucabs.com/",
+    "checked_on": "2026-10-15",
+    "helplines": [],
+    "emails": [],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": null,
+    "official_no_phone": null,
+    "needs_check": [
+      "Contact details: the Meru site's security certificate was expired when we tried, so we did not read it. Open the official Meru contact page and copy the lines."
+    ]
+  },
+  {
+    "name": "Google Pay",
+    "aliases": [
+      "GPay",
+      "Google Pay India",
+      "G Pay"
+    ],
+    "category": "banking_upi",
+    "official_domains": [
+      "google.com"
+    ],
+    "source_url": "https://support.google.com/pay/india/answer/10084701?hl=en",
+    "checked_on": "2026-10-15",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "1-800-419-0157",
+        "label": "Customer care (toll free; Hindi, English, Tamil, Telugu, Kannada)",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://support.google.com/pay/india/answer/7562363?hl=en",
+            "kind": "website",
+            "quote": "You can call our customer care number toll free at: 1-800-419-0157 . Our phone support is available in 5 languages (Hindi, English, Tamil, Telugu, and Kannada).",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          },
+          {
+            "url": "https://support.google.com/pay/india/answer/10084701?hl=en",
+            "kind": "website",
+            "quote": "You can reach customer care number toll free at: 1-800-419-0157 . Our phone support is available in 5 languages (Hindi, English, Tamil, Kannada and Telugu).",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "emails": [],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": "Level 1: app or phone. Level 2: grievance form. Level 3: Google Pay nodal officer form.",
+    "official_no_phone": null,
+    "needs_check": [
+      "Nodal officer email: shown behind a link on the page. Open https://support.google.com/pay/india/answer/10084701?hl=en and copy the nodal officer contact lines."
+    ]
+  },
+  {
+    "name": "HDFC Bank",
+    "aliases": [
+      "HDFC",
+      "HDFC Bank Limited"
+    ],
+    "category": "banking_upi",
+    "official_domains": [
+      "hdfcbank.com",
+      "hdfc.bank.in"
+    ],
+    "source_url": "https://www.hdfcbank.com/personal/need-help/contact-us",
+    "checked_on": "2026-10-15",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "1800 1600",
+        "label": "Customer care (toll free, India)",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.hdfcbank.com/personal/need-help/contact-us",
+            "kind": "website",
+            "quote": "Our customer care team is ready to help regarding any banking issue you are facing: 1800 1600 / 1800 2600",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "1800 2600",
+        "label": "Customer care (toll free, India)",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.hdfcbank.com/personal/need-help/contact-us",
+            "kind": "website",
+            "quote": "Our customer care team is ready to help regarding any banking issue you are facing: 1800 1600 / 1800 2600",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "cardsales.complaint@hdfc.bank.in",
+        "label": "Credit cards: mis-selling, harassment complaints",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.hdfcbank.com/personal/need-help/contact-us",
+            "kind": "website",
+            "quote": "For any sales queries on mis-selling / harassment / complaints, please write to cardsales.complaint@hdfc.bank.in or call at 044 - 61084900",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": null,
+    "official_no_phone": null,
+    "needs_check": [
+      "Grievance redressal officer and nodal officer contacts: open https://www.hdfcbank.com/personal/need-help/grievance-redressal-digital and copy the lines."
+    ]
+  },
+  {
+    "name": "SBI",
+    "aliases": [
+      "State Bank of India",
+      "State Bank",
+      "SBI Bank"
+    ],
+    "category": "banking_upi",
+    "official_domains": [
+      "sbi.co.in",
+      "sbi.bank.in",
+      "onlinesbi.sbi",
+      "bank.sbi"
+    ],
+    "source_url": "https://www.sbi.co.in/web/customer-care/contact-us",
+    "checked_on": "2026-10-15",
+    "helplines": [],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "gm.customer@sbi.co.in",
+        "label": "Customer service (email shown on the contact page)",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.sbi.co.in/web/customer-care/contact-us",
+            "kind": "website",
+            "quote": "Email ID - gm.customer@sbi.co.in.",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      },
+      {
+        "kind": "email",
+        "value": "pno@sbi.co.in",
+        "label": "Principal nodal officer (email shown on the contact page)",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.sbi.co.in/web/customer-care/contact-us",
+            "kind": "website",
+            "quote": "pno@sbi.co.in",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": null,
+    "official_no_phone": null,
+    "needs_check": [
+      "Toll-free numbers: the page shows them in a table our capture did not read. Open https://www.sbi.co.in/web/customer-care/contact-centre and copy the lines."
+    ]
+  },
+  {
+    "name": "HDFC Life",
+    "aliases": [
+      "HDFC Life Insurance",
+      "HDFC Standard Life"
+    ],
+    "category": "insurance",
+    "official_domains": [
+      "hdfclife.com",
+      "hdfclife.in"
+    ],
+    "source_url": "https://www.hdfclife.com/customer-service/grievance-redressal",
+    "checked_on": "2026-10-15",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "1800-266-9777",
+        "label": "Toll free (labelled 'All Days & Toll free' on the page)",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.hdfclife.com/customer-service/grievance-redressal",
+            "kind": "website",
+            "quote": "1800-266-9777",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "022-68446530",
+        "label": "Customer service (Mon to Sat, 10 am to 7 pm; call charges apply)",
+        "hours": "Mon to Sat, 10 am to 7 pm",
+        "sources": [
+          {
+            "url": "https://www.hdfclife.com/customer-service/grievance-redressal",
+            "kind": "website",
+            "quote": "Option 2: On our website, through this online grievance redressal page, by filling the form given below. You can also write to us from your registered email ID at service@HDFCLife.com OR Call us on 022-68446530 (Call Charges Apply, Mon to Sat, from 10 am to 7 pm IST).",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "service@hdfclife.com",
+        "label": "Service and grievance level 1 (from the registered email ID)",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.hdfclife.com/customer-service/grievance-redressal",
+            "kind": "website",
+            "quote": "nriservice@hdfclife.com",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "grievance_officer": {
+      "name": "Ms. Valencia Rodricks (Grievance Redressal Officer / Vice President, Customer Relations)",
+      "email": null,
+      "phone": null,
+      "address": null,
+      "sources": [
+        {
+          "url": "https://www.hdfclife.com/customer-service/grievance-redressal",
+          "kind": "website",
+          "quote": "If you are not satisfied with the response from Level 1, you can reach out to the Grievance Redressal Officer/Vice President(Customer Relations)- Ms. Valencia Rodricks by submitting the form below. You will receive a response within 7 working days of form submission. Alternatively, you may write to the Grievance Redressal Officer at gro@hdfclife.com",
+          "checked_on": "2026-10-15",
+          "machine_checked": true
+        }
+      ]
+    },
+    "working_hours": null,
+    "channel_notes": "The officer name changes: check the page. Level 2 is the online form.",
+    "official_no_phone": null,
+    "needs_check": []
+  },
+  {
+    "name": "ICICI Lombard",
+    "aliases": [
+      "ICICI Lombard General Insurance",
+      "ICICI Lombard Health"
+    ],
+    "category": "insurance",
+    "official_domains": [
+      "icicilombard.com"
+    ],
+    "source_url": "https://www.icicilombard.com/customer-support",
+    "checked_on": "2026-10-15",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "1800 2666",
+        "label": "Customer care, 24x7 (toll free)",
+        "hours": "24 x 7",
+        "sources": [
+          {
+            "url": "https://www.icicilombard.com/customer-support",
+            "kind": "website",
+            "quote": "Contact - 1800 2666 (Available 24 x 7)",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "customersupport@icicilombard.com",
+        "label": "Customer support",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.icicilombard.com/customer-support",
+            "kind": "website",
+            "quote": "Email-customersupport@icicilombard.com",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": null,
+    "official_no_phone": null,
+    "needs_check": []
+  },
+  {
+    "name": "LG",
+    "aliases": [
+      "LG India",
+      "LG Electronics India"
+    ],
+    "category": "electronics_appliances",
+    "official_domains": [
+      "lg.com"
+    ],
+    "source_url": "https://www.lg.com/in/support/contact-us/",
+    "checked_on": "2026-10-15",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "08069379999",
+        "label": "Customer care",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.lg.com/in/support/contact-us/",
+            "kind": "website",
+            "quote": "Phone Number : 08069379999",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "serviceindia@lge.com",
+        "label": "Service",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.lg.com/in/support/contact-us/",
+            "kind": "website",
+            "quote": "Or you can also write to us at serviceindia@lge.com",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": null,
+    "official_no_phone": null,
+    "needs_check": []
+  },
+  {
+    "name": "Apple India",
+    "aliases": [
+      "Apple",
+      "Apple Store India",
+      "Apple Inc India"
+    ],
+    "category": "electronics_appliances",
+    "official_domains": [
+      "apple.com"
+    ],
+    "source_url": "https://www.apple.com/in/contact/",
+    "checked_on": "2026-10-15",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "000800 040 1966",
+        "label": "Apple Online Store: orders and sales (Mon-Sun 09:00-21:00)",
+        "hours": "Mon-Sun 09:00-21:00",
+        "sources": [
+          {
+            "url": "https://www.apple.com/in/contact/",
+            "kind": "website",
+            "quote": "Apple.com is a convenient place to purchase Apple products and accessories from Apple. You can buy online or call 000800 040 1966 . Lines are open Monday–Sunday 09:00–21:00 .",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "emails": [],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": "Grievances for App Store, Apple TV and iTunes matters go through the links on https://www.apple.com/in/contact/ (Report a Grievance in India).",
+    "official_no_phone": null,
+    "needs_check": [
+      "Support for repairs and device problems is on https://support.apple.com/en-in/contact: not captured. Open it and copy the lines."
+    ]
+  },
+  {
+    "name": "Daikin India",
+    "aliases": [
+      "Daikin",
+      "Daikin AC"
+    ],
+    "category": "electronics_appliances",
+    "official_domains": [
+      "daikinindia.com"
+    ],
+    "source_url": "https://www.daikinindia.com/contact-us",
+    "checked_on": "2026-10-15",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "1800 102 9322",
+        "label": "Toll free number on the contact page (the page's label for it was not captured)",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.daikinindia.com/contact-us",
+            "kind": "website",
+            "quote": "1800 102 9322",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "customerservice@daikinindia.com",
+        "label": "Customer service",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.daikinindia.com/contact-us",
+            "kind": "website",
+            "quote": "or Write To Us at: customerservice@daikinindia.com",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": null,
+    "official_no_phone": null,
+    "needs_check": [
+      "What the toll-free number is for (for example air conditioners or refrigeration): open the page and read the heading above it."
+    ]
+  },
+  {
+    "name": "Whirlpool",
+    "aliases": [
+      "Whirlpool India",
+      "Whirlpool of India"
+    ],
+    "category": "electronics_appliances",
+    "official_domains": [
+      "whirlpoolindia.com"
+    ],
+    "source_url": "https://www.whirlpoolindia.com/contact-us",
+    "checked_on": "2026-10-15",
+    "helplines": [],
+    "emails": [],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": null,
+    "official_no_phone": null,
+    "needs_check": [
+      "Contact details: whirlpoolindia.com redirected us to a 'link paused' page. Open the official Whirlpool India contact page and copy the lines."
+    ]
+  },
+  {
+    "name": "BSES Rajdhani",
+    "aliases": [
+      "BSES",
+      "BRPL",
+      "BSES Delhi",
+      "BSES Rajdhani Power"
+    ],
+    "category": "utilities",
+    "official_domains": [
+      "bsesdelhi.com"
+    ],
+    "source_url": "https://www.bsesdelhi.com/web/brpl/contact-us",
+    "checked_on": "2026-10-15",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "19123",
+        "label": "Customer care (24x7 toll free)",
+        "hours": "24x7",
+        "sources": [
+          {
+            "url": "https://www.bsesdelhi.com/web/brpl/contact-us",
+            "kind": "website",
+            "quote": "Call Us: 19123 (24X7 Toll Free)",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "1800-200-3030",
+        "label": "24x7 toll free",
+        "hours": "24x7",
+        "sources": [
+          {
+            "url": "https://www.bsesdelhi.com/web/brpl/contact-us",
+            "kind": "website",
+            "quote": "1800-200-3030 (24x7 Toll Free)",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "brpl.customercare@reliancegroupindia.com",
+        "label": "Customer care",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.bsesdelhi.com/web/brpl/contact-us",
+            "kind": "website",
+            "quote": "Write to Us: brpl.customercare@reliancegroupindia.com",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": "Delhi (south and west) only. Other Delhi areas use BSES Yamuna or Tata Power-DDL.",
+    "official_no_phone": null,
+    "needs_check": []
+  },
+  {
+    "name": "Adani Electricity",
+    "aliases": [
+      "Adani Electricity Mumbai",
+      "Adani Mumbai",
+      "AEML",
+      "Mumbai Electricity"
+    ],
+    "category": "utilities",
+    "official_domains": [
+      "adanielectricity.com"
+    ],
+    "source_url": "https://www.adanielectricity.com/Contact-us",
+    "checked_on": "2026-10-15",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "19122",
+        "label": "Toll free helpline (24x7)",
+        "hours": "24x7",
+        "sources": [
+          {
+            "url": "https://www.adanielectricity.com/Contact-us",
+            "kind": "website",
+            "quote": "Toll-Free: 19122 (24x7)",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "helpdesk.mumbaielectricity@adani.com",
+        "label": "Helpdesk",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.adanielectricity.com/Contact-us",
+            "kind": "website",
+            "quote": "You can write to us at helpdesk.mumbaielectricity@adani.com",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": "Mumbai suburbs only.",
+    "official_no_phone": null,
+    "needs_check": []
   }
 ]

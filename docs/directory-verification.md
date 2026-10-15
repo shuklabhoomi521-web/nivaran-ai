@@ -333,3 +333,179 @@ Main page: https://www.tnpdcl.org/en/tnpdcl/
 - Notes: TANGEDCO was renamed TNPDCL in 2024. Formal complaints go to the Consumer Grievance Redressal Forum of your circle (online or in writing).
 - [ ] **NEEDS CHECK (you fill in or drop):** Opening hours and any short power-failure number (such as 1912): not copied from an official page line yet. Check https://www.tnpdcl.org/en/tnpdcl/.
 
+## Domino's India (food_delivery)
+Main page: https://www.dominos.co.in/contact
+
+- [ ] **Phone 1800-208-1234** (Customer care (toll free)) `single_source`
+  - https://www.dominos.co.in/contact (machine_checked: no)
+    > 1800-208-1234
+- [ ] **Email guestcaredominos@jublfood.com** (Guest care: feedback, queries, complaints)
+  - https://www.jubilantfoodworks.com/contact/ (machine_checked: yes)
+    > E-mail: guestcaredominos@jublfood.com
+  - https://www.dominos.co.in/contact (machine_checked: no)
+    > Have any feedback or queries? We'd love to hear from you. Write to us at guestcaredominos@jublfood.com
+
+## Zepto (food_delivery)
+Main page: https://www.zepto.com/s/customer-support
+
+- [ ] **No customer phone line** (official). https://www.zepto.com/s/customer-support (machine_checked: no)
+  > Zepto does not have an official customer support phone number.
+- Notes: No customer phone line. Use the in-app chat.
+- [ ] **NEEDS CHECK (you fill in or drop):** Support email and grievance officer email: not copied from an official page yet. Open https://www.zepto.com/s/terms-of-use-zmpl-copy and copy the Grievance Officer lines.
+
+## SpiceJet (airlines)
+Main page: https://corporate.spicejet.com/contactus.aspx
+
+- [ ] **Phone +91 (0)124 4983410** (Customer care and reservations (24 hours)) `single_source`
+  - https://corporate.spicejet.com/contactus.aspx (machine_checked: yes)
+    > +91 (0)124 4983410 +91 (0)124 7101600
+- [ ] **Phone +91 (0)124 7101600** (Customer care and reservations (24 hours)) `single_source`
+  - https://corporate.spicejet.com/contactus.aspx (machine_checked: yes)
+    > +91 (0)124 4983410 +91 (0)124 7101600
+- [ ] **Phone +91 124-3913939** (Nodal officer and appellate authority) `single_source`
+  - https://corporate.spicejet.com/contactus.aspx (machine_checked: yes)
+    > Contact No. : +91 124-3913939
+- [ ] **Email custrelations@spicejet.com** (Customer experience (first written step))
+  - https://corporate.spicejet.com/contactus.aspx (machine_checked: yes)
+    > custrelations@spicejet.com or Click here.
+- [ ] **Email nodalofficer@spicejet.com** (Nodal officer)
+  - https://corporate.spicejet.com/contactus.aspx (machine_checked: yes)
+    > E-Mail: nodalofficer@spicejet.com
+- [ ] **Email appellateauthority@spicejet.com** (Appellate authority)
+  - https://corporate.spicejet.com/contactus.aspx (machine_checked: yes)
+    > E-Mail: appellateauthority@spicejet.com
+- Notes: Officer names differ between SpiceJet pages: use the emails.
+
+## Indian Railways (railways)
+Main page: https://railmadad.indianrailways.gov.in/
+
+- [ ] **NEEDS CHECK (you fill in or drop):** Helpline number and complaint routes (RailMadad): the page loaded but our capture timed out. Open https://railmadad.indianrailways.gov.in/ and copy the helpline line.
+
+## Meru Cabs (cabs)
+Main page: https://www.merucabs.com/
+
+- [ ] **NEEDS CHECK (you fill in or drop):** Contact details: the Meru site's security certificate was expired when we tried, so we did not read it. Open the official Meru contact page and copy the lines.
+
+## Google Pay (banking_upi)
+Main page: https://support.google.com/pay/india/answer/10084701?hl=en
+
+- [ ] **Phone 1-800-419-0157** (Customer care (toll free; Hindi, English, Tamil, Telugu, Kannada)) `two_sources`
+  - https://support.google.com/pay/india/answer/7562363?hl=en (machine_checked: yes)
+    > You can call our customer care number toll free at: 1-800-419-0157 . Our phone support is available in 5 languages (Hindi, English, Tamil, Telugu, and Kannada).
+  - https://support.google.com/pay/india/answer/10084701?hl=en (machine_checked: yes)
+    > You can reach customer care number toll free at: 1-800-419-0157 . Our phone support is available in 5 languages (Hindi, English, Tamil, Kannada and Telugu).
+- Notes: Level 1: app or phone. Level 2: grievance form. Level 3: Google Pay nodal officer form.
+- [ ] **NEEDS CHECK (you fill in or drop):** Nodal officer email: shown behind a link on the page. Open https://support.google.com/pay/india/answer/10084701?hl=en and copy the nodal officer contact lines.
+
+## HDFC Bank (banking_upi)
+Main page: https://www.hdfcbank.com/personal/need-help/contact-us
+
+- [ ] **Phone 1800 1600** (Customer care (toll free, India)) `single_source`
+  - https://www.hdfcbank.com/personal/need-help/contact-us (machine_checked: yes)
+    > Our customer care team is ready to help regarding any banking issue you are facing: 1800 1600 / 1800 2600
+- [ ] **Phone 1800 2600** (Customer care (toll free, India)) `single_source`
+  - https://www.hdfcbank.com/personal/need-help/contact-us (machine_checked: yes)
+    > Our customer care team is ready to help regarding any banking issue you are facing: 1800 1600 / 1800 2600
+- [ ] **Email cardsales.complaint@hdfc.bank.in** (Credit cards: mis-selling, harassment complaints)
+  - https://www.hdfcbank.com/personal/need-help/contact-us (machine_checked: yes)
+    > For any sales queries on mis-selling / harassment / complaints, please write to cardsales.complaint@hdfc.bank.in or call at 044 - 61084900
+- [ ] **NEEDS CHECK (you fill in or drop):** Grievance redressal officer and nodal officer contacts: open https://www.hdfcbank.com/personal/need-help/grievance-redressal-digital and copy the lines.
+
+## SBI (banking_upi)
+Main page: https://www.sbi.co.in/web/customer-care/contact-us
+
+- [ ] **Email gm.customer@sbi.co.in** (Customer service (email shown on the contact page))
+  - https://www.sbi.co.in/web/customer-care/contact-us (machine_checked: yes)
+    > Email ID - gm.customer@sbi.co.in.
+- [ ] **Email pno@sbi.co.in** (Principal nodal officer (email shown on the contact page))
+  - https://www.sbi.co.in/web/customer-care/contact-us (machine_checked: yes)
+    > pno@sbi.co.in
+- [ ] **NEEDS CHECK (you fill in or drop):** Toll-free numbers: the page shows them in a table our capture did not read. Open https://www.sbi.co.in/web/customer-care/contact-centre and copy the lines.
+
+## HDFC Life (insurance)
+Main page: https://www.hdfclife.com/customer-service/grievance-redressal
+
+- [ ] **Phone 1800-266-9777** (Toll free (labelled 'All Days & Toll free' on the page)) `single_source`
+  - https://www.hdfclife.com/customer-service/grievance-redressal (machine_checked: yes)
+    > 1800-266-9777
+- [ ] **Phone 022-68446530** (Customer service (Mon to Sat, 10 am to 7 pm; call charges apply)) `single_source`
+  - https://www.hdfclife.com/customer-service/grievance-redressal (machine_checked: yes)
+    > Option 2: On our website, through this online grievance redressal page, by filling the form given below. You can also write to us from your registered email ID at service@HDFCLife.com OR Call us on 022-68446530 (Call Charges Apply, Mon to Sat, from 10 am to 7 pm IST).
+- [ ] **Email service@hdfclife.com** (Service and grievance level 1 (from the registered email ID))
+  - https://www.hdfclife.com/customer-service/grievance-redressal (machine_checked: yes)
+    > nriservice@hdfclife.com
+- [ ] **Grievance officer** Ms. Valencia Rodricks (Grievance Redressal Officer / Vice President, Customer Relations)
+  - https://www.hdfclife.com/customer-service/grievance-redressal (machine_checked: yes)
+    > If you are not satisfied with the response from Level 1, you can reach out to the Grievance Redressal Officer/Vice President(Customer Relations)- Ms. Valencia Rodricks by submitting the form below. You will receive a response within 7 working days of form submission. Alternatively, you may write to the Grievance Redressal Officer at gro@hdfclife.com
+- Notes: The officer name changes: check the page. Level 2 is the online form.
+
+## ICICI Lombard (insurance)
+Main page: https://www.icicilombard.com/customer-support
+
+- [ ] **Phone 1800 2666** (Customer care, 24x7 (toll free)) `single_source`
+  - https://www.icicilombard.com/customer-support (machine_checked: no)
+    > Contact - 1800 2666 (Available 24 x 7)
+- [ ] **Email customersupport@icicilombard.com** (Customer support)
+  - https://www.icicilombard.com/customer-support (machine_checked: no)
+    > Email-customersupport@icicilombard.com
+
+## LG (electronics_appliances)
+Main page: https://www.lg.com/in/support/contact-us/
+
+- [ ] **Phone 08069379999** (Customer care) `single_source`
+  - https://www.lg.com/in/support/contact-us/ (machine_checked: yes)
+    > Phone Number : 08069379999
+- [ ] **Email serviceindia@lge.com** (Service)
+  - https://www.lg.com/in/support/contact-us/ (machine_checked: yes)
+    > Or you can also write to us at serviceindia@lge.com
+
+## Apple India (electronics_appliances)
+Main page: https://www.apple.com/in/contact/
+
+- [ ] **Phone 000800 040 1966** (Apple Online Store: orders and sales (Mon-Sun 09:00-21:00)) `single_source`
+  - https://www.apple.com/in/contact/ (machine_checked: yes)
+    > Apple.com is a convenient place to purchase Apple products and accessories from Apple. You can buy online or call 000800 040 1966 . Lines are open Monday–Sunday 09:00–21:00 .
+- Notes: Grievances for App Store, Apple TV and iTunes matters go through the links on https://www.apple.com/in/contact/ (Report a Grievance in India).
+- [ ] **NEEDS CHECK (you fill in or drop):** Support for repairs and device problems is on https://support.apple.com/en-in/contact: not captured. Open it and copy the lines.
+
+## Daikin India (electronics_appliances)
+Main page: https://www.daikinindia.com/contact-us
+
+- [ ] **Phone 1800 102 9322** (Toll free number on the contact page (the page's label for it was not captured)) `single_source`
+  - https://www.daikinindia.com/contact-us (machine_checked: yes)
+    > 1800 102 9322
+- [ ] **Email customerservice@daikinindia.com** (Customer service)
+  - https://www.daikinindia.com/contact-us (machine_checked: yes)
+    > or Write To Us at: customerservice@daikinindia.com
+- [ ] **NEEDS CHECK (you fill in or drop):** What the toll-free number is for (for example air conditioners or refrigeration): open the page and read the heading above it.
+
+## Whirlpool (electronics_appliances)
+Main page: https://www.whirlpoolindia.com/contact-us
+
+- [ ] **NEEDS CHECK (you fill in or drop):** Contact details: whirlpoolindia.com redirected us to a 'link paused' page. Open the official Whirlpool India contact page and copy the lines.
+
+## BSES Rajdhani (utilities)
+Main page: https://www.bsesdelhi.com/web/brpl/contact-us
+
+- [ ] **Phone 19123** (Customer care (24x7 toll free)) `single_source`
+  - https://www.bsesdelhi.com/web/brpl/contact-us (machine_checked: yes)
+    > Call Us: 19123 (24X7 Toll Free)
+- [ ] **Phone 1800-200-3030** (24x7 toll free) `single_source`
+  - https://www.bsesdelhi.com/web/brpl/contact-us (machine_checked: yes)
+    > 1800-200-3030 (24x7 Toll Free)
+- [ ] **Email brpl.customercare@reliancegroupindia.com** (Customer care)
+  - https://www.bsesdelhi.com/web/brpl/contact-us (machine_checked: yes)
+    > Write to Us: brpl.customercare@reliancegroupindia.com
+- Notes: Delhi (south and west) only. Other Delhi areas use BSES Yamuna or Tata Power-DDL.
+
+## Adani Electricity (utilities)
+Main page: https://www.adanielectricity.com/Contact-us
+
+- [ ] **Phone 19122** (Toll free helpline (24x7)) `single_source`
+  - https://www.adanielectricity.com/Contact-us (machine_checked: yes)
+    > Toll-Free: 19122 (24x7)
+- [ ] **Email helpdesk.mumbaielectricity@adani.com** (Helpdesk)
+  - https://www.adanielectricity.com/Contact-us (machine_checked: yes)
+    > You can write to us at helpdesk.mumbaielectricity@adani.com
+- Notes: Mumbai suburbs only.
+

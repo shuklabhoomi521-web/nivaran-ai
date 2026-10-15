@@ -76,9 +76,8 @@ def test_lookup_handles_spelling_case_and_aliases():
     assert find_company("") is None
 
 
-@pytest.mark.xfail(reason="Phase 2 in progress: 40 companies not reached yet", strict=False)
 def test_forty_companies_across_ten_categories():
-    assert len(COMPANIES) >= 40
+    assert len(COMPANIES) == 40
     assert len({c.category for c in COMPANIES}) >= 10
 
 

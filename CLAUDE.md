@@ -1,6 +1,6 @@
 # Nivaran — project guide for Claude
 
-**Current phase: 2 (company directory), in progress: 24 companies written (all 22 test-set companies). Waiting for founder to verify docs/directory-verification.md.**
+**Current phase: 2 (company directory), in progress: 40 companies written; step 5-7 (lookup in the plan, 30-problem check) not done yet. Founder is verifying docs/directory-verification.md.**
 
 Founder: ECE student. Explain in simple words, short sentences. One line for each hard term.
 Full plan: `docs/PLAN.md` (the master prompt). Follow it.
