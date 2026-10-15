@@ -1,6 +1,6 @@
 # Nivaran — project guide for Claude
 
-**Current phase: 0 (Setup)**
+**Current phase: 0 done. Waiting for founder OK to start Phase 1.**
 
 Founder: ECE student. Explain in simple words, short sentences. One line for each hard term.
 Full plan: `docs/PLAN.md` (the master prompt). Follow it.

@@ -1,6 +1,11 @@
 # Phase 0 notes
 
-(Final 5-line summary is added at the end of the phase.)
+## Summary (5 lines)
+- Built: folder structure, FastAPI `/health`, one passing pytest, `.env.example`, CLAUDE.md, docs/PLAN.md, README.
+- Built: private GitHub repo `nivaran`, pushed, tagged `phase-0-done`.
+- Broke: nothing. Python is 3.12 here (plan says 3.11+, so fine).
+- Learned: a company-free phone provider is the biggest open risk (see Research 2).
+- Learned: Play Store notification-access rules are not confirmed; plan Layers 3 and 4 as the safe core.
 
 ## Research 1 — Play Store rules for reading OTPs
 Checked on 2026-10-15. Honest status: **partly confirmed**.
