@@ -147,13 +147,18 @@ Main page: https://www.akasaair.com/contact-us
 ## Air India (airlines)
 Main page: https://www.airindia.com/in/en/contact-us/grievance-resolution.html
 
+- [ ] **Phone +91 116 932 9333** (India customer care, 24x7 (standard call charges)) `single_source`
+  - https://www.airindia.com/in/en/contact-us.html (machine_checked: no)
+    > India Customer Care Call 24x7 +91 116 932 9333 +91 116 932 9999
+- [ ] **Phone +91 116 932 9999** (India customer care, 24x7 (standard call charges)) `single_source`
+  - https://www.airindia.com/in/en/contact-us.html (machine_checked: no)
+    > India Customer Care Call 24x7 +91 116 932 9333 +91 116 932 9999
 - [ ] **Email nodalofficer@airindia.com** (Nodal officer (after the support portal))
   - https://www.airindia.com/in/en/contact-us/grievance-resolution.html (machine_checked: no)
     > then they can quote their grievance to the Nodal Officer, who may be contacted at nodalofficer@airindia.com.
 - [ ] **Email appellateauthority@airindia.com** (Appellate authority)
   - https://www.airindia.com/in/en/contact-us/grievance-resolution.html (machine_checked: no)
     > they can lodge an appeal with our Appellate Authority at appellateauthority@airindia.com quoting their grievance.
-- [ ] **NEEDS CHECK (you fill in or drop):** Customer care phone numbers: the contact page loads them with JavaScript and our capture missed them. Open https://www.airindia.com/in/en/contact-us.html and copy the India numbers shown.
 
 ## Ola (cabs)
 Main page: https://help.olacabs.com/support/dreport/10610878990865
@@ -214,22 +219,30 @@ Main page: https://www.nykaa.com/policy
 ## Jio (telecom)
 Main page: https://myjiostatic.cdn.jio.com/jio/regulatory/rjil-telecom-charter-2025.pdf
 
-- [ ] **Phone 198** (Consumer care (toll free, from a Jio number)) `single_source`
+- [ ] **Phone 198** (Consumer care (toll free, from a Jio number)) `two_sources`
   - https://myjiostatic.cdn.jio.com/jio/regulatory/rjil-telecom-charter-2025.pdf (machine_checked: yes)
     > • call us on consumer care number 198 (toll free) or general information number 199 (toll
-- [ ] **Phone 199** (General information (from a Jio number)) `single_source`
+  - https://www.jio.com/help/contact-us (machine_checked: no)
+    > "telephone":"198"
+- [ ] **Phone 199** (General information (from a Jio number)) `two_sources`
   - https://myjiostatic.cdn.jio.com/jio/regulatory/rjil-telecom-charter-2025.pdf (machine_checked: yes)
     > • call us on consumer care number 198 (toll free) or general information number 199 (toll
+  - https://www.jio.com/help/contact-us (machine_checked: no)
+    > "telephone":"199"
 - [ ] **Phone 1800-88-99999** (Jio Mobile, from any number) `single_source`
   - https://myjiostatic.cdn.jio.com/jio/regulatory/rjil-telecom-charter-2025.pdf (machine_checked: yes)
     > • call us on 1800-88-99999(for Jio Mobile),1800-896-9999(for Jio Fiber) from any number.
-- [ ] **Phone 1800-896-9999** (Jio Fiber, from any number) `single_source`
+- [ ] **Phone 1800-896-9999** (Jio Fiber, from any number) `two_sources`
   - https://myjiostatic.cdn.jio.com/jio/regulatory/rjil-telecom-charter-2025.pdf (machine_checked: yes)
     > • call us on 1800-88-99999(for Jio Mobile),1800-896-9999(for Jio Fiber) from any number.
+  - https://www.jio.com/help/contact-us (machine_checked: no)
+    > "telephone":"+91-1800-896-9999"
 - [ ] **Email care@jio.com** (Customer care)
   - https://myjiostatic.cdn.jio.com/jio/regulatory/rjil-telecom-charter-2025.pdf (machine_checked: yes)
     > • write to us at our e-mail id: care@jio.com.
-- [ ] **NEEDS CHECK (you fill in or drop):** Second source for each phone number: the Jio contact pages load with JavaScript and gave us nothing. Open https://www.jio.com/help/contact-us and confirm the numbers.
+  - https://www.jio.com/help/contact-us (machine_checked: no)
+    > "mailbox":"care@jio.com"
+- [ ] **NEEDS CHECK (you fill in or drop):** 1800-88-99999 (Jio Mobile, any number) is on only one official page (the telecom charter); it was not found on the contact page.
 - [ ] **NEEDS CHECK (you fill in or drop):** Appellate authority contacts: https://www.jio.com/en-in/help-support/appellate-authority (regional list, not captured).
 
 ## BSNL (telecom)
@@ -395,8 +408,16 @@ Main page: https://www.zepto.com/s/customer-support
 
 - [ ] **No customer phone line** (official). https://www.zepto.com/s/customer-support (machine_checked: no)
   > Zepto does not have an official customer support phone number.
-- Notes: No customer phone line. Use the in-app chat.
-- [ ] **NEEDS CHECK (you fill in or drop):** Support email and grievance officer email: not copied from an official page yet. Open https://www.zepto.com/s/terms-of-use-zmpl-copy and copy the Grievance Officer lines.
+- [ ] **Phone 9228853846** (Grievance cum nodal officer's line (Mon - Sat, 9:00 - 18:00)) `single_source`
+  - https://www.zepto.com/s/terms-of-use-zmpl-copy (machine_checked: no)
+    > Phone: 9228853846Email: grievances@zeptonow.com
+- [ ] **Email grievances@zeptonow.com** (Grievance cum nodal officer)
+  - https://www.zepto.com/s/terms-of-use-zmpl-copy (machine_checked: no)
+    > Phone: 9228853846Email: grievances@zeptonow.com
+- [ ] **Grievance officer** Mr. Zubair Shaikh (Associate Director) grievances@zeptonow.com
+  - https://www.zepto.com/s/terms-of-use-zmpl-copy (machine_checked: no)
+    > Mr. Zubair ShaikhDesignation: Associate Director
+- Notes: No customer phone line. Use the in-app chat. The phone above is the grievance officer's line, not a customer line.
 
 ## SpiceJet (airlines)
 Main page: https://corporate.spicejet.com/contactus.aspx
@@ -439,8 +460,11 @@ Main page: https://support.google.com/pay/india/answer/10084701?hl=en
     > You can call our customer care number toll free at: 1-800-419-0157 . Our phone support is available in 5 languages (Hindi, English, Tamil, Telugu, and Kannada).
   - https://support.google.com/pay/india/answer/10084701?hl=en (machine_checked: yes)
     > You can reach customer care number toll free at: 1-800-419-0157 . Our phone support is available in 5 languages (Hindi, English, Tamil, Kannada and Telugu).
+- [ ] **Grievance officer** Rahul Dhiman (Nodal Officer)
+  - https://support.google.com/pay/india/answer/10084701?hl=en (machine_checked: no)
+    > Google Pay Nodal Officer contact details: Name: Rahul Dhiman
 - Notes: Level 1: app or phone. Level 2: grievance form. Level 3: Google Pay nodal officer form.
-- [ ] **NEEDS CHECK (you fill in or drop):** Nodal officer email: shown behind a link on the page. Open https://support.google.com/pay/india/answer/10084701?hl=en and copy the nodal officer contact lines.
+- [ ] **NEEDS CHECK (you fill in or drop):** Nodal officer email: the page shows the name and address as text but the email only behind the form link. Open https://support.google.com/pay/india/answer/10084701?hl=en and copy it.
 
 ## HDFC Bank (banking_upi)
 Main page: https://www.hdfcbank.com/personal/need-help/contact-us
@@ -459,13 +483,18 @@ Main page: https://www.hdfcbank.com/personal/need-help/contact-us
 ## SBI (banking_upi)
 Main page: https://www.sbi.co.in/web/customer-care/contact-us
 
+- [ ] **Phone 1800 1234** (Contact centre (toll free)) `single_source`
+  - https://www.sbi.co.in/web/customer-care/contact-centre (machine_checked: yes)
+    > Call 1800 1234 or 1800 2100
+- [ ] **Phone 1800 2100** (Contact centre (toll free)) `single_source`
+  - https://www.sbi.co.in/web/customer-care/contact-centre (machine_checked: yes)
+    > Call 1800 1234 or 1800 2100
 - [ ] **Email gm.customer@sbi.co.in** (Customer service (email shown on the contact page))
   - https://www.sbi.co.in/web/customer-care/contact-us (machine_checked: yes)
     > Email ID - gm.customer@sbi.co.in.
 - [ ] **Email pno@sbi.co.in** (Principal nodal officer (email shown on the contact page))
   - https://www.sbi.co.in/web/customer-care/contact-us (machine_checked: yes)
     > pno@sbi.co.in
-- [ ] **NEEDS CHECK (you fill in or drop):** Toll-free numbers: the page shows them in a table our capture did not read. Open https://www.sbi.co.in/web/customer-care/contact-centre and copy the lines.
 
 ## HDFC Life (insurance)
 Main page: https://www.hdfclife.com/customer-service/grievance-redressal

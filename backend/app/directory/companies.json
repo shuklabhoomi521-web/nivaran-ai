@@ -704,7 +704,40 @@
     ],
     "source_url": "https://www.airindia.com/in/en/contact-us/grievance-resolution.html",
     "checked_on": "2026-10-15",
-    "helplines": [],
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "+91 116 932 9333",
+        "label": "India customer care, 24x7 (standard call charges)",
+        "hours": "24x7",
+        "role": null,
+        "sources": [
+          {
+            "url": "https://www.airindia.com/in/en/contact-us.html",
+            "kind": "website",
+            "quote": "India Customer Care Call 24x7 +91 116 932 9333 +91 116 932 9999",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "+91 116 932 9999",
+        "label": "India customer care, 24x7 (standard call charges)",
+        "hours": "24x7",
+        "role": null,
+        "sources": [
+          {
+            "url": "https://www.airindia.com/in/en/contact-us.html",
+            "kind": "website",
+            "quote": "India Customer Care Call 24x7 +91 116 932 9333 +91 116 932 9999",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
     "emails": [
       {
         "kind": "email",
@@ -743,9 +776,7 @@
     "working_hours": null,
     "channel_notes": null,
     "official_no_phone": null,
-    "needs_check": [
-      "Customer care phone numbers: the contact page loads them with JavaScript and our capture missed them. Open https://www.airindia.com/in/en/contact-us.html and copy the India numbers shown."
-    ]
+    "needs_check": []
   },
   {
     "name": "Ola",
@@ -1048,6 +1079,13 @@
             "quote": "• call us on consumer care number 198 (toll free) or general information number 199 (toll",
             "checked_on": "2026-10-15",
             "machine_checked": true
+          },
+          {
+            "url": "https://www.jio.com/help/contact-us",
+            "kind": "website",
+            "quote": "\"telephone\":\"198\"",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
           }
         ]
       },
@@ -1064,6 +1102,13 @@
             "quote": "• call us on consumer care number 198 (toll free) or general information number 199 (toll",
             "checked_on": "2026-10-15",
             "machine_checked": true
+          },
+          {
+            "url": "https://www.jio.com/help/contact-us",
+            "kind": "website",
+            "quote": "\"telephone\":\"199\"",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
           }
         ]
       },
@@ -1096,6 +1141,13 @@
             "quote": "• call us on 1800-88-99999(for Jio Mobile),1800-896-9999(for Jio Fiber) from any number.",
             "checked_on": "2026-10-15",
             "machine_checked": true
+          },
+          {
+            "url": "https://www.jio.com/help/contact-us",
+            "kind": "website",
+            "quote": "\"telephone\":\"+91-1800-896-9999\"",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
           }
         ]
       }
@@ -1114,6 +1166,13 @@
             "quote": "• write to us at our e-mail id: care@jio.com.",
             "checked_on": "2026-10-15",
             "machine_checked": true
+          },
+          {
+            "url": "https://www.jio.com/help/contact-us",
+            "kind": "website",
+            "quote": "\"mailbox\":\"care@jio.com\"",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
           }
         ]
       }
@@ -1123,7 +1182,7 @@
     "channel_notes": null,
     "official_no_phone": null,
     "needs_check": [
-      "Second source for each phone number: the Jio contact pages load with JavaScript and gave us nothing. Open https://www.jio.com/help/contact-us and confirm the numbers.",
+      "1800-88-99999 (Jio Mobile, any number) is on only one official page (the telecom charter); it was not found on the contact page.",
       "Appellate authority contacts: https://www.jio.com/en-in/help-support/appellate-authority (regional list, not captured)."
     ]
   },
@@ -1912,11 +1971,59 @@
     ],
     "source_url": "https://www.zepto.com/s/customer-support",
     "checked_on": "2026-10-15",
-    "helplines": [],
-    "emails": [],
-    "grievance_officer": null,
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "9228853846",
+        "label": "Grievance cum nodal officer's line (Mon - Sat, 9:00 - 18:00)",
+        "hours": "Mon - Sat (9:00 - 18:00)",
+        "role": "officer",
+        "sources": [
+          {
+            "url": "https://www.zepto.com/s/terms-of-use-zmpl-copy",
+            "kind": "website",
+            "quote": "Phone: 9228853846Email: grievances@zeptonow.com",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "grievances@zeptonow.com",
+        "label": "Grievance cum nodal officer",
+        "hours": null,
+        "role": null,
+        "sources": [
+          {
+            "url": "https://www.zepto.com/s/terms-of-use-zmpl-copy",
+            "kind": "website",
+            "quote": "Phone: 9228853846Email: grievances@zeptonow.com",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "grievance_officer": {
+      "name": "Mr. Zubair Shaikh (Associate Director)",
+      "email": "grievances@zeptonow.com",
+      "phone": "9228853846",
+      "address": null,
+      "sources": [
+        {
+          "url": "https://www.zepto.com/s/terms-of-use-zmpl-copy",
+          "kind": "website",
+          "quote": "Mr. Zubair ShaikhDesignation: Associate Director",
+          "checked_on": "2026-10-15",
+          "machine_checked": false
+        }
+      ]
+    },
     "working_hours": null,
-    "channel_notes": "No customer phone line. Use the in-app chat.",
+    "channel_notes": "No customer phone line. Use the in-app chat. The phone above is the grievance officer's line, not a customer line.",
     "official_no_phone": {
       "url": "https://www.zepto.com/s/customer-support",
       "kind": "website",
@@ -1924,9 +2031,7 @@
       "checked_on": "2026-10-15",
       "machine_checked": false
     },
-    "needs_check": [
-      "Support email and grievance officer email: not copied from an official page yet. Open https://www.zepto.com/s/terms-of-use-zmpl-copy and copy the Grievance Officer lines."
-    ]
+    "needs_check": []
   },
   {
     "name": "SpiceJet",
@@ -2131,12 +2236,26 @@
       }
     ],
     "emails": [],
-    "grievance_officer": null,
+    "grievance_officer": {
+      "name": "Rahul Dhiman (Nodal Officer)",
+      "email": null,
+      "phone": null,
+      "address": null,
+      "sources": [
+        {
+          "url": "https://support.google.com/pay/india/answer/10084701?hl=en",
+          "kind": "website",
+          "quote": "Google Pay Nodal Officer contact details: Name: Rahul Dhiman",
+          "checked_on": "2026-10-15",
+          "machine_checked": false
+        }
+      ]
+    },
     "working_hours": null,
     "channel_notes": "Level 1: app or phone. Level 2: grievance form. Level 3: Google Pay nodal officer form.",
     "official_no_phone": null,
     "needs_check": [
-      "Nodal officer email: shown behind a link on the page. Open https://support.google.com/pay/india/answer/10084701?hl=en and copy the nodal officer contact lines."
+      "Nodal officer email: the page shows the name and address as text but the email only behind the form link. Open https://support.google.com/pay/india/answer/10084701?hl=en and copy it."
     ]
   },
   {
@@ -2228,7 +2347,40 @@
     ],
     "source_url": "https://www.sbi.co.in/web/customer-care/contact-us",
     "checked_on": "2026-10-15",
-    "helplines": [],
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "1800 1234",
+        "label": "Contact centre (toll free)",
+        "hours": null,
+        "role": null,
+        "sources": [
+          {
+            "url": "https://www.sbi.co.in/web/customer-care/contact-centre",
+            "kind": "website",
+            "quote": "Call 1800 1234 or 1800 2100",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "1800 2100",
+        "label": "Contact centre (toll free)",
+        "hours": null,
+        "role": null,
+        "sources": [
+          {
+            "url": "https://www.sbi.co.in/web/customer-care/contact-centre",
+            "kind": "website",
+            "quote": "Call 1800 1234 or 1800 2100",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
     "emails": [
       {
         "kind": "email",
@@ -2267,9 +2419,7 @@
     "working_hours": null,
     "channel_notes": null,
     "official_no_phone": null,
-    "needs_check": [
-      "Toll-free numbers: the page shows them in a table our capture did not read. Open https://www.sbi.co.in/web/customer-care/contact-centre and copy the lines."
-    ]
+    "needs_check": []
   },
   {
     "name": "HDFC Life",

@@ -24,7 +24,7 @@ Uses the AI's saved answers from the real Phase 1 run (no new API calls). Contac
 | ta-01 | Flipkart | Flipkart | email, complaint | complaint grievance.officer@flipkart.com | OK |
 | ta-02 | Jio | Jio | call, email | call 198; email care@jio.com | OK |
 | ta-03 | Uber | Uber | call, email, complaint | call +91 891 451 2030; complaint grievanceredressaloffice@uber.com | OK |
-| ta-04 | Air India | Air India | email, complaint | complaint nodalofficer@airindia.com | OK |
+| ta-04 | Air India | Air India | call, email, complaint | call +91 116 932 9333; complaint nodalofficer@airindia.com | OK |
 | ta-05 | BSNL | BSNL | call | call 1800-4444 | OK |
 | ta-06 | Swiggy | Swiggy | email, complaint | complaint grievances@swiggy.in | OK |
 | ta-07 | TNEB | TNEB | call | call 94987 94987 | OK |
