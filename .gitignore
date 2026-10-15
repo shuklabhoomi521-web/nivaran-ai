@@ -10,3 +10,4 @@ node_modules/
 .expo/
 .llm_usage.json
 docs/.live-cache-*.json
+scripts/.page_cache.json

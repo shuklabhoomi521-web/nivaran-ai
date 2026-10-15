@@ -1,0 +1,759 @@
+[
+  {
+    "name": "Swiggy",
+    "aliases": [
+      "Swiggy Instamart",
+      "Swiggy One"
+    ],
+    "category": "food_delivery",
+    "official_domains": [
+      "swiggy.com",
+      "swiggy.in"
+    ],
+    "source_url": "https://www.swiggy.com/swiggy_customer_care",
+    "checked_on": "2026-10-15",
+    "helplines": [],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "grievances@swiggy.in",
+        "label": "Grievance officer",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.swiggy.com/privacy-policy",
+            "kind": "website",
+            "quote": "If you have any queries relating to the processing or usage of information provided by you in connection with this Policy, please email us at grievances@swiggy.in or write to our Grievance Officer at the following address:",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          },
+          {
+            "url": "https://www.swiggy.com/corporate/wp-content/uploads/2025/08/Stakeholder-Engagement-and-Grievance-Redressal-Policy-.pdf",
+            "kind": "website",
+            "quote": "Communities grievances@swiggy.in",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      },
+      {
+        "kind": "email",
+        "value": "support@swiggy.in",
+        "label": "Data and consent requests",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.swiggy.com/privacy-policy",
+            "kind": "website",
+            "quote": "please write to us at support@swiggy.in.",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": "No customer phone line. Use in-app support, then email the grievance officer. Phone calls are not an option for this company.",
+    "official_no_phone": {
+      "url": "https://www.swiggy.com/swiggy_customer_care",
+      "kind": "website",
+      "quote": "Swiggy does not have any official customer care phone line. Beware of fake numbers! For any issues, please use our in-app support only, where we are available 24/7.",
+      "checked_on": "2026-10-15",
+      "machine_checked": false
+    },
+    "needs_check": []
+  },
+  {
+    "name": "Zomato",
+    "aliases": [
+      "Eternal",
+      "Eternal Limited",
+      "Zomato Gold"
+    ],
+    "category": "food_delivery",
+    "official_domains": [
+      "zomato.com",
+      "eternal.com"
+    ],
+    "source_url": "https://www.zomato.com/beware-of-fraud",
+    "checked_on": "2026-10-15",
+    "helplines": [],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "order@zomato.com",
+        "label": "Order complaints (first written step)",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.zomato.com/conditions",
+            "kind": "website",
+            "quote": "You may write to us at order@zomato.com and we will strive to resolve your order related grievance within the timelines prescribed under applicable laws.",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      },
+      {
+        "kind": "email",
+        "value": "grievance@zomato.com",
+        "label": "Grievance officer",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.zomato.com/conditions",
+            "kind": "website",
+            "quote": "Email address: grievance@zomato.com",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "grievance_officer": {
+      "name": null,
+      "email": "grievance@zomato.com",
+      "phone": null,
+      "address": null,
+      "sources": [
+        {
+          "url": "https://www.zomato.com/conditions",
+          "kind": "website",
+          "quote": "Grievance Officer, Eternal Limited (formerly known as Zomato Limited)",
+          "checked_on": "2026-10-15",
+          "machine_checked": true
+        }
+      ]
+    },
+    "working_hours": null,
+    "channel_notes": "No customer phone line. Use in-app chat, then order@zomato.com, then the grievance officer quoting the ticket number.",
+    "official_no_phone": {
+      "url": "https://www.zomato.com/beware-of-fraud",
+      "kind": "website",
+      "quote": "Zomato does not have any customer care phone line and we never ask for any such information. Beware of fake numbers!",
+      "checked_on": "2026-10-15",
+      "machine_checked": true
+    },
+    "needs_check": []
+  },
+  {
+    "name": "Amazon",
+    "aliases": [
+      "Amazon India",
+      "Amazon.in",
+      "Amazon Pay"
+    ],
+    "category": "ecommerce",
+    "official_domains": [
+      "amazon.in"
+    ],
+    "source_url": "https://www.amazon.in/gp/help/customer/display.html?nodeId=GX7NJQ4ZB8MHFRNJ",
+    "checked_on": "2026-10-15",
+    "helplines": [],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "grievance-officer@amazon.in",
+        "label": "Grievance officer",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.amazon.in/gp/help/customer/display.html?nodeId=GX7NJQ4ZB8MHFRNJ",
+            "kind": "website",
+            "quote": "e-mail PDF : grievance-officer@amazon.in",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": null,
+    "official_no_phone": null,
+    "needs_check": [
+      "Customer care phone number: the contact page needs a login, so we could not read it. Open https://www.amazon.in/contact-us while logged in and copy the number shown there."
+    ]
+  },
+  {
+    "name": "Flipkart",
+    "aliases": [
+      "Flipkart Internet",
+      "Flipkart Health+"
+    ],
+    "category": "ecommerce",
+    "official_domains": [
+      "flipkart.com"
+    ],
+    "source_url": "https://www.flipkart.com/pages/terms",
+    "checked_on": "2026-10-15",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "044-67415800",
+        "label": "Grievance officer / head office line",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.flipkart.com/pages/terms",
+            "kind": "website",
+            "quote": "Phone: 044-67415800",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          },
+          {
+            "url": "https://www.flipkart.com/helpcentre",
+            "kind": "website",
+            "quote": "Telephone: 044-45614700 / 044-67415800",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "044-45614700",
+        "label": "Head office line",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.flipkart.com/helpcentre",
+            "kind": "website",
+            "quote": "Telephone: 044-45614700 / 044-67415800",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "grievance.officer@flipkart.com",
+        "label": "Grievance officer",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.flipkart.com/pages/terms",
+            "kind": "website",
+            "quote": "Email: grievance.officer@flipkart.com",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": "Normal support is the 24x7 chat in the app or website. The phone numbers above are the office and grievance lines, not a normal customer-care line.",
+    "official_no_phone": null,
+    "needs_check": []
+  },
+  {
+    "name": "Airtel",
+    "aliases": [
+      "Bharti Airtel",
+      "Airtel Thanks"
+    ],
+    "category": "telecom",
+    "official_domains": [
+      "airtel.in",
+      "airtel.com"
+    ],
+    "source_url": "https://www.airtel.in/contact-us/",
+    "checked_on": "2026-10-15",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "121",
+        "label": "Enquiries and requests (from an Airtel number)",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.airtel.in/contact-us/",
+            "kind": "website",
+            "quote": "For Enquiries and Requests Call 121 from your Airtel number (Chargeable at 50p/3 mins for advisor access",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "198",
+        "label": "Complaints, toll free",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.airtel.in/contact-us/",
+            "kind": "website",
+            "quote": "For Complaints Call 198 (Toll Fee)",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "1800-23400",
+        "label": "Any query (Airtel subscribers)",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.airtel.in/contact-us/",
+            "kind": "website",
+            "quote": "In case of any query, Airtel subscribers can call 1800-23400.",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "9810012345",
+        "label": "From a non-Airtel number",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.airtel.in/contact-us/",
+            "kind": "website",
+            "quote": "121 for airtel users and 9810012345 from non-Airtel number",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "emails": [],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": "121, 198 and 1800-23400 are for Airtel subscribers. 9810012345 is for calls from other networks.",
+    "official_no_phone": null,
+    "needs_check": []
+  },
+  {
+    "name": "Vi",
+    "aliases": [
+      "Vodafone Idea",
+      "Vodafone",
+      "Idea",
+      "Vi Care"
+    ],
+    "category": "telecom",
+    "official_domains": [
+      "myvi.in",
+      "vodafoneidea.com"
+    ],
+    "source_url": "https://www.myvi.in/help-support/vi-customer-care-number",
+    "checked_on": "2026-10-15",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "199",
+        "label": "Customer care executives",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.myvi.in/help-support/vi-customer-care-number",
+            "kind": "website",
+            "quote": "Call us on 199 to connect with our customer care executives, or dial 198 for concerns/complaints.",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "198",
+        "label": "Concerns and complaints",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.myvi.in/help-support/vi-customer-care-number",
+            "kind": "website",
+            "quote": "Call us on 199 to connect with our customer care executives, or dial 198 for concerns/complaints.",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "9654297000",
+        "label": "WhatsApp number",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.myvi.in/help-support/vi-customer-care-number",
+            "kind": "website",
+            "quote": "WhatsApp number – 9654297000",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "customercare@vodafoneidea.com",
+        "label": "Customer care",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.myvi.in/help-support/vi-customer-care-number",
+            "kind": "website",
+            "quote": "Email Id - customercare@vodafoneidea.com",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": null,
+    "official_no_phone": null,
+    "needs_check": []
+  },
+  {
+    "name": "IRCTC",
+    "aliases": [
+      "Indian Railway Catering and Tourism Corporation",
+      "IRCTC Rail Connect"
+    ],
+    "category": "railways",
+    "official_domains": [
+      "irctc.co.in",
+      "irctc.com"
+    ],
+    "source_url": "https://contents.irctc.co.in/en/ContactUsEn.html",
+    "checked_on": "2026-10-15",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "14646",
+        "label": "Customer care within India",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://contents.irctc.co.in/en/ContactUsEn.html",
+            "kind": "website",
+            "quote": "📞 Dial 14646 (Within India)",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "+91-8044647999",
+        "label": "Outside India",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://contents.irctc.co.in/en/ContactUsEn.html",
+            "kind": "website",
+            "quote": "📞 Call: +91-8044647999 / +91-8035734999",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "+91-8035734999",
+        "label": "Outside India",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://contents.irctc.co.in/en/ContactUsEn.html",
+            "kind": "website",
+            "quote": "📞 Call: +91-8044647999 / +91-8035734999",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "etickets@irctc.co.in",
+        "label": "Cancellation and TDR issues (from the registered email only)",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://contents.irctc.co.in/en/ContactUsEn.html",
+            "kind": "website",
+            "quote": "etickets@irctc.co.in (from the registered email ID only)",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": null,
+    "official_no_phone": null,
+    "needs_check": []
+  },
+  {
+    "name": "IndiGo",
+    "aliases": [
+      "InterGlobe Aviation",
+      "6E",
+      "Indigo Airlines"
+    ],
+    "category": "airlines",
+    "official_domains": [
+      "goindigo.in"
+    ],
+    "source_url": "https://www.goindigo.in/contact-us.html",
+    "checked_on": "2026-10-15",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "0124-4973838",
+        "label": "Call centre",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.goindigo.in/contact-us.html",
+            "kind": "website",
+            "quote": "Contact: Customer.experience@goindigo.in; IndiGo’s Call Centre: at 0124-4973838 / 0124-6173838;",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "0124-6173838",
+        "label": "Call centre",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.goindigo.in/contact-us.html",
+            "kind": "website",
+            "quote": "Contact: Customer.experience@goindigo.in; IndiGo’s Call Centre: at 0124-4973838 / 0124-6173838;",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "customer.experience@goindigo.in",
+        "label": "Customer experience",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.goindigo.in/contact-us.html",
+            "kind": "website",
+            "quote": "Contact: Customer.experience@goindigo.in; IndiGo’s Call Centre: at 0124-4973838 / 0124-6173838;",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "email",
+        "value": "nodalofficer@goindigo.in",
+        "label": "Nodal officer (level 2)",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.goindigo.in/contact-us.html",
+            "kind": "website",
+            "quote": "Nodal Officer, Isha Gandhi at nodalofficer@goindigo.in; 0124-4973838 / 0124-6173838",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "email",
+        "value": "appellateauthority@goindigo.in",
+        "label": "Appellate authority (level 3)",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.goindigo.in/contact-us.html",
+            "kind": "website",
+            "quote": "Appellate Authority, Pratik Arjun Sen at appellateauthority@goindigo.in; 0124-4973838 / 0124-6173838",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": "Names of officers change between IndiGo pages: use the email addresses, not the names.",
+    "official_no_phone": null,
+    "needs_check": []
+  },
+  {
+    "name": "Akasa Air",
+    "aliases": [
+      "Akasa"
+    ],
+    "category": "airlines",
+    "official_domains": [
+      "akasaair.com"
+    ],
+    "source_url": "https://www.akasaair.com/contact-us",
+    "checked_on": "2026-10-15",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "+91 9606 11 21 31",
+        "label": "Customer care",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.akasaair.com/contact-us",
+            "kind": "website",
+            "quote": "+91 9606 11 21 31",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "nodalofficer@akasaair.com",
+        "label": "Nodal officer (level 1)",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.akasaair.com/contact-us",
+            "kind": "website",
+            "quote": "Level 1 : Nodal Officer (nodalofficer@akasaair.com) managed by Ms. Deepika Poojary, General Manager, Customer Experience",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      },
+      {
+        "kind": "email",
+        "value": "appellateauthority@akasaair.com",
+        "label": "Appellate authority (level 2)",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.akasaair.com/contact-us",
+            "kind": "website",
+            "quote": "Level 2 : Appellate Authority (appellateauthority@akasaair.com) managed by Ms. Ramita Vyas, Vice President - Customer Experience",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": null,
+    "official_no_phone": null,
+    "needs_check": []
+  },
+  {
+    "name": "Air India",
+    "aliases": [
+      "AI",
+      "Air India Express"
+    ],
+    "category": "airlines",
+    "official_domains": [
+      "airindia.com"
+    ],
+    "source_url": "https://www.airindia.com/in/en/contact-us/grievance-resolution.html",
+    "checked_on": "2026-10-15",
+    "helplines": [],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "nodalofficer@airindia.com",
+        "label": "Nodal officer (after the support portal)",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.airindia.com/in/en/contact-us/grievance-resolution.html",
+            "kind": "website",
+            "quote": "then they can quote their grievance to the Nodal Officer, who may be contacted at nodalofficer@airindia.com.",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "email",
+        "value": "appellateauthority@airindia.com",
+        "label": "Appellate authority",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.airindia.com/in/en/contact-us/grievance-resolution.html",
+            "kind": "website",
+            "quote": "they can lodge an appeal with our Appellate Authority at appellateauthority@airindia.com quoting their grievance.",
+            "checked_on": "2026-10-15",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": null,
+    "official_no_phone": null,
+    "needs_check": [
+      "Customer care phone numbers: the contact page loads them with JavaScript and our capture missed them. Open https://www.airindia.com/in/en/contact-us.html and copy the India numbers shown."
+    ]
+  },
+  {
+    "name": "Ola",
+    "aliases": [
+      "Ola Cabs",
+      "ANI Technologies"
+    ],
+    "category": "cabs",
+    "official_domains": [
+      "olacabs.com"
+    ],
+    "source_url": "https://www.olacabs.com/contact",
+    "checked_on": "2026-10-15",
+    "helplines": [],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "security@olacabs.com",
+        "label": "Security concerns",
+        "hours": null,
+        "sources": [
+          {
+            "url": "https://www.olacabs.com/contact",
+            "kind": "website",
+            "quote": "If you have security concerns, please report your issues with Ola at security@olacabs.com",
+            "checked_on": "2026-10-15",
+            "machine_checked": true
+          }
+        ]
+      }
+    ],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": null,
+    "official_no_phone": null,
+    "needs_check": [
+      "Grievance officer email (grievance@olacabs.com) and nodal officer email (nodal.officer@olacabs.com) were seen only in a search summary. Open https://help.olacabs.com/support/dreport/10610878990865 and copy the exact lines.",
+      "Ola says its old phone number is gone and support is in the app: confirm on https://www.olacabs.com/contact."
+    ]
+  }
+]

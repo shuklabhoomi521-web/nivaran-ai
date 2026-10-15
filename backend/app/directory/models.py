@@ -28,6 +28,7 @@ class Source(Strict):
     kind: SourceKind
     quote: str            # the exact line from the page (copied, not reworded)
     checked_on: date
+    machine_checked: bool = False   # True = our script re-fetched the page and found this exact line
 
     @property
     def host(self) -> str:
@@ -72,6 +73,7 @@ class Company(Strict):
     grievance_officer: GrievanceOfficer | None = None
     working_hours: str | None = None
     channel_notes: str | None = None
+    official_no_phone: Source | None = None   # the official page saying the company has NO customer phone line
     needs_check: list[str] = []   # things we could not confirm: the founder must fill or drop them
 
     @field_validator("source_url")
