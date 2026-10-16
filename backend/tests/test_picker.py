@@ -60,7 +60,7 @@ def test_resolve_channel_fallbacks():
     swiggy = pick_contact(find_company("Swiggy"))
     assert resolve_channel(Channel.call, swiggy)[0] == Channel.email
     assert resolve_channel(Channel.email, swiggy) == (Channel.email, None)
-    empty = pick_contact(find_company("Meru Cabs"))
+    empty = pick_contact(find_company("Indian Railways"))
     ch, why = resolve_channel(Channel.call, empty)
     assert ch is None and "no verified contact" in why
     airtel = pick_contact(find_company("Airtel"))

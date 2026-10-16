@@ -27,3 +27,7 @@ Research and write down, with official sources (trai.gov.in, not vendor blogs):
 ## Phase 9: run-to-run drift and meaning check
 - Same prompt and model gave different answers on different runs (see `docs/baseline-history.md`). Score each problem 3-5 times and report mean and spread.
 - The meaning-based fact check is a cheap word-overlap test (lenient). Add a stronger judge (a small model or careful rules) and compare.
+
+## Exotel KYC (founder emailed 2026-10-15/16)
+- The founder emailed hello@exotel.com asking whether an individual with a free Udyam registration (sole proprietor) can complete KYC and make outbound calls.
+- Waiting for the reply. Needed before Phase 5 (real company calls). Phase 4 uses the Twilio trial. Record Exotel's answer here (documents, time to approve, trial limits).

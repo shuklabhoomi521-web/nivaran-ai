@@ -1,6 +1,6 @@
 # Directory verification checklist
 
-Generated 2026-10-15 by `scripts/build_directory.py`. For every contact below: open the link, find the exact line, and tick the box.
+Generated 2026-10-16 by `scripts/build_directory.py`. For every contact below: open the link, find the exact line, and tick the box.
 
 - `machine_checked: yes` = our script re-fetched the page and found that exact line.
 - `machine_checked: no` = the page blocked our script; the line was read in a real browser. Check it yourself.
@@ -447,10 +447,19 @@ Main page: https://railmadad.indianrailways.gov.in/
 
 - [ ] **NEEDS CHECK (you fill in or drop):** Helpline number and complaint routes (RailMadad): the page loaded but our capture timed out. Open https://railmadad.indianrailways.gov.in/ and copy the helpline line.
 
-## Meru Cabs (cabs)
-Main page: https://www.merucabs.com/
+## Carzonrent (cabs)
+Main page: https://www.carzonrent.com/contact-us
 
-- [ ] **NEEDS CHECK (you fill in or drop):** Contact details: the Meru site's security certificate was expired when we tried, so we did not read it. Open the official Meru contact page and copy the lines.
+- [ ] **Phone 1800 121 888 070** (Customer support (open 24 hours)) `single_source`
+  - https://www.carzonrent.com/contact-us (machine_checked: yes)
+    > 1800 121 888 070
+- [ ] **Email care@carzonrent.com** (Customer support)
+  - https://www.carzonrent.com/contact-us (machine_checked: yes)
+    > You can contact Carzonrent by filling out the enquiry form on this page, calling our customer support team, or emailing us at care@carzonrent.com. Our team assists with bookings, airport transfers, chauffeur services, corporate travel, and other travel-related enquiries.
+- [ ] **Email reserve@carzonrent.com** (Bookings and active-booking help)
+  - https://www.carzonrent.com/contact-us (machine_checked: yes)
+    > reserve@carzonrent.com
+- Notes: Chauffeur-driven cars, airport transfers and rentals (not a ride-hailing app).
 
 ## Google Pay (banking_upi)
 Main page: https://support.google.com/pay/india/answer/10084701?hl=en
@@ -553,10 +562,18 @@ Main page: https://www.daikinindia.com/contact-us
     > or Write To Us at: customerservice@daikinindia.com
 - [ ] **NEEDS CHECK (you fill in or drop):** What the toll-free number is for (for example air conditioners or refrigeration): open the page and read the heading above it.
 
-## Whirlpool (electronics_appliances)
-Main page: https://www.whirlpoolindia.com/contact-us
+## Haier India (electronics_appliances)
+Main page: https://www.haierindia.com/contact-us
 
-- [ ] **NEEDS CHECK (you fill in or drop):** Contact details: whirlpoolindia.com redirected us to a 'link paused' page. Open the official Whirlpool India contact page and copy the lines.
+- [ ] **Phone 1800-419-9999** (Toll free) `single_source`
+  - https://www.haierindia.com/contact-us (machine_checked: yes)
+    > Toll Free : 1800-419-9999 / 1800-102-9999
+- [ ] **Phone 1800-102-9999** (Toll free) `single_source`
+  - https://www.haierindia.com/contact-us (machine_checked: yes)
+    > Toll Free : 1800-419-9999 / 1800-102-9999
+- [ ] **Email customercare@haierindia.com** (Customer care)
+  - https://www.haierindia.com/contact-us (machine_checked: yes)
+    > Email : customercare@haierindia.com
 
 ## BSES Rajdhani (utilities)
 Main page: https://www.bsesdelhi.com/web/brpl/contact-us

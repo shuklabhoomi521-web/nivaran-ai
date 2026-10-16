@@ -1,6 +1,6 @@
 # Nivaran — project guide for Claude
 
-**Current phase: 2 (company directory): code done, second check applied. Waiting for founder to verify the remaining needs_check items, then end-of-phase review and tag.**
+**Current phase: 2 done. Waiting for founder OK to start Phase 3 (voice in the browser).**
 
 Founder: ECE student. Explain in simple words, short sentences. One line for each hard term.
 Full plan: `docs/PLAN.md` (the master prompt). Follow it.
