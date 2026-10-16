@@ -20,6 +20,13 @@ class Settings:
     gemini_rpd: int          # max requests per day we allow ourselves (0 = no local cap)
     claude_model: str
     claude_effort: str | None
+    stt_provider: str        # "gemini" (default) or "fake" in tests
+    tts_provider: str
+    gemini_stt_model: str
+    gemini_tts_model: str
+    gemini_tts_voice: str
+    speech_rpm: int          # our own speed limit for audio calls
+    speech_rpd: int
 
 
 def _int(name: str, default: int) -> int:
@@ -41,4 +48,11 @@ def get_settings() -> Settings:
         gemini_rpd=_int("GEMINI_RPD", 0),
         claude_model=os.getenv("CLAUDE_MODEL", "").strip(),
         claude_effort=os.getenv("CLAUDE_EFFORT", "").strip() or None,
+        stt_provider=(os.getenv("STT_PROVIDER", "").strip() or "gemini").lower(),
+        tts_provider=(os.getenv("TTS_PROVIDER", "").strip() or "gemini").lower(),
+        gemini_stt_model=os.getenv("GEMINI_STT_MODEL", "").strip() or "gemini-3.5-transcribe",
+        gemini_tts_model=os.getenv("GEMINI_TTS_MODEL", "").strip() or "gemini-3.8-flash-tts",
+        gemini_tts_voice=os.getenv("GEMINI_TTS_VOICE", "").strip() or "Kore",
+        speech_rpm=_int("SPEECH_RPM", 6),
+        speech_rpd=_int("SPEECH_RPD", 0),
     )

@@ -31,3 +31,8 @@ Research and write down, with official sources (trai.gov.in, not vendor blogs):
 ## Exotel KYC (founder emailed 2026-10-15/16)
 - The founder emailed hello@exotel.com asking whether an individual with a free Udyam registration (sole proprietor) can complete KYC and make outbound calls.
 - Waiting for the reply. Needed before Phase 5 (real company calls). Phase 4 uses the Twilio trial. Record Exotel's answer here (documents, time to approve, trial limits).
+
+## Before Phase 5: the contact picker must understand problem types
+- Today the picker takes the first suitable phone for a company. It does not look at the problem.
+- Needed: contacts get an `applies_to` field (for example BSNL broadband vs mobile vs landline, Jio Fiber vs Jio Mobile, Airtel prepaid vs DTH, Star Health claims vs renewals), and the picker chooses by the case's category / problem type.
+- Then test with a live plan call (the plan endpoint has only been tested with a fake AI so far).

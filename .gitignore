@@ -11,3 +11,7 @@ node_modules/
 .llm_usage.json
 docs/.live-cache-*.json
 scripts/.page_cache.json
+speech_test/recordings/
+speech_test/tts_samples/
+docs/.speech-cache.json
+.speech_usage.json

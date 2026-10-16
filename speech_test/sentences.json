@@ -1,0 +1,30 @@
+{
+  "english": {"locale": "en-IN", "sentences": [
+    {"id": "english-01", "text": "My Swiggy order came cold and I want a refund."},
+    {"id": "english-02", "text": "The flight was cancelled and nobody is giving me my money back."},
+    {"id": "english-03", "text": "My order number is 4839201.", "tts_text": "My order number is 4 8 3 9 2 0 1.", "say": "My order number is four, eight, three, nine, two, zero, one. (digits one by one, in English)"},
+    {"id": "english-04", "text": "I paid through PhonePe but the money was deducted and the payment failed."},
+    {"id": "english-05", "text": "Please tell the company that my internet has not worked for many days.", "noisy": true}
+  ]},
+  "hindi": {"locale": "hi-IN", "sentences": [
+    {"id": "hindi-01", "text": "मेरा खाना ठंडा आया और मुझे पैसे वापस चाहिए।"},
+    {"id": "hindi-02", "text": "मेरी ट्रेन की टिकट कैंसिल हुई लेकिन रिफंड नहीं आया।"},
+    {"id": "hindi-03", "text": "मेरा ऑर्डर नंबर 4839201 है।", "tts_text": "मेरा ऑर्डर नंबर 4 8 3 9 2 0 1 है।", "say": "मेरा ऑर्डर नंबर four eight three nine two zero one है। (अंक एक-एक करके, अंग्रेज़ी में)"},
+    {"id": "hindi-04", "text": "यूपीआई से पैसे कट गए लेकिन भुगतान फेल हो गया।"},
+    {"id": "hindi-05", "text": "कृपया कंपनी को बताइए कि मेरा इंटरनेट काम नहीं कर रहा।", "noisy": true}
+  ]},
+  "tamil": {"locale": "ta-IN", "sentences": [
+    {"id": "tamil-01", "text": "என் ஆர்டர் குளிர்ந்து போய் வந்தது, எனக்கு பணம் திரும்ப வேண்டும்."},
+    {"id": "tamil-02", "text": "என் இன்டர்நெட் மூன்று நாட்களாக வேலை செய்யவில்லை."},
+    {"id": "tamil-03", "text": "என் ஆர்டர் எண் 4839201.", "tts_text": "என் ஆர்டர் எண் 4 8 3 9 2 0 1.", "say": "என் ஆர்டர் எண் four eight three nine two zero one. (எண்களை ஒவ்வொன்றாக, ஆங்கிலத்தில்)"},
+    {"id": "tamil-04", "text": "ரயில் டிக்கெட்டை ரத்து செய்தேன், ஆனால் பணம் இன்னும் வரவில்லை."},
+    {"id": "tamil-05", "text": "தயவுசெய்து என் புகாரை நிறுவனத்திடம் சொல்லுங்கள்.", "noisy": true}
+  ]},
+  "hinglish": {"locale": "hi-IN", "sentences": [
+    {"id": "hinglish-01", "text": "Mera khana thanda aaya, mujhe refund chahiye.", "text_alt": "मेरा खाना ठंडा आया, मुझे रिफंड चाहिए।"},
+    {"id": "hinglish-02", "text": "Maine Amazon se kurti order ki thi, lekin alag aayi.", "text_alt": "मैंने अमेज़न से कुर्ती ऑर्डर की थी, लेकिन अलग आई।"},
+    {"id": "hinglish-03", "text": "Mera order number 4839201 hai.", "text_alt": "मेरा ऑर्डर नंबर 4839201 है।", "tts_text": "Mera order number 4 8 3 9 2 0 1 hai.", "say": "Mera order number four eight three nine two zero one hai. (digits one by one, in English)"},
+    {"id": "hinglish-04", "text": "UPI se paisa kat gaya lekin payment fail ho gaya.", "text_alt": "यूपीआई से पैसा कट गया लेकिन पेमेंट फेल हो गया।"},
+    {"id": "hinglish-05", "text": "Please company ko bolo ki mera internet kaam nahi kar raha.", "text_alt": "प्लीज़ कंपनी को बोलो कि मेरा इंटरनेट काम नहीं कर रहा।", "noisy": true}
+  ]}
+}
