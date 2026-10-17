@@ -1,3 +1,20 @@
+# Record these now: Indian English and Hinglish (10 clips)
+
+Real public clips already cover Hindi and Tamil (Google FLEURS) but not Indian-accented English or Hinglish, so those are the two to record.
+
+| Folder (already exists) | File names to use |
+|---|---|
+| `~/nivaran/speech_test/recordings/english/` | `english-01.m4a`, `english-02.m4a`, `english-03.m4a`, `english-04.m4a`, `english-05.m4a` |
+| `~/nivaran/speech_test/recordings/hinglish/` | `hinglish-01.m4a`, `hinglish-02.m4a`, `hinglish-03.m4a`, `hinglish-04.m4a`, `hinglish-05.m4a` |
+
+- Speak in your natural Indian accent, at your normal speed.
+- Clip **05** in each folder is the one **with background noise** (TV, fan, street). Clips 01-04 in a quiet room.
+- Clip **03** has the order number: say the digits one by one in English.
+- `.wav` or `.mp3` also work; keep the same file names.
+- The exact words for every clip are in the tables below.
+
+---
+
 # Your recordings for the speech bake-off
 
 You record **5 short clips in each of 4 languages (20 clips)**. These count 70% of the bake-off score, because real voices are messier than computer voices.
