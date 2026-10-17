@@ -36,3 +36,10 @@ Research and write down, with official sources (trai.gov.in, not vendor blogs):
 - Today the picker takes the first suitable phone for a company. It does not look at the problem.
 - Needed: contacts get an `applies_to` field (for example BSNL broadband vs mobile vs landline, Jio Fiber vs Jio Mobile, Airtel prepaid vs DTH, Star Health claims vs renewals), and the picker chooses by the case's category / problem type.
 - Then test with a live plan call (the plan endpoint has only been tested with a fake AI so far).
+
+## Phase 3.5: add Telugu, Kannada, Malayalam, Bengali, Marathi, Gujarati, Punjabi (founder's decision: AFTER Phase 3 is done)
+- Order: text brain first (cheap), speech second.
+- Text brain: write 3 test problems per language (21 total, plus the usual traps: missing details, two problems in one message, unclear company, card number). The founder gets native speakers from college to check the sentences before we trust the scores. Run the understand endpoint on them, score with the Phase 1 rules, add per-language rows to the baseline table.
+- Speech: computer-voice round trip first (free), then real voices: Google FLEURS has te_in, kn_in, ml_in, bn_in, mr_in, gu_in, pa_in dev files (ask before each download; sizes listed on the dataset page) and native speakers can record the same sentences. Check phone quality (8 kHz) like Phase 3.
+- Only languages that score well get listed as "supported". Company-side calls stay English/Hindi unless a company needs more.
+- Note: Language values already exist in the case model (telugu, kannada, malayalam, bengali, marathi, gujarati, punjabi), so no model change is needed.

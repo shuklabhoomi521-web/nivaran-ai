@@ -2,7 +2,10 @@
 and per-day limits, retries on 'server busy', and a clean stop on a daily 429."""
 import base64
 import re
+import threading
 import time
+
+import httpx
 from pathlib import Path
 
 from app.brain.ratelimit import DailyQuotaExceeded, RateLimiter
@@ -13,15 +16,45 @@ SPEECH_USAGE_FILE = Path(__file__).resolve().parents[3] / ".speech_usage.json"  
 BUSY_WAITS = (10, 20, 40, 60)
 
 
-def _call_with_retries(limiter: RateLimiter, fn, what: str):
+class HardTimeout(Exception):
+    pass
+
+
+def _run_with_hard_timeout(fn, seconds: float):
+    """Google's own timeout setting did not stop a hung audio call, so we run the call in a daemon
+    thread and give up after `seconds` (the hung thread is left behind and never blocks exit)."""
+    box: dict = {}
+
+    def target():
+        try:
+            box["value"] = fn()
+        except BaseException as e:  # noqa: BLE001 - re-raised in the caller
+            box["error"] = e
+
+    t = threading.Thread(target=target, daemon=True)
+    t.start()
+    t.join(seconds)
+    if t.is_alive():
+        raise HardTimeout(f"no answer after {seconds:.0f}s")
+    if "error" in box:
+        raise box["error"]
+    return box["value"]
+
+
+def _call_with_retries(limiter: RateLimiter, fn, what: str, hard_timeout: float = 75):
     from google.genai import errors
 
     for attempt in range(len(BUSY_WAITS) + 1):
         try:
             limiter.acquire()
-            return fn()
+            return _run_with_hard_timeout(fn, hard_timeout)
         except DailyQuotaExceeded:
             raise
+        except (httpx.TimeoutException, httpx.NetworkError, HardTimeout) as e:   # hung or dropped connection (for example after the laptop slept)
+            if attempt < 2:    # a hung call is retried twice, not forever
+                time.sleep(BUSY_WAITS[attempt])
+                continue
+            raise SpeechError(f"Gemini {what} timed out: {type(e).__name__}") from e
         except errors.APIError as e:
             text = str(e)
             if e.code == 429:
@@ -61,7 +94,7 @@ class GeminiSTT:
         )
         if cfg:
             body["generation_config"] = cfg
-        it = _call_with_retries(self._limiter, lambda: self._client.interactions.create(**body), "speech-to-text")
+        it = _call_with_retries(self._limiter, lambda: self._client.interactions.create(timeout=60, **body), "speech-to-text")
         text = (it.output_text or "").strip()
         return Transcript(text=text, language=language)
 
@@ -80,7 +113,7 @@ class GeminiTTS:
             speech["language"] = language
         body = dict(model=self._s.gemini_tts_model, input=text, response_format={"type": "audio"},
                     generation_config={"speech_config": [speech]})
-        it = _call_with_retries(self._limiter, lambda: self._client.interactions.create(**body), "text-to-speech")
+        it = _call_with_retries(self._limiter, lambda: self._client.interactions.create(timeout=90, **body), "text-to-speech")
         audio = it.output_audio
         if audio is None or not audio.data:
             raise SpeechError("Gemini returned no audio.")

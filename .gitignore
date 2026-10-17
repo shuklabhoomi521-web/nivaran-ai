@@ -15,3 +15,5 @@ speech_test/recordings/
 speech_test/tts_samples/
 docs/.speech-cache.json
 .speech_usage.json
+speech_test/_download/
+speech_test/public/
