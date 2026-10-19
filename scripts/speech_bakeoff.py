@@ -34,6 +34,7 @@ OUT_MD = ROOT / "docs" / "speech-bakeoff.md"
 OUT_JSON = ROOT / "docs" / "speech-bakeoff.json"
 AUDIO_EXT = (".m4a", ".wav", ".mp3", ".aiff", ".aif", ".caf")
 W_OWN, W_SYNTH = 0.7, 0.3
+LANG_HINT = {"english": "en-IN", "hindi": "hi-IN", "tamil": "ta-IN", "hinglish": "hinglish"}
 
 
 def load_cache() -> dict:
@@ -73,6 +74,7 @@ def main() -> None:
     ap.add_argument("--only", choices=["synth", "real", "own", "public"])
     ap.add_argument("--langs")
     ap.add_argument("--no-tts-samples", action="store_true")
+    ap.add_argument("--hint", action="store_true", help="tell the speech-to-text which language the user picked (the app will know this)")
     args = ap.parse_args()
     s = get_settings()
     sentences = json.loads((TEST_DIR / "sentences.json").read_text())
@@ -81,20 +83,22 @@ def main() -> None:
     cache = load_cache()
     rows = []
     stopped = None
-    stt_id = f"{s.stt_provider}:{s.gemini_stt_model}"
+    stt_model = s.gemini_prompt_stt_model if s.stt_provider == "gemini_prompt" else s.gemini_stt_model
+    stt_id = f"{s.stt_provider}:{stt_model}"
 
-    def transcribe(audio_wav: bytes, key_extra: str):
+    def transcribe(audio_wav: bytes, key_extra: str, hint: str | None = None):
         key = hashlib.sha1(audio_wav).hexdigest() + "|" + stt_id + "|" + key_extra
         if key in cache:
             return cache[key]["text"], cache[key]["secs"], True
         t0 = time.time()
         try:
-            text = stt.transcribe(audio_wav, "audio/wav").text
+            text = stt.transcribe(audio_wav, "audio/wav", hint).text
         except SpeechError as e:     # hung or failed call: counts as a miss, and is remembered so we do not retry forever
             text = f"[FAILED: {e}]"
         secs = round(time.time() - t0, 2)
-        cache[key] = {"text": text, "secs": secs}
-        save_cache(cache)
+        if not text.startswith("[FAILED"):     # never remember a failure: a re-run should try again
+            cache[key] = {"text": text, "secs": secs}
+            save_cache(cache)
         return text, secs, False
 
     public_refs = {}
@@ -103,8 +107,9 @@ def main() -> None:
         public_refs = json.loads(pr.read_text(encoding="utf-8"))
 
     def run_clip(lang, sent, kind, path):
+        hint = LANG_HINT.get(lang) if args.hint else None
         for cond in CONDITIONS:
-            hyp, secs, cached = transcribe(render(path, cond), "")
+            hyp, secs, cached = transcribe(render(path, cond), f"hint={hint}" if hint else "", hint)
             w, c = best_score(sent, hyp)
             rows.append({"lang": lang, "id": sent["id"], "kind": kind, "cond": cond, "noisy": bool(sent.get("noisy")),
                          "wer": round(w, 3), "cer": round(c, 3), "secs": secs, "ref": sent["text"], "hyp": hyp,
@@ -137,7 +142,7 @@ def main() -> None:
                         sources.append(("own", rec))
                 for kind, path in sources:
                     for cond in CONDITIONS:
-                        hyp, secs, cached = transcribe(render(path, cond), "")
+                        hyp, secs, cached = transcribe(render(path, cond), f"hint={LANG_HINT.get(lang)}" if args.hint else "", LANG_HINT.get(lang) if args.hint else None)
                         w, c = best_score(sent, hyp)
                         rows.append({"lang": lang, "id": sid, "kind": kind, "cond": cond, "noisy": bool(sent.get("noisy")),
                                      "wer": round(w, 3), "cer": round(c, 3), "secs": secs, "ref": sent["text"], "hyp": hyp,
@@ -147,6 +152,8 @@ def main() -> None:
         stopped = str(e)
         print("STOPPED:", e)
 
+    global HINT_ON
+    HINT_ON = args.hint
     report(rows, s, stopped, langs)
 
 
@@ -158,6 +165,9 @@ def pct(x):
     return "-" if x is None else f"{x:.0%}"
 
 
+HINT_ON = False
+
+
 def report(rows, s, stopped, langs) -> None:
     def avg(lang, kind, cond, key="wer", noisy=None):
         kinds = ("own", "public") if kind == "real" else (kind,)
@@ -166,7 +176,8 @@ def report(rows, s, stopped, langs) -> None:
         return mean(xs)
 
     md = ["# Speech bake-off (Phase 3)", "",
-          f"- Date: {date.today()}; STT `{s.stt_provider}:{s.gemini_stt_model}`; TTS `{s.tts_provider}:{s.gemini_tts_model}`, voice `{s.gemini_tts_voice}`",
+          f"- Language hint given to the speech-to-text: {'YES (the app knows the language the user picked)' if HINT_ON else 'no'}",
+          f"- Date: {date.today()}; STT `{s.stt_provider}:{s.gemini_prompt_stt_model if s.stt_provider == 'gemini_prompt' else s.gemini_stt_model}`; TTS `{s.tts_provider}:{s.gemini_tts_model}`, voice `{s.gemini_tts_voice}`",
           f"- WER = word error rate (lower is better; 0% perfect). Weighted score = {int(W_OWN * 100)}% real human voices (your recordings + public FLEURS clips) + {int(W_SYNTH * 100)}% synthetic round trip "
           "(if a language has no real voices yet, only the synthetic number is shown and marked).",
           "- Conditions: clean = 16 kHz; phone 8 kHz = phone sampling rate; phone mu-law = 8 kHz squeezed like a real phone line.", ""]

@@ -58,6 +58,12 @@ def test_unknown_speech_provider_is_rejected(monkeypatch):
         make_tts()
 
 
+def test_prompt_based_provider_is_available(monkeypatch):
+    monkeypatch.setenv("STT_PROVIDER", "gemini_prompt")
+    assert get_settings().stt_provider == "gemini_prompt"
+    assert get_settings().gemini_prompt_stt_model == "gemini-3.5-flash-lite"
+
+
 def test_speech_defaults(monkeypatch):
     for k in ("STT_PROVIDER", "TTS_PROVIDER", "GEMINI_STT_MODEL", "GEMINI_TTS_MODEL", "SPEECH_RPM"):
         monkeypatch.delenv(k, raising=False)

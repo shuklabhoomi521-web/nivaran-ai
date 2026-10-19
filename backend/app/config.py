@@ -25,6 +25,7 @@ class Settings:
     gemini_stt_model: str
     gemini_tts_model: str
     gemini_tts_voice: str
+    gemini_prompt_stt_model: str   # general Gemini model used for transcription-by-prompt (STT_PROVIDER=gemini_prompt)
     speech_rpm: int          # our own speed limit for audio calls
     speech_rpd: int
 
@@ -53,6 +54,7 @@ def get_settings() -> Settings:
         gemini_stt_model=os.getenv("GEMINI_STT_MODEL", "").strip() or "gemini-3.5-transcribe",
         gemini_tts_model=os.getenv("GEMINI_TTS_MODEL", "").strip() or "gemini-3.8-flash-tts",
         gemini_tts_voice=os.getenv("GEMINI_TTS_VOICE", "").strip() or "Kore",
+        gemini_prompt_stt_model=os.getenv("GEMINI_PROMPT_STT_MODEL", "").strip() or "gemini-3.5-flash-lite",
         speech_rpm=_int("SPEECH_RPM", 6),
         speech_rpd=_int("SPEECH_RPD", 0),
     )

@@ -55,7 +55,15 @@ def _call_with_retries(limiter: RateLimiter, fn, what: str, hard_timeout: float 
                 time.sleep(BUSY_WAITS[attempt])
                 continue
             raise SpeechError(f"Gemini {what} timed out: {type(e).__name__}") from e
-        except errors.APIError as e:
+        except Exception as e:  # noqa: BLE001
+            # the Google SDK has its own timeout/connection error classes (not httpx's): treat them like a hung call
+            if type(e).__name__ in ("APITimeoutError", "APIConnectionError"):
+                if attempt < 2:
+                    time.sleep(BUSY_WAITS[attempt])
+                    continue
+                raise SpeechError(f"Gemini {what} timed out: {type(e).__name__}") from e
+            if not isinstance(e, errors.APIError):
+                raise
             text = str(e)
             if e.code == 429:
                 if re.search(r"PerDay|per day|daily", text, re.I):
@@ -69,6 +77,7 @@ def _call_with_retries(limiter: RateLimiter, fn, what: str, hard_timeout: float 
                 time.sleep(BUSY_WAITS[attempt])
                 continue
             raise SpeechError(f"Gemini {what} error {e.code}: {e.message}") from e
+    raise SpeechError(f"Gemini {what} failed after several tries.")
 
 
 def make_limiter() -> RateLimiter:
@@ -97,6 +106,42 @@ class GeminiSTT:
         it = _call_with_retries(self._limiter, lambda: self._client.interactions.create(timeout=60, **body), "speech-to-text")
         text = (it.output_text or "").strip()
         return Transcript(text=text, language=language)
+
+
+class GeminiPromptSTT:
+    """Transcription with a general Gemini model and a plain instruction. Used when the dedicated transcribe model
+    is slow or overloaded, and as a second opinion in the bake-off."""
+
+    PROMPT = ("Transcribe this audio exactly as spoken, word for word. Keep the original language and script "
+              "(Devanagari for Hindi, Tamil script for Tamil, English letters for English). If the speaker mixes Hindi and "
+              "English, keep each word in the language it was spoken. Do not translate, summarise or add anything. "
+              "Output only the transcript.")
+
+    # The app knows the language the user picked, so we tell the model. Without this it sometimes
+    # wrote Hindi in English letters or answered a Tamil clip in Hindi.
+    HINTS = {
+        "hi-IN": "The speaker is speaking Hindi. Write the transcript in Devanagari script.",
+        "ta-IN": "The speaker is speaking Tamil. Write the transcript in Tamil script.",
+        "en-IN": "The speaker is speaking English (Indian accent). Write the transcript in English letters.",
+        "hinglish": "The speaker mixes Hindi and English (Hinglish). Write Hindi words in English letters and English words normally.",
+    }
+
+    def __init__(self, limiter: RateLimiter | None = None) -> None:
+        from google import genai
+
+        self._s = get_settings()
+        self._client = genai.Client()
+        self._limiter = limiter or make_limiter()
+
+    def transcribe(self, audio: bytes, mime_type: str, language: str | None = None) -> Transcript:
+        prompt = self.PROMPT + (" " + self.HINTS[language] if language in self.HINTS else "")
+        body = dict(
+            model=self._s.gemini_prompt_stt_model,
+            input=[{"type": "audio", "data": base64.b64encode(audio).decode(), "mime_type": mime_type},
+                   {"type": "text", "text": prompt}],
+        )
+        it = _call_with_retries(self._limiter, lambda: self._client.interactions.create(timeout=60, **body), "speech-to-text (prompt)")
+        return Transcript(text=(it.output_text or "").strip(), language=language)
 
 
 class GeminiTTS:
