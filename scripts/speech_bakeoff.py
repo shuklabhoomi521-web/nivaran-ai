@@ -86,7 +86,7 @@ def main() -> None:
     langs = args.langs.split(",") if args.langs else list(sentences)
     stt, tts = make_stt(), make_tts()
     cache, rows, stopped = load_cache(), [], None
-    stt_model = s.gemini_prompt_stt_model if s.stt_provider == "gemini_prompt" else s.gemini_stt_model
+    stt_model = {"gemini_prompt": s.gemini_prompt_stt_model, "sarvam": s.sarvam_stt_model}.get(s.stt_provider, s.gemini_stt_model)
     stt_id = f"{s.stt_provider}:{stt_model}"
 
     def transcribe(audio_wav: bytes, lang: str):
@@ -248,6 +248,9 @@ def report(rows, s, stt_id, hint, stopped) -> None:
     md += [f"| {r['id']} | {r['cond']} | {pct(r['wer'])} | {r['ref'][:70]} | {r['hyp'][:90]} |" for r in worst]
     OUT_MD.write_text("\n".join(md) + "\n", encoding="utf-8")
     OUT_JSON.write_text(json.dumps(rows, ensure_ascii=False, indent=1), encoding="utf-8")
+    tag = stt_id.replace(":", "-").replace("/", "-") + ("-hint" if hint else "")      # a copy per provider, so runs can be compared
+    (OUT_MD.parent / f"speech-bakeoff--{tag}.md").write_text("\n".join(md) + "\n", encoding="utf-8")
+    (OUT_MD.parent / f"speech-bakeoff--{tag}.json").write_text(json.dumps(rows, ensure_ascii=False, indent=1), encoding="utf-8")
     print("\n" + "\n".join(md))
 
 

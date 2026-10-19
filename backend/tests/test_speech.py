@@ -115,3 +115,59 @@ def test_extra_words_around_the_sentence_do_not_count_in_wer_inside():
     heard = "hello haan ji mera order number hai thank you"
     assert wer(ref, heard) >= 1.0 and wer_inside(ref, heard) == 0
     assert wer_inside(ref, "hello mera order nambar hai") == pytest.approx(0.25)
+
+
+class _FakeSarvamSTT:
+    def __init__(self):
+        self.kwargs = None
+
+    def transcribe(self, **kw):
+        self.kwargs = kw
+        from types import SimpleNamespace
+        return SimpleNamespace(transcript=" namaste duniya ", language_code="hi-IN")
+
+
+class _FakeSarvamTTS:
+    def convert(self, **kw):
+        import base64
+        from types import SimpleNamespace
+        self.kwargs = kw
+        return SimpleNamespace(audios=[base64.b64encode(b"AB").decode(), base64.b64encode(b"CD").decode()])
+
+
+def _sarvam(stt=None, tts=None):
+    from types import SimpleNamespace
+    return SimpleNamespace(speech_to_text=stt or _FakeSarvamSTT(), text_to_speech=tts or _FakeSarvamTTS())
+
+
+def test_sarvam_stt_maps_our_language_hints(tmp_path):
+    from app.brain.ratelimit import RateLimiter
+    from app.speech.sarvam import SarvamSTT
+    fake = _FakeSarvamSTT()
+    lim = RateLimiter(0, 0, usage_file=tmp_path / "u.json")
+    stt = SarvamSTT(client=_sarvam(stt=fake), limiter=lim)
+    assert stt.transcribe(b"wav", "audio/wav", "ta-IN").text == "namaste duniya"
+    assert (fake.kwargs["language_code"], fake.kwargs["mode"]) == ("ta-IN", "transcribe")
+    stt.transcribe(b"wav", "audio/wav", "hinglish")            # Hinglish: Hindi, written in English letters
+    assert (fake.kwargs["language_code"], fake.kwargs["mode"]) == ("hi-IN", "translit")
+    stt.transcribe(b"wav", "audio/wav", None)                  # no hint: let Sarvam decide
+    assert fake.kwargs["language_code"] == "unknown"
+    assert fake.kwargs["file"][1] == b"wav" and fake.kwargs["input_audio_codec"] == "wav"
+
+
+def test_sarvam_tts_joins_audio_and_can_make_phone_audio(tmp_path):
+    from app.brain.ratelimit import RateLimiter
+    from app.speech.sarvam import SarvamTTS
+    fake = _FakeSarvamTTS()
+    tts = SarvamTTS(client=_sarvam(tts=fake), limiter=RateLimiter(0, 0, usage_file=tmp_path / "u.json"))
+    a = tts.synthesize("hello", "en-IN", codec="mulaw", sample_rate=8000)
+    assert a.data == b"ABCD" and a.sample_rate == 8000 and a.mime_type == "audio/mulaw"
+    assert fake.kwargs["output_audio_codec"] == "mulaw" and fake.kwargs["speech_sample_rate"] == 8000
+    assert fake.kwargs["speaker"] == "simran_en_customer"
+
+
+def test_sarvam_without_a_key_says_where_to_get_one(monkeypatch):
+    monkeypatch.delenv("SARVAM_API_KEY", raising=False)
+    monkeypatch.setenv("STT_PROVIDER", "sarvam")
+    with pytest.raises(ConfigError, match="dashboard.sarvam.ai"):
+        make_stt()

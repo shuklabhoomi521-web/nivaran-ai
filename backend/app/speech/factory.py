@@ -7,10 +7,13 @@ def make_stt() -> SpeechToText:
     if p == "gemini":
         from app.speech.gemini import GeminiSTT
         return GeminiSTT()
+    if p == "sarvam":
+        from app.speech.sarvam import SarvamSTT
+        return SarvamSTT()
     if p == "gemini_prompt":
         from app.speech.gemini import GeminiPromptSTT
         return GeminiPromptSTT()
-    raise ConfigError(f"Unknown STT_PROVIDER {p!r}. Available: gemini, gemini_prompt.")
+    raise ConfigError(f"Unknown STT_PROVIDER {p!r}. Available: gemini, gemini_prompt, sarvam.")
 
 
 def make_tts() -> TextToSpeech:
@@ -18,4 +21,7 @@ def make_tts() -> TextToSpeech:
     if p == "gemini":
         from app.speech.gemini import GeminiTTS
         return GeminiTTS()
-    raise ConfigError(f"Unknown TTS_PROVIDER {p!r}. Available: gemini.")
+    if p == "sarvam":
+        from app.speech.sarvam import SarvamTTS
+        return SarvamTTS()
+    raise ConfigError(f"Unknown TTS_PROVIDER {p!r}. Available: gemini, sarvam.")
