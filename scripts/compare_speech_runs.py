@@ -43,6 +43,9 @@ md += block("Real voices, quiet clips", False) + [""] + block("Real voices, nois
 md += ["", "### Computer voices (round trip)", "", "| Language | Clean (A / B) | Phone 8 kHz (A / B) | Phone mu-law (A / B) |", "|---|---|---|---|"]
 for lang in ("hinglish", "english", "hindi", "tamil"):
     md.append(f"| {lang} | " + " | ".join(f"{f(avg(A, lang, 'synth', False, c, 'wer'))} / {f(avg(B, lang, 'synth', False, c, 'wer'))}" for c in CONDS) + " |")
+md += ["", "> **Caution:** Sarvam's settings were tuned on these same clips (model v3 -> v4, Hinglish mode, company-name key terms), "
+        "Gemini's were only adjusted for the language hint. Sarvam's numbers here are therefore optimistic until the new-clips test "
+        "(docs/speech-settings-frozen.md)."]
 na, nb = numbers(A), numbers(B)
 md += ["", f"### Numbers heard exactly right (4839201, 299, 1500, 2000, 40): A {na[0]} of {na[1]}, B {nb[0]} of {nb[1]}"]
 for tag, rows in (("A", A), ("B", B)):

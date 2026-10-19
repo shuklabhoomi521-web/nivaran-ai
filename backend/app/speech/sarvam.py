@@ -9,6 +9,7 @@ from pathlib import Path
 from app.brain.ratelimit import DailyQuotaExceeded, RateLimiter
 from app.config import ConfigError, get_settings
 from app.speech.base import SpeechAudio, SpeechError, Transcript
+from app.speech.credits import CreditLedger
 from app.speech.gemini import BUSY_WAITS, HardTimeout, _run_with_hard_timeout
 
 USAGE_FILE = Path(__file__).resolve().parents[3] / ".sarvam_usage.json"   # git-ignored
@@ -65,11 +66,12 @@ class SarvamSTT:
     HINTS = {"hi-IN": ("hi-IN", "transcribe"), "ta-IN": ("ta-IN", "transcribe"), "en-IN": ("en-IN", "transcribe"),
              "hinglish": ("hi-IN", "translit")}
 
-    def __init__(self, client=None, limiter: RateLimiter | None = None) -> None:
+    def __init__(self, client=None, limiter: RateLimiter | None = None, ledger: CreditLedger | None = None) -> None:
         s = get_settings()
         self._s = s
         self._client = client or _client()
         self._limiter = limiter or RateLimiter(s.sarvam_rpm, 0, usage_file=USAGE_FILE)
+        self.ledger = ledger or CreditLedger()
 
     def transcribe(self, audio: bytes, mime_type: str, language: str | None = None) -> Transcript:
         code, mode = self.HINTS.get(language, ("unknown", "transcribe"))
@@ -80,17 +82,22 @@ class SarvamSTT:
         if self._s.sarvam_company_keyterms and self._s.sarvam_stt_model == "saaras:v4":
             kwargs["keyterms"] = company_names()      # only saaras:v4 accepts keyterms
         r = _call(self._limiter, lambda: self._client.speech_to_text.transcribe(**kwargs), "speech-to-text")
-        return Transcript(text=(r.transcript or "").strip(), language=getattr(r, "language_code", None) or code)
+        self.ledger.add_stt(audio)
+        warning = self.ledger.warn_once()
+        if warning:
+            print("WARNING:", warning, flush=True)
+        return Transcript(text=(r.transcript or "").strip(), language=getattr(r, "language_code", None) or code, provider="sarvam")
 
 
 class SarvamTTS:
     SPEAKERS = {"hi-IN": "ritu_hi_customer", "ta-IN": "gokul_ta_narration", "en-IN": "simran_en_customer"}
 
-    def __init__(self, client=None, limiter: RateLimiter | None = None) -> None:
+    def __init__(self, client=None, limiter: RateLimiter | None = None, ledger: CreditLedger | None = None) -> None:
         s = get_settings()
         self._s = s
         self._client = client or _client()
         self._limiter = limiter or RateLimiter(s.sarvam_rpm, 0, usage_file=USAGE_FILE)
+        self.ledger = ledger or CreditLedger()
 
     def synthesize(self, text: str, language: str | None = None, voice: str | None = None,
                    codec: str = "wav", sample_rate: int = 24000) -> SpeechAudio:
@@ -102,4 +109,8 @@ class SarvamTTS:
         if not r.audios:
             raise SpeechError("Sarvam returned no audio.")
         data = b"".join(base64.b64decode(a) for a in r.audios)
-        return SpeechAudio(data=data, mime_type="audio/wav" if codec == "wav" else f"audio/{codec}", sample_rate=sample_rate)
+        self.ledger.add_tts(len(text))
+        warning = self.ledger.warn_once()
+        if warning:
+            print("WARNING:", warning, flush=True)
+        return SpeechAudio(data=data, mime_type="audio/wav" if codec == "wav" else f"audio/{codec}", sample_rate=sample_rate, provider="sarvam")

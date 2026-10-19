@@ -12,6 +12,7 @@ class SpeechError(RuntimeError):
 class Transcript:
     text: str
     language: str | None = None
+    provider: str | None = None      # which provider really answered (matters when a backup stepped in)
 
 
 @dataclass
@@ -19,6 +20,7 @@ class SpeechAudio:
     data: bytes          # for example a WAV file
     mime_type: str       # "audio/wav"
     sample_rate: int
+    provider: str | None = None
 
 
 class SpeechToText(Protocol):

@@ -19,3 +19,4 @@ speech_test/_download/
 speech_test/public/
 speech_test/_incoming/
 .sarvam_usage.json
+.sarvam_credits.json

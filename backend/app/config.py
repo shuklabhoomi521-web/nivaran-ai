@@ -29,6 +29,10 @@ class Settings:
     sarvam_stt_model: str
     sarvam_tts_model: str
     sarvam_rpm: int
+    sarvam_credit_rupees: float       # free credit Sarvam gave us
+    sarvam_credit_already_spent: float  # estimate of what tests used before the ledger existed (only used when the ledger file is new)
+    stt_fallback: str                  # backup speech-to-text provider ("none" to disable)
+    tts_fallback: str
     sarvam_company_keyterms: bool   # give Sarvam v4 the directory's company names so it spells them right
     sarvam_hinglish_mode: str   # translit | transcribe | codemix : how Sarvam writes Hindi-English speech
     speech_rpm: int          # our own speed limit for audio calls
@@ -54,8 +58,8 @@ def get_settings() -> Settings:
         gemini_rpd=_int("GEMINI_RPD", 0),
         claude_model=os.getenv("CLAUDE_MODEL", "").strip(),
         claude_effort=os.getenv("CLAUDE_EFFORT", "").strip() or None,
-        stt_provider=(os.getenv("STT_PROVIDER", "").strip() or "gemini").lower(),
-        tts_provider=(os.getenv("TTS_PROVIDER", "").strip() or "gemini").lower(),
+        stt_provider=(os.getenv("STT_PROVIDER", "").strip() or "sarvam").lower(),
+        tts_provider=(os.getenv("TTS_PROVIDER", "").strip() or "sarvam").lower(),
         gemini_stt_model=os.getenv("GEMINI_STT_MODEL", "").strip() or "gemini-3.5-transcribe",
         gemini_tts_model=os.getenv("GEMINI_TTS_MODEL", "").strip() or "gemini-3.8-flash-tts",
         gemini_tts_voice=os.getenv("GEMINI_TTS_VOICE", "").strip() or "Kore",
@@ -63,6 +67,10 @@ def get_settings() -> Settings:
         sarvam_stt_model=os.getenv("SARVAM_STT_MODEL", "").strip() or "saaras:v4",
         sarvam_tts_model=os.getenv("SARVAM_TTS_MODEL", "").strip() or "bulbul:v4-flash",
         sarvam_rpm=_int("SARVAM_RPM", 10),
+        sarvam_credit_rupees=float(os.getenv("SARVAM_CREDIT_RUPEES", "").strip() or 100),
+        sarvam_credit_already_spent=float(os.getenv("SARVAM_CREDIT_ALREADY_SPENT", "").strip() or 29.7),
+        stt_fallback=(os.getenv("STT_FALLBACK", "").strip() or "gemini_prompt").lower(),
+        tts_fallback=(os.getenv("TTS_FALLBACK", "").strip() or "gemini").lower(),
         sarvam_company_keyterms=(os.getenv("SARVAM_COMPANY_KEYTERMS", "").strip().lower() or "true") != "false",
         sarvam_hinglish_mode=os.getenv("SARVAM_HINGLISH_MODE", "").strip() or "codemix",
         speech_rpm=_int("SPEECH_RPM", 6),

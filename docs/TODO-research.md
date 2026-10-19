@@ -43,3 +43,9 @@ Research and write down, with official sources (trai.gov.in, not vendor blogs):
 - Speech: computer-voice round trip first (free), then real voices: Google FLEURS has te_in, kn_in, ml_in, bn_in, mr_in, gu_in, pa_in dev files (ask before each download; sizes listed on the dataset page) and native speakers can record the same sentences. Check phone quality (8 kHz) like Phase 3.
 - Only languages that score well get listed as "supported". Company-side calls stay English/Hindi unless a company needs more.
 - Note: Language values already exist in the case model (telugu, kannada, malayalam, bengali, marathi, gujarati, punjabi), so no model change is needed.
+
+## Before Phase 3 is done: new-clips test (founder records 5 NEW clips)
+- See `docs/speech-settings-frozen.md`. Settings were tuned on the scored clips, so Sarvam's scores are optimistic until this test.
+
+## Voice recordings in git history (needs the founder's decision)
+- The founder's 10 raw .aac recordings were committed once (commit 9dec69a) and are still in the history on the private GitHub repo, although the files are no longer tracked. A purge needs a history rewrite and force-push. See the notes in the Phase 3 discussion.

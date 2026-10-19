@@ -84,7 +84,7 @@ def main() -> None:
     s = get_settings()
     sentences = json.loads((TEST_DIR / "sentences.json").read_text(encoding="utf-8"))
     langs = args.langs.split(",") if args.langs else list(sentences)
-    stt, tts = make_stt(), make_tts()
+    stt, tts = make_stt(fallback=False), make_tts(fallback=False)       # plain providers: a bake-off must not mix in the backup
     cache, rows, stopped = load_cache(), [], None
     stt_model = {"gemini_prompt": s.gemini_prompt_stt_model, "sarvam": s.sarvam_stt_model}.get(s.stt_provider, s.gemini_stt_model)
     stt_id = f"{s.stt_provider}:{stt_model}" + (f":hinglish={s.sarvam_hinglish_mode}" + (":keyterms" if s.sarvam_company_keyterms and stt_model == "saaras:v4" else "") if s.stt_provider == "sarvam" else "")
@@ -165,6 +165,9 @@ def report(rows, s, stt_id, hint, stopped) -> None:
           f"- Language hint given to the speech-to-text: {'YES (the app knows the language the user picked)' if hint else 'no'}",
           "- Numbers are WORD ERROR RATE (WER): lower is better, 0% is perfect. Phone 8 kHz = telephone sampling rate. mu-law = 8 kHz squeezed like a real phone line.",
           "- 'Two thousand' and '2000', or 'forty' and '40', count as the same when scoring words; the number check below is strict.", ""]
+    if s.stt_provider == "sarvam":
+        md += ["- **Caution: Sarvam's settings (model saaras:v4, Hinglish mode 'codemix', company-name key terms, language hints) were chosen by looking at "
+               "results on THESE SAME clips, so its scores here are optimistic. The fair test is on new clips it has never heard (see docs/speech-settings-frozen.md).**", ""]
     if stopped:
         md += [f"- **Stopped early:** {stopped} Run again later to continue (answers are cached).", ""]
 
@@ -244,6 +247,12 @@ def report(rows, s, stt_id, hint, stopped) -> None:
     if failed:
         md += ["", f"**{len(failed)} calls failed or hung and count as 100% errors:** " + ", ".join(f"{r['id']}/{r['cond']}" for r in failed)]
     worst = sorted((r for r in rows if r["kind"] != "synth"), key=lambda r: -r["wer_inside"])[:8]
+    if s.stt_provider == "sarvam":
+        from app.speech.credits import CreditLedger
+        led = CreditLedger()
+        md += ["", "## Sarvam credit", "", f"- {led.summary()}", "- This is our own estimate (Sarvam gives no balance check we can read). Compare with the Sarvam dashboard."]
+        if led.message():
+            md += [f"- **WARNING: {led.message()}**"]
     md += ["", "## Worst 8 real-voice clips (what was said vs what was heard)", "", "| Clip | Condition | WER | Reference | Heard |", "|---|---|---|---|---|"]
     md += [f"| {r['id']} | {r['cond']} | {pct(r['wer'])} | {r['ref'][:70]} | {r['hyp'][:90]} |" for r in worst]
     OUT_MD.write_text("\n".join(md) + "\n", encoding="utf-8")

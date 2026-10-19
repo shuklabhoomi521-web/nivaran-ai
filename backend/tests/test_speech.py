@@ -52,6 +52,8 @@ def test_fakes_follow_the_interfaces():
 def test_unknown_speech_provider_is_rejected(monkeypatch):
     monkeypatch.setenv("STT_PROVIDER", "banana")
     monkeypatch.setenv("TTS_PROVIDER", "banana")
+    monkeypatch.setenv("STT_FALLBACK", "none")
+    monkeypatch.setenv("TTS_FALLBACK", "none")
     with pytest.raises(ConfigError):
         make_stt()
     with pytest.raises(ConfigError):
@@ -68,7 +70,8 @@ def test_speech_defaults(monkeypatch):
     for k in ("STT_PROVIDER", "TTS_PROVIDER", "GEMINI_STT_MODEL", "GEMINI_TTS_MODEL", "SPEECH_RPM"):
         monkeypatch.delenv(k, raising=False)
     s = get_settings()
-    assert (s.stt_provider, s.tts_provider) == ("gemini", "gemini")
+    assert (s.stt_provider, s.tts_provider) == ("sarvam", "sarvam")           # Sarvam first
+    assert (s.stt_fallback, s.tts_fallback) == ("gemini_prompt", "gemini")    # Gemini is the backup
     assert s.gemini_stt_model == "gemini-3.5-transcribe" and s.speech_rpm == 6
 
 
@@ -177,7 +180,7 @@ def test_sarvam_without_a_key_says_where_to_get_one(monkeypatch):
     monkeypatch.delenv("SARVAM_API_KEY", raising=False)
     monkeypatch.setenv("STT_PROVIDER", "sarvam")
     with pytest.raises(ConfigError, match="dashboard.sarvam.ai"):
-        make_stt()
+        make_stt(fallback=False)
 
 
 def test_sarvam_v4_gets_company_names_as_keyterms(tmp_path):
@@ -187,3 +190,95 @@ def test_sarvam_v4_gets_company_names_as_keyterms(tmp_path):
     SarvamSTT(client=_sarvam(stt=fake), limiter=RateLimiter(0, 0, usage_file=tmp_path / "u.json")).transcribe(b"w", "audio/wav", "hinglish")
     assert "IRCTC" in fake.kwargs["keyterms"] and "Swiggy" in fake.kwargs["keyterms"]
     assert set(fake.kwargs["keyterms"]) == set(company_names()) and len(company_names()) == 40
+
+
+# ---- credits and fallback ----
+class _Boom:
+    def __init__(self):
+        self.calls = 0
+
+    def transcribe(self, audio, mime_type, language=None):
+        from app.speech.base import SpeechError
+        self.calls += 1
+        raise SpeechError("Sarvam stt error 500")
+
+
+def _ledger(tmp_path, spent=0.0, start=100.0):
+    from app.speech.credits import CreditLedger
+    led = CreditLedger(file=tmp_path / "credits.json")
+    led._start, led._seed = start, spent
+    return led
+
+
+def test_credit_ledger_counts_speech_and_text(tmp_path):
+    import io
+    import wave
+    led = _ledger(tmp_path)
+    buf = io.BytesIO()
+    with wave.open(buf, "wb") as w:
+        w.setnchannels(1); w.setsampwidth(2); w.setframerate(16000)
+        w.writeframes(b"\x00\x00" * 16000 * 3600)       # one hour of audio
+    led.add_stt(buf.getvalue())
+    assert led.spent() == pytest.approx(30.0, rel=0.01)           # Rs 30 per hour
+    led.add_tts(10000)
+    assert led.spent() == pytest.approx(30.0 + 10000 * (2 / 1000 if led._tts_rate == 2 / 1000 else 3 / 1000), rel=0.01)
+
+
+def test_credit_levels_and_warnings_only_get_worse(tmp_path):
+    led = _ledger(tmp_path, spent=0)
+    assert led.level() == "ok" and led.message() is None and led.warn_once() is None
+    led = _ledger(tmp_path, spent=80)                       # Rs 20 left
+    assert led.level() == "low" and "20" in led.message()
+    assert led.warn_once() is not None and led.warn_once() is None     # only once per level
+    (tmp_path / "b").mkdir(); (tmp_path / "c").mkdir()           # a fresh ledger file for each case
+    assert _ledger(tmp_path / "b", spent=92).level() == "critical"
+    assert _ledger(tmp_path / "c", spent=99).level() == "empty"
+
+
+def test_fallback_uses_gemini_when_sarvam_fails():
+    from app.speech.fallback import FallbackSTT
+    boom, backup = _Boom(), FakeSTT("from the backup")
+    f = FallbackSTT(lambda: boom, lambda: backup, "speech-to-text")
+    t = f.transcribe(b"x", "audio/wav", "hi-IN")
+    assert t.text == "from the backup" and t.provider == "backup" and f.fallbacks_used == 1 and boom.calls == 1
+
+
+def test_fallback_skips_sarvam_when_credit_is_empty(tmp_path):
+    from app.speech.fallback import FallbackSTT
+    boom, backup = _Boom(), FakeSTT("backup")
+    f = FallbackSTT(lambda: boom, lambda: backup, "speech-to-text", _ledger(tmp_path, spent=99))
+    assert f.transcribe(b"x", "audio/wav").text == "backup"
+    assert boom.calls == 0                                   # Sarvam was not even tried
+
+
+def test_fallback_when_there_is_no_sarvam_key_runs_on_the_backup_only():
+    from app.speech.fallback import FallbackSTT
+
+    def no_key():
+        raise ConfigError("SARVAM_API_KEY is not set")
+    f = FallbackSTT(no_key, lambda: FakeSTT("backup only"), "speech-to-text")
+    assert f.transcribe(b"x", "audio/wav").text == "backup only"
+
+
+def test_fallback_keeps_the_primary_when_it_works():
+    from app.speech.fallback import FallbackSTT
+    f = FallbackSTT(lambda: FakeSTT("primary"), lambda: FakeSTT("backup"), "speech-to-text")
+    t = f.transcribe(b"x", "audio/wav")
+    assert t.text == "primary" and f.fallbacks_used == 0
+
+
+def test_fallback_without_a_backup_raises_a_clear_error():
+    from app.speech.base import SpeechError
+    from app.speech.fallback import FallbackSTT
+    f = FallbackSTT(lambda: _Boom(), None, "speech-to-text")
+    with pytest.raises(SpeechError, match="no backup"):
+        f.transcribe(b"x", "audio/wav")
+
+
+def test_make_stt_builds_a_fallback_by_default(monkeypatch):
+    from app.speech.fallback import FallbackSTT
+    for k in ("STT_PROVIDER", "STT_FALLBACK"):
+        monkeypatch.delenv(k, raising=False)
+    monkeypatch.delenv("SARVAM_API_KEY", raising=False)
+    monkeypatch.setenv("GEMINI_API_KEY", "test-key")
+    assert isinstance(make_stt(), FallbackSTT)
