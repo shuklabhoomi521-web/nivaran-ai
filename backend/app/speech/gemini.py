@@ -95,7 +95,7 @@ class GeminiSTT:
 
     def transcribe(self, audio: bytes, mime_type: str, language: str | None = None) -> Transcript:
         cfg: dict = {}
-        if language:
+        if language and "-" in language:     # a real language code such as hi-IN (not our "hinglish" label)
             cfg["transcription_config"] = {"language_codes": [language]}
         body = dict(
             model=self._s.gemini_stt_model,

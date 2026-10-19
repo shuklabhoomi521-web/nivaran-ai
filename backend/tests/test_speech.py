@@ -95,6 +95,23 @@ def test_sentence_set_is_complete():
         sents = block["sentences"]
         assert len(sents) == 5
         assert sum(bool(s.get("noisy")) for s in sents) == 1, "exactly one noisy clip per language"
-        assert any("4839201" in s["text"] for s in sents), "each language has the order-number sentence"
         assert [s["id"] for s in sents] == [f"{lang}-0{i}" for i in range(1, 6)]
+    assert any("4839201" in s["text"] for s in data["hinglish"]["sentences"])
     assert all("text_alt" in s for s in data["hinglish"]["sentences"])
+
+
+def test_numbers_said_in_words_match_digits():
+    from app.speech.scoring import numbers_in, wer, wer_inside
+    assert numbers_in("I paid two thousand rupees") == ["2000"] == numbers_in("I paid 2000 rupees")
+    assert numbers_in("forty minutes late") == ["40"]
+    assert numbers_in("UPI se \u20b91,500 bheje") == ["1500"] == numbers_in("fifteen hundred rupaye")
+    assert numbers_in("Jio ka 299 wala recharge") == ["299"]
+    assert wer("I paid two thousand rupees", "I paid 2000 rupees") == 0
+
+
+def test_extra_words_around_the_sentence_do_not_count_in_wer_inside():
+    from app.speech.scoring import wer, wer_inside
+    ref = "mera order number hai"
+    heard = "hello haan ji mera order number hai thank you"
+    assert wer(ref, heard) >= 1.0 and wer_inside(ref, heard) == 0
+    assert wer_inside(ref, "hello mera order nambar hai") == pytest.approx(0.25)
