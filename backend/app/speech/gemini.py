@@ -41,7 +41,7 @@ def _run_with_hard_timeout(fn, seconds: float):
     return box["value"]
 
 
-def _call_with_retries(limiter: RateLimiter, fn, what: str, hard_timeout: float = 75):
+def _call_with_retries(limiter: RateLimiter, fn, what: str, hard_timeout: float = 75, hang_retries: int = 2):
     from google.genai import errors
 
     for attempt in range(len(BUSY_WAITS) + 1):
@@ -51,7 +51,7 @@ def _call_with_retries(limiter: RateLimiter, fn, what: str, hard_timeout: float 
         except DailyQuotaExceeded:
             raise
         except (httpx.TimeoutException, httpx.NetworkError, HardTimeout) as e:   # hung or dropped connection (for example after the laptop slept)
-            if attempt < 2:    # a hung call is retried twice, not forever
+            if attempt < hang_retries:    # a hung call is retried a couple of times, not forever
                 time.sleep(BUSY_WAITS[attempt])
                 continue
             raise SpeechError(f"Gemini {what} timed out: {type(e).__name__}") from e
@@ -105,7 +105,7 @@ class GeminiSTT:
             body["generation_config"] = cfg
         it = _call_with_retries(self._limiter, lambda: self._client.interactions.create(timeout=60, **body), "speech-to-text")
         text = (it.output_text or "").strip()
-        return Transcript(text=text, language=language)
+        return Transcript(text=text, language=language, provider="gemini")
 
 
 class GeminiPromptSTT:
@@ -141,7 +141,7 @@ class GeminiPromptSTT:
                    {"type": "text", "text": prompt}],
         )
         it = _call_with_retries(self._limiter, lambda: self._client.interactions.create(timeout=60, **body), "speech-to-text (prompt)")
-        return Transcript(text=(it.output_text or "").strip(), language=language)
+        return Transcript(text=(it.output_text or "").strip(), language=language, provider="gemini_prompt")
 
 
 class GeminiTTS:
@@ -158,8 +158,9 @@ class GeminiTTS:
             speech["language"] = language
         body = dict(model=self._s.gemini_tts_model, input=text, response_format={"type": "audio"},
                     generation_config={"speech_config": [speech]})
-        it = _call_with_retries(self._limiter, lambda: self._client.interactions.create(timeout=90, **body), "text-to-speech")
+        it = _call_with_retries(self._limiter, lambda: self._client.interactions.create(timeout=90, **body), "text-to-speech",
+                                hard_timeout=25, hang_retries=0)      # a voice that does not answer in 25 s is useless in a live chat
         audio = it.output_audio
         if audio is None or not audio.data:
             raise SpeechError("Gemini returned no audio.")
-        return SpeechAudio(data=base64.b64decode(audio.data), mime_type="audio/wav", sample_rate=24000)
+        return SpeechAudio(data=base64.b64decode(audio.data), mime_type="audio/wav", sample_rate=24000, provider="gemini")

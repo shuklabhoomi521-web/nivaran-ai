@@ -85,6 +85,19 @@ class CreditLedger:
             return self.message()
         return None
 
+    def used_since_last_report(self, update: bool = True) -> tuple[float, float]:
+        """(rupees used since the last report, rupees left). Call at the end of a test session."""
+        d = self._read()
+        now, before = self.spent(), d.get("reported_spent", d["seed_spent"])
+        if update:
+            d["reported_spent"] = now
+            self._write(d)
+        return max(0.0, now - before), self.remaining()
+
+    def session_line(self, update: bool = True) -> str:
+        used, left = self.used_since_last_report(update)
+        return f"Sarvam credit used in this session: about Rs {used:.2f}; about Rs {left:.1f} left (estimate; level: {self.level()})"
+
     def summary(self) -> str:
         return (f"Sarvam credit (estimate): started Rs {self._start:.0f}, spent about Rs {self.spent():.1f}, "
                 f"about Rs {self.remaining():.1f} left (~{self.minutes_left():.0f} min of speech-to-text); level: {self.level()}")

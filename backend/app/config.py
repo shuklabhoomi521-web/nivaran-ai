@@ -61,7 +61,7 @@ def get_settings() -> Settings:
         stt_provider=(os.getenv("STT_PROVIDER", "").strip() or "sarvam").lower(),
         tts_provider=(os.getenv("TTS_PROVIDER", "").strip() or "sarvam").lower(),
         gemini_stt_model=os.getenv("GEMINI_STT_MODEL", "").strip() or "gemini-3.5-transcribe",
-        gemini_tts_model=os.getenv("GEMINI_TTS_MODEL", "").strip() or "gemini-3.8-flash-tts",
+        gemini_tts_model=os.getenv("GEMINI_TTS_MODEL", "").strip() or "gemini-3.8-flash-lite-tts",
         gemini_tts_voice=os.getenv("GEMINI_TTS_VOICE", "").strip() or "Kore",
         gemini_prompt_stt_model=os.getenv("GEMINI_PROMPT_STT_MODEL", "").strip() or "gemini-3.5-flash-lite",
         sarvam_stt_model=os.getenv("SARVAM_STT_MODEL", "").strip() or "saaras:v4",

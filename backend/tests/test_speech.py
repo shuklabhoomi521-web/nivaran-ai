@@ -67,12 +67,13 @@ def test_prompt_based_provider_is_available(monkeypatch):
 
 
 def test_speech_defaults(monkeypatch):
-    for k in ("STT_PROVIDER", "TTS_PROVIDER", "GEMINI_STT_MODEL", "GEMINI_TTS_MODEL", "SPEECH_RPM"):
+    for k in ("STT_PROVIDER", "TTS_PROVIDER", "STT_FALLBACK", "TTS_FALLBACK", "GEMINI_STT_MODEL", "GEMINI_TTS_MODEL", "SPEECH_RPM"):
         monkeypatch.delenv(k, raising=False)
     s = get_settings()
     assert (s.stt_provider, s.tts_provider) == ("sarvam", "sarvam")           # Sarvam first
     assert (s.stt_fallback, s.tts_fallback) == ("gemini_prompt", "gemini")    # Gemini is the backup
     assert s.gemini_stt_model == "gemini-3.5-transcribe" and s.speech_rpm == 6
+    assert s.gemini_tts_model == "gemini-3.8-flash-lite-tts"      # the dedicated flash-tts model hung during tests
 
 
 @pytest.mark.skipif(sys.platform != "darwin" or not shutil.which("afconvert"), reason="needs macOS afconvert")
