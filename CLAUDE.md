@@ -12,7 +12,7 @@ One app that handles any company's customer care for the user. User states the p
 Python 3.11+, FastAPI, Pydantic · Supabase (Postgres, auth) ·
 AI brain now: Google Gemini API, free tier (default; `LLM_PROVIDER=gemini`). Claude is an optional provider (`LLM_PROVIDER=anthropic`).
 AI brain later: our own fine-tuned open-source models (Phase 9), swapped in one job at a time; Gemini stays as backup until each scores close enough.
-Pipecat voice pipeline · Indian speech provider (e.g. Sarvam) behind a swappable interface ·
+Pipecat voice pipeline · Speech: Sarvam AI is the default (best on Tamil/Hindi/Indian English, ~0.3 s per clip, Rs 100 free credit then paid), Gemini is the free automatic backup; both behind `app/speech/` interfaces; credit tracked in `.sarvam_credits.json` ·
 Phone: Twilio trial (Phase 4), Exotel with KYC (Phase 5), behind `channels/phone/base.py` ·
 React Native + Expo (TypeScript) · PyTorch + Hugging Face (MuRIL/IndicBERT) · pytest, Jest.
 The founder does not want to pay for any API. Prefer free tiers. Check current docs before using any library or API.
