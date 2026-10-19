@@ -52,6 +52,13 @@ def _call(limiter: RateLimiter, fn, what: str, hard_timeout: float = 75):
     raise SpeechError(f"Sarvam {what} failed after several tries.")
 
 
+def company_names() -> list[str]:
+    """Names from the verified company directory: telling the speech-to-text these words helps it spell
+    'IRCTC' instead of 'IRS' or 'University' on a bad line."""
+    from app.directory.loader import load_companies
+    return [c.name for c in load_companies()]
+
+
 class SarvamSTT:
     # Our language hints -> Sarvam language code and output style. "transcribe" keeps each language's own script;
     # "translit" writes everything in English letters (what Hinglish users type).
@@ -66,8 +73,12 @@ class SarvamSTT:
 
     def transcribe(self, audio: bytes, mime_type: str, language: str | None = None) -> Transcript:
         code, mode = self.HINTS.get(language, ("unknown", "transcribe"))
+        if language == "hinglish":
+            mode = self._s.sarvam_hinglish_mode
         kwargs = dict(file=("audio.wav", audio, mime_type), model=self._s.sarvam_stt_model, language_code=code,
                       mode=mode, input_audio_codec="wav")
+        if self._s.sarvam_company_keyterms and self._s.sarvam_stt_model == "saaras:v4":
+            kwargs["keyterms"] = company_names()      # only saaras:v4 accepts keyterms
         r = _call(self._limiter, lambda: self._client.speech_to_text.transcribe(**kwargs), "speech-to-text")
         return Transcript(text=(r.transcript or "").strip(), language=getattr(r, "language_code", None) or code)
 

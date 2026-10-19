@@ -1,0 +1,562 @@
+[
+ {
+  "lang": "hinglish",
+  "id": "hinglish-01",
+  "kind": "own",
+  "cond": "clean",
+  "noisy": false,
+  "wer": 1.0,
+  "wer_inside": 0.2,
+  "cer": 1.0,
+  "secs": 0.76,
+  "ref": "Mera Swiggy order ek ghanta late aaya aur khana bilkul thanda tha, mujhe refund chahiye.",
+  "hyp": "हेलो, हाँ जी, तो मेरा कंप्लेंट था कि मेरा स्विगी का ऑर्डर 1 घंटे लेट आया और खाना बिल्कुल ठंडा था। मुझे रिफंड चाहिए, देख लीजिए आप, लेकिन खाना एकदम ठंडा था, एकदम खाने लायक नहीं था, मुझे रिफंड चाहिए।",
+  "expected_numbers": null,
+  "numbers_ok": null,
+  "heard_numbers": [
+   "1"
+  ]
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-01",
+  "kind": "own",
+  "cond": "phone_8k",
+  "noisy": false,
+  "wer": 1.0,
+  "wer_inside": 0.2,
+  "cer": 1.0,
+  "secs": 0.8,
+  "ref": "Mera Swiggy order ek ghanta late aaya aur khana bilkul thanda tha, mujhe refund chahiye.",
+  "hyp": "हेलो, हाँ जी, तो मेरा कंप्लेंट था कि मेरा स्विगी का ऑर्डर 1 घंटे लेट आया और खाना बिल्कुल ठंडा था। मुझे रिफंड चाहिए, देख लीजिए आप, लेकिन खाना एकदम ठंडा था, एकदम खाने लायक नहीं था, मुझे रिफंड चाहिए।",
+  "expected_numbers": null,
+  "numbers_ok": null,
+  "heard_numbers": [
+   "1"
+  ]
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-01",
+  "kind": "own",
+  "cond": "phone_mulaw",
+  "noisy": false,
+  "wer": 1.0,
+  "wer_inside": 0.2,
+  "cer": 1.0,
+  "secs": 0.95,
+  "ref": "Mera Swiggy order ek ghanta late aaya aur khana bilkul thanda tha, mujhe refund chahiye.",
+  "hyp": "हेलो, हाँ जी, तो मेरा कंप्लेंट था कि मेरा स्विगी का ऑर्डर 1 घंटे लेट आया और खाना बिल्कुल ठंडा था। मुझे रिफंड चाहिए, देख लीजिए आप, लेकिन खाना एकदम ठंडा था, एकदम खाने लायक नहीं था, मुझे रिफंड चाहिए।",
+  "expected_numbers": null,
+  "numbers_ok": null,
+  "heard_numbers": [
+   "1"
+  ]
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-02",
+  "kind": "own",
+  "cond": "clean",
+  "noisy": false,
+  "wer": 1.0,
+  "wer_inside": 0.286,
+  "cer": 1.0,
+  "secs": 0.84,
+  "ref": "Maine Jio ka 299 wala recharge kiya tha but data abhi tak nahi aaya.",
+  "hyp": "क्या है? अब तो भाग आ गया, फोन किया था, टेंशन हो गया, क्या टेंशन हुआ था? मैंने जिओ का 299 वाला रिचार्ज किया था। लेकिन डेटा अब तक नहीं आया है। इसको चेक कीजिए। हेलो शेठालाल, हेलो हेलो।",
+  "expected_numbers": [
+   "299"
+  ],
+  "numbers_ok": true,
+  "heard_numbers": [
+   "299"
+  ]
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-02",
+  "kind": "own",
+  "cond": "phone_8k",
+  "noisy": false,
+  "wer": 1.0,
+  "wer_inside": 0.286,
+  "cer": 1.0,
+  "secs": 1.12,
+  "ref": "Maine Jio ka 299 wala recharge kiya tha but data abhi tak nahi aaya.",
+  "hyp": "क्या है? तो बाहर से फोन किया था, टेंशन हो गया, क्या टेंशन हुआ था? मैंने जिओ का 299 वाला रिचार्ज किया था, लेकिन डेटा अब तक नहीं आया है। इसको चेक कीजिए। हेलो जेठालाल, हेलो हेलो।",
+  "expected_numbers": [
+   "299"
+  ],
+  "numbers_ok": true,
+  "heard_numbers": [
+   "299"
+  ]
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-02",
+  "kind": "own",
+  "cond": "phone_mulaw",
+  "noisy": false,
+  "wer": 1.0,
+  "wer_inside": 0.286,
+  "cer": 1.0,
+  "secs": 0.86,
+  "ref": "Maine Jio ka 299 wala recharge kiya tha but data abhi tak nahi aaya.",
+  "hyp": "क्या है? तो बाहर से फोन किया था, टेंशन हो गया, क्या टेंशन हुआ था? मैंने जिओ का 299 वाला रिचार्ज किया था, लेकिन डेटा अब तक नहीं आया है। इसको चेक कीजिए। हेलो जेठालाल, हेलो हेलो।",
+  "expected_numbers": [
+   "299"
+  ],
+  "numbers_ok": true,
+  "heard_numbers": [
+   "299"
+  ]
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-03",
+  "kind": "own",
+  "cond": "clean",
+  "noisy": false,
+  "wer": 1.0,
+  "wer_inside": 0.643,
+  "cer": 1.0,
+  "secs": 1.18,
+  "ref": "UPI se 1500 rupaye bheje, paise kat gaye par saamne wale ko nahi mile.",
+  "hyp": "हेलो, मैंने यूपीएल से अपने दोस्त को ₹1500 भेजे थे जिसमें से पैसे कट गए हैं पर मेरे दोस्त को पैसा रिसीव नहीं हुआ।",
+  "expected_numbers": [
+   "1500"
+  ],
+  "numbers_ok": true,
+  "heard_numbers": [
+   "1500"
+  ]
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-03",
+  "kind": "own",
+  "cond": "phone_8k",
+  "noisy": false,
+  "wer": 1.0,
+  "wer_inside": 0.643,
+  "cer": 1.0,
+  "secs": 0.57,
+  "ref": "UPI se 1500 rupaye bheje, paise kat gaye par saamne wale ko nahi mile.",
+  "hyp": "हेलो, मैंने यूपीएल से अपने दोस्त को ₹1500 भेजे थे, जिसमें से पैसे कट गए हैं, पर मेरे दोस्त को पैसा रिसीव नहीं हुआ।",
+  "expected_numbers": [
+   "1500"
+  ],
+  "numbers_ok": true,
+  "heard_numbers": [
+   "1500"
+  ]
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-03",
+  "kind": "own",
+  "cond": "phone_mulaw",
+  "noisy": false,
+  "wer": 1.0,
+  "wer_inside": 0.643,
+  "cer": 1.0,
+  "secs": 1.07,
+  "ref": "UPI se 1500 rupaye bheje, paise kat gaye par saamne wale ko nahi mile.",
+  "hyp": "हेलो, मैंने यूपीएल से अपने दोस्त को ₹1500 भेजे थे, जिसमें से पैसे कट गए हैं, पर मेरे दोस्त को पैसा रिसीव नहीं हुआ।",
+  "expected_numbers": [
+   "1500"
+  ],
+  "numbers_ok": true,
+  "heard_numbers": [
+   "1500"
+  ]
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-04",
+  "kind": "own",
+  "cond": "clean",
+  "noisy": false,
+  "wer": 0.077,
+  "wer_inside": 0.077,
+  "cer": 0.137,
+  "secs": 0.72,
+  "ref": "Mera order number 4839201 hai, Amazon ne galat size ki kurti bhej di.",
+  "hyp": "मेरा ऑर्डर नंबर 4839201 है, अमेज़ॉन ने गलत साइज़ की कुर्ती भेज दी।",
+  "expected_numbers": [
+   "4839201"
+  ],
+  "numbers_ok": true,
+  "heard_numbers": [
+   "4839201"
+  ]
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-04",
+  "kind": "own",
+  "cond": "phone_8k",
+  "noisy": false,
+  "wer": 0.231,
+  "wer_inside": 0.231,
+  "cer": 0.176,
+  "secs": 1.13,
+  "ref": "Mera order number 4839201 hai, Amazon ne galat size ki kurti bhej di.",
+  "hyp": "मेरा ऑर्डर नंबर 4839201 है, अमेज़न में गलत साइज़ की कुर्ती भेज की।",
+  "expected_numbers": [
+   "4839201"
+  ],
+  "numbers_ok": true,
+  "heard_numbers": [
+   "4839201"
+  ]
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-04",
+  "kind": "own",
+  "cond": "phone_mulaw",
+  "noisy": false,
+  "wer": 0.231,
+  "wer_inside": 0.231,
+  "cer": 0.176,
+  "secs": 0.73,
+  "ref": "Mera order number 4839201 hai, Amazon ne galat size ki kurti bhej di.",
+  "hyp": "मेरा ऑर्डर नंबर 4839201 है, अमेज़ॉन में गलत साइज़ की कुर्ती भेज की।",
+  "expected_numbers": [
+   "4839201"
+  ],
+  "numbers_ok": true,
+  "heard_numbers": [
+   "4839201"
+  ]
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-05",
+  "kind": "own",
+  "cond": "clean",
+  "noisy": true,
+  "wer": 0.714,
+  "wer_inside": 0.5,
+  "cer": 0.667,
+  "secs": 1.04,
+  "ref": "Mera IRCTC ticket cancel kiya tha das din pehle, refund abhi tak nahi aaya.",
+  "hyp": "मैंने आईआरएस शूटिंग से टिकट कैंसिल किया था 10 दिन पहले, तब तक मुझे उसका रिफंड नहीं आया।",
+  "expected_numbers": null,
+  "numbers_ok": null,
+  "heard_numbers": [
+   "10"
+  ]
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-05",
+  "kind": "own",
+  "cond": "phone_8k",
+  "noisy": true,
+  "wer": 0.786,
+  "wer_inside": 0.643,
+  "cer": 0.745,
+  "secs": 1.14,
+  "ref": "Mera IRCTC ticket cancel kiya tha das din pehle, refund abhi tak nahi aaya.",
+  "hyp": "मैंने आईआरएस टीटी के पीछे ट्रैंक किया था दस दिन पहले, उसका जो है उसका रिफंड नहीं आया।",
+  "expected_numbers": null,
+  "numbers_ok": null,
+  "heard_numbers": []
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-05",
+  "kind": "own",
+  "cond": "phone_mulaw",
+  "noisy": true,
+  "wer": 0.786,
+  "wer_inside": 0.643,
+  "cer": 0.706,
+  "secs": 1.34,
+  "ref": "Mera IRCTC ticket cancel kiya tha das din pehle, refund abhi tak nahi aaya.",
+  "hyp": "मैंने आईआरएस टीटी के पीछे कैंपिड किया था दस दिन पहले। उसका जो है उसका रिफाइन नहीं आया।",
+  "expected_numbers": null,
+  "numbers_ok": null,
+  "heard_numbers": []
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-01",
+  "kind": "synth",
+  "cond": "clean",
+  "noisy": false,
+  "wer": 0.067,
+  "wer_inside": 0.067,
+  "cer": 0.103,
+  "secs": 0.4,
+  "ref": "Mera Swiggy order ek ghanta late aaya aur khana bilkul thanda tha, mujhe refund chahiye.",
+  "hyp": "मेरा स्विगी ऑर्डर एक घंटा लेट आया और खाना बिल्कुल ठंडा था, मुझे रिफंड चाहिए।",
+  "expected_numbers": null,
+  "numbers_ok": null,
+  "heard_numbers": [
+   "1"
+  ]
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-01",
+  "kind": "synth",
+  "cond": "phone_8k",
+  "noisy": false,
+  "wer": 0.067,
+  "wer_inside": 0.067,
+  "cer": 0.103,
+  "secs": 0.88,
+  "ref": "Mera Swiggy order ek ghanta late aaya aur khana bilkul thanda tha, mujhe refund chahiye.",
+  "hyp": "मेरा स्विगी ऑर्डर एक घंटा लेट आया और खाना बिल्कुल ठंडा था, मुझे रिफंड चाहिए।",
+  "expected_numbers": null,
+  "numbers_ok": null,
+  "heard_numbers": [
+   "1"
+  ]
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-01",
+  "kind": "synth",
+  "cond": "phone_mulaw",
+  "noisy": false,
+  "wer": 0.067,
+  "wer_inside": 0.067,
+  "cer": 0.103,
+  "secs": 0.95,
+  "ref": "Mera Swiggy order ek ghanta late aaya aur khana bilkul thanda tha, mujhe refund chahiye.",
+  "hyp": "मेरा स्विगी ऑर्डर एक घंटा लेट आया और खाना बिल्कुल ठंडा था, मुझे रिफंड चाहिए।",
+  "expected_numbers": null,
+  "numbers_ok": null,
+  "heard_numbers": [
+   "1"
+  ]
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-02",
+  "kind": "synth",
+  "cond": "clean",
+  "noisy": false,
+  "wer": 0.214,
+  "wer_inside": 0.214,
+  "cer": 0.204,
+  "secs": 1.07,
+  "ref": "Maine Jio ka 299 wala recharge kiya tha but data abhi tak nahi aaya.",
+  "hyp": "मैंने जिओ का टू नाइन नाइन वाला रिचार्ज किया था, बट डेटा अभी तक नहीं आया।",
+  "expected_numbers": [
+   "299"
+  ],
+  "numbers_ok": true,
+  "heard_numbers": [
+   "299"
+  ]
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-02",
+  "kind": "synth",
+  "cond": "phone_8k",
+  "noisy": false,
+  "wer": 0.214,
+  "wer_inside": 0.214,
+  "cer": 0.204,
+  "secs": 0.78,
+  "ref": "Maine Jio ka 299 wala recharge kiya tha but data abhi tak nahi aaya.",
+  "hyp": "मैंने जिओ का टू नाइन नाइन वाला रिचार्ज किया था, बट डेटा अभी तक नहीं आया।",
+  "expected_numbers": [
+   "299"
+  ],
+  "numbers_ok": true,
+  "heard_numbers": [
+   "299"
+  ]
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-02",
+  "kind": "synth",
+  "cond": "phone_mulaw",
+  "noisy": false,
+  "wer": 0.214,
+  "wer_inside": 0.214,
+  "cer": 0.204,
+  "secs": 0.95,
+  "ref": "Maine Jio ka 299 wala recharge kiya tha but data abhi tak nahi aaya.",
+  "hyp": "मैंने जिओ का 299 वाला रिचार्ज किया था, बट डेटा अभी तक नहीं आया।",
+  "expected_numbers": [
+   "299"
+  ],
+  "numbers_ok": true,
+  "heard_numbers": [
+   "299"
+  ]
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-03",
+  "kind": "synth",
+  "cond": "clean",
+  "noisy": false,
+  "wer": 0.214,
+  "wer_inside": 0.214,
+  "cer": 0.298,
+  "secs": 1.18,
+  "ref": "UPI se 1500 rupaye bheje, paise kat gaye par saamne wale ko nahi mile.",
+  "hyp": "यूपीआई से पंद्रह सौ रुपये भेजे, पैसे कट गए पर सामने वाले को नहीं मिले।",
+  "expected_numbers": [
+   "1500"
+  ],
+  "numbers_ok": false,
+  "heard_numbers": []
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-03",
+  "kind": "synth",
+  "cond": "phone_8k",
+  "noisy": false,
+  "wer": 0.214,
+  "wer_inside": 0.214,
+  "cer": 0.298,
+  "secs": 0.88,
+  "ref": "UPI se 1500 rupaye bheje, paise kat gaye par saamne wale ko nahi mile.",
+  "hyp": "यूपीआई से पंद्रह सौ रुपये भेजे, पैसे कट गए पर सामने वाले को नहीं मिले।",
+  "expected_numbers": [
+   "1500"
+  ],
+  "numbers_ok": false,
+  "heard_numbers": []
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-03",
+  "kind": "synth",
+  "cond": "phone_mulaw",
+  "noisy": false,
+  "wer": 0.214,
+  "wer_inside": 0.214,
+  "cer": 0.298,
+  "secs": 0.86,
+  "ref": "UPI se 1500 rupaye bheje, paise kat gaye par saamne wale ko nahi mile.",
+  "hyp": "यूपीआई से पंद्रह सौ रुपये भेजे, पैसे कट गए पर सामने वाले को नहीं मिले।",
+  "expected_numbers": [
+   "1500"
+  ],
+  "numbers_ok": false,
+  "heard_numbers": []
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-04",
+  "kind": "synth",
+  "cond": "clean",
+  "noisy": false,
+  "wer": 0.077,
+  "wer_inside": 0.077,
+  "cer": 0.137,
+  "secs": 1.08,
+  "ref": "Mera order number 4839201 hai, Amazon ne galat size ki kurti bhej di.",
+  "hyp": "मेरा ऑर्डर नंबर फोर एट थ्री नाइन टू ज़ीरो वन है, अमेज़ॉन ने गलत साइज़ की कुर्ती भेज दी।",
+  "expected_numbers": [
+   "4839201"
+  ],
+  "numbers_ok": true,
+  "heard_numbers": [
+   "4839201"
+  ]
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-04",
+  "kind": "synth",
+  "cond": "phone_8k",
+  "noisy": false,
+  "wer": 0.077,
+  "wer_inside": 0.077,
+  "cer": 0.137,
+  "secs": 0.88,
+  "ref": "Mera order number 4839201 hai, Amazon ne galat size ki kurti bhej di.",
+  "hyp": "मेरा ऑर्डर नंबर फोर एट थ्री नाइन टू ज़ीरो वन है, अमेज़ॉन ने गलत साइज़ की कुर्ती भेज दी।",
+  "expected_numbers": [
+   "4839201"
+  ],
+  "numbers_ok": true,
+  "heard_numbers": [
+   "4839201"
+  ]
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-04",
+  "kind": "synth",
+  "cond": "phone_mulaw",
+  "noisy": false,
+  "wer": 0.077,
+  "wer_inside": 0.077,
+  "cer": 0.137,
+  "secs": 0.95,
+  "ref": "Mera order number 4839201 hai, Amazon ne galat size ki kurti bhej di.",
+  "hyp": "मेरा ऑर्डर नंबर 4839201 है, अमेज़ॉन ने गलत साइज़ की कुर्ती भेज दी।",
+  "expected_numbers": [
+   "4839201"
+  ],
+  "numbers_ok": true,
+  "heard_numbers": [
+   "4839201"
+  ]
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-05",
+  "kind": "synth",
+  "cond": "clean",
+  "noisy": false,
+  "wer": 0.143,
+  "wer_inside": 0.143,
+  "cer": 0.216,
+  "secs": 0.99,
+  "ref": "Mera IRCTC ticket cancel kiya tha das din pehle, refund abhi tak nahi aaya.",
+  "hyp": "मेरा आईआरसीटीसी टिकट कैंसिल किया था दस दिन पहले, रीफंड अभी तक नहीं आया।",
+  "expected_numbers": null,
+  "numbers_ok": null,
+  "heard_numbers": []
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-05",
+  "kind": "synth",
+  "cond": "phone_8k",
+  "noisy": false,
+  "wer": 0.143,
+  "wer_inside": 0.143,
+  "cer": 0.216,
+  "secs": 0.85,
+  "ref": "Mera IRCTC ticket cancel kiya tha das din pehle, refund abhi tak nahi aaya.",
+  "hyp": "मेरा आईआरसीटीसी टिकट कैंसिल किया था दस दिन पहले, रीफंड अभी तक नहीं आया।",
+  "expected_numbers": null,
+  "numbers_ok": null,
+  "heard_numbers": []
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-05",
+  "kind": "synth",
+  "cond": "phone_mulaw",
+  "noisy": false,
+  "wer": 0.143,
+  "wer_inside": 0.143,
+  "cer": 0.216,
+  "secs": 0.91,
+  "ref": "Mera IRCTC ticket cancel kiya tha das din pehle, refund abhi tak nahi aaya.",
+  "hyp": "मेरा आईआरसीटीसी टिकट कैंसिल किया था दस दिन पहले, रीफंड अभी तक नहीं आया।",
+  "expected_numbers": null,
+  "numbers_ok": null,
+  "heard_numbers": []
+ }
+]

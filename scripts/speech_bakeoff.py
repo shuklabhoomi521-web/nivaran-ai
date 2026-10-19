@@ -87,7 +87,7 @@ def main() -> None:
     stt, tts = make_stt(), make_tts()
     cache, rows, stopped = load_cache(), [], None
     stt_model = {"gemini_prompt": s.gemini_prompt_stt_model, "sarvam": s.sarvam_stt_model}.get(s.stt_provider, s.gemini_stt_model)
-    stt_id = f"{s.stt_provider}:{stt_model}"
+    stt_id = f"{s.stt_provider}:{stt_model}" + (f":hinglish={s.sarvam_hinglish_mode}" + (":keyterms" if s.sarvam_company_keyterms and stt_model == "saaras:v4" else "") if s.stt_provider == "sarvam" else "")
 
     def transcribe(audio_wav: bytes, lang: str):
         hint = LANG_HINT.get(lang) if args.hint else None

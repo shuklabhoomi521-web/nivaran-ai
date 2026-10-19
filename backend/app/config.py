@@ -29,6 +29,8 @@ class Settings:
     sarvam_stt_model: str
     sarvam_tts_model: str
     sarvam_rpm: int
+    sarvam_company_keyterms: bool   # give Sarvam v4 the directory's company names so it spells them right
+    sarvam_hinglish_mode: str   # translit | transcribe | codemix : how Sarvam writes Hindi-English speech
     speech_rpm: int          # our own speed limit for audio calls
     speech_rpd: int
 
@@ -58,9 +60,11 @@ def get_settings() -> Settings:
         gemini_tts_model=os.getenv("GEMINI_TTS_MODEL", "").strip() or "gemini-3.8-flash-tts",
         gemini_tts_voice=os.getenv("GEMINI_TTS_VOICE", "").strip() or "Kore",
         gemini_prompt_stt_model=os.getenv("GEMINI_PROMPT_STT_MODEL", "").strip() or "gemini-3.5-flash-lite",
-        sarvam_stt_model=os.getenv("SARVAM_STT_MODEL", "").strip() or "saaras:v3",
+        sarvam_stt_model=os.getenv("SARVAM_STT_MODEL", "").strip() or "saaras:v4",
         sarvam_tts_model=os.getenv("SARVAM_TTS_MODEL", "").strip() or "bulbul:v4-flash",
         sarvam_rpm=_int("SARVAM_RPM", 10),
+        sarvam_company_keyterms=(os.getenv("SARVAM_COMPANY_KEYTERMS", "").strip().lower() or "true") != "false",
+        sarvam_hinglish_mode=os.getenv("SARVAM_HINGLISH_MODE", "").strip() or "codemix",
         speech_rpm=_int("SPEECH_RPM", 6),
         speech_rpd=_int("SPEECH_RPD", 0),
     )

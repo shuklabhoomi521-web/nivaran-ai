@@ -148,8 +148,15 @@ def test_sarvam_stt_maps_our_language_hints(tmp_path):
     stt = SarvamSTT(client=_sarvam(stt=fake), limiter=lim)
     assert stt.transcribe(b"wav", "audio/wav", "ta-IN").text == "namaste duniya"
     assert (fake.kwargs["language_code"], fake.kwargs["mode"]) == ("ta-IN", "transcribe")
-    stt.transcribe(b"wav", "audio/wav", "hinglish")            # Hinglish: Hindi, written in English letters
-    assert (fake.kwargs["language_code"], fake.kwargs["mode"]) == ("hi-IN", "translit")
+    stt.transcribe(b"wav", "audio/wav", "hinglish")            # Hinglish default: Hindi words in Hindi script, English words as they are
+    assert (fake.kwargs["language_code"], fake.kwargs["mode"]) == ("hi-IN", "codemix")
+    import os
+    os.environ["SARVAM_HINGLISH_MODE"] = "translit"
+    try:
+        SarvamSTT(client=_sarvam(stt=fake), limiter=lim).transcribe(b"wav", "audio/wav", "hinglish")
+        assert fake.kwargs["mode"] == "translit"
+    finally:
+        del os.environ["SARVAM_HINGLISH_MODE"]
     stt.transcribe(b"wav", "audio/wav", None)                  # no hint: let Sarvam decide
     assert fake.kwargs["language_code"] == "unknown"
     assert fake.kwargs["file"][1] == b"wav" and fake.kwargs["input_audio_codec"] == "wav"
@@ -171,3 +178,12 @@ def test_sarvam_without_a_key_says_where_to_get_one(monkeypatch):
     monkeypatch.setenv("STT_PROVIDER", "sarvam")
     with pytest.raises(ConfigError, match="dashboard.sarvam.ai"):
         make_stt()
+
+
+def test_sarvam_v4_gets_company_names_as_keyterms(tmp_path):
+    from app.brain.ratelimit import RateLimiter
+    from app.speech.sarvam import SarvamSTT, company_names
+    fake = _FakeSarvamSTT()
+    SarvamSTT(client=_sarvam(stt=fake), limiter=RateLimiter(0, 0, usage_file=tmp_path / "u.json")).transcribe(b"w", "audio/wav", "hinglish")
+    assert "IRCTC" in fake.kwargs["keyterms"] and "Swiggy" in fake.kwargs["keyterms"]
+    assert set(fake.kwargs["keyterms"]) == set(company_names()) and len(company_names()) == 40
