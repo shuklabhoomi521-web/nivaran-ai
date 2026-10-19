@@ -47,5 +47,8 @@ Research and write down, with official sources (trai.gov.in, not vendor blogs):
 ## Before Phase 3 is done: new-clips test (founder records 5 NEW clips)
 - See `docs/speech-settings-frozen.md`. Settings were tuned on the scored clips, so Sarvam's scores are optimistic until this test.
 
-## Voice recordings in git history (needs the founder's decision)
-- The founder's 10 raw .aac recordings were committed once (commit 9dec69a) and are still in the history on the private GitHub repo, although the files are no longer tracked. A purge needs a history rewrite and force-push. See the notes in the Phase 3 discussion.
+## Voice recordings in git history: purged 2026-10-19 (founder's OK)
+- The 10 raw .aac recordings were committed once by mistake (old commit 9dec69a). History was rewritten without them (also removed: any .aac/.m4a/.wav/.mp3/.zip ever committed) and force-pushed: main is now 3d2b3dc; the three phase tags are unchanged. 30 commits kept; the files at HEAD are identical.
+- Backup, outside the repo: `~/nivaran-backups/2026-10-19-before-voice-purge/` holds a full mirror of the OLD history (`nivaran-mirror.git`, which still contains the voice files), a bundle (`nivaran-all-refs.bundle`) and a copy of the raw and converted recordings (`voice-recordings/`). The originals are also still in `~/Downloads/nivaran_recordings.zip` and `speech_test/` (git-ignored).
+- Not fully gone on GitHub yet: GitHub keeps unreachable objects until its own cleanup, so the OLD commit and files can still be fetched by their exact IDs (private repo, so only people with access to it). To remove them for good: ask GitHub Support to run garbage collection and clear cached views ("Removing sensitive data from a repository"), or create a fresh repo from the clean history and delete the old one (needs the founder's separate OK).
+- Anyone with an old clone must re-clone (history IDs changed after the old commit). A test (`test_repo_hygiene.py`) now fails if audio files or archives are ever tracked again.
