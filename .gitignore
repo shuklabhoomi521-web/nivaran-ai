@@ -17,3 +17,4 @@ docs/.speech-cache.json
 .speech_usage.json
 speech_test/_download/
 speech_test/public/
+speech_test/_incoming/
