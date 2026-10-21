@@ -2,7 +2,7 @@ import asyncio
 import io
 import wave
 
-from pipecat.frames.frames import ErrorFrame, TranscriptionFrame, TTSAudioRawFrame
+from pipecat.frames.frames import ErrorFrame, TranscriptionFrame, TTSAudioRawFrame, TTSStoppedFrame
 
 from app.speech.base import SpeechAudio, SpeechError, Transcript
 from app.speech.fakes import FakeSTT, FakeTTS
@@ -52,7 +52,7 @@ def test_tts_service_turns_text_into_audio_frames():
     tts = WavTTS()
     svc = NivaranTTSService(tts, locale="ta-IN")
     frames = asyncio.run(_collect(svc.run_tts("வணக்கம்", "ctx1")))
-    assert len(frames) == 1 and isinstance(frames[0], TTSAudioRawFrame)
+    assert [type(f) for f in frames] == [TTSAudioRawFrame, TTSStoppedFrame]       # the audio, then "finished speaking"
     assert frames[0].sample_rate == 24000 and frames[0].num_channels == 1 and len(frames[0].audio) > 0
     assert tts.calls[0][:2] == ("வணக்கம்", "ta-IN")
 

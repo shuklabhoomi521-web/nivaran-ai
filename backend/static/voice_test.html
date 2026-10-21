@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nivaran voice test</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 760px; margin: 1.5rem auto; padding: 0 1rem; font-size: 18px; }
+  button, select { font-size: 18px; padding: .5rem 1rem; margin-right: .5rem; }
+  #meter { height: 18px; background: #ddd; border-radius: 9px; overflow: hidden; margin: .75rem 0; }
+  #bar { height: 100%; width: 0; background: #2e9e5b; transition: width .08s; }
+  #status { font-weight: 600; margin: .5rem 0; }
+  #log { background: #f4f4f4; padding: .75rem; min-height: 8rem; border-radius: 6px; white-space: pre-wrap; }
+  .heard { color: #0b5; } .spoke { color: #06c; } .err { color: #c00; }
+  small { color: #555; }
+</style>
+</head>
+<body>
+<h1>Nivaran voice test</h1>
+<p><small>Press Start, allow the microphone, then speak. Use headphones if you can: the speaker can otherwise be heard by the microphone.</small></p>
+<div>
+  <select id="lang">
+    <option value="en-IN">English</option><option value="hi-IN">Hindi</option>
+    <option value="ta-IN">Tamil</option><option value="hinglish">Hinglish</option>
+  </select>
+  <button id="start">Start</button>
+  <button id="stop" disabled>Stop</button>
+</div>
+<div id="status">Not connected</div>
+<div>Your microphone (this bar must move when you speak):</div>
+<div id="meter"><div id="bar"></div></div>
+<div id="log"></div>
+<audio id="out" autoplay></audio>
+<script>
+let pc = null, stream = null, audioCtx = null, timer = null, since = 0;
+const $ = id => document.getElementById(id);
+const status = t => $("status").textContent = t;
+function add(kind, text) { const d = document.createElement("div"); d.className = kind; d.textContent = text; $("log").appendChild(d); }
+
+async function start() {
+  $("start").disabled = true; $("log").innerHTML = ""; since = 0;
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
+  } catch (e) { status("Microphone blocked: " + e.message); $("start").disabled = false; return; }
+  const track = stream.getAudioTracks()[0];
+  status("Microphone: " + track.label + " (enabled: " + track.enabled + ")");
+  // client-side level meter, so we can SEE that the microphone works
+  audioCtx = new AudioContext(); const src = audioCtx.createMediaStreamSource(stream);
+  const an = audioCtx.createAnalyser(); an.fftSize = 512; src.connect(an); const buf = new Uint8Array(an.fftSize);
+  (function loop() { an.getByteTimeDomainData(buf); let m = 0; for (const v of buf) m = Math.max(m, Math.abs(v - 128)); $("bar").style.width = Math.min(100, m * 1.6) + "%"; if (audioCtx) requestAnimationFrame(loop); })();
+
+  pc = new RTCPeerConnection();
+  pc.addTrack(track, stream);
+  pc.createDataChannel("chat");
+  pc.ontrack = e => { if (e.track.kind === "audio") $("out").srcObject = e.streams[0] || new MediaStream([e.track]); };
+  pc.onconnectionstatechange = () => { status("Connection: " + pc.connectionState + " | microphone enabled: " + track.enabled); if (["failed","closed","disconnected"].includes(pc.connectionState)) stop(); };
+  const offer = await pc.createOffer(); await pc.setLocalDescription(offer);
+  await new Promise(res => { if (pc.iceGatheringState === "complete") res(); else pc.onicegatheringstatechange = () => pc.iceGatheringState === "complete" && res(); });
+  const r = await fetch("/voice/api/offer", { method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ sdp: pc.localDescription.sdp, type: pc.localDescription.type, request_data: { language: $("lang").value } }) });
+  if (!r.ok) { status("Server error " + r.status); stop(); return; }
+  await pc.setRemoteDescription(await r.json());
+  $("stop").disabled = false;
+  timer = setInterval(poll, 700);
+}
+async function poll() {
+  try { const ev = await (await fetch("/voice/events?since=" + since)).json();
+    for (const e of ev) { since = e.n; add(e.kind, e.t + "  " + ({heard:"You said: ",spoke:"Bot said: "}[e.kind] || "") + e.text + (e.secs ? "  (" + e.secs + " s)" : "")); }
+  } catch (e) {}
+}
+function stop() {
+  clearInterval(timer); if (pc) pc.close(); pc = null;
+  if (stream) stream.getTracks().forEach(t => t.stop()); stream = null;
+  if (audioCtx) audioCtx.close(); audioCtx = null; $("bar").style.width = "0";
+  $("start").disabled = false; $("stop").disabled = true; status("Stopped");
+}
+$("start").onclick = start; $("stop").onclick = stop;
+</script>
+</body>
+</html>

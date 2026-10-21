@@ -7,7 +7,7 @@ import wave
 from collections.abc import AsyncGenerator
 
 from loguru import logger
-from pipecat.frames.frames import ErrorFrame, Frame, TranscriptionFrame, TTSAudioRawFrame
+from pipecat.frames.frames import ErrorFrame, Frame, TranscriptionFrame, TTSAudioRawFrame, TTSStoppedFrame
 from pipecat.services.settings import STTSettings, TTSSettings
 from pipecat.services.stt_service import SegmentedSTTService
 from pipecat.services.tts_service import TTSService
@@ -48,7 +48,8 @@ class NivaranTTSService(TTSService):
     """Speaks one piece of text (one or two sentences) using our text-to-speech provider."""
 
     def __init__(self, tts: TextToSpeech, locale: str = "en-IN", **kwargs):
-        super().__init__(pause_frame_processing=True, push_start_frame=True, push_stop_frames=True,
+        super().__init__(pause_frame_processing=True, push_start_frame=True, push_stop_frames=False,   # we send the stop frame ourselves, after the audio
+                         stop_frame_timeout_s=30.0,   # our voice takes several seconds before the first sound; do not call that 'no audio'
                          settings=TTSSettings(model="nivaran", voice=None, language=None), **kwargs)
         self._tts = tts
         self.locale = locale
@@ -72,3 +73,4 @@ class NivaranTTSService(TTSService):
         await self.stop_ttfb_metrics()
         logger.info(f"spoke {len(text)} chars in {self.last_seconds}s ({audio.provider or 'primary'})")
         yield TTSAudioRawFrame(pcm, rate, channels, context_id=context_id)
+        yield TTSStoppedFrame(context_id=context_id)
