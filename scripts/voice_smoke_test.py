@@ -42,14 +42,14 @@ async def main():
         await pc.setRemoteDescription(RTCSessionDescription(sdp=ans["sdp"], type=ans["type"]))
         print("connected; playing your clip into the bot...", flush=True)
         since, t0, seen = 0, time.time(), []
-        while time.time() - t0 < 75:
+        while time.time() - t0 < 110:
             await asyncio.sleep(1.5)
             ev = (await c.get(f"{base}/voice/events", params={"since": since})).json()
             for e in ev:
                 since = e["n"]
                 print(f"  [{time.time() - t0:5.1f}s] {e['kind']}: {e['text']}", flush=True)
                 seen.append(e["kind"])
-            if "spoke" in seen and got_audio["frames"] > 300 and time.time() - t0 > 40:
+            if "spoke" in seen and got_audio["frames"] > 300 and time.time() - t0 > 60:
                 break
     print(f"bot audio frames received back: {got_audio['frames']}")
     await pc.close()

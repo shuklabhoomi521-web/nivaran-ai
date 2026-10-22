@@ -155,7 +155,7 @@ class GeminiTTS:
     def synthesize(self, text: str, language: str | None = None, voice: str | None = None) -> SpeechAudio:
         speech: dict = {"voice": voice or self._s.gemini_tts_voice}
         if language:
-            speech["language"] = language
+            speech["language"] = "hi-IN" if language == "hinglish" else language      # "hinglish" is our own label
         body = dict(model=self._s.gemini_tts_model, input=text, response_format={"type": "audio"},
                     generation_config={"speech_config": [speech]})
         it = _call_with_retries(self._limiter, lambda: self._client.interactions.create(timeout=90, **body), "text-to-speech",

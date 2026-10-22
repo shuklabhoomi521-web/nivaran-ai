@@ -23,7 +23,7 @@ from pipecat.transports.base_transport import TransportParams
 from app.speech.factory import make_stt, make_tts
 from app.voice.services import NivaranSTTService, NivaranTTSService
 
-LOCALES = {"en-IN": "en-IN", "hi-IN": "hi-IN", "ta-IN": "ta-IN", "hinglish": "hi-IN"}   # hinglish is spoken back with the Hindi voice
+LOCALES = {"en-IN": "en-IN", "hi-IN": "hi-IN", "ta-IN": "ta-IN", "hinglish": "hinglish"}   # our own label: each speech provider picks a Hindi voice that also reads English
 SAY = {"en-IN": "You said: {t}", "hi-IN": "आपने कहा: {t}", "ta-IN": "நீங்கள் சொன்னது: {t}", "hinglish": "Aapne kaha: {t}"}
 
 

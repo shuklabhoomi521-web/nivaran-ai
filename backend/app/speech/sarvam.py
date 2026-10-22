@@ -90,7 +90,8 @@ class SarvamSTT:
 
 
 class SarvamTTS:
-    SPEAKERS = {"hi-IN": "ritu_hi_customer", "ta-IN": "gokul_ta_narration", "en-IN": "simran_en_customer"}
+    SPEAKERS = {"hi-IN": "ritu_hi_customer", "ta-IN": "gokul_ta_narration", "en-IN": "simran_en_customer",
+                "hinglish": "ishita_enhi_customer"}          # "hinglish" is our own label: Hindi voice that also reads English words
 
     def __init__(self, client=None, limiter: RateLimiter | None = None, ledger: CreditLedger | None = None) -> None:
         s = get_settings()
@@ -102,8 +103,9 @@ class SarvamTTS:
     def synthesize(self, text: str, language: str | None = None, voice: str | None = None,
                    codec: str = "wav", sample_rate: int = 24000) -> SpeechAudio:
         """codec 'mulaw' with sample_rate 8000 gives audio that can go straight down a phone line (Phase 4)."""
-        code = language or "en-IN"
-        kwargs = dict(text=text, language_code=code, speaker=voice or self.SPEAKERS.get(code, "simran_en_customer"),
+        key = language or "en-IN"
+        code = "hi-IN" if key == "hinglish" else key
+        kwargs = dict(text=text, language_code=code, speaker=voice or self.SPEAKERS.get(key, "simran_en_customer"),
                       model=self._s.sarvam_tts_model, output_audio_codec=codec, speech_sample_rate=sample_rate)
         r = _call(self._limiter, lambda: self._client.text_to_speech.convert(**kwargs), "text-to-speech")
         if not r.audios:

@@ -20,3 +20,4 @@ speech_test/public/
 speech_test/_incoming/
 .sarvam_usage.json
 .sarvam_credits.json
+speech_test/voice_choice/

@@ -20,6 +20,16 @@ STATIC = Path(__file__).resolve().parents[2] / "static"
 app = FastAPI(title="Nivaran voice test")
 handler = SmallWebRTCRequestHandler()
 
+@app.get("/voice/choice/{name:path}")
+async def voice_choice(name: str):
+    """The voice-choice listening page and its audio files (synthetic voices only)."""
+    base = STATIC.parent.parent / "speech_test" / "voice_choice"
+    target = (base / (name or "index.html")).resolve()
+    if base.resolve() not in target.parents and target != base.resolve():
+        return FileResponse(base / "index.html")
+    return FileResponse(target if target.is_file() else base / "index.html")
+
+
 @app.get("/voice")
 async def voice_page():
     return FileResponse(STATIC / "voice_test.html")
@@ -32,7 +42,7 @@ async def events(since: int = 0):
 
 @app.post("/voice/api/offer")
 async def offer(request: SmallWebRTCRequest, background_tasks: BackgroundTasks):
-    from app.voice.spike_echo_bot import bot
+    from app.voice.voice_bot import bot   # the real bot; the echo spike stays in spike_echo_bot.py for diagnostics
 
     async def callback(connection: SmallWebRTCConnection):
         args = SmallWebRTCRunnerArguments(webrtc_connection=connection, body=request.request_data, session_id=str(uuid.uuid4()))

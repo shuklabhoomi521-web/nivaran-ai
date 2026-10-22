@@ -11,7 +11,7 @@
   #bar { height: 100%; width: 0; background: #2e9e5b; transition: width .08s; }
   #status { font-weight: 600; margin: .5rem 0; }
   #log { background: #f4f4f4; padding: .75rem; min-height: 8rem; border-radius: 6px; white-space: pre-wrap; }
-  .heard { color: #0b5; } .spoke { color: #06c; } .err { color: #c00; }
+  .heard { color: #0b5; } .spoke { color: #06c; } .err { color: #c00; } .note { color: #777; font-size: 15px; }
   small { color: #555; }
 </style>
 </head>
@@ -65,7 +65,7 @@ async function start() {
 }
 async function poll() {
   try { const ev = await (await fetch("/voice/events?since=" + since)).json();
-    for (const e of ev) { since = e.n; add(e.kind, e.t + "  " + ({heard:"You said: ",spoke:"Bot said: "}[e.kind] || "") + e.text + (e.secs ? "  (" + e.secs + " s)" : "")); }
+    for (const e of ev) { since = e.n; add(e.kind, e.t + "  " + ({heard:"You said: ",spoke:"Bot said: ",note:"(understood) "}[e.kind] || "") + e.text + (e.secs ? "  (" + e.secs + " s)" : "")); }
   } catch (e) {}
 }
 function stop() {
