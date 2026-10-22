@@ -1,6 +1,6 @@
 # Nivaran — project guide for Claude
 
-**Current phase: 3 (voice in the browser), in progress. Done: speech interfaces, Gemini speech providers, bake-off (docs/speech-bakeoff.md). Founder chose to try Sarvam before building the voice page. Voice page NOT built. Not tagged.**
+**Current phase: 3 (voice in the browser), in progress. Voice bot works in the browser (Sarvam STT+TTS, Gemini brain); slow when free Gemini is slow. Waiting on founder: voice picks, 4-language test, 5 holdout clips. See docs/notes/phase-3.md. Not tagged.**
 
 Founder: ECE student. Explain in simple words, short sentences. One line for each hard term.
 Full plan: `docs/PLAN.md` (the master prompt). Follow it.
