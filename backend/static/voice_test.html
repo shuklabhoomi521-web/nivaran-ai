@@ -17,7 +17,17 @@
 </head>
 <body>
 <h1>Nivaran voice test</h1>
-<p><small>Press Start, allow the microphone, then speak. Use headphones if you can: the speaker can otherwise be heard by the microphone.</small></p>
+<div style="background:#eef6ff;padding:.75rem 1rem;border-radius:8px;margin-bottom:1rem">
+  <b>How to test (you play the customer, the bot plays customer care)</b>
+  <ol style="margin:.4rem 0 .4rem 1.1rem;padding:0">
+    <li>Pick a language, press <b>Start</b>, allow the microphone.</li>
+    <li>Wait for the bot to say hello (the blue "Bot said" line appears).</li>
+    <li>Say your problem like a real customer. <b>Then stop and wait</b> for the bot to answer: it asks one question.</li>
+    <li>Answer the question. After 1 or 2 questions it tells you what it understood. It never sends anything.</li>
+  </ol>
+  <div id="try"><b>Try saying:</b> <span id="trytext"></span></div>
+  <small>Use headphones if you can, so the bot's voice does not feed back into the microphone.</small>
+</div>
 <div>
   <select id="lang">
     <option value="en-IN">English</option><option value="hi-IN">Hindi</option>
@@ -35,6 +45,14 @@
 let pc = null, stream = null, audioCtx = null, timer = null, since = 0;
 const $ = id => document.getElementById(id);
 const status = t => $("status").textContent = t;
+const TRY = {
+  "en-IN": 'First: "My Zomato order came late and the food was cold, I want a refund."   After the bot asks: "My order number is 4 8 3 9 2 0 1."',
+  "hi-IN": 'पहले: "मेरा Zomato का खाना ठंडा आया, मुझे पैसे वापस चाहिए।"   बॉट के सवाल पर: "मेरा ऑर्डर नंबर 4 8 3 9 2 0 1 है।"',
+  "ta-IN": 'முதலில்: "என் Swiggy ஆர்டர் குளிர்ந்து வந்தது, எனக்கு பணம் திரும்ப வேண்டும்."   பிறகு: "என் ஆர்டர் எண் 4 8 3 9 2 0 1."',
+  "hinglish": 'Pehle: "Mera Zomato ka khana thanda aaya, mujhe refund chahiye."   Bot ke sawaal par: "Mera order number 4 8 3 9 2 0 1 hai."'
+};
+function showTry() { $("trytext").textContent = TRY[$("lang").value]; }
+document.addEventListener("DOMContentLoaded", () => { showTry(); $("lang").onchange = showTry; });
 function add(kind, text) { const d = document.createElement("div"); d.className = kind; d.textContent = text; $("log").appendChild(d); }
 
 async function start() {
@@ -65,7 +83,7 @@ async function start() {
 }
 async function poll() {
   try { const ev = await (await fetch("/voice/events?since=" + since)).json();
-    for (const e of ev) { since = e.n; add(e.kind, e.t + "  " + ({heard:"You said: ",spoke:"Bot said: ",note:"(understood) "}[e.kind] || "") + e.text + (e.secs ? "  (" + e.secs + " s)" : "")); }
+    for (const e of ev) { since = e.n; if (e.kind === "thinking") { status("The bot is thinking... (can take a few seconds)"); continue; } if (e.kind === "spoke") status("The bot is speaking - listen, then answer"); if (e.kind === "heard") status("Heard you - the bot is thinking..."); add(e.kind, e.t + "  " + ({heard:"You said: ",spoke:"Bot said: ",note:"(understood) ",thinking:"Bot is thinking "}[e.kind] || "") + e.text + (e.secs ? "  (" + e.secs + " s)" : "")); }
   } catch (e) {}
 }
 function stop() {

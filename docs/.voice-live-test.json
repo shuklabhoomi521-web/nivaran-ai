@@ -5,64 +5,78 @@
   "note": "Indian-English voice (yours) then a computer-voice answer",
   "events": [
    {
-    "n": 16,
-    "t": "10:01:42",
+    "n": 1,
+    "t": "19:37:13",
     "kind": "info",
     "text": "connected (en-IN)",
     "at": 1.0
    },
    {
-    "n": 17,
-    "t": "10:01:42",
+    "n": 2,
+    "t": "19:37:13",
     "kind": "spoke",
     "text": "Hello, I am Nivaran. Tell me your problem, and which company it is about.",
     "at": 1.0
    },
    {
-    "n": 18,
-    "t": "10:02:00",
+    "n": 3,
+    "t": "19:37:31",
     "kind": "heard",
     "text": "My Zomato order came 40 minutes late and the food was cold and I want a refund.",
-    "secs": 0.42,
+    "secs": 0.48,
     "at": 18.1
    },
    {
-    "n": 19,
-    "t": "10:02:01",
+    "n": 4,
+    "t": "19:37:31",
+    "kind": "thinking",
+    "text": "…",
+    "at": 18.1
+   },
+   {
+    "n": 5,
+    "t": "19:37:44",
     "kind": "note",
     "text": "company=Zomato, category=food_delivery, goal=refund",
-    "secs": 1.6,
-    "at": 20.1
+    "secs": 12.7,
+    "at": 31.1
    },
    {
-    "n": 20,
-    "t": "10:02:01",
+    "n": 6,
+    "t": "19:37:44",
     "kind": "spoke",
     "text": "Could you please provide your order ID?",
-    "at": 20.1
+    "at": 31.1
    },
    {
-    "n": 21,
-    "t": "10:02:26",
+    "n": 7,
+    "t": "19:37:57",
     "kind": "heard",
     "text": "My order number is 4839201.",
-    "secs": 0.43,
+    "secs": 0.35,
     "at": 44.2
    },
    {
-    "n": 22,
-    "t": "10:02:28",
-    "kind": "note",
-    "text": "company=Zomato, category=food_delivery, goal=refund; channel=email",
-    "secs": 2.2,
-    "at": 47.2
+    "n": 8,
+    "t": "19:37:57",
+    "kind": "thinking",
+    "text": "…",
+    "at": 44.2
    },
    {
-    "n": 23,
-    "t": "10:02:28",
+    "n": 9,
+    "t": "19:38:23",
+    "kind": "note",
+    "text": "company=Zomato, category=food_delivery, goal=refund; channel=email",
+    "secs": 25.4,
+    "at": 70.3
+   },
+   {
+    "n": 10,
+    "t": "19:38:23",
     "kind": "spoke",
-    "text": "I understand you received your Zomato order late and want a refund for the cold food. I will send an email to them, and nothing has been sent yet.",
-    "at": 47.2
+    "text": "I understand you want a refund from Zomato because your food arrived cold and forty minutes late. I will send an email to them now, but nothing has been sent yet.",
+    "at": 70.3
    }
   ],
   "spans": [
@@ -77,316 +91,24 @@
   ],
   "bot_segments": [
    [
-    1.4475288391113281,
-    5.808820009231567
+    1.4710710048675537,
+    5.9897918701171875
    ],
    [
-    20.446954011917114,
-    22.188084840774536
+    25.689162015914917,
+    26.670491933822632
    ],
    [
-    48.28767681121826,
-    56.78998589515686
-   ]
-  ]
- },
- {
-  "name": "2 Hinglish, one turn (Amazon, order number given)",
-  "lang": "hinglish",
-  "note": "your voice",
-  "events": [
-   {
-    "n": 25,
-    "t": "10:03:04",
-    "kind": "info",
-    "text": "connected (hinglish)",
-    "at": 1.0
-   },
-   {
-    "n": 26,
-    "t": "10:03:04",
-    "kind": "spoke",
-    "text": "Namaste, main Nivaran hoon. Apni problem batayein, aur kis company ke baare mein hai.",
-    "at": 1.0
-   },
-   {
-    "n": 27,
-    "t": "10:03:23",
-    "kind": "heard",
-    "text": "Order number 4839201 है Amazon ने गलत size की कुर्ती भेज दी।",
-    "secs": 0.42,
-    "at": 20.1
-   },
-   {
-    "n": 28,
-    "t": "10:03:25",
-    "kind": "note",
-    "text": "company=Amazon, category=ecommerce, goal=replace",
-    "secs": 1.4,
-    "at": 21.1
-   },
-   {
-    "n": 29,
-    "t": "10:03:25",
-    "kind": "spoke",
-    "text": "Order mein aapko kaunsa size chahiye tha?",
-    "at": 21.1
-   }
-  ],
-  "spans": [
-   [
-    9.0,
-    18.5898125
-   ]
-  ],
-  "bot_segments": [
-   [
-    1.477128028869629,
-    6.356210947036743
+    31.570507049560547,
+    33.37000489234924
    ],
    [
-    21.838473081588745,
-    23.95517086982727
-   ]
-  ]
- },
- {
-  "name": "3 Hindi (Zomato)",
-  "lang": "hi-IN",
-  "note": "computer voice",
-  "events": [
-   {
-    "n": 31,
-    "t": "10:04:01",
-    "kind": "info",
-    "text": "connected (hi-IN)",
-    "at": 1.0
-   },
-   {
-    "n": 32,
-    "t": "10:04:01",
-    "kind": "spoke",
-    "text": "नमस्ते, मैं निवारण हूँ। अपनी समस्या बताइए, और किस कंपनी के बारे में है।",
-    "at": 1.0
-   },
-   {
-    "n": 33,
-    "t": "10:04:15",
-    "kind": "heard",
-    "text": "मेरा ज़ोमैटो का खाना ठंडा आया, मुझे पैसे वापस चाहिए।",
-    "secs": 0.34,
-    "at": 14.1
-   },
-   {
-    "n": 34,
-    "t": "10:04:16",
-    "kind": "note",
-    "text": "company=Zomato, category=food_delivery, goal=refund",
-    "secs": 1.3,
-    "at": 15.1
-   },
-   {
-    "n": 35,
-    "t": "10:04:16",
-    "kind": "spoke",
-    "text": "कृपया अपना आर्डर आईडी (Order ID) बताएं।",
-    "at": 15.1
-   }
-  ],
-  "spans": [
-   [
-    9.0,
-    12.6
-   ]
-  ],
-  "bot_segments": [
-   [
-    8.316868305206299,
-    9.534635066986084
+    55.751057863235474,
+    56.79139494895935
    ],
    [
-    15.876846075057983,
-    18.296980142593384
-   ]
-  ]
- },
- {
-  "name": "4 Tamil (Swiggy)",
-  "lang": "ta-IN",
-  "note": "computer voice",
-  "events": [
-   {
-    "n": 37,
-    "t": "10:04:54",
-    "kind": "info",
-    "text": "connected (ta-IN)",
-    "at": 1.0
-   },
-   {
-    "n": 38,
-    "t": "10:04:54",
-    "kind": "spoke",
-    "text": "வணக்கம், நான் நிவாரண். உங்கள் பிரச்சனையையும், எந்த நிறுவனம் என்பதையும் சொல்லுங்கள்.",
-    "at": 1.0
-   },
-   {
-    "n": 39,
-    "t": "10:05:08",
-    "kind": "heard",
-    "text": "என் ஸ்விக்கி ஆர்டர் குளிர்ந்து வந்தது. எனக்கு பணம் திரும்ப வேண்டும்.",
-    "secs": 0.5,
-    "at": 15.1
-   },
-   {
-    "n": 40,
-    "t": "10:05:21",
-    "kind": "note",
-    "text": "company=Swiggy, category=food_delivery, goal=refund",
-    "secs": 12.9,
-    "at": 27.1
-   },
-   {
-    "n": 41,
-    "t": "10:05:21",
-    "kind": "spoke",
-    "text": "தய and உங்கள் ஸ்விக்கி ஆர்டர் ஐடியைக் (Order ID) குறிப்பிட முடியுமா?",
-    "at": 27.1
-   }
-  ],
-  "spans": [
-   [
-    9.0,
-    13.08
-   ]
-  ],
-  "bot_segments": [
-   [
-    1.5780022144317627,
-    6.576378107070923
-   ],
-   [
-    28.55710506439209,
-    33.278555154800415
-   ]
-  ]
- },
- {
-  "name": "5 Talking over the bot (barge-in)",
-  "lang": "en-IN",
-  "note": "speech starts 3 s in, while the greeting is still playing",
-  "events": [
-   {
-    "n": 43,
-    "t": "10:05:46",
-    "kind": "info",
-    "text": "connected (en-IN)",
-    "at": 1.0
-   },
-   {
-    "n": 44,
-    "t": "10:05:46",
-    "kind": "spoke",
-    "text": "Hello, I am Nivaran. Tell me your problem, and which company it is about.",
-    "at": 1.0
-   },
-   {
-    "n": 45,
-    "t": "10:05:58",
-    "kind": "heard",
-    "text": "My Zomato order came 40 minutes late and the food was cold and I want a refund.",
-    "secs": 0.43,
-    "at": 12.1
-   },
-   {
-    "n": 46,
-    "t": "10:05:59",
-    "kind": "note",
-    "text": "company=Zomato, category=food_delivery, goal=refund",
-    "secs": 1.4,
-    "at": 14.1
-   },
-   {
-    "n": 47,
-    "t": "10:05:59",
-    "kind": "spoke",
-    "text": "Could you please provide your order ID?",
-    "at": 14.1
-   }
-  ],
-  "spans": [
-   [
-    3.0,
-    11.010875
-   ]
-  ],
-  "bot_segments": [
-   [
-    1.488245964050293,
-    4.425494909286499
-   ],
-   [
-    14.167707920074463,
-    15.789342880249023
-   ]
-  ]
- },
- {
-  "name": "6 Card number said aloud",
-  "lang": "en-IN",
-  "note": "computer voice",
-  "events": [
-   {
-    "n": 49,
-    "t": "10:06:33",
-    "kind": "info",
-    "text": "connected (en-IN)",
-    "at": 1.0
-   },
-   {
-    "n": 50,
-    "t": "10:06:33",
-    "kind": "spoke",
-    "text": "Hello, I am Nivaran. Tell me your problem, and which company it is about.",
-    "at": 1.0
-   },
-   {
-    "n": 51,
-    "t": "10:06:56",
-    "kind": "heard",
-    "text": "My Swiggy order came cold and I want a refund. My card number is [CARD NUMBER REMOVED].",
-    "secs": 1.1,
-    "at": 24.1
-   },
-   {
-    "n": 52,
-    "t": "10:06:58",
-    "kind": "note",
-    "text": "company=Swiggy, category=food_delivery, goal=refund (private data removed: card_number)",
-    "secs": 1.2,
-    "at": 25.1
-   },
-   {
-    "n": 53,
-    "t": "10:06:58",
-    "kind": "spoke",
-    "text": "Could you please provide your order ID?",
-    "at": 25.1
-   }
-  ],
-  "spans": [
-   [
-    9.0,
-    21.560000000000002
-   ]
-  ],
-  "bot_segments": [
-   [
-    1.4391300678253174,
-    5.47999119758606
-   ],
-   [
-    25.45988416671753,
-    27.139615058898926
+    71.5308449268341,
+    77.33259582519531
    ]
   ]
  }

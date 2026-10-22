@@ -36,14 +36,21 @@ for lang, (loc, text) in SENTENCES.items():
         rows.append({"lang": lang, "provider": name, "file": f.name if not err else None, "secs": secs, "error": err, "chars": len(text),
                      "voice": SARVAM_VOICES[lang] if name == "Sarvam" else "Kore"})
         print(f"{lang:9} {name:7} {secs:5}s  {err or 'ok'}", flush=True)
-html = ["<!doctype html><meta charset=utf-8><title>Voice choice</title><style>body{font-family:system-ui;max-width:800px;margin:2rem auto;font-size:18px}td{padding:.4rem .8rem}</style>",
-        "<h1>Voice choice</h1><p>Listen to each pair and tell me which voice you prefer per language (or neither).</p><table>"]
+html = ["<!doctype html><meta charset=utf-8><title>Voice choice</title><style>body{font-family:system-ui;max-width:820px;margin:2rem auto;font-size:18px}td{padding:.4rem .8rem}.box{background:#eef6ff;padding:1rem;border-radius:8px}label{margin-right:1rem}</style>",
+        "<h1>Voice choice</h1><div class=box><b>What this page is for.</b> The bot will speak to users in this voice, so we must pick the voice that sounds best. "
+        "Below are 4 languages. Each has two voices reading the SAME sentence: <b>Sarvam</b> (paid after free credit, faster) and <b>Gemini</b> (free, slower).<br><br>"
+        "<b>What to do:</b> press play on both voices in each language and decide which one is clearer and more natural to your ear. "
+        "A voice is bad if it mispronounces words, sounds robotic or is hard to follow. Tick your pick under each language. "
+        "At the end press <i>Show my picks</i> and send me that line in chat. There are no wrong answers.</div><table>"]
 for lang in SENTENCES:
-    html.append(f"<tr><td colspan=3><h2>{lang}</h2><small>{SENTENCES[lang][1]}</small></td></tr>")
+    html.append(f"<tr><td colspan=3><h2>{lang}</h2><small>{SENTENCES[lang][1]}</small><br>"
+                f"<label><input type=radio name={lang} value=Sarvam> Sarvam is better</label><label><input type=radio name={lang} value=Gemini> Gemini is better</label>"
+                f"<label><input type=radio name={lang} value=Both> both fine</label><label><input type=radio name={lang} value=Neither> neither is good</label></td></tr>")
     for r in rows:
         if r["lang"] == lang:
             html.append(f"<tr><td>{r['provider']} ({r['voice']})</td><td>{'<audio controls src=\"' + r['file'] + '\"></audio>' if r['file'] else 'FAILED: ' + str(r['error'])}</td><td>made in {r['secs']} s</td></tr>")
-html.append("</table>")
+html.append("</table><p><button onclick=\"show()\" style='font-size:18px;padding:.5rem 1rem'>Show my picks</button></p><pre id=out style='background:#f4f4f4;padding:1rem'></pre>"
+            "<script>function show(){const l=['English','Hindi','Tamil','Hinglish'];document.getElementById('out').textContent='My voice picks: '+l.map(x=>{const c=document.querySelector('input[name='+x+']:checked');return x+': '+(c?c.value:'not chosen')}).join(', ')}</script>")
 (OUT / "index.html").write_text("\n".join(html), encoding="utf-8")
 (OUT / "results.json").write_text(json.dumps(rows, ensure_ascii=False, indent=1), encoding="utf-8")
 print(CreditLedger().session_line())

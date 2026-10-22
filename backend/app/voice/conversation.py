@@ -18,6 +18,7 @@ GREETING = {
     "ta-IN": "வணக்கம், நான் நிவாரண். உங்கள் பிரச்சனையையும், எந்த நிறுவனம் என்பதையும் சொல்லுங்கள்.",
     "hinglish": "Namaste, main Nivaran hoon. Apni problem batayein, aur kis company ke baare mein hai.",
 }
+FILLER = {"en-IN": "One moment, please.", "hi-IN": "एक मिनट, कृपया।", "ta-IN": "ஒரு நிமிடம், தயவுசெய்து.", "hinglish": "Ek minute, please."}
 MAX_QUESTIONS = 4        # after this many questions we stop asking and summarise what we have
 
 
@@ -40,6 +41,14 @@ class Conversation:
     @property
     def lang_name(self) -> str:
         return LANGUAGE_NAME.get(self.language, "english")
+
+    def snapshot(self) -> tuple:
+        return (list(self.texts), self.questions_asked, self.finished, len(self.turns))
+
+    def restore(self, snap: tuple) -> None:
+        """Go back to how things were before a turn (used when the user kept talking while we were still thinking)."""
+        self.texts, self.questions_asked, self.finished = list(snap[0]), snap[1], snap[2]
+        del self.turns[snap[3]:]
 
     def greeting(self) -> str:
         return GREETING.get(self.language, GREETING["en-IN"])

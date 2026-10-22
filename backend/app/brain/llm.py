@@ -47,6 +47,51 @@ class GeminiLLM:
         self._client = genai.Client()  # reads GEMINI_API_KEY from the environment
         self._limiter = limiter or RateLimiter(self._settings.gemini_rpm, self._settings.gemini_rpd)
 
+    def _ask(self, user: str, config):
+        """Ask the main model; if it has not answered within a few seconds, ALSO ask the backup model and take whichever answers first.
+        (The free tier is sometimes very slow on one model and fast on another; a live voice chat cannot wait 15 seconds.)"""
+        import queue
+        import threading
+
+        from app.speech.gemini import HardTimeout
+        s = self._settings
+        models = [s.gemini_model]
+        if s.gemini_backup_model not in ("none", s.gemini_model) and s.gemini_hedge_seconds > 0:
+            models.append(s.gemini_backup_model)
+        results: queue.Queue = queue.Queue()
+
+        def run(model: str):
+            try:
+                results.put(("ok", self._client.models.generate_content(model=model, contents=user, config=config)))
+            except Exception as e:  # noqa: BLE001
+                results.put(("err", e))
+
+        launched, errors, deadline = 0, [], time.time() + self.HARD_TIMEOUT
+
+        def launch():
+            nonlocal launched
+            threading.Thread(target=run, args=(models[launched],), daemon=True).start()
+            launched += 1
+
+        launch()
+        while True:
+            remaining = deadline - time.time()
+            wait = min(s.gemini_hedge_seconds, remaining) if launched < len(models) else remaining
+            try:
+                kind, value = results.get(timeout=max(0.0, wait))
+            except queue.Empty:
+                if launched < len(models) and remaining > 0:
+                    launch()                      # the main model is slow: also ask the backup
+                    continue
+                raise HardTimeout(f"no answer after {self.HARD_TIMEOUT}s")
+            if kind == "ok":
+                return value
+            errors.append(value)
+            if launched < len(models):
+                launch()                          # the main model failed: ask the backup right away
+            elif len(errors) >= launched:
+                raise errors[-1]
+
     def complete_json(self, *, system: str, user: str, schema: dict) -> dict:
         from google.genai import errors, types
 
@@ -60,8 +105,7 @@ class GeminiLLM:
         for attempt in range(self.MAX_RETRIES + 1):
             try:
                 self._limiter.acquire()
-                response = _run_with_hard_timeout(lambda: self._client.models.generate_content(
-                    model=self._settings.gemini_model, contents=user, config=config), self.HARD_TIMEOUT)
+                response = self._ask(user, config)
                 break
             except HardTimeout as e:     # a hung answer: try again once, then fail clearly (a live voice chat cannot wait minutes)
                 if attempt < 1:

@@ -7,7 +7,7 @@ import time
 from loguru import logger
 from pipecat.audio.vad.silero import SileroVADAnalyzer
 from pipecat.audio.vad.vad_analyzer import VADParams
-from pipecat.frames.frames import Frame, TranscriptionFrame, TTSSpeakFrame
+from pipecat.frames.frames import CancelFrame, EndFrame, Frame, TranscriptionFrame, TTSSpeakFrame
 from pipecat.pipeline.pipeline import Pipeline
 from pipecat.pipeline.runner import PipelineRunner
 from pipecat.pipeline.task import PipelineParams, PipelineTask
@@ -19,7 +19,7 @@ from pipecat.runner.utils import create_transport
 from app.brain.llm import make_llm
 from app.safety.redact import redact
 from app.speech.factory import make_stt, make_tts
-from app.voice.conversation import Conversation
+from app.voice.conversation import FILLER, Conversation
 from app.voice.events import log_event
 from app.voice.services import NivaranSTTService, NivaranTTSService
 from app.voice.spike_echo_bot import InterruptOnSpeech, MicLevelLogger, transport_params
@@ -28,28 +28,64 @@ LANGUAGES = ("en-IN", "hi-IN", "ta-IN", "hinglish")
 
 
 class ConversationProcessor(FrameProcessor):
-    """What was heard -> what to say. The brain calls block, so they run off the audio thread."""
+    """What was heard -> what to say.
+
+    The brain can take seconds (the free AI service is sometimes slow), so it runs in its own background task:
+    - talking over the bot never cancels a half-finished answer (an interruption used to throw the reply away);
+    - if you say something else while we are still thinking, your sentences are joined and answered together;
+    - if thinking takes long, we say "one moment" so you are not left in silence."""
+
+    SLOW_AFTER = 7.0     # seconds of thinking before we say "one moment"
 
     def __init__(self, conversation: Conversation, stt: NivaranSTTService, **kwargs):
         super().__init__(**kwargs)
         self._conv, self._stt = conversation, stt
+        self._pending: list[str] = []
+        self._worker: asyncio.Task | None = None
 
     async def process_frame(self, frame: Frame, direction: FrameDirection):
         await super().process_frame(frame, direction)
+        if isinstance(frame, (CancelFrame, EndFrame)) and self._worker and not self._worker.done():
+            self._worker.cancel()
         if not isinstance(frame, TranscriptionFrame):
             await self.push_frame(frame, direction)
             return
-        log_event("heard", redact(frame.text, strict=True)[0], secs=self._stt.last_seconds)   # the page log never shows card numbers either
-        t0 = time.time()
+        log_event("heard", redact(frame.text, strict=True)[0], secs=self._stt.last_seconds)   # the page log never shows card numbers
+        self._pending.append(frame.text)
+        if self._worker is None or self._worker.done():
+            self._worker = asyncio.create_task(self._think())
+
+    async def _think(self):
+        while self._pending:
+            said = " ".join(self._pending)
+            self._pending.clear()
+            snap = self._conv.snapshot()
+            log_event("thinking", "…")
+            t0 = time.time()
+            filler = asyncio.create_task(self._say_filler_if_slow())
+            try:
+                turn = await asyncio.to_thread(self._conv.handle, said)
+            except Exception as e:  # noqa: BLE001 - a brain failure must not kill the call
+                logger.exception("brain failed")
+                log_event("err", f"The assistant had a problem thinking: {e}")
+                self._conv.restore(snap)
+                continue
+            finally:
+                filler.cancel()
+            if self._pending:                       # you kept talking: forget this answer and answer everything together
+                self._conv.restore(snap)
+                self._pending.insert(0, said)
+                continue
+            log_event("note", turn.note, secs=round(time.time() - t0, 1))
+            log_event("spoke", turn.reply)
+            await self.push_frame(TTSSpeakFrame(turn.reply))
+
+    async def _say_filler_if_slow(self):
         try:
-            turn = await asyncio.to_thread(self._conv.handle, frame.text)
-        except Exception as e:  # noqa: BLE001 - a brain failure must not kill the call
-            logger.exception("brain failed")
-            log_event("err", f"The assistant had a problem thinking: {e}")
-            return
-        log_event("note", turn.note, secs=round(time.time() - t0, 1))
-        log_event("spoke", turn.reply)
-        await self.push_frame(TTSSpeakFrame(turn.reply))
+            await asyncio.sleep(self.SLOW_AFTER)
+            await self.push_frame(TTSSpeakFrame(FILLER.get(self._conv.language, FILLER["en-IN"])))
+        except asyncio.CancelledError:
+            pass
 
 
 async def bot(runner_args: RunnerArguments):

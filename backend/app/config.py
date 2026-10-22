@@ -19,6 +19,8 @@ class Settings:
     gemini_rpm: int          # max requests per minute we allow ourselves
     gemini_rpd: int          # max requests per day we allow ourselves (0 = no local cap)
     claude_model: str
+    gemini_backup_model: str        # asked too when the main text model is slow ("hedging"); "none" turns it off
+    gemini_hedge_seconds: float
     claude_effort: str | None
     stt_provider: str        # "gemini" (default) or "fake" in tests
     tts_provider: str
@@ -56,6 +58,8 @@ def get_settings() -> Settings:
         gemini_model=os.getenv("GEMINI_MODEL", "").strip() or "gemini-3.5-flash-lite",
         gemini_rpm=_int("GEMINI_RPM", 5),
         gemini_rpd=_int("GEMINI_RPD", 0),
+        gemini_backup_model=os.getenv("GEMINI_BACKUP_MODEL", "").strip() or "gemini-3.6-flash",
+        gemini_hedge_seconds=float(os.getenv("GEMINI_HEDGE_SECONDS", "").strip() or 4),
         claude_model=os.getenv("CLAUDE_MODEL", "").strip(),
         claude_effort=os.getenv("CLAUDE_EFFORT", "").strip() or None,
         stt_provider=(os.getenv("STT_PROVIDER", "").strip() or "sarvam").lower(),
