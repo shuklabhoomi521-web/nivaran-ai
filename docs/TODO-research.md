@@ -52,3 +52,7 @@ Research and write down, with official sources (trai.gov.in, not vendor blogs):
 - Backup, outside the repo: `~/nivaran-backups/2026-10-19-before-voice-purge/` holds a full mirror of the OLD history (`nivaran-mirror.git`, which still contains the voice files), a bundle (`nivaran-all-refs.bundle`) and a copy of the raw and converted recordings (`voice-recordings/`). The originals are also still in `~/Downloads/nivaran_recordings.zip` and `speech_test/` (git-ignored).
 - Not fully gone on GitHub yet: GitHub keeps unreachable objects until its own cleanup, so the OLD commit and files can still be fetched by their exact IDs (private repo, so only people with access to it). To remove them for good: ask GitHub Support to run garbage collection and clear cached views ("Removing sensitive data from a repository"), or create a fresh repo from the clean history and delete the old one (needs the founder's separate OK).
 - Anyone with an old clone must re-clone (history IDs changed after the old commit). A test (`test_repo_hygiene.py`) now fails if audio files or archives are ever tracked again.
+
+## Voice speed and accuracy (later phases)
+- Final turn still takes 10-16 s when Gemini free tier is slow (two AI calls: understand + reply). Ideas: one combined call, smaller/faster model, own model (Phase 9), paid tier before real users.
+- Research free/cheap speech alternatives to Sarvam (verify each; do not guess). Sarvam credit left: about Rs 56 (2026-10-22).

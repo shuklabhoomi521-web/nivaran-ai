@@ -38,7 +38,7 @@ def simplify_schema(schema: dict) -> dict:
 class GeminiLLM:
     MAX_RETRIES = 4
     HARD_TIMEOUT = 25      # seconds before we give up on one text call
-    BUSY_WAITS = (10, 20, 40, 60)  # seconds to wait after a 5xx 'server busy' answer
+    BUSY_WAITS = (2, 5, 10, 20)  # seconds to wait after a 5xx 'server busy' answer
 
     def __init__(self, limiter: RateLimiter | None = None) -> None:
         from google import genai  # imported here so Claude-only setups do not need it

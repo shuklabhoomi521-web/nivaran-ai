@@ -7,7 +7,8 @@ import time
 from loguru import logger
 from pipecat.audio.vad.silero import SileroVADAnalyzer
 from pipecat.audio.vad.vad_analyzer import VADParams
-from pipecat.frames.frames import CancelFrame, EndFrame, Frame, TranscriptionFrame, TTSSpeakFrame
+from pipecat.frames.frames import (CancelFrame, EndFrame, Frame, TranscriptionFrame, TTSSpeakFrame,
+                                   UserStartedSpeakingFrame, UserStoppedSpeakingFrame)
 from pipecat.pipeline.pipeline import Pipeline
 from pipecat.pipeline.runner import PipelineRunner
 from pipecat.pipeline.task import PipelineParams, PipelineTask
@@ -35,18 +36,24 @@ class ConversationProcessor(FrameProcessor):
     - if you say something else while we are still thinking, your sentences are joined and answered together;
     - if thinking takes long, we say "one moment" so you are not left in silence."""
 
-    SLOW_AFTER = 7.0     # seconds of thinking before we say "one moment"
+    SLOW_AFTER = 6.0     # seconds of thinking before we say "one moment"
 
     def __init__(self, conversation: Conversation, stt: NivaranSTTService, **kwargs):
         super().__init__(**kwargs)
         self._conv, self._stt = conversation, stt
         self._pending: list[str] = []
         self._worker: asyncio.Task | None = None
+        self._user_talking = False
+        self._filler_done = False      # "one moment" is said at most once per answer
 
     async def process_frame(self, frame: Frame, direction: FrameDirection):
         await super().process_frame(frame, direction)
         if isinstance(frame, (CancelFrame, EndFrame)) and self._worker and not self._worker.done():
             self._worker.cancel()
+        if isinstance(frame, UserStartedSpeakingFrame):
+            self._user_talking = True
+        elif isinstance(frame, UserStoppedSpeakingFrame):
+            self._user_talking = False
         if not isinstance(frame, TranscriptionFrame):
             await self.push_frame(frame, direction)
             return
@@ -62,7 +69,7 @@ class ConversationProcessor(FrameProcessor):
             snap = self._conv.snapshot()
             log_event("thinking", "…")
             t0 = time.time()
-            filler = asyncio.create_task(self._say_filler_if_slow())
+            filler = None if self._filler_done else asyncio.create_task(self._say_filler_if_slow())
             try:
                 turn = await asyncio.to_thread(self._conv.handle, said)
             except Exception as e:  # noqa: BLE001 - a brain failure must not kill the call
@@ -71,18 +78,23 @@ class ConversationProcessor(FrameProcessor):
                 self._conv.restore(snap)
                 continue
             finally:
-                filler.cancel()
+                if filler:
+                    filler.cancel()
             if self._pending:                       # you kept talking: forget this answer and answer everything together
                 self._conv.restore(snap)
                 self._pending.insert(0, said)
                 continue
             log_event("note", turn.note, secs=round(time.time() - t0, 1))
             log_event("spoke", turn.reply)
+            self._filler_done = False               # next answer may use "one moment" again
             await self.push_frame(TTSSpeakFrame(turn.reply))
 
     async def _say_filler_if_slow(self):
         try:
             await asyncio.sleep(self.SLOW_AFTER)
+            while self._user_talking or self._pending:      # never talk over the user, never while a newer sentence waits
+                await asyncio.sleep(0.3)
+            self._filler_done = True
             await self.push_frame(TTSSpeakFrame(FILLER.get(self._conv.language, FILLER["en-IN"])))
         except asyncio.CancelledError:
             pass
