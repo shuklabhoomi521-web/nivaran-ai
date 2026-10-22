@@ -22,6 +22,9 @@ class Settings:
     gemini_backup_model: str        # asked too when the main text model is slow ("hedging"); "none" turns it off
     gemini_hedge_seconds: float
     claude_effort: str | None
+    groq_model: str
+    groq_rpm: int
+    groq_timeout: float
     stt_provider: str        # "gemini" (default) or "fake" in tests
     tts_provider: str
     gemini_stt_model: str
@@ -51,8 +54,8 @@ def _int(name: str, default: int) -> int:
 
 def get_settings() -> Settings:
     provider = (os.getenv("LLM_PROVIDER", "").strip() or "gemini").lower()
-    if provider not in ("gemini", "anthropic"):
-        raise ConfigError("LLM_PROVIDER must be 'gemini' or 'anthropic'.")
+    if provider not in ("gemini", "anthropic", "groq"):
+        raise ConfigError("LLM_PROVIDER must be 'gemini', 'groq' or 'anthropic'.")
     return Settings(
         provider=provider,
         gemini_model=os.getenv("GEMINI_MODEL", "").strip() or "gemini-3.5-flash-lite",
@@ -62,6 +65,9 @@ def get_settings() -> Settings:
         gemini_hedge_seconds=float(os.getenv("GEMINI_HEDGE_SECONDS", "").strip() or 4),
         claude_model=os.getenv("CLAUDE_MODEL", "").strip(),
         claude_effort=os.getenv("CLAUDE_EFFORT", "").strip() or None,
+        groq_model=os.getenv("GROQ_MODEL", "").strip() or "openai/gpt-oss-120b",
+        groq_rpm=_int("GROQ_RPM", 25),
+        groq_timeout=float(os.getenv("GROQ_TIMEOUT", "").strip() or 8),
         stt_provider=(os.getenv("STT_PROVIDER", "").strip() or "sarvam").lower(),
         tts_provider=(os.getenv("TTS_PROVIDER", "").strip() or "sarvam").lower(),
         gemini_stt_model=os.getenv("GEMINI_STT_MODEL", "").strip() or "gemini-3.5-transcribe",

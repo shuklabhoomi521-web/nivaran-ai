@@ -173,9 +173,67 @@ class AnthropicLLM:
             raise LLMError("The AI returned invalid JSON.") from e
 
 
+class GroqLLM:
+    """Groq's free tier (no card): very fast open models. OpenAI-style web API, key in GROQ_API_KEY."""
+
+    URL = "https://api.groq.com/openai/v1/chat/completions"
+
+    def __init__(self, limiter: RateLimiter | None = None) -> None:
+        import os
+
+        self._settings = get_settings()
+        self._key = os.getenv("GROQ_API_KEY", "").strip()
+        if not self._key:
+            raise ConfigError("GROQ_API_KEY is not set. Add it to .env.")
+        self._limiter = limiter or RateLimiter(self._settings.groq_rpm, 0)
+
+    def complete_json(self, *, system: str, user: str, schema: dict) -> dict:
+        import httpx
+
+        self._limiter.acquire()
+        schema = simplify_schema(schema)
+        body = {
+            "model": self._settings.groq_model,
+            "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
+            "response_format": {"type": "json_schema", "json_schema": {"name": "answer", "schema": schema}},
+            "temperature": 0.2,
+            "max_completion_tokens": 1500,
+        }
+        if "gpt-oss" in self._settings.groq_model:
+            body["reasoning_effort"] = "low"
+        try:
+            r = httpx.post(self.URL, json=body, headers={"Authorization": f"Bearer {self._key}"}, timeout=self._settings.groq_timeout)
+        except httpx.HTTPError as e:
+            raise LLMError(f"Groq did not answer ({type(e).__name__}).") from e
+        if r.status_code != 200:
+            raise LLMError(f"Groq error {r.status_code}.")
+        try:
+            return json.loads(r.json()["choices"][0]["message"]["content"])
+        except (KeyError, IndexError, ValueError, TypeError) as e:
+            raise LLMError("Groq returned an unusable answer.") from e
+
+
+class FallbackLLM:
+    """Ask the fast main AI; if it fails or is slow, ask the backup. (Groq first, Gemini as backup.)"""
+
+    def __init__(self, primary: LLMClient, backup: LLMClient) -> None:
+        self.primary, self.backup, self.last_used = primary, backup, "primary"
+
+    def complete_json(self, *, system: str, user: str, schema: dict) -> dict:
+        try:
+            out = self.primary.complete_json(system=system, user=user, schema=schema)
+            self.last_used = "primary"
+            return out
+        except Exception:  # noqa: BLE001 - any failure of the fast AI: use the backup
+            self.last_used = "backup"
+            return self.backup.complete_json(system=system, user=user, schema=schema)
+
+
 def make_llm() -> LLMClient:
     provider = get_settings().provider
     try:
+        if provider == "groq":
+            return FallbackLLM(GroqLLM(), GeminiLLM())
         return GeminiLLM() if provider == "gemini" else AnthropicLLM()
     except ConfigError:
         raise

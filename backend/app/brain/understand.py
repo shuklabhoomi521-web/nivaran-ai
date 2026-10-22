@@ -1,7 +1,7 @@
 from pydantic import ValidationError
 
 from app.brain.llm import LLMClient, LLMError
-from app.models.case import Case, UnderstandOutput, UnderstandResponse
+from app.models.case import Case, UnderstandOutput, UnderstandResponse, VoiceUnderstandOutput
 from app.safety.redact import redact, scrub
 
 SYSTEM_PROMPT = """You are the intake brain of Nivaran, an app that handles customer care for Indian users.
@@ -43,21 +43,30 @@ Rules:
     otherwise medium.
 """
 
+VOICE_ADDON = """
+11. spoken_reply (voice chat only): ONE short sentence to say out loud, in the user's own language and script
+    (Hindi in Devanagari, Tamil in Tamil script, Hinglish in English letters), saying what you understood:
+    the company, the problem and what the user wants. If follow_up_question is not null, still write it
+    (it is not spoken). No phone numbers, email addresses, order numbers or card numbers. Plain and warm.
+"""
+
 
 def understand(message: str, llm: LLMClient, from_speech: bool = False) -> UnderstandResponse:
     clean_message, removed = redact(message, strict=from_speech)  # the AI never sees card numbers, CVVs or PINs
+    out_model = VoiceUnderstandOutput if from_speech else UnderstandOutput
     raw = llm.complete_json(
-        system=SYSTEM_PROMPT,
+        system=SYSTEM_PROMPT + (VOICE_ADDON if from_speech else ""),
         user=clean_message,
-        schema=UnderstandOutput.model_json_schema(),
+        schema=out_model.model_json_schema(),
     )
     raw, removed_again = scrub(raw)  # belt and braces: clean the AI's answer too
     for kind in removed_again:
         if kind not in removed:
             removed.append(kind)
     try:
-        output = UnderstandOutput.model_validate(raw)
+        output = out_model.model_validate(raw)
     except ValidationError as e:
         raise LLMError("The AI answer did not match the case form.") from e
-    case = Case.model_validate(output.model_dump(exclude={"follow_up_question"}))
-    return UnderstandResponse(case=case, follow_up_question=output.follow_up_question, redacted=removed)
+    case = Case.model_validate(output.model_dump(exclude={"follow_up_question", "spoken_reply"}))
+    spoken = getattr(output, "spoken_reply", None)
+    return UnderstandResponse(case=case, follow_up_question=output.follow_up_question, redacted=removed, spoken_reply=spoken)

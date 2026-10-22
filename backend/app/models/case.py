@@ -80,6 +80,12 @@ class UnderstandOutput(Case):
     follow_up_question: str | None
 
 
+class VoiceUnderstandOutput(UnderstandOutput):
+    """The voice chat gets the case AND the sentence to say, in ONE AI call."""
+
+    spoken_reply: str
+
+
 class UnderstandRequest(BaseModel):
     message: str
 
@@ -88,6 +94,7 @@ class UnderstandResponse(BaseModel):
     case: Case
     follow_up_question: str | None
     redacted: list[str]  # kinds of private data removed before the AI saw the text
+    spoken_reply: str | None = None  # voice chat only: one sentence saying what was understood
 
 
 class Channel(str, Enum):

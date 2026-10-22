@@ -2,6 +2,7 @@
 Same transports as the echo spike (browser now, phone in Phase 4)."""
 import asyncio
 import os
+import re
 import time
 
 from loguru import logger
@@ -20,12 +21,17 @@ from pipecat.runner.utils import create_transport
 from app.brain.llm import make_llm
 from app.safety.redact import redact
 from app.speech.factory import make_stt, make_tts
-from app.voice.conversation import FILLER, Conversation
+from app.voice.conversation import APOLOGY, FILLER, Conversation
 from app.voice.events import log_event
 from app.voice.services import NivaranSTTService, NivaranTTSService
 from app.voice.spike_echo_bot import InterruptOnSpeech, MicLevelLogger, transport_params
 
 LANGUAGES = ("en-IN", "hi-IN", "ta-IN", "hinglish")
+
+
+def split_sentences(text: str) -> list[str]:
+    parts = [p.strip() for p in re.split(r"(?<=[.!?।])\s+", text.strip()) if p.strip()]
+    return parts or [text]
 
 
 class ConversationProcessor(FrameProcessor):
@@ -36,6 +42,7 @@ class ConversationProcessor(FrameProcessor):
     - if you say something else while we are still thinking, your sentences are joined and answered together;
     - if thinking takes long, we say "one moment" so you are not left in silence."""
 
+    BRAIN_DEADLINE = 20.0   # seconds; after this we apologise and ask the user to repeat (never silence)
     SLOW_AFTER = 6.0     # seconds of thinking before we say "one moment"
 
     def __init__(self, conversation: Conversation, stt: NivaranSTTService, **kwargs):
@@ -71,11 +78,16 @@ class ConversationProcessor(FrameProcessor):
             t0 = time.time()
             filler = None if self._filler_done else asyncio.create_task(self._say_filler_if_slow())
             try:
-                turn = await asyncio.to_thread(self._conv.handle, said)
+                turn = await asyncio.wait_for(asyncio.to_thread(self._conv.handle, said), self.BRAIN_DEADLINE)
             except Exception as e:  # noqa: BLE001 - a brain failure must not kill the call
                 logger.exception("brain failed")
-                log_event("err", f"The assistant had a problem thinking: {e}")
+                log_event("err", f"The assistant had a problem thinking: {type(e).__name__} {e}")
                 self._conv.restore(snap)
+                if not self._pending:                # tell the user, in their language, instead of going silent
+                    apology = APOLOGY.get(self._conv.language, APOLOGY["en-IN"])
+                    log_event("spoke", apology)
+                    self._filler_done = False
+                    await self.push_frame(TTSSpeakFrame(apology))
                 continue
             finally:
                 if filler:
@@ -87,7 +99,8 @@ class ConversationProcessor(FrameProcessor):
             log_event("note", turn.note, secs=round(time.time() - t0, 1))
             log_event("spoke", turn.reply)
             self._filler_done = False               # next answer may use "one moment" again
-            await self.push_frame(TTSSpeakFrame(turn.reply))
+            for sentence in split_sentences(turn.reply):     # one frame per sentence: the voice starts on the first while the rest is made
+                await self.push_frame(TTSSpeakFrame(sentence))
 
     async def _say_filler_if_slow(self):
         try:

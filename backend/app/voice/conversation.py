@@ -5,7 +5,7 @@ from dataclasses import dataclass, field
 
 from app.brain.llm import LLMClient
 from app.models.case import Channel
-from app.brain.speak import FALLBACK, spoken_summary
+from app.brain.speak import FALLBACK
 from app.brain.understand import understand
 from app.directory.lookup import find_company
 from app.directory.picker import pick_contact, resolve_channel
@@ -19,6 +19,31 @@ GREETING = {
     "hinglish": "Namaste, main Nivaran hoon. Apni problem batayein, aur kis company ke baare mein hai.",
 }
 FILLER = {"en-IN": "One moment, please.", "hi-IN": "एक मिनट, कृपया।", "ta-IN": "ஒரு நிமிடம், தயவுசெய்து.", "hinglish": "Ek minute, please."}
+APOLOGY = {
+    "en-IN": "Sorry, I could not get that. Please say it again.",
+    "hi-IN": "माफ़ कीजिए, मैं समझ नहीं पाया। कृपया दोबारा बोलिए।",
+    "ta-IN": "மன்னிக்கவும், எனக்குப் புரியவில்லை. தயவுசெய்து மீண்டும் சொல்லுங்கள்.",
+    "hinglish": "Sorry, main samajh nahi paya. Please dobara boliye.",
+}
+# Second sentence of the final answer: made by us (not the AI), so it is always right about what was and was not done.
+HOW = {
+    "en-IN": {"call": "I can call {c} for you. Nothing has been done yet.",
+              "email": "I can email {c} for you, once you approve it. Nothing has been sent yet.",
+              "complaint": "I can file a formal complaint with {c}. Nothing has been sent yet.",
+              None: "I cannot reach this company yet. Nothing has been sent."},
+    "hi-IN": {"call": "मैं आपके लिए {c} को कॉल कर सकता हूँ। अभी कुछ किया नहीं गया है।",
+              "email": "आपकी मंज़ूरी के बाद मैं {c} को ईमेल कर सकता हूँ। अभी कुछ भेजा नहीं गया है।",
+              "complaint": "मैं {c} के पास औपचारिक शिकायत दर्ज कर सकता हूँ। अभी कुछ भेजा नहीं गया है।",
+              None: "मैं अभी इस कंपनी तक नहीं पहुँच सकता। कुछ भेजा नहीं गया है।"},
+    "ta-IN": {"call": "நான் உங்களுக்காக {c} நிறுவனத்தை அழைக்க முடியும். இன்னும் எதுவும் செய்யப்படவில்லை.",
+              "email": "உங்கள் ஒப்புதலுக்குப் பிறகு {c} நிறுவனத்திற்கு மின்னஞ்சல் அனுப்ப முடியும். இன்னும் எதுவும் அனுப்பப்படவில்லை.",
+              "complaint": "{c} நிறுவனத்திடம் முறையான புகார் பதிவு செய்ய முடியும். இன்னும் எதுவும் அனுப்பப்படவில்லை.",
+              None: "இந்த நிறுவனத்தை இன்னும் என்னால் தொடர்பு கொள்ள முடியவில்லை. எதுவும் அனுப்பப்படவில்லை."},
+    "hinglish": {"call": "Main aapke liye {c} ko call kar sakta hoon. Abhi kuch kiya nahi gaya hai.",
+                 "email": "Aapki manzoori ke baad main {c} ko email kar sakta hoon. Abhi kuch bheja nahi gaya hai.",
+                 "complaint": "Main {c} ke paas formal complaint kar sakta hoon. Abhi kuch bheja nahi gaya hai.",
+                 None: "Main abhi is company tak nahi pahunch sakta. Kuch bheja nahi gaya hai."},
+}
 MAX_QUESTIONS = 4        # after this many questions we stop asking and summarise what we have
 
 
@@ -37,6 +62,7 @@ class Conversation:
     questions_asked: int = 0
     finished: bool = False
     turns: list[Turn] = field(default_factory=list)
+    _epoch: int = 0
 
     @property
     def lang_name(self) -> str:
@@ -49,42 +75,48 @@ class Conversation:
         """Go back to how things were before a turn (used when the user kept talking while we were still thinking)."""
         self.texts, self.questions_asked, self.finished = list(snap[0]), snap[1], snap[2]
         del self.turns[snap[3]:]
+        self._epoch += 1
 
     def greeting(self) -> str:
         return GREETING.get(self.language, GREETING["en-IN"])
 
     def handle(self, said: str) -> Turn:
-        """What the user said -> what we say back."""
+        """What the user said -> what we say back. ONE AI call. Changes the conversation only if nobody
+        rewound it meanwhile (a slow answer that arrives after we gave up must not change anything)."""
         said = said.strip()
+        epoch = self._epoch
         if self.finished:
             return Turn(said, FALLBACK[self.lang_name], "already finished")
-        self.texts.append(said)
-        result = understand("\n".join(self.texts), self.llm, from_speech=True)     # card numbers etc. are removed in here (strictly: it is speech)
+        texts = self.texts + [said]
+        result = understand("\n".join(texts), self.llm, from_speech=True)     # card numbers etc. are removed in here (strictly: it is speech)
         case = result.case
         note = f"company={case.company}, category={case.category.value}, goal={case.user_goal.value}"
         if result.redacted:
             note += f" (private data removed: {', '.join(result.redacted)})"
         needs_more = bool(result.follow_up_question) and self.questions_asked < MAX_QUESTIONS
         if needs_more:
-            self.questions_asked += 1
-            return self._remember(Turn(said, self._clean(result.follow_up_question), note))
-        # enough information: contact picker + plan, then a short spoken confirmation
+            turn = Turn(said, self._clean(result.follow_up_question), note)
+            return self._commit(epoch, texts, turn, asked=True)
+        # enough information: contact picker, then the spoken confirmation (AI's sentence + our sentence)
         company = find_company(case.company)
         choice = pick_contact(company) if company else None
-        plan_dict: dict = {"can_proceed": False, "note": "company not in the verified directory" if case.company else "company unknown"}
+        channel = None
         if choice and choice.channels_available and case.company:
-            # the voice call does not write the plan (that is another AI call and seconds of waiting); it only needs to know
-            # which way the company can really be reached. The full plan comes later, when the user says go.
-            channel, why = resolve_channel(Channel.call, choice)
-            plan_dict = {"channel": channel.value if channel else None, "can_proceed": channel is not None, "note": why}
-            note += f"; channel={plan_dict['channel']}"
-        self.finished = True
-        reply = spoken_summary(case.model_dump(mode="json"), plan_dict, self.lang_name, self.llm)
-        return self._remember(Turn(said, self._clean(reply), note))
+            channel, _why = resolve_channel(Channel.call, choice)
+            note += f"; channel={channel.value if channel else None}"
+        first = (result.spoken_reply or "").strip() or FALLBACK[self.lang_name]
+        how = HOW.get(self.language, HOW["en-IN"])[channel.value if channel else None].format(c=case.company or "")
+        turn = Turn(said, self._clean(f"{first} {how}"), note)
+        return self._commit(epoch, texts, turn, finished=True)
 
-    def _remember(self, t: Turn) -> Turn:
-        self.turns.append(t)
-        return t
+    def _commit(self, epoch: int, texts: list[str], turn: Turn, asked: bool = False, finished: bool = False) -> Turn:
+        if epoch != self._epoch:
+            return turn                       # we were rewound: this answer is stale, change nothing
+        self.texts = texts
+        self.questions_asked += int(asked)
+        self.finished = self.finished or finished
+        self.turns.append(turn)
+        return turn
 
     @staticmethod
     def _clean(text: str) -> str:

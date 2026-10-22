@@ -21,7 +21,7 @@ from tests.test_voice_services import WavTTS
 
 @pytest.mark.skipif(not CLIP.exists(), reason="needs the founder's local recording (kept out of git)")
 def test_spoken_problem_with_no_company_gets_a_spoken_question():
-    llm = ScriptedLLM(case_dict(company=None, details_known=[], details_missing=["company"], follow_up_question="Which company is this about?"))
+    llm = ScriptedLLM(case_dict(company=None, details_known=[], details_missing=["company"], follow_up_question="Which company is this about?", spoken_reply="x"))
     tts = WavTTS()
     stt = NivaranSTTService(FakeSTT("my laptop charger stopped working"), language_hint="en-IN")
     chain = Pipeline([VADProcessor(vad_analyzer=SileroVADAnalyzer()), stt, ConversationProcessor(Conversation("en-IN", llm), stt),
@@ -43,7 +43,7 @@ def test_two_quick_sentences_are_answered_together_and_the_stale_answer_is_dropp
             time.sleep(0.4)
             return super().complete_json(**kw)
 
-    q = lambda t: case_dict(company=None, details_known=[], details_missing=["company"], follow_up_question=t)  # noqa: E731
+    q = lambda t: case_dict(company=None, details_known=[], details_missing=["company"], follow_up_question=t, spoken_reply="x")  # noqa: E731
     llm = SlowLLM(q("STALE question?"), q("Which company, please?"))
     proc = ConversationProcessor(Conversation("en-IN", llm), NivaranSTTService(FakeSTT("x")))
     spoken = []
@@ -78,7 +78,7 @@ def test_slow_thinking_says_one_moment():
             time.sleep(0.5)
             return super().complete_json(**kw)
 
-    llm = SlowLLM(case_dict(company=None, details_known=[], details_missing=["company"], follow_up_question="Which company?"))
+    llm = SlowLLM(case_dict(company=None, details_known=[], details_missing=["company"], follow_up_question="Which company?", spoken_reply="x"))
     proc = ConversationProcessor(Conversation("en-IN", llm), NivaranSTTService(FakeSTT("x")))
     proc.SLOW_AFTER = 0.1
     spoken = []
@@ -93,3 +93,60 @@ def test_slow_thinking_says_one_moment():
 
     asyncio.run(go())
     assert [f.text for f in spoken if isinstance(f, TTSSpeakFrame)] == ["One moment, please.", "Which company?"]
+
+
+def test_when_the_brain_fails_the_bot_apologises_in_the_users_language_and_never_goes_silent():
+    from pipecat.frames.frames import TTSSpeakFrame
+
+    from app.voice.conversation import APOLOGY
+
+    class Broken:
+        def complete_json(self, **kw):
+            raise RuntimeError("AI is down")
+
+    proc = ConversationProcessor(Conversation("hi-IN", Broken()), NivaranSTTService(FakeSTT("x")))
+    spoken = []
+
+    async def capture(frame, direction=None):
+        spoken.append(frame)
+    proc.push_frame = capture
+
+    async def go():
+        proc._pending.append("namaste")
+        await proc._think()
+    asyncio.run(go())
+    assert [f.text for f in spoken if isinstance(f, TTSSpeakFrame)] == [APOLOGY["hi-IN"]]
+
+
+def test_a_brain_that_takes_too_long_gets_an_apology_too():
+    import time
+
+    from pipecat.frames.frames import TTSSpeakFrame
+
+    from app.voice.conversation import APOLOGY
+
+    class Stuck:
+        def complete_json(self, **kw):
+            time.sleep(1.0)
+            return case_dict(spoken_reply="late")
+
+    proc = ConversationProcessor(Conversation("en-IN", Stuck()), NivaranSTTService(FakeSTT("x")))
+    proc.BRAIN_DEADLINE, proc.SLOW_AFTER = 0.2, 99
+    spoken = []
+
+    async def capture(frame, direction=None):
+        spoken.append(frame)
+    proc.push_frame = capture
+
+    async def go():
+        proc._pending.append("hello")
+        await proc._think()
+    asyncio.run(go())
+    assert [f.text for f in spoken if isinstance(f, TTSSpeakFrame)] == [APOLOGY["en-IN"]]
+    assert not proc._conv.finished
+
+
+def test_a_final_answer_is_spoken_one_sentence_at_a_time():
+    from app.voice.voice_bot import split_sentences
+    assert split_sentences("Swiggy refund. I can email Swiggy! Nothing sent.") == ["Swiggy refund.", "I can email Swiggy!", "Nothing sent."]
+    assert split_sentences("मैं समझ गया। कुछ नहीं भेजा।") == ["मैं समझ गया।", "कुछ नहीं भेजा।"]
