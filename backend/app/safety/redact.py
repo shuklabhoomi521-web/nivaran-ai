@@ -38,9 +38,29 @@ def _is_card(match_text: str) -> bool:
     return luhn_ok(digits) or bool(_CARD_LAYOUT.fullmatch(match_text))
 
 
-def redact(text: str) -> tuple[str, list[str]]:
-    """Return (clean_text, kinds_removed)."""
+# Voice mode: speech-to-text writes a spoken card number as one run of digits, often with a slip (an extra or missing digit), so the
+# checksum and layout tests above miss it. In voice mode ANY run of 13 or more digits is treated as a card number, and so is a number
+# said right after the words "card number" (English, Hindi, Tamil).
+_LONG_DIGITS = re.compile(r"(?<![A-Za-z0-9])\d(?:[ -]?\d){12,}(?![A-Za-z0-9])")
+_CARD_WORDS = re.compile(r"(?i)((?:card|कार्ड|கார்டு)\s*(?:number|no\.?|नंबर|எண்)?\D{0,15})(\d[\d\s-]{6,}\d)")
+
+
+def redact(text: str, strict: bool = False) -> tuple[str, list[str]]:
+    """Return (clean_text, kinds_removed). strict=True is for text that came from speech (see above)."""
     found: list[str] = []
+    if strict:
+        def long_run(m: re.Match) -> str:
+            if "card_number" not in found:
+                found.append("card_number")
+            return CARD_PLACEHOLDER
+
+        def after_card_word(m: re.Match) -> str:
+            if "card_number" not in found:
+                found.append("card_number")
+            return m.group(1) + CARD_PLACEHOLDER
+
+        text = _CARD_WORDS.sub(after_card_word, text)
+        text = _LONG_DIGITS.sub(long_run, text)
 
     def card(m: re.Match) -> str:
         if _is_card(m.group(0)):

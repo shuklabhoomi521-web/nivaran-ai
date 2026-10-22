@@ -20,6 +20,33 @@ STATIC = Path(__file__).resolve().parents[2] / "static"
 app = FastAPI(title="Nivaran voice test")
 handler = SmallWebRTCRequestHandler()
 
+READY = {"ok": False}
+
+
+def _warm_up() -> None:
+    """Load every heavy library and model once, BEFORE the first call. Loading them in the middle of a call froze the audio for a few
+    seconds and broke that first session (the connection timed out while the server was busy importing)."""
+    from pipecat.audio.vad.silero import SileroVADAnalyzer
+
+    from app.brain.llm import make_llm
+    from app.speech.factory import make_stt, make_tts
+    import app.voice.voice_bot  # noqa: F401
+    make_llm(); make_stt(); make_tts()
+    SileroVADAnalyzer()
+    READY["ok"] = True
+
+
+@app.on_event("startup")
+async def warm_up():
+    import asyncio
+    asyncio.get_event_loop().run_in_executor(None, _warm_up)
+
+
+@app.get("/voice/ready")
+async def ready():
+    return {"ready": READY["ok"]}
+
+
 @app.get("/voice/choice/{name:path}")
 async def voice_choice(name: str):
     """The voice-choice listening page and its audio files (synthetic voices only)."""

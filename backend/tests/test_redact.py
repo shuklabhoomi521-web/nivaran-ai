@@ -45,3 +45,23 @@ def test_scrub_cleans_nested_ai_answer():
     clean, kinds = scrub(answer)
     assert "4111" not in str(clean)
     assert kinds == ["card_number"]
+
+
+def test_spoken_card_number_is_removed_even_when_the_checksum_fails():
+    # speech-to-text wrote 19 digits in a row (one extra digit): no checksum, no card layout
+    clean, kinds = redact("My card number is 4111111111111111111 and I want a refund", strict=True)
+    assert "4111" not in clean and "card_number" in kinds
+    # without strict mode this slips through, which is why voice uses strict mode
+    assert "4111111111111111111" in redact("My card number is 4111111111111111111", strict=False)[0]
+
+
+def test_number_said_after_the_words_card_number_is_removed_in_voice_mode():
+    for text in ("my card number is 5555 5555 5555", "mera card number 123456789 hai", "कार्ड नंबर 98765432101 है"):
+        clean, kinds = redact(text, strict=True)
+        assert not any(c.isdigit() for c in clean.replace("[CARD NUMBER REMOVED]", "")), clean
+        assert "card_number" in kinds
+
+
+def test_strict_mode_keeps_normal_numbers():
+    for text in ("order 4839201 came late", "Jio ka 299 wala recharge", "PNR 4521896307", "phone 98765 43210", "I paid 2000 rupees"):
+        assert redact(text, strict=True)[0] == text

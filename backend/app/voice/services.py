@@ -13,6 +13,7 @@ from pipecat.services.stt_service import SegmentedSTTService
 from pipecat.services.tts_service import TTSService
 from pipecat.utils.time import time_now_iso8601
 
+from app.safety.redact import redact
 from app.speech.base import SpeechToText, TextToSpeech
 
 
@@ -39,7 +40,7 @@ class NivaranSTTService(SegmentedSTTService):
             return
         self.last_seconds = round(time.time() - t0, 2)
         self.last_provider = tr.provider
-        logger.info(f"heard ({self.last_seconds}s, {tr.provider or 'primary'}): {tr.text!r}")
+        logger.info(f"heard ({self.last_seconds}s, {tr.provider or 'primary'}): {redact(tr.text, strict=True)[0]!r}")   # logs never hold card numbers
         if tr.text.strip():
             yield TranscriptionFrame(tr.text.strip(), self._user_id, time_now_iso8601())
 

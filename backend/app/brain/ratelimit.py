@@ -1,11 +1,13 @@
 """Keeps us inside the free limits by slowing down.
 
-RPM = requests per minute: we wait between calls so we never go faster than that.
+RPM = requests per minute: at most that many calls in any rolling 60 seconds. A short burst is allowed (a live voice turn makes
+two quick AI calls); after that we wait until the oldest call is a minute old.
 RPD = requests per day: we count calls in a small file and stop before the cap.
 Google resets daily limits at midnight Pacific time, so we count days in that time zone.
 """
 import json
 import time
+from collections import deque
 from datetime import datetime
 from pathlib import Path
 from typing import Callable
@@ -24,12 +26,12 @@ class RateLimiter:
                  clock: Callable[[], float] = time.monotonic,
                  sleep: Callable[[float], None] = time.sleep,
                  today: Callable[[], str] | None = None):
-        self.min_gap = 60.0 / rpm if rpm > 0 else 0.0
+        self.rpm = rpm
         self.rpd = rpd
         self.usage_file = usage_file
         self._clock, self._sleep = clock, sleep
         self._today = today or (lambda: datetime.now(PACIFIC).date().isoformat())
-        self._last: float | None = None
+        self._stamps: deque[float] = deque()      # when our recent calls were made
 
     def _read(self) -> dict:
         try:
@@ -47,11 +49,16 @@ class RateLimiter:
         if self.rpd and data.get(day, 0) >= self.rpd:
             raise DailyQuotaExceeded(
                 f"Daily limit of {self.rpd} requests reached. Try again after midnight Pacific time.")
-        if self._last is not None:
-            wait = self.min_gap - (self._clock() - self._last)
-            if wait > 0:
-                self._sleep(wait)
-        self._last = self._clock()
+        if self.rpm > 0:
+            now = self._clock()
+            while self._stamps and now - self._stamps[0] >= 60.0:
+                self._stamps.popleft()
+            if len(self._stamps) >= self.rpm:
+                wait = 60.0 - (now - self._stamps[0])
+                if wait > 0:
+                    self._sleep(wait)
+                self._stamps.popleft()
+            self._stamps.append(self._clock())
         try:
             self.usage_file.write_text(json.dumps({day: data.get(day, 0) + 1}))
         except OSError:

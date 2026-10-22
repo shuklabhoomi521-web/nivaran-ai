@@ -37,6 +37,7 @@ def simplify_schema(schema: dict) -> dict:
 
 class GeminiLLM:
     MAX_RETRIES = 4
+    HARD_TIMEOUT = 25      # seconds before we give up on one text call
     BUSY_WAITS = (10, 20, 40, 60)  # seconds to wait after a 5xx 'server busy' answer
 
     def __init__(self, limiter: RateLimiter | None = None) -> None:
@@ -54,12 +55,18 @@ class GeminiLLM:
             response_mime_type="application/json",
             response_json_schema=simplify_schema(schema),
         )
+        from app.speech.gemini import HardTimeout, _run_with_hard_timeout     # same "give up on a hung call" helper as speech
+
         for attempt in range(self.MAX_RETRIES + 1):
             try:
                 self._limiter.acquire()
-                response = self._client.models.generate_content(
-                    model=self._settings.gemini_model, contents=user, config=config)
+                response = _run_with_hard_timeout(lambda: self._client.models.generate_content(
+                    model=self._settings.gemini_model, contents=user, config=config), self.HARD_TIMEOUT)
                 break
+            except HardTimeout as e:     # a hung answer: try again once, then fail clearly (a live voice chat cannot wait minutes)
+                if attempt < 1:
+                    continue
+                raise LLMError("Gemini did not answer in time.") from e
             except DailyQuotaExceeded:
                 raise
             except errors.APIError as e:

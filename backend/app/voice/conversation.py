@@ -4,7 +4,7 @@ Reuses the same brain as the text chat: understand -> ask one question -> contac
 from dataclasses import dataclass, field
 
 from app.brain.llm import LLMClient
-from app.brain.plan import make_plan
+from app.models.case import Channel
 from app.brain.speak import FALLBACK, spoken_summary
 from app.brain.understand import understand
 from app.directory.lookup import find_company
@@ -50,7 +50,7 @@ class Conversation:
         if self.finished:
             return Turn(said, FALLBACK[self.lang_name], "already finished")
         self.texts.append(said)
-        result = understand("\n".join(self.texts), self.llm)          # card numbers etc. are removed in here
+        result = understand("\n".join(self.texts), self.llm, from_speech=True)     # card numbers etc. are removed in here (strictly: it is speech)
         case = result.case
         note = f"company={case.company}, category={case.category.value}, goal={case.user_goal.value}"
         if result.redacted:
@@ -64,8 +64,9 @@ class Conversation:
         choice = pick_contact(company) if company else None
         plan_dict: dict = {"can_proceed": False, "note": "company not in the verified directory" if case.company else "company unknown"}
         if choice and choice.channels_available and case.company:
-            plan = make_plan(case, self.llm, available_channels=choice.channels_available, no_phone_line=bool(choice.no_phone_notice))
-            channel, why = resolve_channel(plan.channel, choice)
+            # the voice call does not write the plan (that is another AI call and seconds of waiting); it only needs to know
+            # which way the company can really be reached. The full plan comes later, when the user says go.
+            channel, why = resolve_channel(Channel.call, choice)
             plan_dict = {"channel": channel.value if channel else None, "can_proceed": channel is not None, "note": why}
             note += f"; channel={plan_dict['channel']}"
         self.finished = True

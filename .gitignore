@@ -21,3 +21,4 @@ speech_test/_incoming/
 .sarvam_usage.json
 .sarvam_credits.json
 speech_test/voice_choice/
+speech_test/live_clips/

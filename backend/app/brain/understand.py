@@ -44,8 +44,8 @@ Rules:
 """
 
 
-def understand(message: str, llm: LLMClient) -> UnderstandResponse:
-    clean_message, removed = redact(message)  # the AI never sees card numbers, CVVs or PINs
+def understand(message: str, llm: LLMClient, from_speech: bool = False) -> UnderstandResponse:
+    clean_message, removed = redact(message, strict=from_speech)  # the AI never sees card numbers, CVVs or PINs
     raw = llm.complete_json(
         system=SYSTEM_PROMPT,
         user=clean_message,

@@ -17,6 +17,7 @@ from pipecat.runner.types import RunnerArguments
 from pipecat.runner.utils import create_transport
 
 from app.brain.llm import make_llm
+from app.safety.redact import redact
 from app.speech.factory import make_stt, make_tts
 from app.voice.conversation import Conversation
 from app.voice.events import log_event
@@ -38,7 +39,7 @@ class ConversationProcessor(FrameProcessor):
         if not isinstance(frame, TranscriptionFrame):
             await self.push_frame(frame, direction)
             return
-        log_event("heard", frame.text, secs=self._stt.last_seconds)
+        log_event("heard", redact(frame.text, strict=True)[0], secs=self._stt.last_seconds)   # the page log never shows card numbers either
         t0 = time.time()
         try:
             turn = await asyncio.to_thread(self._conv.handle, frame.text)
@@ -55,14 +56,16 @@ async def bot(runner_args: RunnerArguments):
     body = getattr(runner_args, "body", None) or {}
     language = body.get("language") or os.getenv("VOICE_LANGUAGE", "en-IN")
     language = language if language in LANGUAGES else "en-IN"
-    conv = Conversation(language, make_llm())
+    # building the providers can import big libraries: never do that on the audio thread
+    llm, stt_provider, tts_provider = await asyncio.gather(asyncio.to_thread(make_llm), asyncio.to_thread(make_stt), asyncio.to_thread(make_tts))
+    conv = Conversation(language, llm)
     transport = await create_transport(runner_args, transport_params())
-    stt = NivaranSTTService(make_stt(), language_hint=language)
-    tts = NivaranTTSService(make_tts(), locale=language)
+    stt = NivaranSTTService(stt_provider, language_hint=language, trailing_silence_secs=0.3)
+    tts = NivaranTTSService(tts_provider, locale=language)
     pipeline = Pipeline([
         transport.input(),
         MicLevelLogger(),
-        VADProcessor(vad_analyzer=SileroVADAnalyzer(params=VADParams(confidence=0.5, min_volume=0.1, start_secs=0.2, stop_secs=0.7))),
+        VADProcessor(vad_analyzer=SileroVADAnalyzer(params=VADParams(confidence=0.5, min_volume=0.1, start_secs=0.2, stop_secs=0.5))),
         InterruptOnSpeech(),
         stt,
         ConversationProcessor(conv, stt),

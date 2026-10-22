@@ -24,15 +24,21 @@ def make(tmp_path, rpm=5, rpd=0, day="2026-10-15"):
     return lim, f
 
 
-def test_waits_between_calls_to_respect_rpm(tmp_path):
-    lim, f = make(tmp_path, rpm=5)  # one call every 12 seconds
-    lim.acquire()
+def test_allows_a_burst_then_waits_for_the_minute_window(tmp_path):
+    lim, f = make(tmp_path, rpm=3)
+    for _ in range(3):
+        lim.acquire()                    # three quick calls: no waiting
     assert f.slept == []
-    lim.acquire()
-    assert f.slept == [pytest.approx(12.0)]
-    f.now += 20  # user was slow anyway: no extra waiting
-    lim.acquire()
-    assert len(f.slept) == 1
+    lim.acquire()                        # the fourth must wait until the first call is a minute old
+    assert f.slept == [pytest.approx(60.0)]
+
+
+def test_calls_spread_over_time_never_wait(tmp_path):
+    lim, f = make(tmp_path, rpm=3)
+    for _ in range(10):
+        lim.acquire()
+        f.now += 25                      # slower than 3 per minute
+    assert f.slept == []
 
 
 def test_stops_at_daily_cap_and_remembers_across_restarts(tmp_path):
