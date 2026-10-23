@@ -38,6 +38,7 @@ class Settings:
     sarvam_credit_already_spent: float  # estimate of what tests used before the ledger existed (only used when the ledger file is new)
     stt_fallback: str                  # backup speech-to-text provider ("none" to disable)
     tts_fallback: str
+    tts_by_language: dict          # e.g. {'en-IN': 'gemini', 'hi-IN': 'sarvam'}: the founder's voice picks
     sarvam_company_keyterms: bool   # give Sarvam v4 the directory's company names so it spells them right
     sarvam_hinglish_mode: str   # translit | transcribe | codemix : how Sarvam writes Hindi-English speech
     speech_rpm: int          # our own speed limit for audio calls
@@ -80,6 +81,7 @@ def get_settings() -> Settings:
         sarvam_credit_rupees=float(os.getenv("SARVAM_CREDIT_RUPEES", "").strip() or 100),
         sarvam_credit_already_spent=float(os.getenv("SARVAM_CREDIT_ALREADY_SPENT", "").strip() or 29.7),
         stt_fallback=(os.getenv("STT_FALLBACK", "").strip() or "gemini_prompt").lower(),
+        tts_by_language=dict(x.strip().split(":", 1) for x in os.getenv("TTS_BY_LANGUAGE", "").split(",") if ":" in x),
         tts_fallback=(os.getenv("TTS_FALLBACK", "").strip() or "gemini").lower(),
         sarvam_company_keyterms=(os.getenv("SARVAM_COMPANY_KEYTERMS", "").strip().lower() or "true") != "false",
         sarvam_hinglish_mode=os.getenv("SARVAM_HINGLISH_MODE", "").strip() or "codemix",

@@ -44,7 +44,11 @@ Rules:
 """
 
 VOICE_ADDON = """
-11. spoken_reply (voice chat only): ONE short sentence to say out loud, in the user's own language and script
+11. reply_language (voice chat only): the language of the user's LAST message: en-IN (English), hi-IN (Hindi),
+    ta-IN (Tamil) or hinglish (Hindi mixed with English, or Hindi in English letters). People may switch language in the
+    middle of the chat: follow the LAST message, not the earlier ones. Hindi words written in English letters
+    ("mera khana thanda tha") are hinglish, not English. Write follow_up_question and spoken_reply in that language.
+12. spoken_reply (voice chat only): ONE short sentence to say out loud, in the language of the LAST message, in its script
     (Hindi in Devanagari, Tamil in Tamil script, Hinglish in English letters), saying what you understood:
     the company, the problem and what the user wants. If follow_up_question is not null, still write it
     (it is not spoken). For hinglish write follow_up_question and spoken_reply in English letters, never Devanagari.
@@ -68,6 +72,7 @@ def understand(message: str, llm: LLMClient, from_speech: bool = False) -> Under
         output = out_model.model_validate(raw)
     except ValidationError as e:
         raise LLMError("The AI answer did not match the case form.") from e
-    case = Case.model_validate(output.model_dump(exclude={"follow_up_question", "spoken_reply"}))
+    case = Case.model_validate(output.model_dump(exclude={"follow_up_question", "spoken_reply", "reply_language"}))
     spoken = getattr(output, "spoken_reply", None)
-    return UnderstandResponse(case=case, follow_up_question=output.follow_up_question, redacted=removed, spoken_reply=spoken)
+    reply_language = getattr(output, "reply_language", None)
+    return UnderstandResponse(case=case, follow_up_question=output.follow_up_question, redacted=removed, spoken_reply=spoken, reply_language=reply_language)

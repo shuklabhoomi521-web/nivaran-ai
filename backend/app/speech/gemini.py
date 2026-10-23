@@ -145,12 +145,13 @@ class GeminiPromptSTT:
 
 
 class GeminiTTS:
-    def __init__(self, limiter: RateLimiter | None = None) -> None:
+    def __init__(self, limiter: RateLimiter | None = None, hard_timeout: float = 25) -> None:
         from google import genai
 
         self._s = get_settings()
         self._client = genai.Client()
         self._limiter = limiter or make_limiter()
+        self._hard_timeout = hard_timeout
 
     def synthesize(self, text: str, language: str | None = None, voice: str | None = None) -> SpeechAudio:
         speech: dict = {"voice": voice or self._s.gemini_tts_voice}
@@ -159,7 +160,7 @@ class GeminiTTS:
         body = dict(model=self._s.gemini_tts_model, input=text, response_format={"type": "audio"},
                     generation_config={"speech_config": [speech]})
         it = _call_with_retries(self._limiter, lambda: self._client.interactions.create(timeout=90, **body), "text-to-speech",
-                                hard_timeout=25, hang_retries=0)      # a voice that does not answer in 25 s is useless in a live chat
+                                hard_timeout=self._hard_timeout, hang_retries=0)      # a voice that does not answer in time is useless in a live chat
         audio = it.output_audio
         if audio is None or not audio.data:
             raise SpeechError("Gemini returned no audio.")

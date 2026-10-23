@@ -283,3 +283,47 @@ def test_make_stt_builds_a_fallback_by_default(monkeypatch):
     monkeypatch.delenv("SARVAM_API_KEY", raising=False)
     monkeypatch.setenv("GEMINI_API_KEY", "test-key")
     assert isinstance(make_stt(), FallbackSTT)
+
+
+def test_voice_picks_choose_the_provider_per_language_and_the_other_one_is_the_backup(monkeypatch):
+    from app.speech.base import SpeechAudio
+    from app.speech.factory import RoutedTTS
+
+    class P:
+        def __init__(self, name, fail=False):
+            self.name, self.fail = name, fail
+
+        def synthesize(self, text, language=None, voice=None):
+            if self.fail:
+                raise RuntimeError("down")
+            return SpeechAudio(data=b"x", mime_type="audio/wav", sample_rate=1, provider=self.name)
+
+    r = RoutedTTS({"en-IN": "gemini", "hi-IN": "sarvam"}, "sarvam")
+    r._cache = {"gemini": P("gemini"), "sarvam": P("sarvam")}
+    assert r.synthesize("hi", "en-IN").provider == "gemini"
+    assert r.synthesize("hi", "hi-IN").provider == "sarvam"
+    assert r.synthesize("hi", "ta-IN").provider == "sarvam"          # no pick: the default
+    r._cache["gemini"] = P("gemini", fail=True)
+    assert r.synthesize("hi", "en-IN").provider == "sarvam" and r.fallbacks_used == 1
+
+
+def test_auto_language_lets_sarvam_find_the_language_itself():
+    from app.speech.sarvam import SarvamSTT
+
+    seen = {}
+
+    class R:
+        transcript, language_code = "hello", "en-IN"
+
+    class C:
+        class speech_to_text:
+            @staticmethod
+            def transcribe(**kw):
+                seen.update(kw)
+                return R()
+
+    from app.speech.credits import CreditLedger
+    import tempfile, pathlib
+    s = SarvamSTT(client=C(), ledger=CreditLedger(file=pathlib.Path(tempfile.mkdtemp()) / "l.json"))
+    s.transcribe(b"RIFF" + b"\0" * 100, "audio/wav", "auto")
+    assert seen["language_code"] == "unknown"

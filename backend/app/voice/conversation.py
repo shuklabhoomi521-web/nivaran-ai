@@ -17,6 +17,7 @@ GREETING = {
     "hi-IN": "नमस्ते, मैं निवारण हूँ। अपनी समस्या बताइए, और किस कंपनी के बारे में है।",
     "ta-IN": "வணக்கம், நான் நிவாரண். உங்கள் பிரச்சனையையும், எந்த நிறுவனம் என்பதையும் சொல்லுங்கள்.",
     "hinglish": "Namaste, main Nivaran hoon. Apni problem batayein, aur kis company ke baare mein hai.",
+    "auto": "Hello, I am Nivaran. Namaste. Tell me your problem in English, Hindi, Tamil or Hinglish, and which company it is about.",
 }
 FILLER = {"en-IN": "One moment, please.", "hi-IN": "एक मिनट, कृपया।", "ta-IN": "ஒரு நிமிடம், தயவுசெய்து.", "hinglish": "Ek minute, please."}
 APOLOGY = {
@@ -52,6 +53,7 @@ class Turn:
     user: str
     reply: str
     note: str = ""       # a short line for the page's log: what we understood
+    language: str = ""   # the language this reply is in (it follows the user, who may switch)
 
 
 @dataclass
@@ -69,11 +71,11 @@ class Conversation:
         return LANGUAGE_NAME.get(self.language, "english")
 
     def snapshot(self) -> tuple:
-        return (list(self.texts), self.questions_asked, self.finished, len(self.turns))
+        return (list(self.texts), self.questions_asked, self.finished, len(self.turns), self.language)
 
     def restore(self, snap: tuple) -> None:
         """Go back to how things were before a turn (used when the user kept talking while we were still thinking)."""
-        self.texts, self.questions_asked, self.finished = list(snap[0]), snap[1], snap[2]
+        self.texts, self.questions_asked, self.finished, self.language = list(snap[0]), snap[1], snap[2], snap[4]
         del self.turns[snap[3]:]
         self._epoch += 1
 
@@ -86,16 +88,19 @@ class Conversation:
         said = said.strip()
         epoch = self._epoch
         if self.finished:
-            return Turn(said, FALLBACK[self.lang_name], "already finished")
+            return Turn(said, FALLBACK[self.lang_name], "already finished", self.language)
         texts = self.texts + [said]
-        result = understand("\n".join(texts), self.llm, from_speech=True)     # card numbers etc. are removed in here (strictly: it is speech)
+        # the AI sees the earlier messages and, clearly marked, the LAST one: the reply must be in the language of the last one
+        message = said if len(texts) == 1 else "Earlier messages:\n" + "\n".join(texts[:-1]) + "\n\nLAST MESSAGE (answer in its language): " + said
+        result = understand(message, self.llm, from_speech=True)     # card numbers etc. are removed in here (strictly: it is speech)
         case = result.case
+        lang = result.reply_language if result.reply_language in HOW else self.language    # the user may have switched language
         note = f"company={case.company}, category={case.category.value}, goal={case.user_goal.value}"
         if result.redacted:
             note += f" (private data removed: {', '.join(result.redacted)})"
         needs_more = bool(result.follow_up_question) and self.questions_asked < MAX_QUESTIONS
         if needs_more:
-            turn = Turn(said, self._clean(result.follow_up_question), note)
+            turn = Turn(said, self._clean(result.follow_up_question), note, lang)
             return self._commit(epoch, texts, turn, asked=True)
         # enough information: contact picker, then the spoken confirmation (AI's sentence + our sentence)
         company = find_company(case.company)
@@ -105,14 +110,15 @@ class Conversation:
             channel, _why = resolve_channel(Channel.call, choice)
             note += f"; channel={channel.value if channel else None}"
         first = (result.spoken_reply or "").strip() or FALLBACK[self.lang_name]
-        how = HOW.get(self.language, HOW["en-IN"])[channel.value if channel else None].format(c=case.company or "")
-        turn = Turn(said, self._clean(f"{first} {how}"), note)
+        how = HOW.get(lang, HOW["en-IN"])[channel.value if channel else None].format(c=case.company or "")
+        turn = Turn(said, self._clean(f"{first} {how}"), note, lang)
         return self._commit(epoch, texts, turn, finished=True)
 
     def _commit(self, epoch: int, texts: list[str], turn: Turn, asked: bool = False, finished: bool = False) -> Turn:
         if epoch != self._epoch:
             return turn                       # we were rewound: this answer is stale, change nothing
         self.texts = texts
+        self.language = turn.language or self.language      # the language follows the user
         self.questions_asked += int(asked)
         self.finished = self.finished or finished
         self.turns.append(turn)

@@ -121,6 +121,10 @@ def scenarios():
     sc["4 Tamil (Swiggy)"] = ("ta-IN", [S(9), C(LIVE / "tamil_swiggy.wav"), S(25)], 55, 1, "computer voice")
     sc["5 Talking over the bot (barge-in)"] = ("en-IN", [S(3.0), C(REC / "english/english-01.wav"), S(20)], 50, 1, "speech starts 3 s in, while the greeting is still playing")
     sc["6 Card number said aloud"] = ("en-IN", [S(9), C(LIVE / "card_test.wav"), S(25)], 60, 1, "computer voice")
+    sc["7 Auto: English first, then switches to Hindi"] = ("auto", [S(9), C(REC / "english/english-01.wav"), S(20), C(LIVE / "hindi_zomato.wav"), S(30)], 85, 2,
+                                                             "language switch: the second answer must be in Hindi")
+    sc["8 Auto: Tamil first, then switches to English"] = ("auto", [S(9), C(LIVE / "tamil_swiggy.wav"), S(20), C(LIVE / "answer_order_number.wav"), S(30)], 85, 2,
+                                                            "language switch: the second answer must be in English")
     return sc
 
 

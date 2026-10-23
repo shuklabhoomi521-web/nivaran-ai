@@ -46,3 +46,9 @@ def client_with():
 
     yield make
     app.dependency_overrides.clear()
+
+
+@pytest.fixture(autouse=True)
+def _no_personal_voice_picks(monkeypatch):
+    """The founder's real voice picks live in .env; tests must not depend on them."""
+    monkeypatch.setenv("TTS_BY_LANGUAGE", "")

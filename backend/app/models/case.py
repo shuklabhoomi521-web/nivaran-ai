@@ -1,3 +1,4 @@
+from typing import Literal
 from enum import Enum
 
 from pydantic import BaseModel, ConfigDict
@@ -84,6 +85,7 @@ class VoiceUnderstandOutput(UnderstandOutput):
     """The voice chat gets the case AND the sentence to say, in ONE AI call."""
 
     spoken_reply: str
+    reply_language: Literal["en-IN", "hi-IN", "ta-IN", "hinglish"]
 
 
 class UnderstandRequest(BaseModel):
@@ -95,6 +97,7 @@ class UnderstandResponse(BaseModel):
     follow_up_question: str | None
     redacted: list[str]  # kinds of private data removed before the AI saw the text
     spoken_reply: str | None = None  # voice chat only: one sentence saying what was understood
+    reply_language: str | None = None  # voice chat only: the language of the user's LAST message
 
 
 class Channel(str, Enum):

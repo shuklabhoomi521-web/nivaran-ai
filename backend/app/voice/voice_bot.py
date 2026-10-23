@@ -26,7 +26,7 @@ from app.voice.events import log_event
 from app.voice.services import NivaranSTTService, NivaranTTSService
 from app.voice.spike_echo_bot import InterruptOnSpeech, MicLevelLogger, transport_params
 
-LANGUAGES = ("en-IN", "hi-IN", "ta-IN", "hinglish")
+LANGUAGES = ("auto", "en-IN", "hi-IN", "ta-IN", "hinglish")
 
 
 def split_sentences(text: str) -> list[str]:
@@ -45,9 +45,9 @@ class ConversationProcessor(FrameProcessor):
     BRAIN_DEADLINE = 20.0   # seconds; after this we apologise and ask the user to repeat (never silence)
     SLOW_AFTER = 6.0     # seconds of thinking before we say "one moment"
 
-    def __init__(self, conversation: Conversation, stt: NivaranSTTService, **kwargs):
+    def __init__(self, conversation: Conversation, stt: NivaranSTTService, tts: NivaranTTSService | None = None, **kwargs):
         super().__init__(**kwargs)
-        self._conv, self._stt = conversation, stt
+        self._conv, self._stt, self._tts = conversation, stt, tts
         self._pending: list[str] = []
         self._worker: asyncio.Task | None = None
         self._user_talking = False
@@ -84,7 +84,10 @@ class ConversationProcessor(FrameProcessor):
                 log_event("err", f"The assistant had a problem thinking: {type(e).__name__} {e}")
                 self._conv.restore(snap)
                 if not self._pending:                # tell the user, in their language, instead of going silent
-                    apology = APOLOGY.get(self._conv.language, APOLOGY["en-IN"])
+                    heard = self._stt.last_language if self._stt.last_language in APOLOGY else None
+                    lang = self._conv.language if self._conv.language in APOLOGY else (heard or "en-IN")
+                    apology = APOLOGY[lang]
+                    self._set_voice_language(lang)
                     log_event("spoke", apology)
                     self._filler_done = False
                     await self.push_frame(TTSSpeakFrame(apology))
@@ -99,8 +102,14 @@ class ConversationProcessor(FrameProcessor):
             log_event("note", turn.note, secs=round(time.time() - t0, 1))
             log_event("spoke", turn.reply)
             self._filler_done = False               # next answer may use "one moment" again
+            self._set_voice_language(turn.language or self._conv.language)
             for sentence in split_sentences(turn.reply):     # one frame per sentence: the voice starts on the first while the rest is made
                 await self.push_frame(TTSSpeakFrame(sentence))
+
+    def _set_voice_language(self, lang: str) -> None:
+        """The voice follows the language of the reply (the user may switch language at any time)."""
+        if self._tts is not None and lang in APOLOGY:
+            self._tts.locale = lang
 
     async def _say_filler_if_slow(self):
         try:
@@ -108,7 +117,10 @@ class ConversationProcessor(FrameProcessor):
             while self._user_talking or self._pending:      # never talk over the user, never while a newer sentence waits
                 await asyncio.sleep(0.3)
             self._filler_done = True
-            await self.push_frame(TTSSpeakFrame(FILLER.get(self._conv.language, FILLER["en-IN"])))
+            heard = self._stt.last_language if self._stt.last_language in FILLER else None
+            lang = self._conv.language if self._conv.language in FILLER else (heard or "en-IN")
+            self._set_voice_language(lang)
+            await self.push_frame(TTSSpeakFrame(FILLER[lang]))
         except asyncio.CancelledError:
             pass
 
@@ -122,14 +134,14 @@ async def bot(runner_args: RunnerArguments):
     conv = Conversation(language, llm)
     transport = await create_transport(runner_args, transport_params())
     stt = NivaranSTTService(stt_provider, language_hint=language, trailing_silence_secs=0.3)
-    tts = NivaranTTSService(tts_provider, locale=language)
+    tts = NivaranTTSService(tts_provider, locale="en-IN" if language == "auto" else language)
     pipeline = Pipeline([
         transport.input(),
         MicLevelLogger(),
         VADProcessor(vad_analyzer=SileroVADAnalyzer(params=VADParams(confidence=0.5, min_volume=0.1, start_secs=0.2, stop_secs=0.5))),
         InterruptOnSpeech(),
         stt,
-        ConversationProcessor(conv, stt),
+        ConversationProcessor(conv, stt, tts),
         tts,
         transport.output(),
     ])

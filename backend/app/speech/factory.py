@@ -51,9 +51,41 @@ def make_stt(fallback: bool = True) -> SpeechToText:
 
 def make_tts(fallback: bool = True) -> TextToSpeech:
     s = get_settings()
+    if s.tts_by_language and fallback:
+        for name in s.tts_by_language.values():
+            _check(name, TTS_NAMES, "TTS_BY_LANGUAGE")
+        return RoutedTTS(s.tts_by_language, s.tts_provider)
     _check(s.tts_provider, TTS_NAMES, "TTS_PROVIDER")
     if not fallback or s.tts_fallback in ("none", s.tts_provider):
         return _tts(s.tts_provider)
     _check(s.tts_fallback, TTS_NAMES, "TTS_FALLBACK")
     from app.speech.fallback import FallbackTTS
     return FallbackTTS(lambda: _tts(s.tts_provider), lambda: _tts(s.tts_fallback), "text-to-speech", _ledger(s.tts_provider))
+
+
+class RoutedTTS:
+    """The founder's voice picks: each language has its own voice provider; if that one fails, the other speaks instead."""
+
+    def __init__(self, picks: dict, default: str) -> None:
+        self.picks, self.default = picks, default
+        self._cache: dict = {}
+        self.fallbacks_used = 0
+
+    def _provider(self, name: str):
+        if name not in self._cache:
+            if name == "gemini":
+                from app.speech.gemini import GeminiTTS
+                self._cache[name] = GeminiTTS(hard_timeout=10)       # a free voice that hangs must not hold a live chat
+            else:
+                self._cache[name] = _tts(name)
+        return self._cache[name]
+
+    def synthesize(self, text: str, language: str | None = None, voice: str | None = None):
+        first = self.picks.get(language, self.default)
+        other = "sarvam" if first == "gemini" else "gemini"
+        try:
+            audio = self._provider(first).synthesize(text, language)
+        except Exception:  # noqa: BLE001 - any failure of the picked voice: use the other one
+            self.fallbacks_used += 1
+            audio = self._provider(other).synthesize(text, language)
+        return audio

@@ -26,6 +26,7 @@ class NivaranSTTService(SegmentedSTTService):
         self.language_hint = language_hint       # what the user picked: en-IN, hi-IN, ta-IN or hinglish
         self.last_seconds: float | None = None   # how long the last call took (for the delay panel)
         self.last_provider: str | None = None
+        self.last_language: str | None = None    # what the speech provider says the person spoke (auto mode)
 
     def can_generate_metrics(self) -> bool:
         return True
@@ -40,6 +41,7 @@ class NivaranSTTService(SegmentedSTTService):
             return
         self.last_seconds = round(time.time() - t0, 2)
         self.last_provider = tr.provider
+        self.last_language = tr.language
         logger.info(f"heard ({self.last_seconds}s, {tr.provider or 'primary'}): {redact(tr.text, strict=True)[0]!r}")   # logs never hold card numbers
         if tr.text.strip():
             yield TranscriptionFrame(tr.text.strip(), self._user_id, time_now_iso8601())

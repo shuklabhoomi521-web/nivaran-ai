@@ -21,7 +21,7 @@ from tests.test_voice_services import WavTTS
 
 @pytest.mark.skipif(not CLIP.exists(), reason="needs the founder's local recording (kept out of git)")
 def test_spoken_problem_with_no_company_gets_a_spoken_question():
-    llm = ScriptedLLM(case_dict(company=None, details_known=[], details_missing=["company"], follow_up_question="Which company is this about?", spoken_reply="x"))
+    llm = ScriptedLLM(case_dict(company=None, details_known=[], details_missing=["company"], follow_up_question="Which company is this about?", reply_language="en-IN", spoken_reply="x"))
     tts = WavTTS()
     stt = NivaranSTTService(FakeSTT("my laptop charger stopped working"), language_hint="en-IN")
     chain = Pipeline([VADProcessor(vad_analyzer=SileroVADAnalyzer()), stt, ConversationProcessor(Conversation("en-IN", llm), stt),
@@ -43,7 +43,7 @@ def test_two_quick_sentences_are_answered_together_and_the_stale_answer_is_dropp
             time.sleep(0.4)
             return super().complete_json(**kw)
 
-    q = lambda t: case_dict(company=None, details_known=[], details_missing=["company"], follow_up_question=t, spoken_reply="x")  # noqa: E731
+    q = lambda t: case_dict(company=None, details_known=[], details_missing=["company"], follow_up_question=t, reply_language="en-IN", spoken_reply="x")  # noqa: E731
     llm = SlowLLM(q("STALE question?"), q("Which company, please?"))
     proc = ConversationProcessor(Conversation("en-IN", llm), NivaranSTTService(FakeSTT("x")))
     spoken = []
@@ -78,7 +78,7 @@ def test_slow_thinking_says_one_moment():
             time.sleep(0.5)
             return super().complete_json(**kw)
 
-    llm = SlowLLM(case_dict(company=None, details_known=[], details_missing=["company"], follow_up_question="Which company?", spoken_reply="x"))
+    llm = SlowLLM(case_dict(company=None, details_known=[], details_missing=["company"], follow_up_question="Which company?", reply_language="en-IN", spoken_reply="x"))
     proc = ConversationProcessor(Conversation("en-IN", llm), NivaranSTTService(FakeSTT("x")))
     proc.SLOW_AFTER = 0.1
     spoken = []
@@ -128,7 +128,7 @@ def test_a_brain_that_takes_too_long_gets_an_apology_too():
     class Stuck:
         def complete_json(self, **kw):
             time.sleep(1.0)
-            return case_dict(spoken_reply="late")
+            return case_dict(reply_language="en-IN", spoken_reply="late")
 
     proc = ConversationProcessor(Conversation("en-IN", Stuck()), NivaranSTTService(FakeSTT("x")))
     proc.BRAIN_DEADLINE, proc.SLOW_AFTER = 0.2, 99

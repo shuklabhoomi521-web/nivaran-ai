@@ -38,3 +38,10 @@ Fixes ideas: one combined AI call, faster model, spoken apology on failure. Phas
 - Real answer delay (end of speech to first sound of the ANSWER, Sarvam voice): English 4.7 s / 7.2 s (final, 2 sentences), Hinglish 3.4 s, Hindi 3.6 s, Tamil 5.0 s, barge-in 4.9 s, card test 3.8 s. Goal 1.5 s: not met, but 3-5 s vs 15-30 s before.
 - Gemini's free voice hung (25 s timeouts) in tonight's check, so development runs with it are unreliable; delay numbers use Sarvam. Sarvam credit left: about Rs 50 (estimate).
 - Open: Zomato was labelled ecommerce once in 7 runs (gpt-oss variance); watch in Phase 9 scoring.
+
+## Update 2026-10-23 (2): voice picks and automatic language switching
+- Founder's voice picks: English = Gemini, Hindi = Sarvam, Tamil = Sarvam, Hinglish = Sarvam (`TTS_BY_LANGUAGE` in .env; the other provider is the automatic backup; Gemini voice waits max 10 s).
+- New "Auto" language (default on the page): Sarvam finds the spoken language itself (`language_code=unknown`, codemix); the brain answers in the language of the LAST message; the voice, "one moment" and the apology follow it.
+- Live proof (docs/voice-live-test.md scenarios 7 and 8): English then Hindi sentence -> second answer in Hinglish ("Kripya apna order ID batayenge?"); Tamil then English -> second answer in English. First attempt failed (brain stayed in the old language); fixed by marking the last message clearly.
+- Not yet checked: Auto-mode accuracy on the held-out clips (the frozen settings were tuned with an explicit language hint). The holdout test must include Auto.
+- Weak: a Hindi sentence that Sarvam writes in English letters is answered in Hinglish (Latin), not Devanagari.

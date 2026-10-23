@@ -75,6 +75,8 @@ class SarvamSTT:
 
     def transcribe(self, audio: bytes, mime_type: str, language: str | None = None) -> Transcript:
         code, mode = self.HINTS.get(language, ("unknown", "transcribe"))
+        if language == "auto":                      # the speaker may switch language at any moment: let Sarvam find out
+            code, mode = "unknown", self._s.sarvam_hinglish_mode
         if language == "hinglish":
             mode = self._s.sarvam_hinglish_mode
         kwargs = dict(file=("audio.wav", audio, mime_type), model=self._s.sarvam_stt_model, language_code=code,
