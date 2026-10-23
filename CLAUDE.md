@@ -1,6 +1,6 @@
 # Nivaran — project guide for Claude
 
-**Current phase: 3 (voice in the browser), in progress. Voice bot works in the browser (Sarvam STT+TTS, Gemini brain); slow when free Gemini is slow. Waiting on founder: voice picks, 4-language test, 5 holdout clips. See docs/notes/phase-3.md. Not tagged.**
+**Current phase: 3 DONE (tag phase-3-done). Next: Phase 4 (first real phone call, Twilio trial) when the founder says so. Phase 3.5 (7 more languages) is planned after Phase 3. Voice page: Chrome, /voice. See docs/notes/phase-3.md.**
 
 Founder: ECE student. Explain in simple words, short sentences. One line for each hard term.
 Full plan: `docs/PLAN.md` (the master prompt). Follow it.
@@ -10,9 +10,9 @@ One app that handles any company's customer care for the user. User states the p
 
 ## Stack
 Python 3.11+, FastAPI, Pydantic · Supabase (Postgres, auth) ·
-AI brain now: Google Gemini API, free tier (default; `LLM_PROVIDER=gemini`). Claude is an optional provider (`LLM_PROVIDER=anthropic`).
+AI brain now: Groq free tier for the live voice (`LLM_PROVIDER=groq`, gpt-oss-120b) with Gemini as automatic backup; Gemini alone for the text chat/tests (`LLM_PROVIDER=gemini`). Claude is optional (`LLM_PROVIDER=anthropic`).
 AI brain later: our own fine-tuned open-source models (Phase 9), swapped in one job at a time; Gemini stays as backup until each scores close enough.
-Pipecat voice pipeline · Speech: Sarvam AI is the default (best on Tamil/Hindi/Indian English, ~0.3 s per clip, Rs 100 free credit then paid), Gemini is the free automatic backup; both behind `app/speech/` interfaces; credit tracked in `.sarvam_credits.json` ·
+Pipecat voice pipeline · Speech: Sarvam AI hears (always auto-detects the language so users can switch); voices per language in `TTS_BY_LANGUAGE` (English Gemini, others Sarvam); Gemini is the free automatic backup (Rs 100 Sarvam credit, then paid); both behind `app/speech/` interfaces; credit tracked in `.sarvam_credits.json` ·
 Phone: Twilio trial (Phase 4), Exotel with KYC (Phase 5), behind `channels/phone/base.py` ·
 React Native + Expo (TypeScript) · PyTorch + Hugging Face (MuRIL/IndicBERT) · pytest, Jest.
 The founder does not want to pay for any API. Prefer free tiers. Check current docs before using any library or API.
