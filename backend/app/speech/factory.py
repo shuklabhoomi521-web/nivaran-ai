@@ -70,22 +70,26 @@ class RoutedTTS:
         self.picks, self.default = picks, default
         self._cache: dict = {}
         self.fallbacks_used = 0
+        self._skip_until: dict = {}        # a voice that just failed is not tried again for a while
 
     def _provider(self, name: str):
         if name not in self._cache:
             if name == "gemini":
                 from app.speech.gemini import GeminiTTS
-                self._cache[name] = GeminiTTS(hard_timeout=10)       # a free voice that hangs must not hold a live chat
+                self._cache[name] = GeminiTTS(hard_timeout=5)       # a free voice that hangs must not hold a live chat
             else:
                 self._cache[name] = _tts(name)
         return self._cache[name]
 
     def synthesize(self, text: str, language: str | None = None, voice: str | None = None):
+        import time
         first = self.picks.get(language, self.default)
         other = "sarvam" if first == "gemini" else "gemini"
+        if self._skip_until.get(first, 0) > time.time():      # it failed a moment ago: go straight to the other voice
+            first, other = other, first
         try:
-            audio = self._provider(first).synthesize(text, language)
+            return self._provider(first).synthesize(text, language)
         except Exception:  # noqa: BLE001 - any failure of the picked voice: use the other one
             self.fallbacks_used += 1
-            audio = self._provider(other).synthesize(text, language)
-        return audio
+            self._skip_until[first] = time.time() + 300
+            return self._provider(other).synthesize(text, language)

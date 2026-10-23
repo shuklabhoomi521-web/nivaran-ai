@@ -327,3 +327,25 @@ def test_auto_language_lets_sarvam_find_the_language_itself():
     s = SarvamSTT(client=C(), ledger=CreditLedger(file=pathlib.Path(tempfile.mkdtemp()) / "l.json"))
     s.transcribe(b"RIFF" + b"\0" * 100, "audio/wav", "auto")
     assert seen["language_code"] == "unknown"
+
+
+def test_a_voice_that_just_failed_is_skipped_for_a_while():
+    from app.speech.base import SpeechAudio
+    from app.speech.factory import RoutedTTS
+
+    calls = []
+
+    class P:
+        def __init__(self, name, fail=False):
+            self.name, self.fail = name, fail
+
+        def synthesize(self, text, language=None, voice=None):
+            calls.append(self.name)
+            if self.fail:
+                raise RuntimeError("down")
+            return SpeechAudio(data=b"x", mime_type="audio/wav", sample_rate=1, provider=self.name)
+
+    r = RoutedTTS({"en-IN": "gemini"}, "sarvam")
+    r._cache = {"gemini": P("gemini", fail=True), "sarvam": P("sarvam")}
+    r.synthesize("a", "en-IN"); r.synthesize("b", "en-IN")
+    assert calls == ["gemini", "sarvam", "sarvam"]           # the second sentence did not wait for Gemini again
