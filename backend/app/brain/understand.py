@@ -47,7 +47,8 @@ VOICE_ADDON = """
 11. spoken_reply (voice chat only): ONE short sentence to say out loud, in the user's own language and script
     (Hindi in Devanagari, Tamil in Tamil script, Hinglish in English letters), saying what you understood:
     the company, the problem and what the user wants. If follow_up_question is not null, still write it
-    (it is not spoken). No phone numbers, email addresses, order numbers or card numbers. Plain and warm.
+    (it is not spoken). For hinglish write follow_up_question and spoken_reply in English letters, never Devanagari.
+    No phone numbers, email addresses, order numbers or card numbers. Plain and warm.
 """
 
 

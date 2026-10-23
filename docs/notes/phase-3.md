@@ -28,3 +28,13 @@ Say a Zomato refund problem in Hinglish; bot asks for the order ID; say a card n
 
 ## Next
 Fixes ideas: one combined AI call, faster model, spoken apology on failure. Phase 9 own models. Then founder items above, then tag phase-3-done.
+
+
+## Update 2026-10-23: speed and silence fixed
+- Brain is ONE AI call per turn (was two on the last turn). Our own code adds the "how I can contact them / nothing sent yet" sentence, so that part is always right.
+- Replies are spoken one sentence at a time. True word-by-word streaming of the AI was NOT built (the answer is structured JSON; with Groq at ~1.5 s it is not the bottleneck).
+- Groq free tier (no card) is the live brain; Gemini is the automatic backup. Same 4 turns: Groq gpt-oss-120b 1.3-1.7 s, gpt-oss-20b 0.8-1.7 s (answered English in Hindi once: rejected), qwen3.8-27b 0.6-0.9 s (wrong category twice: rejected); Gemini 7-16 s tonight.
+- If the brain fails or takes over 20 s, the bot apologises in the user's language and asks to repeat. Tested.
+- Real answer delay (end of speech to first sound of the ANSWER, Sarvam voice): English 4.7 s / 7.2 s (final, 2 sentences), Hinglish 3.4 s, Hindi 3.6 s, Tamil 5.0 s, barge-in 4.9 s, card test 3.8 s. Goal 1.5 s: not met, but 3-5 s vs 15-30 s before.
+- Gemini's free voice hung (25 s timeouts) in tonight's check, so development runs with it are unreliable; delay numbers use Sarvam. Sarvam credit left: about Rs 50 (estimate).
+- Open: Zomato was labelled ecommerce once in 7 runs (gpt-oss variance); watch in Phase 9 scoring.
