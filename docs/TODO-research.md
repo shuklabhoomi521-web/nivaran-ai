@@ -56,3 +56,6 @@ Research and write down, with official sources (trai.gov.in, not vendor blogs):
 ## Voice speed and accuracy (later phases)
 - Final turn still takes 10-16 s when Gemini free tier is slow (two AI calls: understand + reply). Ideas: one combined call, smaller/faster model, own model (Phase 9), paid tier before real users.
 - Research free/cheap speech alternatives to Sarvam (verify each; do not guess). Sarvam credit left: about Rs 56 (2026-10-22).
+
+## Phase 3.5: 7 more languages (after Phase 5)
+Telugu, Kannada, Malayalam, Bengali, Marathi, Gujarati, Punjabi. Order: text brain first (does it understand and answer correctly?), speech second (hearing and voice). Native speakers from the founder's college check the fixed sentences. Also check Hindi and Tamil sentences with native speakers (written by Claude in Phase 3). Do NOT start before Phase 5 is done.

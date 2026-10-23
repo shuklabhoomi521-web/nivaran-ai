@@ -124,3 +124,15 @@ def test_the_bot_follows_the_user_when_they_switch_language_mid_chat():
 def test_auto_mode_greets_in_every_language_and_the_brain_is_told_to_follow_the_last_message():
     from app.brain.understand import VOICE_ADDON
     assert "auto" in GREETING and "LAST message" in VOICE_ADDON
+
+
+def test_talking_after_the_summary_is_still_answered_and_in_the_new_language():
+    llm = ScriptedLLM(
+        case_dict(reply_language="en-IN", spoken_reply="Swiggy refund."),
+        case_dict(reply_language="hi-IN", spoken_reply="स्विगी रिफंड।"))
+    conv = Conversation("auto", llm)
+    conv.handle("Swiggy order came late, refund")
+    assert conv.finished
+    t = conv.handle("मेरा order number 481520 है")
+    assert t.language == "hi-IN" and "स्विगी" in t.reply and len(llm.calls) == 2
+    assert "LAST MESSAGE" in llm.calls[1]["user"]

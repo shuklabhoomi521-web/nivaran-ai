@@ -25,6 +25,8 @@ class Settings:
     groq_model: str
     groq_rpm: int
     groq_timeout: float
+    groq_stt_model: str
+    groq_stt_rpm: int
     stt_provider: str        # "gemini" (default) or "fake" in tests
     tts_provider: str
     gemini_stt_model: str
@@ -68,6 +70,8 @@ def get_settings() -> Settings:
         claude_effort=os.getenv("CLAUDE_EFFORT", "").strip() or None,
         groq_model=os.getenv("GROQ_MODEL", "").strip() or "openai/gpt-oss-120b",
         groq_rpm=_int("GROQ_RPM", 25),
+        groq_stt_model=os.getenv("GROQ_STT_MODEL", "").strip() or "whisper-large-v3",
+        groq_stt_rpm=_int("GROQ_STT_RPM", 15),
         groq_timeout=float(os.getenv("GROQ_TIMEOUT", "").strip() or 8),
         stt_provider=(os.getenv("STT_PROVIDER", "").strip() or "sarvam").lower(),
         tts_provider=(os.getenv("TTS_PROVIDER", "").strip() or "sarvam").lower(),

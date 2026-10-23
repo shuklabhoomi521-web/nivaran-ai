@@ -349,3 +349,31 @@ def test_a_voice_that_just_failed_is_skipped_for_a_while():
     r._cache = {"gemini": P("gemini", fail=True), "sarvam": P("sarvam")}
     r.synthesize("a", "en-IN"); r.synthesize("b", "en-IN")
     assert calls == ["gemini", "sarvam", "sarvam"]           # the second sentence did not wait for Gemini again
+
+
+def test_groq_whisper_sends_the_language_and_returns_text(monkeypatch):
+    import httpx
+    from app.speech.groq import GroqSTT
+
+    monkeypatch.setenv("GROQ_API_KEY", "test-key-not-real")
+    seen = {}
+
+    def post(url, data, files, headers, timeout):
+        seen.update(url=url, data=data)
+        return httpx.Response(200, json={"text": " namaste "})
+    monkeypatch.setattr(httpx, "post", post)
+    t = GroqSTT().transcribe(b"RIFF", "audio/wav", "hi-IN")
+    assert t.text == "namaste" and t.provider == "groq" and seen["data"]["language"] == "hi"
+    GroqSTT().transcribe(b"RIFF", "audio/wav", "auto")
+    assert "language" not in seen["data"] and "prompt" in seen["data"]
+
+
+def test_groq_whisper_errors_become_speech_errors(monkeypatch):
+    import httpx
+    from app.speech.base import SpeechError
+    from app.speech.groq import GroqSTT
+
+    monkeypatch.setenv("GROQ_API_KEY", "test-key-not-real")
+    monkeypatch.setattr(httpx, "post", lambda *a, **k: httpx.Response(429, json={}))
+    with pytest.raises(SpeechError):
+        GroqSTT().transcribe(b"RIFF", "audio/wav", "en-IN")

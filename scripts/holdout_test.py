@@ -1,7 +1,7 @@
 """The new-clips (holdout) test: run ONCE, frozen settings, no tuning afterwards (see docs/speech-settings-frozen.md).
 Each founder recording is heard clean, with artificial street noise (8 dB), and as a phone call (8 kHz mu-law).
 Both providers hear it with language = auto (what the live voice bot does). Long clips are cut at the quietest point (limit ~25 s per call).
-Usage: python scripts/holdout_test.py"""
+Usage: python scripts/holdout_test.py [sarvam gemini groq]   (default: sarvam gemini; a third provider can be added later and gets its own result file)"""
 import io
 import json
 import sys
@@ -19,7 +19,7 @@ from app.speech.factory import _stt  # noqa: E402
 from app.speech.scoring import cer, numbers_in, wer  # noqa: E402
 
 H = ROOT / "speech_test" / "holdout"
-OUT = ROOT / "docs" / "holdout-result.md"
+NAMES = {"sarvam": ("Sarvam", "sarvam"), "gemini": ("Gemini", "gemini_prompt"), "groq": ("Groq Whisper", "groq")}
 
 
 def cut(path: Path, maxs=22):
@@ -47,7 +47,9 @@ def hear(provider, path: Path, condition: str):
 
 def main():
     refs = json.loads((H / "sentences.json").read_text())
-    providers = {"Sarvam": _stt("sarvam"), "Gemini": _stt("gemini_prompt")}
+    wanted = sys.argv[1:] or ["sarvam", "gemini"]
+    providers = {NAMES[w][0]: _stt(NAMES[w][1]) for w in wanted}
+    OUT = ROOT / "docs" / ("holdout-result.md" if wanted == ["sarvam", "gemini"] else f"holdout-result-{'-'.join(wanted)}.md")
     variants = [("clean", "{i}.wav", "clean"), ("noisy 8 dB", "{i}_noisy.wav", "clean"), ("phone mu-law", "{i}.wav", "phone_mulaw")]
     rows, raw = [], {}
     for i, ref in refs.items():
@@ -74,7 +76,7 @@ def main():
         ws = [r[3] for r in rows if r[2] == name and r[3] is not None]
         md.append(f"\n**{name} average WER: {np.mean(ws):.2f}** over {len(ws)} variants" if ws else f"\n**{name}: no result**")
     OUT.write_text("\n".join(md) + "\n", encoding="utf-8")
-    (H / "raw_transcripts.json").write_text(json.dumps(raw, ensure_ascii=False, indent=1))
+    (H / f"raw_transcripts_{'-'.join(wanted)}.json").write_text(json.dumps(raw, ensure_ascii=False, indent=1))
 
 
 if __name__ == "__main__":

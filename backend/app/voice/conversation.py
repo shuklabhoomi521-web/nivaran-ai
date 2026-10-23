@@ -87,8 +87,6 @@ class Conversation:
         rewound it meanwhile (a slow answer that arrives after we gave up must not change anything)."""
         said = said.strip()
         epoch = self._epoch
-        if self.finished:
-            return Turn(said, FALLBACK[self.lang_name], "already finished", self.language)
         texts = self.texts + [said]
         # the AI sees the earlier messages and, clearly marked, the LAST one: the reply must be in the language of the last one
         message = said if len(texts) == 1 else "Earlier messages:\n" + "\n".join(texts[:-1]) + "\n\nLAST MESSAGE (answer in its language): " + said
@@ -120,7 +118,7 @@ class Conversation:
         self.texts = texts
         self.language = turn.language or self.language      # the language follows the user
         self.questions_asked += int(asked)
-        self.finished = self.finished or finished
+        self.finished = finished             # more talk after a summary (an extra detail, another language) reopens the case
         self.turns.append(turn)
         return turn
 
