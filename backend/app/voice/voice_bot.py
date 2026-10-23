@@ -133,7 +133,9 @@ async def bot(runner_args: RunnerArguments):
     llm, stt_provider, tts_provider = await asyncio.gather(asyncio.to_thread(make_llm), asyncio.to_thread(make_stt), asyncio.to_thread(make_tts))
     conv = Conversation(language, llm)
     transport = await create_transport(runner_args, transport_params())
-    stt = NivaranSTTService(stt_provider, language_hint=language, trailing_silence_secs=0.3)
+    # the page's language is only the STARTING language (greeting, first voice). Hearing always finds the language by itself,
+    # so the user can switch at any moment (a fixed language hint forced everything into the first language).
+    stt = NivaranSTTService(stt_provider, language_hint="auto", trailing_silence_secs=0.3)
     tts = NivaranTTSService(tts_provider, locale="en-IN" if language == "auto" else language)
     pipeline = Pipeline([
         transport.input(),

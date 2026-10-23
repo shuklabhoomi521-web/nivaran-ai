@@ -125,6 +125,8 @@ def scenarios():
                                                              "language switch: the second answer must be in Hindi")
     sc["8 Auto: Tamil first, then switches to English"] = ("auto", [S(9), C(LIVE / "tamil_swiggy.wav"), S(20), C(LIVE / "answer_order_number.wav"), S(30)], 85, 2,
                                                             "language switch: the second answer must be in English")
+    sc["9 Tamil chosen on the page, but the person speaks English"] = ("ta-IN", [S(9), C(REC / "english/english-01.wav"), S(22), C(LIVE / "answer_order_number.wav"), S(28)], 85, 2,
+                                                                      "the page language is only the starting language: answers must be in English")
     return sc
 
 

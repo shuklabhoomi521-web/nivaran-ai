@@ -1,82 +1,82 @@
 [
  {
-  "name": "7 Auto: English first, then switches to Hindi",
-  "lang": "auto",
-  "note": "language switch: the second answer must be in Hindi",
+  "name": "9 Tamil chosen on the page, but the person speaks English",
+  "lang": "ta-IN",
+  "note": "the page language is only the starting language: answers must be in English",
   "events": [
    {
     "n": 1,
-    "t": "22:17:06",
+    "t": "22:28:14",
     "kind": "info",
-    "text": "connected (auto)",
+    "text": "connected (ta-IN)",
     "at": 1.0
    },
    {
     "n": 2,
-    "t": "22:17:06",
+    "t": "22:28:14",
     "kind": "spoke",
-    "text": "Hello, I am Nivaran. Namaste. Tell me your problem in English, Hindi, Tamil or Hinglish, and which company it is about.",
+    "text": "வணக்கம், நான் நிவாரண். உங்கள் பிரச்சனையையும், எந்த நிறுவனம் என்பதையும் சொல்லுங்கள்.",
     "at": 1.0
    },
    {
     "n": 3,
-    "t": "22:17:25",
+    "t": "22:28:32",
     "kind": "heard",
     "text": "My Zomato order came 40 minutes late and the food was cold and I want a refund.",
-    "secs": 1.01,
+    "secs": 0.86,
     "at": 19.1
    },
    {
     "n": 4,
-    "t": "22:17:25",
+    "t": "22:28:32",
     "kind": "thinking",
     "text": "…",
     "at": 19.1
    },
    {
     "n": 5,
-    "t": "22:17:26",
+    "t": "22:28:34",
     "kind": "note",
     "text": "company=Zomato, category=food_delivery, goal=refund",
-    "secs": 1.6,
+    "secs": 1.3,
     "at": 20.1
    },
    {
     "n": 6,
-    "t": "22:17:26",
+    "t": "22:28:34",
     "kind": "spoke",
     "text": "Could you please provide the order ID?",
     "at": 20.1
    },
    {
     "n": 7,
-    "t": "22:17:48",
+    "t": "22:28:58",
     "kind": "heard",
-    "text": "My Zomato ka Khana Thanda Aaya, Mujhe PaiseWapas CHahiye.",
-    "secs": 0.77,
-    "at": 42.2
+    "text": "My order number is 4839201.",
+    "secs": 0.51,
+    "at": 44.2
    },
    {
     "n": 8,
-    "t": "22:17:48",
+    "t": "22:28:58",
     "kind": "thinking",
     "text": "…",
-    "at": 42.2
+    "at": 44.2
    },
    {
     "n": 9,
-    "t": "22:17:50",
+    "t": "22:28:59",
     "kind": "note",
-    "text": "company=Zomato, category=food_delivery, goal=refund",
-    "secs": 1.5,
-    "at": 44.2
+    "text": "company=Zomato, category=food_delivery, goal=refund; channel=email",
+    "secs": 1.3,
+    "at": 46.2
    },
    {
     "n": 10,
-    "t": "22:17:50",
+    "t": "22:28:59",
     "kind": "spoke",
-    "text": "Kripya apna order ID batayenge?",
-    "at": 44.2
+    "text": "I understand you ordered from Zomato, the food was cold and late, and you want a refund. I can email Zomato for you, once you approve it. Nothing has been sent yet.",
+    "at": 46.2
    }
   ],
   "spans": [
@@ -85,127 +85,26 @@
     17.010875
    ],
    [
-    37.010875,
-    40.610875
+    39.010875,
+    43.170874999999995
    ]
   ],
   "bot_segments": [
    [
-    32.990697145462036,
-    34.69016790390015
+    2.3294129371643066,
+    7.72881007194519
    ],
    [
-    46.628782987594604,
-    48.348509073257446
-   ]
-  ]
- },
- {
-  "name": "8 Auto: Tamil first, then switches to English",
-  "lang": "auto",
-  "note": "language switch: the second answer must be in English",
-  "events": [
-   {
-    "n": 12,
-    "t": "22:18:29",
-    "kind": "info",
-    "text": "connected (auto)",
-    "at": 1.0
-   },
-   {
-    "n": 13,
-    "t": "22:18:29",
-    "kind": "spoke",
-    "text": "Hello, I am Nivaran. Namaste. Tell me your problem in English, Hindi, Tamil or Hinglish, and which company it is about.",
-    "at": 1.0
-   },
-   {
-    "n": 14,
-    "t": "22:18:44",
-    "kind": "heard",
-    "text": "என் Swiggy order குளிர்ந்து வந்தது. எனக்கு பணம் திரும்ப வேண்டும்.",
-    "secs": 1.32,
-    "at": 16.1
-   },
-   {
-    "n": 15,
-    "t": "22:18:44",
-    "kind": "thinking",
-    "text": "…",
-    "at": 16.1
-   },
-   {
-    "n": 16,
-    "t": "22:18:45",
-    "kind": "note",
-    "text": "company=Swiggy, category=food_delivery, goal=refund",
-    "secs": 1.5,
-    "at": 17.1
-   },
-   {
-    "n": 17,
-    "t": "22:18:45",
-    "kind": "spoke",
-    "text": "தயவுசெய்து உங்கள் order ID-ஐ வழங்க முடியுமா?",
-    "at": 17.1
-   },
-   {
-    "n": 18,
-    "t": "22:19:08",
-    "kind": "heard",
-    "text": "My order number is 4839201.",
-    "secs": 1.12,
-    "at": 39.2
-   },
-   {
-    "n": 19,
-    "t": "22:19:08",
-    "kind": "thinking",
-    "text": "…",
-    "at": 39.2
-   },
-   {
-    "n": 20,
-    "t": "22:19:09",
-    "kind": "note",
-    "text": "company=Swiggy, category=food_delivery, goal=refund; channel=email",
-    "secs": 1.6,
-    "at": 41.2
-   },
-   {
-    "n": 21,
-    "t": "22:19:09",
-    "kind": "spoke",
-    "text": "I understand your Swiggy order arrived cold and you want a refund. I can email Swiggy for you, once you approve it. Nothing has been sent yet.",
-    "at": 41.2
-   }
-  ],
-  "spans": [
-   [
-    9.0,
-    13.08
+    31.470176219940186,
+    33.390186071395874
    ],
    [
-    33.08,
-    37.239999999999995
-   ]
-  ],
-  "bot_segments": [
-   [
-    17.95570397377014,
-    20.77408504486084
+    57.568963289260864,
+    62.95002198219299
    ],
    [
-    52.674793004989624,
-    56.43555998802185
-   ],
-   [
-    64.57478380203247,
-    67.15491199493408
-   ],
-   [
-    75.71452188491821,
-    76.95608305931091
+    69.26982617378235,
+    72.05068802833557
    ]
   ]
  }
