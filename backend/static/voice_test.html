@@ -56,7 +56,9 @@ document.addEventListener("DOMContentLoaded", () => { showTry(); $("lang").oncha
 function add(kind, text) { const d = document.createElement("div"); d.className = kind; d.textContent = text; $("log").appendChild(d); }
 
 async function start() {
-  $("start").disabled = true; $("log").innerHTML = ""; since = 0;
+  $("start").disabled = true; $("log").innerHTML = "";
+  // only show what happens in THIS session: skip the old events of earlier sessions (they made "connected" and the greeting show twice)
+  try { const old = await (await fetch("/voice/events?since=0")).json(); since = old.length ? old[old.length - 1].n : 0; } catch (e) { since = 0; }
   try {
     stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
   } catch (e) { status("Microphone blocked: " + e.message); $("start").disabled = false; return; }
