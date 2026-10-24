@@ -26,3 +26,5 @@ speech_test/holdout/_zip/
 speech_test/holdout/*.wav
 speech_test/holdout/*.aac
 speech_test/holdout/*.m4a
+.transcript_key
+.call_transcripts/

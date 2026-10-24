@@ -7,7 +7,7 @@ import os
 import uuid
 from pathlib import Path
 
-from fastapi import BackgroundTasks, FastAPI
+from fastapi import BackgroundTasks, FastAPI, HTTPException, WebSocket
 from fastapi.responses import FileResponse
 from pipecat.runner.types import SmallWebRTCRunnerArguments
 
@@ -90,3 +90,52 @@ async def ice(request: SmallWebRTCPatchRequest):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="localhost", port=int(os.getenv("VOICE_PORT", "7861")))
+
+
+# ---- phone calls (Phase 4) -------------------------------------------------------------------------------------------------------------
+from pydantic import BaseModel  # noqa: E402
+
+
+class CallRequest(BaseModel):
+    to_number: str
+    case: dict                       # company, problem_summary, user_goal, details_known
+    language: str = "en-IN"
+    confirm: bool = False            # the user must say yes to THIS call
+
+
+@app.post("/phone/call")
+async def start_call(req: CallRequest):
+    """Start an outbound call. Needs confirm=true (the user's OK for this exact call) and a number on the allow-list."""
+    from app.channels.phone.twilio import PhoneError, TwilioPhone
+    from app.voice.phone_bot import PENDING_CALLS
+    if not req.confirm:
+        raise HTTPException(400, "The user has not confirmed this call.")
+    base = os.getenv("PUBLIC_BASE_URL", "").strip().rstrip("/")
+    if not base.startswith("https://"):
+        raise HTTPException(400, "PUBLIC_BASE_URL (the public https address of this server) is not set.")
+    case_id = uuid.uuid4().hex
+    PENDING_CALLS[case_id] = {"case": req.case, "language": req.language}
+    try:
+        call_id = await TwilioPhone().place_call(req.to_number, base.replace("https://", "wss://") + "/phone/ws", {"case_id": case_id})
+    except PhoneError as e:
+        PENDING_CALLS.pop(case_id, None)
+        raise HTTPException(400, str(e))
+    return {"call_id": call_id}
+
+
+@app.post("/phone/hangup/{call_id}")
+async def hang_up(call_id: str):
+    """The user's Stop button: ends the call right now."""
+    from app.voice.phone_bot import ACTIVE
+    proc = ACTIVE.get(call_id)
+    if proc is None:
+        raise HTTPException(404, "No such active call.")
+    await proc.stop()
+    return {"ended": True}
+
+
+@app.websocket("/phone/ws")
+async def phone_ws(websocket: WebSocket):
+    from app.voice.phone_bot import run_call_bot
+    await websocket.accept()
+    await run_call_bot(websocket)
