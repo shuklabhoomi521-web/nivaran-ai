@@ -118,3 +118,26 @@ def test_when_the_ai_ends_the_call_it_says_goodbye_and_closes_the_line():
         assert tts.calls[-1][0] == "Thank you, goodbye." and any("ended by the AI" in t["text"] for t in tr)
     finally:
         signal.alarm(0)
+
+
+def test_the_user_can_mute_the_ai_and_type_something_for_it_to_say_but_never_a_secret():
+    import asyncio
+
+    from app.voice.call_conversation import CallConversation
+    from app.voice.phone_bot import CallProcessor
+    from app.voice.services import NivaranSTTService
+
+    proc = CallProcessor(CallConversation(CASE, "en-IN", Scripted()), NivaranSTTService(FakeSTT("x")), None, [])
+    spoken = []
+
+    async def capture(frame, direction=None):
+        spoken.append(frame)
+    proc.push_frame = capture
+    assert asyncio.run(proc.say_for_user("Please add a note that I called today.")).startswith("Please add")
+    assert [f.text for f in spoken] == ["Please add a note that I called today."] and proc.transcript[-1]["who"] == "user"
+    for secret in ("my OTP is 4821", "card number 4111 1111 1111 1111", "my PIN is 1234"):
+        with pytest.raises(ValueError):
+            asyncio.run(proc.say_for_user(secret))
+    assert len(spoken) == 1                                  # nothing secret was spoken
+    proc.set_muted(True)
+    assert proc.muted and proc.transcript[-1]["text"].startswith("AI muted")

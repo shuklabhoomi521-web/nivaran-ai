@@ -213,6 +213,39 @@ class GroqLLM:
             raise LLMError("Groq returned an unusable answer.") from e
 
 
+    def stream_json(self, *, system: str, user: str, schema: dict):
+        """Like complete_json, but yields the raw JSON text piece by piece as the AI writes it (so we can start speaking early)."""
+        import httpx
+
+        self._limiter.acquire()
+        body = {
+            "model": self._settings.groq_model,
+            "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
+            "response_format": {"type": "json_schema", "json_schema": {"name": "answer", "schema": simplify_schema(schema)}},
+            "temperature": 0.2, "max_completion_tokens": 1500, "stream": True,
+        }
+        if "gpt-oss" in self._settings.groq_model:
+            body["reasoning_effort"] = "low"
+        try:
+            with httpx.stream("POST", self.URL, json=body, headers={"Authorization": f"Bearer {self._key}"}, timeout=self._settings.groq_timeout) as r:
+                if r.status_code != 200:
+                    raise LLMError(f"Groq error {r.status_code}.")
+                for line in r.iter_lines():
+                    if not line.startswith("data:"):
+                        continue
+                    data = line[5:].strip()
+                    if data == "[DONE]":
+                        return
+                    try:
+                        piece = json.loads(data)["choices"][0]["delta"].get("content")
+                    except (ValueError, KeyError, IndexError):
+                        continue
+                    if piece:
+                        yield piece
+        except httpx.HTTPError as e:
+            raise LLMError(f"Groq did not answer ({type(e).__name__}).") from e
+
+
 class FallbackLLM:
     """Ask the fast main AI; if it fails or is slow, ask the backup. (Groq first, Gemini as backup.)"""
 
@@ -227,6 +260,22 @@ class FallbackLLM:
         except Exception:  # noqa: BLE001 - any failure of the fast AI: use the backup
             self.last_used = "backup"
             return self.backup.complete_json(system=system, user=user, schema=schema)
+
+    def stream_json(self, *, system: str, user: str, schema: dict):
+        """Stream from the fast AI. If it fails BEFORE the first piece, the backup answers in one piece; if it fails midway we raise
+        (a half-spoken answer cannot be taken back)."""
+        started = False
+        try:
+            for piece in self.primary.stream_json(system=system, user=user, schema=schema):
+                started = True
+                yield piece
+            self.last_used = "primary"
+            return
+        except Exception:  # noqa: BLE001
+            if started:
+                raise
+        self.last_used = "backup"
+        yield json.dumps(self.backup.complete_json(system=system, user=user, schema=schema), ensure_ascii=False)
 
 
 def make_llm() -> LLMClient:

@@ -15,7 +15,11 @@ class PhoneError(RuntimeError):
 
 def normalise(number: str) -> str:
     n = re.sub(r"[\s\-()]", "", number or "")
-    return n if n.startswith("+") else "+" + n if re.fullmatch(r"\d{10,15}", n) else n
+    if n.startswith("+"):
+        return n
+    if re.fullmatch(r"[6-9]\d{9}", n):          # an Indian mobile number written without the country code
+        return "+91" + n
+    return "+" + n if re.fullmatch(r"\d{10,15}", n) else n
 
 
 def allowed_numbers() -> set[str]:

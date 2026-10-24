@@ -17,9 +17,11 @@ from app.safety.redact import scrub
 
 class CallTurnOutput(BaseModel):
     model_config = ConfigDict(extra="forbid")
-    say: str                                   # what to say next (first field: it can be spoken as soon as it is written)
+    # The ORDER matters: the AI writes fields in this order, so we know the action before the first word of `say` arrives,
+    # and can start speaking while the rest is still being written.
     action: Literal["continue", "press_digits", "wait", "need_user", "end_call"]
     digits: str                                # keypad digits to press when action is press_digits, otherwise an empty string
+    say: str                                   # what to say next (empty when pressing keys)
 
 
 DISCLOSURE = {
@@ -58,7 +60,7 @@ Rules:
 1. Use only the facts in details_known. Never invent an order number, name, address, phone number or amount. If the agent asks for a fact you do not have, set action need_user.
 2. Never give or ask for a card number, CVV, PIN, password or OTP. If the agent asks, politely say the customer will handle it, action continue.
 3. State the problem and the wanted outcome plainly and ask for a clear next step (refund, replacement, ticket number, timeline). Ask for a ticket or reference number before the call ends.
-4. If a keypad menu is read out ("press 1 for ..."), choose the option that fits the problem and set action press_digits with the digits (for example "1"). Otherwise digits is an empty string.
+4. If a keypad menu is read out ("press 1 for ..."), choose the option that fits the problem and set action press_digits with the digits (for example "1") and leave say empty. Otherwise digits is an empty string.
 5. If the agent asks you to hold or wait, say a short thanks and set action wait. If the issue is solved or the agent says goodbye, set action end_call with a short polite goodbye.
 6. Be polite and brief. Do not argue. Never promise anything on the customer's behalf (no payments, no cancellations)."""
 
@@ -73,6 +75,7 @@ class CallConversation:
     max_turns: int = 14
     last_action: str = "continue"
     last_digits: str = ""
+    streamed: bool = False
 
     @property
     def company(self) -> str:
@@ -84,14 +87,47 @@ class CallConversation:
         self.history.append(("ai", text))
         return text
 
+    def _stream(self, user: str, schema: dict, on_sentence) -> dict:
+        from app.brain.stream import SayStreamer
+
+        st, held, blocked = SayStreamer(), [], False
+
+        def emit(sentence: str) -> None:
+            nonlocal blocked
+            if blocked or st.action in (None, "press_digits"):
+                return
+            safe = scrub({"t": sentence})[0]["t"].strip()
+            if not safe or (_SECRET_ASK.search(safe) and not _is_refusal(safe)):
+                blocked = True                                  # never say a secret; stop speaking this turn
+                return
+            self.streamed = True
+            on_sentence(safe)
+
+        for piece in self.llm.stream_json(system=SYSTEM_PROMPT, user=user, schema=schema):
+            for sentence in st.feed(piece):
+                if st.action is None:
+                    held.append(sentence)                       # the AI wrote say before action: keep it until we know the action
+                else:
+                    for h in held + [sentence]:
+                        emit(h)
+                    held = []
+        for sentence in st.flush():
+            held.append(sentence)
+        for h in held:
+            emit(h)
+        return st.full_json()
+
     def _fixed(self, table: dict, action: str = "continue") -> str:
         text = table.get(self.language, table["en-IN"])
         self.history.append(("ai", text))
         self.last_action, self.last_digits = action, ""
         return text
 
-    def respond(self, agent_said: str) -> str:
-        """What the agent said -> what we say. Sets last_action (continue, press_digits, wait, need_user, end_call) and last_digits."""
+    def respond(self, agent_said: str, on_sentence=None) -> str:
+        """What the agent said -> what we say. Sets last_action (continue, press_digits, wait, need_user, end_call) and last_digits.
+        With on_sentence (and a streaming AI) each finished sentence is handed over as soon as it is written, so speaking can start early;
+        then self.streamed is True and the caller must not speak the returned text again."""
+        self.streamed = False
         agent_said = agent_said.strip()
         self.history.append(("agent", agent_said))
         if len([1 for who, _ in self.history if who == "ai"]) >= self.max_turns:
@@ -102,14 +138,33 @@ class CallConversation:
         payload = {"language": self.language, "case": {k: self.case.get(k) for k in ("company", "problem_summary", "user_goal", "details_known")},
                    "conversation": [{"who": w, "text": t} for w, t in self.history[-12:]], "agent_just_said": agent_said}
         import json
+        user = json.dumps(payload, ensure_ascii=False)
+        schema = CallTurnOutput.model_json_schema()
         try:
-            raw = self.llm.complete_json(system=SYSTEM_PROMPT, user=json.dumps(payload, ensure_ascii=False), schema=CallTurnOutput.model_json_schema())
+            if on_sentence is not None and hasattr(self.llm, "stream_json"):
+                raw = self._stream(user, schema, on_sentence)
+            else:
+                raw = self.llm.complete_json(system=SYSTEM_PROMPT, user=user, schema=schema)
             out = CallTurnOutput.model_validate(raw)
         except Exception:  # noqa: BLE001 - never go silent on a call
+            if self.streamed:                                   # something was already said: do not add a confusing second sentence
+                self.last_action, self.last_digits = "continue", ""
+                return ""
             return self._fixed(NEED_USER, "need_user")
         say = scrub({"t": out.say})[0]["t"].strip()
         if _SECRET_ASK.search(say) and not _is_refusal(say):       # the AI itself must not ask for or offer secrets
             return self._fixed(REFUSE_SECRET)
+        if self.streamed:                                       # already spoken sentence by sentence (each one was checked before it left)
+            digits = re.sub(r"[^0-9*#]", "", out.digits) if out.action == "press_digits" else ""
+            self.last_action, self.last_digits = out.action if (out.action != "press_digits" or digits) else "continue", digits
+            if self.last_action == "end_call":
+                self.ended = True
+            self.history.append(("ai", say))
+            return say
+        if not say and out.action == "press_digits" and re.sub(r"[^0-9*#]", "", out.digits):
+            self.last_action, self.last_digits = "press_digits", re.sub(r"[^0-9*#]", "", out.digits)      # a key press needs no words
+            self.history.append(("ai", f"[pressed {self.last_digits}]"))
+            return ""
         if not say:
             return self._fixed(HOLD_TEXT if out.action == "wait" else NEED_USER, out.action if out.action in ("wait", "need_user") else "need_user")
         digits = re.sub(r"[^0-9*#]", "", out.digits) if out.action == "press_digits" else ""

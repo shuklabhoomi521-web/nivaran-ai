@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nivaran call control</title>
+<style>
+body{font-family:-apple-system,system-ui,sans-serif;max-width:760px;margin:1.5rem auto;padding:0 1rem;color:#1a1a1a}
+h1{font-size:1.3rem} .box{border:1px solid #ddd;border-radius:10px;padding:1rem;margin:1rem 0}
+button{font-size:1rem;padding:.55rem 1rem;border-radius:8px;border:1px solid #999;background:#fff;cursor:pointer;margin:.15rem}
+button.stop{background:#c62828;color:#fff;border-color:#c62828} button.warn{background:#fff3e0;border-color:#ef6c00}
+#log div{padding:.2rem 0;border-bottom:1px solid #f0f0f0;font-size:.95rem} .heard{color:#0d47a1} .spoke{color:#1b5e20} .info{color:#666} .err{color:#c62828}
+input{font-size:1rem;padding:.5rem;width:70%} #status{font-weight:600}
+</style></head><body>
+<h1>Nivaran: call control</h1>
+<div class="box"><div id="status">No active call.</div>
+<button class="stop" id="stop" disabled>Hang up now</button>
+<button class="warn" id="mute" disabled>Mute the AI (I take over)</button></div>
+<div class="box"><b>Say something on the call</b> (the AI speaks exactly what you type; it never speaks card numbers, PINs, passwords or one-time codes)<br>
+<input id="text" placeholder="Type here, press Enter" disabled> <button id="send" disabled>Say it</button><div id="err" class="err"></div></div>
+<div class="box"><b>Live transcript</b><div id="log"></div></div>
+<script>
+const $ = id => document.getElementById(id); let call = null, since = 0, muted = false;
+async function refresh(){ try{ const c = await (await fetch("/phone/calls")).json();
+  call = c.length ? c[0] : null; muted = call ? call.muted : false;
+  $("status").textContent = call ? "On a call with " + call.company + (call.on_hold ? " (on hold)" : "") + (muted ? " | AI muted" : "") : "No active call.";
+  for (const id of ["stop","mute","text","send"]) $(id).disabled = !call;
+  $("mute").textContent = muted ? "Unmute the AI" : "Mute the AI (I take over)";
+ }catch(e){} }
+async function poll(){ try{ const ev = await (await fetch("/voice/events?since=" + since)).json();
+  for (const e of ev){ since = e.n; const d = document.createElement("div"); d.className = e.kind; d.textContent = e.t + "  " + ({heard:"Agent: ",spoke:"AI: "}[e.kind]||"") + e.text; $("log").appendChild(d); window.scrollTo(0, document.body.scrollHeight);} }catch(e){} }
+$("stop").onclick = async () => { if (call) await fetch("/phone/hangup/" + call.call_id, {method:"POST"}); refresh(); };
+$("mute").onclick = async () => { if (call) await fetch("/phone/mute/" + call.call_id + "?on=" + (!muted), {method:"POST"}); refresh(); };
+async function say(){ const t = $("text").value.trim(); if (!t || !call) return; $("err").textContent = "";
+  const r = await fetch("/phone/say/" + call.call_id, {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({text:t})});
+  if (!r.ok) $("err").textContent = (await r.json()).detail; else $("text").value = ""; }
+$("send").onclick = say; $("text").onkeydown = e => { if (e.key === "Enter") say(); };
+(async()=>{ try{ const old = await (await fetch("/voice/events?since=0")).json(); since = old.length ? old[old.length-1].n : 0; }catch(e){} setInterval(refresh, 1500); setInterval(poll, 700); refresh(); })();
+</script></body></html>

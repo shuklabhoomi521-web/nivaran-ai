@@ -139,3 +139,41 @@ async def phone_ws(websocket: WebSocket):
     from app.voice.phone_bot import run_call_bot
     await websocket.accept()
     await run_call_bot(websocket)
+
+
+class SayRequest(BaseModel):
+    text: str
+
+
+@app.get("/phone/calls")
+async def active_calls():
+    from app.voice.phone_bot import ACTIVE
+    return [{"call_id": cid, "muted": p.muted, "company": p.call.company, "on_hold": bool(p._hold and p._hold.on_hold)} for cid, p in ACTIVE.items()]
+
+
+@app.post("/phone/mute/{call_id}")
+async def mute(call_id: str, on: bool = True):
+    from app.voice.phone_bot import ACTIVE
+    proc = ACTIVE.get(call_id)
+    if proc is None:
+        raise HTTPException(404, "No such active call.")
+    proc.set_muted(on)
+    return {"muted": proc.muted}
+
+
+@app.post("/phone/say/{call_id}")
+async def say(call_id: str, req: SayRequest):
+    """Join the call in writing: the AI says what the user typed (and only that)."""
+    from app.voice.phone_bot import ACTIVE
+    proc = ACTIVE.get(call_id)
+    if proc is None:
+        raise HTTPException(404, "No such active call.")
+    try:
+        return {"said": await proc.say_for_user(req.text)}
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+
+
+@app.get("/phone/control")
+async def control_page():
+    return FileResponse(STATIC / "call_control.html")

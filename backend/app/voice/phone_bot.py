@@ -18,12 +18,13 @@ from pipecat.runner.utils import parse_telephony_websocket
 from pipecat.serializers.twilio import TwilioFrameSerializer
 from pipecat.transports.websocket.fastapi import FastAPIWebsocketParams, FastAPIWebsocketTransport
 
-from app.safety.redact import redact
+from app.safety.redact import redact, scrub
 from app.voice import transcripts
-from app.voice.call_conversation import CallConversation
+from app.voice.call_conversation import _SECRET_ASK, CallConversation
 from app.voice.conversation import FILLER
 from app.voice.dtmf import tones
 from app.voice.events import log_event
+from app.voice.hold import HoldProcessor
 from app.voice.services import NivaranSTTService, NivaranTTSService
 from app.voice.spike_echo_bot import InterruptOnSpeech
 
@@ -37,18 +38,38 @@ class CallProcessor(FrameProcessor):
     BRAIN_DEADLINE = 15.0
     SLOW_AFTER = 5.0
 
-    def __init__(self, call: CallConversation, stt: NivaranSTTService, tts: NivaranTTSService, transcript: list, **kwargs):
+    def __init__(self, call: CallConversation, stt: NivaranSTTService, tts: NivaranTTSService, transcript: list, hold: HoldProcessor | None = None, **kwargs):
         super().__init__(**kwargs)
-        self.call, self._stt, self._tts, self.transcript = call, stt, tts, transcript
+        self.call, self._stt, self._tts, self.transcript, self._hold = call, stt, tts, transcript, hold
         self._t0 = time.time()
         self._pending: list[str] = []
         self._worker: asyncio.Task | None = None
         self._agent_talking = False
         self._filler_done = False
 
+    # ---- the user's controls during a call (the "Join call" panel) ----
+    muted = False
+
+    def set_muted(self, on: bool) -> None:
+        """Mute the AI: it keeps listening and writing the transcript but says nothing, so the user can take over."""
+        self.muted = on
+        self.note("system", "AI muted: the user is in control" if on else "AI unmuted")
+        if on and self._worker and not self._worker.done():
+            self._worker.cancel()
+
+    async def say_for_user(self, text: str) -> str:
+        """The user typed something; the AI voices it exactly. Secrets are refused (never spoken on a call)."""
+        clean = scrub({"t": text})[0]["t"].strip()
+        if not clean:
+            raise ValueError("Nothing to say.")
+        if _SECRET_ASK.search(clean) or clean != text.strip():
+            raise ValueError("That looks like a card number, PIN, password or one-time code. Those are never spoken on a call.")
+        await self._speak(clean, who="user")
+        return clean
+
     def note(self, who: str, text: str) -> None:
         self.transcript.append({"who": who, "text": text, "t": round(time.time() - self._t0, 1)})
-        log_event({"agent": "heard", "ai": "spoke"}.get(who, "info"), redact(text, strict=True)[0])
+        log_event({"agent": "heard", "ai": "spoke", "user": "spoke"}.get(who, "info"), ("(you) " if who == "user" else "") + redact(text, strict=True)[0])
 
     async def process_frame(self, frame: Frame, direction: FrameDirection):
         await super().process_frame(frame, direction)
@@ -62,6 +83,10 @@ class CallProcessor(FrameProcessor):
             await self.push_frame(frame, direction)
             return
         self.note("agent", frame.text)
+        if self.muted:
+            return                                    # the user has taken over: do not answer
+        if self._hold is not None and self._hold.on_hold and len(frame.text.split()) < 4:
+            return                                    # music or a few stray words while on hold: keep waiting quietly
         self._pending.append(frame.text)
         if self._worker is None or self._worker.done():
             self._worker = asyncio.create_task(self._think())
@@ -72,9 +97,17 @@ class CallProcessor(FrameProcessor):
             self._pending.clear()
             filler = None if self._filler_done else asyncio.create_task(self._say_filler_if_slow())
             n_before = len(self.call.history)
+            loop, futures, live = asyncio.get_running_loop(), [], {"on": True}
+
+            def on_sentence(sentence: str, futures=futures, live=live, loop=loop):
+                """Called from the brain's thread for each finished sentence: speak it NOW (unless the agent is talking or we gave up)."""
+                if live["on"] and not (self._agent_talking or self._pending):
+                    futures.append(asyncio.run_coroutine_threadsafe(self._speak(sentence), loop))
+
             try:
-                reply = await asyncio.wait_for(asyncio.to_thread(self.call.respond, said), self.BRAIN_DEADLINE)
+                reply = await asyncio.wait_for(asyncio.to_thread(self.call.respond, said, on_sentence), self.BRAIN_DEADLINE)
             except Exception as e:  # noqa: BLE001 - never go silent, never crash the call
+                live["on"] = False
                 logger.exception("call brain failed")
                 log_event("err", f"call brain problem: {type(e).__name__}")
                 del self.call.history[n_before:]
@@ -82,8 +115,10 @@ class CallProcessor(FrameProcessor):
                     await self._speak("Sorry, could you please repeat that?")
                 continue
             finally:
+                live["on"] = False
                 if filler:
                     filler.cancel()
+            await asyncio.gather(*[asyncio.wrap_future(f) for f in futures])      # let the streamed sentences finish being queued, in order
             if self._pending:                         # the agent kept talking: answer everything together
                 del self.call.history[n_before - 1:]
                 self._pending.insert(0, said)
@@ -94,7 +129,8 @@ class CallProcessor(FrameProcessor):
                 self.note("system", f"pressed keypad: {self.call.last_digits}")
                 await self.push_frame(OutputAudioRawFrame(audio=tones(self.call.last_digits), sample_rate=8000, num_channels=1))
             else:
-                await self._speak(reply)
+                if not self.call.streamed:                # (streamed answers were already spoken sentence by sentence)
+                    await self._speak(reply)
                 if action == "need_user":
                     self.note("system", "the agent asked for something we do not have: the user is needed")
             if self.call.ended:
@@ -102,8 +138,8 @@ class CallProcessor(FrameProcessor):
                 await self.push_frame(EndFrame())
                 return
 
-    async def _speak(self, text: str):
-        self.note("ai", text)
+    async def _speak(self, text: str, who: str = "ai"):
+        self.note(who, text)
         await self.push_frame(TTSSpeakFrame(text))
 
     async def _say_filler_if_slow(self):
@@ -140,11 +176,12 @@ async def run_call_bot(websocket, llm=None, stt_provider=None, tts_provider=None
     stt = NivaranSTTService(stt_provider, language_hint="auto", trailing_silence_secs=0.3)
     tts = NivaranTTSService(tts_provider, locale=language)
     transcript = [] if transcript is None else transcript          # the caller may pass its own list and read it while the call runs
-    proc = CallProcessor(call, stt, tts, transcript)
+    hold = HoldProcessor(on_change=lambda on: proc.note("system", "on hold: waiting quietly" if on else "off hold: someone is talking again"))
+    proc = CallProcessor(call, stt, tts, transcript, hold)
     pipeline = Pipeline([
         transport.input(),
         VADProcessor(vad_analyzer=SileroVADAnalyzer(params=VADParams(confidence=0.6, min_volume=0.1, start_secs=0.2, stop_secs=0.7))),
-        InterruptOnSpeech(), stt, proc, tts, transport.output(),
+        hold, InterruptOnSpeech(), stt, proc, tts, transport.output(),
     ])
     task = PipelineTask(pipeline, params=PipelineParams(enable_metrics=True, audio_in_sample_rate=8000, audio_out_sample_rate=8000))
     call_id = call_data["call_id"]

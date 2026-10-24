@@ -16,6 +16,7 @@ def make(handler):
 
 def test_normalise_numbers():
     assert normalise("+91 98765-43210") == "+919876543210" and normalise("919876543210") == "+919876543210"
+    assert normalise("98765 43210") == "+919876543210"          # a 10-digit Indian mobile number gets +91
 
 
 def test_twiml_streams_the_call_to_our_websocket_and_escapes_values():

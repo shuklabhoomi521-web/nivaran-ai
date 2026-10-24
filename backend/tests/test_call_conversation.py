@@ -109,3 +109,74 @@ def test_a_call_cannot_go_on_forever():
             break
         c.respond("hmm")
     assert c.ended and c.history[-1][1] == GOODBYE["en-IN"]
+
+
+class Streaming:
+    """An AI that writes its answer in pieces; `seen` records how many sentences had been handed out when the last piece was written."""
+
+    def __init__(self, doc, size=6):
+        self.doc, self.size, self.seen_at_end = doc, size, None
+        self.sentences = None
+
+    def stream_json(self, *, system, user, schema):
+        import json
+        text = json.dumps(self.doc, ensure_ascii=False)
+        pieces = [text[i:i + self.size] for i in range(0, len(text), self.size)]
+        for n, piece in enumerate(pieces):
+            if n == len(pieces) - 1:
+                self.seen_at_end = len(self.sentences)
+            yield piece
+
+    def complete_json(self, **kw):
+        return self.doc
+
+
+def test_speaking_starts_before_the_ai_has_finished_writing():
+    ai = Streaming({"action": "continue", "digits": "", "say": "My customer's order ID is 4839201. They want a refund. Thank you."})
+    c = CallConversation(CASE, "en-IN", ai)
+    c.opening()
+    said = ai.sentences = []
+    reply = c.respond("How can I help?", said.append)
+    assert said == ["My customer's order ID is 4839201.", "They want a refund.", "Thank you."]
+    assert ai.seen_at_end >= 2 and c.streamed and reply.startswith("My customer")
+
+
+def test_a_key_press_is_never_spoken_even_when_streaming():
+    ai = Streaming({"action": "press_digits", "digits": "1", "say": "Pressing one."})
+    c = CallConversation(CASE, "en-IN", ai)
+    c.opening(); said = ai.sentences = []
+    c.respond("Press 1 for orders", said.append)
+    assert said == [] and c.last_action == "press_digits" and c.last_digits == "1"
+
+
+def test_a_secret_is_never_streamed_out():
+    ai = Streaming({"action": "continue", "digits": "", "say": "Sure. Please share the OTP now. Thanks."})
+    c = CallConversation(CASE, "en-IN", ai)
+    c.opening(); said = ai.sentences = []
+    c.respond("Anything else?", said.append)
+    assert said == ["Sure."]                       # the sentence asking for an OTP and everything after it were held back
+
+
+def test_streaming_text_is_cleaned_like_normal_text():
+    ai = Streaming({"action": "continue", "digits": "", "say": "They paid with card 4111 1111 1111 1111. Thanks."})
+    c = CallConversation(CASE, "en-IN", ai)
+    c.opening(); said = ai.sentences = []
+    c.respond("How did they pay?", said.append)
+    assert all("4111" not in s for s in said)
+
+
+def test_a_stream_that_breaks_midway_does_not_add_a_second_confusing_sentence():
+    class Breaks(Streaming):
+        def stream_json(self, **kw):
+            yield '{"action": "continue", "digits": "", "say": "First sentence. Sec'
+            raise RuntimeError("connection lost")
+    ai = Breaks({})
+    c = CallConversation(CASE, "en-IN", ai)
+    c.opening(); said = ai.sentences = []
+    assert c.respond("hello", said.append) == "" and said == ["First sentence."]
+
+
+def test_a_key_press_with_no_words_is_a_key_press_not_a_missing_fact():
+    c = CallConversation(CASE, "en-IN", Scripted({"action": "press_digits", "digits": "1", "say": ""}))
+    c.opening()
+    assert c.respond("Press 1 for orders") == "" and c.last_action == "press_digits" and c.last_digits == "1"
