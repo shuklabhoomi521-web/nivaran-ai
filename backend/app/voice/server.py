@@ -87,11 +87,6 @@ async def ice(request: SmallWebRTCPatchRequest):
     return {"status": "success"}
 
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="localhost", port=int(os.getenv("VOICE_PORT", "7861")))
-
-
 # ---- phone calls (Phase 4) -------------------------------------------------------------------------------------------------------------
 from pydantic import BaseModel  # noqa: E402
 
@@ -101,6 +96,10 @@ class CallRequest(BaseModel):
     case: dict                       # company, problem_summary, user_goal, details_known
     language: str = "en-IN"
     confirm: bool = False            # the user must say yes to THIS call
+
+
+REHEARSAL_CASE = {"company": "Swiggy", "problem_summary": "The order arrived cold and no refund was given.", "user_goal": "refund",
+                  "details_known": [{"name": "order_id", "value": "4839201"}]}
 
 
 @app.post("/phone/call")
@@ -138,7 +137,10 @@ async def hang_up(call_id: str):
 async def phone_ws(websocket: WebSocket):
     from app.voice.phone_bot import run_call_bot
     await websocket.accept()
-    await run_call_bot(websocket)
+    if os.getenv("PHONE_REHEARSAL"):             # practice mode: a pretend company on a pretend phone (scripts/fake_company_call.py), no real call
+        await run_call_bot(websocket, case=REHEARSAL_CASE, language="en-IN", auto_hang_up=False)
+    else:
+        await run_call_bot(websocket)
 
 
 class SayRequest(BaseModel):
@@ -177,3 +179,8 @@ async def say(call_id: str, req: SayRequest):
 @app.get("/phone/control")
 async def control_page():
     return FileResponse(STATIC / "call_control.html")
+
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="localhost", port=int(os.getenv("VOICE_PORT", "7861")))

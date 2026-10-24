@@ -1,0 +1,94 @@
+{
+ "results": {
+  "menu_delay": [
+   13.2,
+   0.0
+  ],
+  "menu": [
+   "1",
+   "1"
+  ],
+  "answer1_delay": 13.3,
+  "answer2_delay": 13.2,
+  "otp_delay": 26.5,
+  "goodbye_delay": 28.8,
+  "bot_audio_seconds": 40.0
+ },
+ "log": [
+  [
+   0.0,
+   "setup",
+   "pretend call connected; the bot should introduce itself as an AI first"
+  ],
+  [
+   16.5,
+   "bot",
+   "(finished its introduction)"
+  ],
+  [
+   16.5,
+   "menu",
+   "Welcome to Swiggy customer care. Press 1 for order issues. Press 2 for payments. Press 3 for anything else."
+  ],
+  [
+   38.6,
+   "bot",
+   "pressed key 1"
+  ],
+  [
+   38.6,
+   "check",
+   "bot pressed '1' (wanted '1': OK)"
+  ],
+  [
+   38.6,
+   "menu",
+   "For a late or cold order, press 1. For missing items, press 2. To return to the main menu, press 9."
+  ],
+  [
+   40.7,
+   "bot",
+   "pressed key 1"
+  ],
+  [
+   47.5,
+   "check",
+   "bot pressed '1' (wanted '1': OK)"
+  ],
+  [
+   47.5,
+   "menu",
+   "Please hold while we connect you to an agent."
+  ],
+  [
+   50.6,
+   "setup",
+   "hold music for 14 seconds"
+  ],
+  [
+   55.6,
+   "bot",
+   "pressed key 1"
+  ],
+  [
+   67.6,
+   "agent",
+   "Hello, this is Priya from Swiggy support. How can I help you today?"
+  ],
+  [
+   100.8,
+   "agent",
+   "Can you give me the order I D please?"
+  ],
+  [
+   124.0,
+   "agent",
+   "Please tell me the OTP you received on your phone."
+  ],
+  [
+   169.8,
+   "agent",
+   "I have raised a refund. Your ticket number is T 5 5 5. Anything else?"
+  ]
+ ]
+}
