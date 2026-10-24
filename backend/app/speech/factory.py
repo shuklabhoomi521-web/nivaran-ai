@@ -1,7 +1,7 @@
 from app.config import ConfigError, get_settings
 from app.speech.base import SpeechToText, TextToSpeech
 
-STT_NAMES = ("sarvam", "gemini", "gemini_prompt", "groq")
+STT_NAMES = ("sarvam", "gemini", "gemini_prompt", "groq", "local")
 TTS_NAMES = ("sarvam", "gemini")
 
 
@@ -15,6 +15,9 @@ def _stt(name: str) -> SpeechToText:
     if name == "sarvam":
         from app.speech.sarvam import SarvamSTT
         return SarvamSTT()
+    if name == "local":
+        from app.speech.local import LocalWhisperSTT
+        return LocalWhisperSTT()
     if name == "groq":
         from app.speech.groq import GroqSTT
         return GroqSTT()

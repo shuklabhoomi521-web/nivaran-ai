@@ -130,6 +130,12 @@ def scenarios():
     return sc
 
 
+def _credit_line():
+    sys.path.insert(0, str(ROOT / "backend"))
+    from app.speech.credits import CreditLedger
+    print(CreditLedger().session_line(), flush=True)
+
+
 def main():
     want = sys.argv[1:]
     results = []
@@ -155,6 +161,7 @@ def main():
         print(f"   user clip(s) at {[(round(a, 1), round(b, 1)) for a, b in res['spans']]}; bot made sound at {[(round(a, 1), round(b, 1)) for a, b in res['bot_segments']]}", flush=True)
     (ROOT / "docs" / ".voice-live-test.json").write_text(json.dumps(results, ensure_ascii=False, indent=1))
     write_report(results)
+    _credit_line()
 
 
 def write_report(results):

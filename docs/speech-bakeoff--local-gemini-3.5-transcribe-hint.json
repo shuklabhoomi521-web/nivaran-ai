@@ -1,0 +1,538 @@
+[
+ {
+  "lang": "hinglish",
+  "id": "hinglish-01",
+  "kind": "own",
+  "cond": "clean",
+  "noisy": false,
+  "wer": 1.0,
+  "wer_inside": 0.2,
+  "cer": 1.0,
+  "secs": 25.0,
+  "ref": "Mera Swiggy order ek ghanta late aaya aur khana bilkul thanda tha, mujhe refund chahiye.",
+  "hyp": "Hello. Haan ji. To mera complaint tha ki mera Swiggy ka order ek ghante late aaya aur khaana bilkul thanda tha. Mujhe refund chaahie. Dekh lijie aap, lekin khaana ekdam thanda tha, ekdam khaana laayak nahin tha, mujhe refund chaahie.",
+  "expected_numbers": null,
+  "numbers_ok": null,
+  "heard_numbers": []
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-01",
+  "kind": "own",
+  "cond": "phone_8k",
+  "noisy": false,
+  "wer": 1.0,
+  "wer_inside": 0.2,
+  "cer": 1.0,
+  "secs": 5.95,
+  "ref": "Mera Swiggy order ek ghanta late aaya aur khana bilkul thanda tha, mujhe refund chahiye.",
+  "hyp": "Hello. Haan ji. To mera complaint tha ki mera Swiggy ka order ek ghante late aaya aur khaana bilkul thanda tha. Mujhe refund chaahie. Dekh lijie aap, lekin khaana ekdam thanda tha, ekdam khaana laayak nahin tha, mujhe refund chaahie.",
+  "expected_numbers": null,
+  "numbers_ok": null,
+  "heard_numbers": []
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-01",
+  "kind": "own",
+  "cond": "phone_mulaw",
+  "noisy": false,
+  "wer": 1.0,
+  "wer_inside": 0.2,
+  "cer": 1.0,
+  "secs": 7.88,
+  "ref": "Mera Swiggy order ek ghanta late aaya aur khana bilkul thanda tha, mujhe refund chahiye.",
+  "hyp": "Hello. Haan ji. To mera complaint tha ki mera Swiggy ka order ek ghante late aaya aur khaana bilkul thanda tha. Mujhe refund chaahie. Dekh lijie aap, lekin khaana ekdam thanda tha, ekdam khaana laayak nahin tha, mujhe refund chaahie.",
+  "expected_numbers": null,
+  "numbers_ok": null,
+  "heard_numbers": []
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-02",
+  "kind": "own",
+  "cond": "clean",
+  "noisy": false,
+  "wer": 1.0,
+  "wer_inside": 0.286,
+  "cer": 1.0,
+  "secs": 4.68,
+  "ref": "Maine Jio ka 299 wala recharge kiya tha but data abhi tak nahi aaya.",
+  "hyp": "Hello. Kya to tension ho gaya? Kya tension hua tha? Mainne Jio ka 299 vaala recharge kiya tha, lekin data ab tak nahin aaya hai. Isko check kijie. Hello, hello hello.",
+  "expected_numbers": [
+   "299"
+  ],
+  "numbers_ok": true,
+  "heard_numbers": [
+   "299"
+  ]
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-02",
+  "kind": "own",
+  "cond": "phone_8k",
+  "noisy": false,
+  "wer": 1.0,
+  "wer_inside": 0.286,
+  "cer": 1.0,
+  "secs": 4.33,
+  "ref": "Maine Jio ka 299 wala recharge kiya tha but data abhi tak nahi aaya.",
+  "hyp": "Hello. Kya to tension ho gaya? Kya tension hua tha? Mainne Jio ka 299 vaala recharge kiya tha. Lekin data ab tak nahin aaya hai. Isko check kijie. Hello, hello hello.",
+  "expected_numbers": [
+   "299"
+  ],
+  "numbers_ok": true,
+  "heard_numbers": [
+   "299"
+  ]
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-02",
+  "kind": "own",
+  "cond": "phone_mulaw",
+  "noisy": false,
+  "wer": 1.0,
+  "wer_inside": 0.286,
+  "cer": 1.0,
+  "secs": 4.09,
+  "ref": "Maine Jio ka 299 wala recharge kiya tha but data abhi tak nahi aaya.",
+  "hyp": "Hello. Kya to tension ho gaya? Kya tension hua tha? Mainne Jio ka 299 vaala recharge kiya tha. Lekin data ab tak nahin aaya hai. Isko check kijie. Hello, hello hello.",
+  "expected_numbers": [
+   "299"
+  ],
+  "numbers_ok": true,
+  "heard_numbers": [
+   "299"
+  ]
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-03",
+  "kind": "own",
+  "cond": "clean",
+  "noisy": false,
+  "wer": 1.0,
+  "wer_inside": 0.786,
+  "cer": 1.0,
+  "secs": 3.96,
+  "ref": "UPI se 1500 rupaye bheje, paise kat gaye par saamne wale ko nahi mile.",
+  "hyp": "Hello. Mainne UPI se apne dost ko pandrah sau rupe bheje the, jismen se paise cut gae hain, par mere dost ko paisa rasid nahin hua.",
+  "expected_numbers": [
+   "1500"
+  ],
+  "numbers_ok": false,
+  "heard_numbers": []
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-03",
+  "kind": "own",
+  "cond": "phone_8k",
+  "noisy": false,
+  "wer": 1.0,
+  "wer_inside": 0.786,
+  "cer": 1.0,
+  "secs": 3.9,
+  "ref": "UPI se 1500 rupaye bheje, paise kat gaye par saamne wale ko nahi mile.",
+  "hyp": "Hello. Mainne UTI se apne dost ko pandrah sau rupe bheje the, jismen se paise cut gae hain, par mere dost ko paisa rasid nahin hua.",
+  "expected_numbers": [
+   "1500"
+  ],
+  "numbers_ok": false,
+  "heard_numbers": []
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-03",
+  "kind": "own",
+  "cond": "phone_mulaw",
+  "noisy": false,
+  "wer": 1.0,
+  "wer_inside": 0.786,
+  "cer": 1.0,
+  "secs": 3.9,
+  "ref": "UPI se 1500 rupaye bheje, paise kat gaye par saamne wale ko nahi mile.",
+  "hyp": "Hello. Mainne UTI se apne dost ko pandrah sau rupe bheje the, jismen se paise cut gae hain, par mere dost ko paisa receive nahin hua.",
+  "expected_numbers": [
+   "1500"
+  ],
+  "numbers_ok": false,
+  "heard_numbers": []
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-04",
+  "kind": "own",
+  "cond": "clean",
+  "noisy": false,
+  "wer": 0.385,
+  "wer_inside": 0.385,
+  "cer": 0.2,
+  "secs": 3.11,
+  "ref": "Mera order number 4839201 hai, Amazon ne galat size ki kurti bhej di.",
+  "hyp": "Mera order number 4 3 9 2 0 1 hai. Amazon mein galat size ki ghutti bhejti hai.",
+  "expected_numbers": [
+   "4839201"
+  ],
+  "numbers_ok": false,
+  "heard_numbers": [
+   "439201"
+  ]
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-04",
+  "kind": "own",
+  "cond": "phone_8k",
+  "noisy": false,
+  "wer": 0.462,
+  "wer_inside": 0.462,
+  "cer": 0.236,
+  "secs": 3.06,
+  "ref": "Mera order number 4839201 hai, Amazon ne galat size ki kurti bhej di.",
+  "hyp": "Mera order number 4 3 9 2 0 1 hai. Amazon mein galat 5 ki karti bhejti hai.",
+  "expected_numbers": [
+   "4839201"
+  ],
+  "numbers_ok": false,
+  "heard_numbers": [
+   "439201",
+   "5"
+  ]
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-04",
+  "kind": "own",
+  "cond": "phone_mulaw",
+  "noisy": false,
+  "wer": 0.462,
+  "wer_inside": 0.462,
+  "cer": 0.236,
+  "secs": 3.07,
+  "ref": "Mera order number 4839201 hai, Amazon ne galat size ki kurti bhej di.",
+  "hyp": "Mera order number 4 3 9 2 0 1 hai. Amazon mein galat 5 ki karti bhejti hai.",
+  "expected_numbers": [
+   "4839201"
+  ],
+  "numbers_ok": false,
+  "heard_numbers": [
+   "439201",
+   "5"
+  ]
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-05",
+  "kind": "own",
+  "cond": "clean",
+  "noisy": true,
+  "wer": 1.0,
+  "wer_inside": 1.0,
+  "cer": 0.949,
+  "secs": 3.12,
+  "ref": "Mera IRCTC ticket cancel kiya tha das din pehle, refund abhi tak nahi aaya.",
+  "hyp": "nan",
+  "expected_numbers": null,
+  "numbers_ok": null,
+  "heard_numbers": []
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-05",
+  "kind": "own",
+  "cond": "phone_8k",
+  "noisy": true,
+  "wer": 1.0,
+  "wer_inside": 1.0,
+  "cer": 0.949,
+  "secs": 2.05,
+  "ref": "Mera IRCTC ticket cancel kiya tha das din pehle, refund abhi tak nahi aaya.",
+  "hyp": "nan",
+  "expected_numbers": null,
+  "numbers_ok": null,
+  "heard_numbers": []
+ },
+ {
+  "lang": "hinglish",
+  "id": "hinglish-05",
+  "kind": "own",
+  "cond": "phone_mulaw",
+  "noisy": true,
+  "wer": 1.0,
+  "wer_inside": 1.0,
+  "cer": 0.949,
+  "secs": 1.94,
+  "ref": "Mera IRCTC ticket cancel kiya tha das din pehle, refund abhi tak nahi aaya.",
+  "hyp": "nan",
+  "expected_numbers": null,
+  "numbers_ok": null,
+  "heard_numbers": []
+ },
+ {
+  "lang": "english",
+  "id": "english-01",
+  "kind": "own",
+  "cond": "clean",
+  "noisy": false,
+  "wer": 0.062,
+  "wer_inside": 0.062,
+  "cer": 0.052,
+  "secs": 3.04,
+  "ref": "My Zomato order came forty minutes late and the food was cold, I want a refund.",
+  "hyp": "My Zomato order came 40 minutes late and the food was cold and I want a refund.",
+  "expected_numbers": [
+   "40"
+  ],
+  "numbers_ok": true,
+  "heard_numbers": [
+   "40"
+  ]
+ },
+ {
+  "lang": "english",
+  "id": "english-01",
+  "kind": "own",
+  "cond": "phone_8k",
+  "noisy": false,
+  "wer": 0.125,
+  "wer_inside": 0.125,
+  "cer": 0.069,
+  "secs": 3.18,
+  "ref": "My Zomato order came forty minutes late and the food was cold, I want a refund.",
+  "hyp": "My romato order came 40 minutes late and the food was cold and I want a refund.",
+  "expected_numbers": [
+   "40"
+  ],
+  "numbers_ok": true,
+  "heard_numbers": [
+   "40"
+  ]
+ },
+ {
+  "lang": "english",
+  "id": "english-01",
+  "kind": "own",
+  "cond": "phone_mulaw",
+  "noisy": false,
+  "wer": 0.062,
+  "wer_inside": 0.062,
+  "cer": 0.052,
+  "secs": 3.13,
+  "ref": "My Zomato order came forty minutes late and the food was cold, I want a refund.",
+  "hyp": "My Zomato order came 40 minutes late and the food was cold and I want a refund.",
+  "expected_numbers": [
+   "40"
+  ],
+  "numbers_ok": true,
+  "heard_numbers": [
+   "40"
+  ]
+ },
+ {
+  "lang": "english",
+  "id": "english-02",
+  "kind": "own",
+  "cond": "clean",
+  "noisy": false,
+  "wer": 0.0,
+  "wer_inside": 0.0,
+  "cer": 0.0,
+  "secs": 2.79,
+  "ref": "My laptop charger stopped working and it is still under warranty.",
+  "hyp": "My laptop charger stopped working and it is still under warranty.",
+  "expected_numbers": null,
+  "numbers_ok": null,
+  "heard_numbers": []
+ },
+ {
+  "lang": "english",
+  "id": "english-02",
+  "kind": "own",
+  "cond": "phone_8k",
+  "noisy": false,
+  "wer": 0.0,
+  "wer_inside": 0.0,
+  "cer": 0.0,
+  "secs": 2.45,
+  "ref": "My laptop charger stopped working and it is still under warranty.",
+  "hyp": "My laptop charger stopped working and it is still under warranty.",
+  "expected_numbers": null,
+  "numbers_ok": null,
+  "heard_numbers": []
+ },
+ {
+  "lang": "english",
+  "id": "english-02",
+  "kind": "own",
+  "cond": "phone_mulaw",
+  "noisy": false,
+  "wer": 0.0,
+  "wer_inside": 0.0,
+  "cer": 0.0,
+  "secs": 2.47,
+  "ref": "My laptop charger stopped working and it is still under warranty.",
+  "hyp": "My laptop charger stopped working and it is still under warranty.",
+  "expected_numbers": null,
+  "numbers_ok": null,
+  "heard_numbers": []
+ },
+ {
+  "lang": "english",
+  "id": "english-03",
+  "kind": "own",
+  "cond": "clean",
+  "noisy": false,
+  "wer": 0.067,
+  "wer_inside": 0.067,
+  "cer": 0.109,
+  "secs": 2.77,
+  "ref": "I paid two thousand rupees through PhonePe but the money did not reach the other person.",
+  "hyp": "I paid two thousand rupees through through PhonePe but the money did not reach the other person.",
+  "expected_numbers": [
+   "2000"
+  ],
+  "numbers_ok": true,
+  "heard_numbers": [
+   "2000"
+  ]
+ },
+ {
+  "lang": "english",
+  "id": "english-03",
+  "kind": "own",
+  "cond": "phone_8k",
+  "noisy": false,
+  "wer": 0.067,
+  "wer_inside": 0.067,
+  "cer": 0.109,
+  "secs": 2.8,
+  "ref": "I paid two thousand rupees through PhonePe but the money did not reach the other person.",
+  "hyp": "I paid 2000 rupees through through PhonePe but the money did not reach the other person.",
+  "expected_numbers": [
+   "2000"
+  ],
+  "numbers_ok": true,
+  "heard_numbers": [
+   "2000"
+  ]
+ },
+ {
+  "lang": "english",
+  "id": "english-03",
+  "kind": "own",
+  "cond": "phone_mulaw",
+  "noisy": false,
+  "wer": 0.067,
+  "wer_inside": 0.067,
+  "cer": 0.109,
+  "secs": 2.67,
+  "ref": "I paid two thousand rupees through PhonePe but the money did not reach the other person.",
+  "hyp": "I paid 2000 rupees through through PhonePe but the money did not reach the other person.",
+  "expected_numbers": [
+   "2000"
+  ],
+  "numbers_ok": true,
+  "heard_numbers": [
+   "2000"
+  ]
+ },
+ {
+  "lang": "english",
+  "id": "english-04",
+  "kind": "own",
+  "cond": "clean",
+  "noisy": false,
+  "wer": 0.077,
+  "wer_inside": 0.077,
+  "cer": 0.052,
+  "secs": 2.62,
+  "ref": "My IndiGo flight was cancelled and they have not refunded my ticket yet.",
+  "hyp": "My Indigo flight cancelled and they have not refunded my ticket yet.",
+  "expected_numbers": null,
+  "numbers_ok": null,
+  "heard_numbers": []
+ },
+ {
+  "lang": "english",
+  "id": "english-04",
+  "kind": "own",
+  "cond": "phone_8k",
+  "noisy": false,
+  "wer": 0.077,
+  "wer_inside": 0.077,
+  "cer": 0.052,
+  "secs": 2.59,
+  "ref": "My IndiGo flight was cancelled and they have not refunded my ticket yet.",
+  "hyp": "My Indigo flight cancelled and they have not refunded my ticket yet.",
+  "expected_numbers": null,
+  "numbers_ok": null,
+  "heard_numbers": []
+ },
+ {
+  "lang": "english",
+  "id": "english-04",
+  "kind": "own",
+  "cond": "phone_mulaw",
+  "noisy": false,
+  "wer": 0.077,
+  "wer_inside": 0.077,
+  "cer": 0.052,
+  "secs": 2.6,
+  "ref": "My IndiGo flight was cancelled and they have not refunded my ticket yet.",
+  "hyp": "My Indigo flight cancelled and they have not refunded my ticket yet.",
+  "expected_numbers": null,
+  "numbers_ok": null,
+  "heard_numbers": []
+ },
+ {
+  "lang": "english",
+  "id": "english-05",
+  "kind": "own",
+  "cond": "clean",
+  "noisy": true,
+  "wer": 0.25,
+  "wer_inside": 0.167,
+  "cer": 0.119,
+  "secs": 2.79,
+  "ref": "My Airtel broadband is not working since yesterday, please get it fixed.",
+  "hyp": "Hello, my Airtel booth band is not working since yesterday. Please get it fixed.",
+  "expected_numbers": null,
+  "numbers_ok": null,
+  "heard_numbers": []
+ },
+ {
+  "lang": "english",
+  "id": "english-05",
+  "kind": "own",
+  "cond": "phone_8k",
+  "noisy": true,
+  "wer": 0.333,
+  "wer_inside": 0.25,
+  "cer": 0.186,
+  "secs": 2.88,
+  "ref": "My Airtel broadband is not working since yesterday, please get it fixed.",
+  "hyp": "Hello, my Apple booth band is not working since yesterday. Please get it fixed.",
+  "expected_numbers": null,
+  "numbers_ok": null,
+  "heard_numbers": []
+ },
+ {
+  "lang": "english",
+  "id": "english-05",
+  "kind": "own",
+  "cond": "phone_mulaw",
+  "noisy": true,
+  "wer": 0.333,
+  "wer_inside": 0.25,
+  "cer": 0.186,
+  "secs": 2.84,
+  "ref": "My Airtel broadband is not working since yesterday, please get it fixed.",
+  "hyp": "Hello, my Apple booth band is not working since yesterday. Please get it fixed.",
+  "expected_numbers": null,
+  "numbers_ok": null,
+  "heard_numbers": []
+ }
+]

@@ -19,7 +19,7 @@ from app.speech.factory import _stt  # noqa: E402
 from app.speech.scoring import cer, numbers_in, wer  # noqa: E402
 
 H = ROOT / "speech_test" / "holdout"
-NAMES = {"sarvam": ("Sarvam", "sarvam"), "gemini": ("Gemini", "gemini_prompt"), "groq": ("Groq Whisper", "groq")}
+NAMES = {"sarvam": ("Sarvam", "sarvam"), "gemini": ("Gemini", "gemini_prompt"), "groq": ("Groq Whisper", "groq"), "local": ("Local Hindi2Hinglish", "local")}
 
 
 def cut(path: Path, maxs=22):
@@ -76,6 +76,8 @@ def main():
         ws = [r[3] for r in rows if r[2] == name and r[3] is not None]
         md.append(f"\n**{name} average WER: {np.mean(ws):.2f}** over {len(ws)} variants" if ws else f"\n**{name}: no result**")
     OUT.write_text("\n".join(md) + "\n", encoding="utf-8")
+    from app.speech.credits import CreditLedger
+    print(CreditLedger().session_line(), flush=True)
     (H / f"raw_transcripts_{'-'.join(wanted)}.json").write_text(json.dumps(raw, ensure_ascii=False, indent=1))
 
 

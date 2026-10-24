@@ -27,6 +27,7 @@ class Settings:
     groq_timeout: float
     groq_stt_model: str
     groq_stt_rpm: int
+    local_stt_model: str
     stt_provider: str        # "gemini" (default) or "fake" in tests
     tts_provider: str
     gemini_stt_model: str
@@ -72,6 +73,7 @@ def get_settings() -> Settings:
         groq_rpm=_int("GROQ_RPM", 25),
         groq_stt_model=os.getenv("GROQ_STT_MODEL", "").strip() or "whisper-large-v3",
         groq_stt_rpm=_int("GROQ_STT_RPM", 15),
+        local_stt_model=os.getenv("LOCAL_STT_MODEL", "").strip() or "oriserve/whisper-hindi2hinglish-apex",
         groq_timeout=float(os.getenv("GROQ_TIMEOUT", "").strip() or 8),
         stt_provider=(os.getenv("STT_PROVIDER", "").strip() or "sarvam").lower(),
         tts_provider=(os.getenv("TTS_PROVIDER", "").strip() or "sarvam").lower(),

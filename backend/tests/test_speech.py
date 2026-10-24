@@ -377,3 +377,46 @@ def test_groq_whisper_errors_become_speech_errors(monkeypatch):
     monkeypatch.setattr(httpx, "post", lambda *a, **k: httpx.Response(429, json={}))
     with pytest.raises(SpeechError):
         GroqSTT().transcribe(b"RIFF", "audio/wav", "en-IN")
+
+
+def test_sarvam_is_paused_below_15_rupees_until_the_founder_says_yes(tmp_path, monkeypatch):
+    import json
+
+    from app.speech.credits import CreditLedger
+
+    monkeypatch.delenv("SARVAM_ALLOW_LOW_CREDIT", raising=False)
+    ledger = CreditLedger(file=tmp_path / "l.json")
+    # started 100, spent 90 -> Rs 10 left
+    (tmp_path / "l.json").write_text(json.dumps({"stt_seconds": 0.0, "tts_chars": 0, "seed_spent": 90.0, "warned": "ok"}))
+    assert ledger.blocked() and "PAUSED" in ledger.message()
+    monkeypatch.setenv("SARVAM_ALLOW_LOW_CREDIT", "yes")
+    assert not ledger.blocked()                                   # the founder said yes
+    (tmp_path / "l.json").write_text(json.dumps({"stt_seconds": 0.0, "tts_chars": 0, "seed_spent": 99.0, "warned": "ok"}))
+    assert ledger.blocked()                                       # but below Rs 2 it stops anyway
+    (tmp_path / "l.json").write_text(json.dumps({"stt_seconds": 0.0, "tts_chars": 0, "seed_spent": 50.0, "warned": "ok"}))
+    monkeypatch.delenv("SARVAM_ALLOW_LOW_CREDIT")
+    assert not ledger.blocked()                                   # Rs 50 left: fine
+
+
+def test_local_model_turns_audio_into_text_without_loading_the_real_model(monkeypatch):
+    import io
+    import wave
+
+    import numpy as np
+
+    from app.speech import local
+
+    buf = io.BytesIO()
+    with wave.open(buf, "wb") as w:
+        w.setnchannels(1); w.setsampwidth(2); w.setframerate(8000)
+        w.writeframes((np.zeros(8000)).astype("<i2").tobytes())
+    seen = {}
+
+    def fake_pipe(inputs):
+        seen["rate"], seen["n"] = inputs["sampling_rate"], len(inputs["raw"])
+        return {"text": " mera order late hai "}
+    s = local.LocalWhisperSTT()
+    monkeypatch.setattr(s, "_pipe", lambda: fake_pipe)
+    t = s.transcribe(buf.getvalue(), "audio/wav", "hinglish")
+    assert t.text == "mera order late hai" and t.provider == "local"
+    assert seen["rate"] == 16000 and seen["n"] == 16000          # 8 kHz phone audio is resampled to 16 kHz

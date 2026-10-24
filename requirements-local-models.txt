@@ -1,0 +1,5 @@
+indic_transliteration==2.3.82
+torch==2.8.0
+torchaudio==2.8.0
+transformers==4.56.2
+huggingface_hub==0.36.2

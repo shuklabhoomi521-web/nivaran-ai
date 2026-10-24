@@ -12,6 +12,7 @@ LEDGER_FILE = Path(__file__).resolve().parents[3] / ".sarvam_credits.json"      
 STT_RUPEES_PER_SECOND = 30 / 3600
 TTS_RUPEES_PER_CHAR = {"bulbul:v4-flash": 2 / 1000, "bulbul:v3": 3 / 1000, "bulbul:v2": 3 / 1000}
 LOW, CRITICAL, EMPTY = 25.0, 10.0, 2.0     # rupees left: below these we warn, warn loudly, and stop using Sarvam
+ASK_BELOW = 15.0                           # below this Sarvam is NOT used until the founder says yes (env SARVAM_ALLOW_LOW_CREDIT=yes)
 
 
 def wav_seconds(audio: bytes) -> float:
@@ -63,6 +64,13 @@ class CreditLedger:
         r = self.remaining()
         return "empty" if r <= EMPTY else "critical" if r <= CRITICAL else "low" if r <= LOW else "ok"
 
+    def blocked(self) -> bool:
+        """True when Sarvam must not be used: credit is below the 'ask the founder first' line and the founder has not said yes."""
+        import os
+        if os.getenv("SARVAM_ALLOW_LOW_CREDIT", "").strip().lower() in ("yes", "1", "true"):
+            return self.remaining() <= EMPTY
+        return self.remaining() < ASK_BELOW
+
     def minutes_left(self) -> float:
         return self.remaining() / STT_RUPEES_PER_SECOND / 60
 
@@ -72,6 +80,9 @@ class CreditLedger:
             return None
         if lv == "empty":
             return "Sarvam credit is used up (estimate). Speech now goes to the Gemini backup."
+        if self.blocked():
+            return (f"Sarvam credit is about Rs {self.remaining():.0f}, below the Rs {ASK_BELOW:.0f} line. Sarvam is PAUSED (the backup speaks) "
+                    "until the founder says yes (set SARVAM_ALLOW_LOW_CREDIT=yes in .env).")
         return (f"Sarvam credit is {lv}: about Rs {self.remaining():.0f} left, roughly {self.minutes_left():.0f} minutes of speech-to-text. "
                 "Check the Sarvam dashboard.")
 

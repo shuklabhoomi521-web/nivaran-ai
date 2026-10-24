@@ -31,7 +31,10 @@ def _warm_up() -> None:
     from app.brain.llm import make_llm
     from app.speech.factory import make_stt, make_tts
     import app.voice.voice_bot  # noqa: F401
-    make_llm(); make_stt(); make_tts()
+    make_llm(); stt = make_stt(); make_tts()
+    for part in (stt, getattr(stt, 'primary', None)):      # the free local model takes ~20 s to load: do it now, not on the first sentence
+        if hasattr(part, '_pipe'):
+            part._pipe()
     SileroVADAnalyzer()
     READY["ok"] = True
 

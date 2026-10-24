@@ -33,8 +33,8 @@ class _Fallback:
     def _run(self, call_primary: Callable, call_backup: Callable):
         why = self.primary_problem
         if self.primary is not None:
-            if self._ledger is not None and self._ledger.level() == "empty":
-                why = "credit used up"
+            if self._ledger is not None and self._ledger.blocked():
+                why = "Sarvam credit is below the line (needs the founder's yes) or used up"
             else:
                 try:
                     return call_primary(self.primary)
