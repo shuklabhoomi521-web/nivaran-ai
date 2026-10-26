@@ -48,22 +48,30 @@ def start() -> None:
         return
     subprocess.run(["pkill", "-f", "app.voice.server"], check=False)
     time.sleep(1)
-    tun_log = open("/tmp/nivaran_tunnel.log", "w")
-    tunnel = subprocess.Popen(["cloudflared", "tunnel", "--no-autoupdate", "--protocol", "http2", "--edge-ip-version", "4", "--url", LOCAL], stdout=tun_log, stderr=subprocess.STDOUT, start_new_session=True)
-    url = None
-    for _ in range(60):
-        time.sleep(1)
-        text = Path("/tmp/nivaran_tunnel.log").read_text()
-        if "failed to request quick Tunnel" in text:
-            tunnel.terminate()
-            sys.exit("Cloudflare's tunnel service is not reachable from this network (connection reset). Try another network, for example your phone's hotspot.")
-        m = re.search(r"https://(?!api\.)[a-z0-9-]+\.trycloudflare\.com", text)
-        if m:
-            url = m.group(0)
+    url, tunnel = None, None
+    for attempt in range(1, 9):                       # this network resets connections now and then: try again a few times
+        log = Path("/tmp/nivaran_tunnel.log")
+        tunnel = subprocess.Popen(["cloudflared", "tunnel", "--no-autoupdate", "--protocol", "http2", "--edge-ip-version", "4", "--url", LOCAL],
+                                  stdout=open(log, "w"), stderr=subprocess.STDOUT, start_new_session=True)
+        for _ in range(40):
+            time.sleep(1)
+            text = log.read_text()
+            m = re.search(r"https://(?!api\.)[a-z0-9-]+\.trycloudflare\.com", text)
+            if m and "Registered tunnel connection" in text:
+                url = m.group(0)
+                break
+            if "failed to request quick Tunnel" in text or "Initiating shutdown" in text:
+                break
+        if url:
             break
+        print(f"tunnel attempt {attempt} failed, trying again...", flush=True)
+        try:
+            os.killpg(os.getpgid(tunnel.pid), signal.SIGTERM)
+        except OSError:
+            pass
+        time.sleep(3)
     if not url:
-        tunnel.terminate()
-        sys.exit("The tunnel did not start. See /tmp/nivaran_tunnel.log")
+        sys.exit("The tunnel did not come up after 8 tries. This network is blocking it. Try another network.")
     env = {**os.environ, "PUBLIC_BASE_URL": url, "STT_PROVIDER": "sarvam", "STT_FALLBACK": "local", "PHONE_REHEARSAL": ""}
     env.pop("PHONE_REHEARSAL")
     srv_log = open("/tmp/nivaran_server.log", "w")

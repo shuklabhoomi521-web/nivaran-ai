@@ -154,12 +154,16 @@ class CallProcessor(FrameProcessor):
 
 
 async def run_call_bot(websocket, llm=None, stt_provider=None, tts_provider=None, case: dict | None = None, language: str | None = None,
-                       auto_hang_up: bool = True, save_transcript: bool = True, transcript: list | None = None) -> list[dict]:
+                       auto_hang_up: bool = True, save_transcript: bool = True, transcript: list | None = None, require_pending: bool = False) -> list[dict]:
     """Serve one phone call on an open Twilio websocket. Returns the transcript. Providers can be passed in (tests use fakes)."""
     transport_type, call_data = await parse_telephony_websocket(websocket)
     if transport_type != "twilio":
         raise ValueError(f"Phase 4 supports Twilio only, got {transport_type}")
-    pending = PENDING_CALLS.pop((call_data.body or {}).get("case_id", ""), None) or {}
+    pending = PENDING_CALLS.pop((call_data.body or {}).get("case_id", ""), None)
+    if require_pending and pending is None:             # nobody asked for this call (a stranger found the websocket): hang up, spend nothing
+        await websocket.close()
+        return []
+    pending = pending or {}
     case = case or pending.get("case") or {}
     language = language or pending.get("language") or "en-IN"
     if llm is None or stt_provider is None or tts_provider is None:

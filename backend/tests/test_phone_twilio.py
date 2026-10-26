@@ -32,7 +32,9 @@ def test_only_allow_listed_numbers_can_be_called(monkeypatch):
         seen.append(req)
         return httpx.Response(201, json={"sid": "CA123"})
     p = make(handler)
-    assert run(p.place_call("+91 98765 43210", "wss://x.test/ws")) == "CA123"
+    assert run(p.place_call("+91 98765 43210", "https://x.test/phone/twiml?case_id=abc")) == "CA123"
+    body = seen[0].content.decode()
+    assert "Url=https" in body and "Twiml" not in body            # trial accounts: Twilio fetches the instructions from our server
     with pytest.raises(PhoneError):
         run(p.place_call("+911234567890", "wss://x.test/ws"))      # a real company or any stranger: refused, nothing sent
     assert len(seen) == 1

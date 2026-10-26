@@ -141,3 +141,18 @@ def test_the_user_can_mute_the_ai_and_type_something_for_it_to_say_but_never_a_s
     assert len(spoken) == 1                                  # nothing secret was spoken
     proc.set_muted(True)
     assert proc.muted and proc.transcript[-1]["text"].startswith("AI muted")
+
+
+def test_the_twiml_page_streams_to_our_websocket_only_for_a_call_we_asked_for(monkeypatch):
+    from starlette.testclient import TestClient
+
+    import app.voice.server as srv
+    from app.voice.phone_bot import PENDING_CALLS
+    monkeypatch.setenv("PUBLIC_BASE_URL", "https://abc.trycloudflare.com")
+    c = TestClient(srv.app)
+    PENDING_CALLS["case1"] = {"case": CASE, "language": "en-IN"}
+    ok = c.post("/phone/twiml?case_id=case1").text
+    assert "<Stream" in ok and 'url="wss://abc.trycloudflare.com/phone/ws"' in ok and "case1" in ok
+    stranger = c.post("/phone/twiml?case_id=unknown").text
+    assert "<Stream" not in stranger and "Hangup" in stranger
+    PENDING_CALLS.pop("case1", None)

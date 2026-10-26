@@ -115,11 +115,24 @@ async def start_call(req: CallRequest):
     case_id = uuid.uuid4().hex
     PENDING_CALLS[case_id] = {"case": req.case, "language": req.language}
     try:
-        call_id = await TwilioPhone().place_call(req.to_number, base.replace("https://", "wss://") + "/phone/ws", {"case_id": case_id})
+        call_id = await TwilioPhone().place_call(req.to_number, f"{base}/phone/twiml?case_id={case_id}")
     except PhoneError as e:
         PENDING_CALLS.pop(case_id, None)
         raise HTTPException(400, str(e))
     return {"call_id": call_id}
+
+
+@app.api_route("/phone/twiml", methods=["GET", "POST"])
+async def twiml(case_id: str = ""):
+    """Twilio asks this when the phone is answered: 'what do I do with this call?' Answer: stream the audio to our bot's websocket."""
+    from fastapi.responses import Response
+
+    from app.channels.phone.twilio import stream_twiml
+    from app.voice.phone_bot import PENDING_CALLS
+    base = os.getenv("PUBLIC_BASE_URL", "").strip().rstrip("/")
+    if case_id not in PENDING_CALLS or not base.startswith("https://"):
+        return Response("<Response><Say>Sorry, this call is not set up.</Say><Hangup/></Response>", media_type="text/xml")
+    return Response(stream_twiml(base.replace("https://", "wss://") + "/phone/ws", {"case_id": case_id}), media_type="text/xml")
 
 
 @app.post("/phone/hangup/{call_id}")
@@ -140,7 +153,7 @@ async def phone_ws(websocket: WebSocket):
     if os.getenv("PHONE_REHEARSAL"):             # practice mode: a pretend company on a pretend phone (scripts/fake_company_call.py), no real call
         await run_call_bot(websocket, case=REHEARSAL_CASE, language="en-IN", auto_hang_up=False)
     else:
-        await run_call_bot(websocket)
+        await run_call_bot(websocket, require_pending=True)
 
 
 class SayRequest(BaseModel):

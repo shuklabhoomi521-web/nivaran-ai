@@ -44,12 +44,13 @@ class TwilioPhone(PhoneProvider):
         self._client = client or httpx.AsyncClient(timeout=20)
 
     async def place_call(self, to_number: str, webhook_url: str, params: dict[str, str] | None = None) -> str:
-        """webhook_url here is the public wss:// address of our bot's websocket."""
+        """webhook_url is the public https address Twilio fetches the call instructions (TwiML) from. (Trial accounts may not send the
+        instructions inline, so Twilio asks our server for them when the phone is answered.)"""
         to = normalise(to_number)
         if to not in allowed_numbers():
             raise PhoneError(f"{to} is not on the allow-list (PHONE_ALLOWED_NUMBERS). In Phase 4 we only call the friend's verified number.")
         r = await self._client.post(f"{self.API}/Accounts/{self.sid}/Calls.json", auth=(self.sid, self.token),
-                                    data={"To": to, "From": self.from_number, "Twiml": stream_twiml(webhook_url, params or {})})
+                                    data={"To": to, "From": self.from_number, "Url": webhook_url})
         if r.status_code not in (200, 201):
             raise PhoneError(f"Twilio refused the call (HTTP {r.status_code}): {r.text[:160]}")
         return r.json()["sid"]
