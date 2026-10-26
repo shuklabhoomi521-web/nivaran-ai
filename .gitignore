@@ -28,3 +28,4 @@ speech_test/holdout/*.aac
 speech_test/holdout/*.m4a
 .transcript_key
 .call_transcripts/
+.phone_session.json
