@@ -58,7 +58,7 @@ def segments(timeline, gap=0.6):
     return segs
 
 
-async def run(name, lang, parts, total_secs, min_replies, note=""):
+async def run(name, lang, parts, total_secs, min_replies, note="", extra=None):
     wav, spans = build(parts)
     pc = RTCPeerConnection()
     player = MediaPlayer(str(wav))
@@ -86,7 +86,7 @@ async def run(name, lang, parts, total_secs, min_replies, note=""):
         since = (await c.get(f"{BASE}/voice/events", params={"since": 0})).json()
         since = since[-1]["n"] if since else 0
         r = await c.post(f"{BASE}/voice/api/offer", json={"sdp": pc.localDescription.sdp, "type": pc.localDescription.type,
-                                                           "request_data": {"language": lang}})
+                                                           "request_data": {"language": lang, **(extra or {})}})
         r.raise_for_status()
         ans = r.json()
         t0 = clock[0] = time.time()      # clock zero = the moment the connection is made

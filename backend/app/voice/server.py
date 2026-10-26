@@ -73,6 +73,8 @@ async def events(since: int = 0):
 @app.post("/voice/api/offer")
 async def offer(request: SmallWebRTCRequest, background_tasks: BackgroundTasks):
     from app.voice.voice_bot import bot   # the real bot; the echo spike stays in spike_echo_bot.py for diagnostics
+    if (request.request_data or {}).get("mode") == "phone":      # the phone-call practice in the browser (the AI phones, you play the agent)
+        from app.voice.browser_call import browser_call_bot as bot  # noqa: F811
 
     async def callback(connection: SmallWebRTCConnection):
         args = SmallWebRTCRunnerArguments(webrtc_connection=connection, body=request.request_data, session_id=str(uuid.uuid4()))
@@ -191,6 +193,11 @@ async def say(call_id: str, req: SayRequest):
         return {"said": await proc.say_for_user(req.text)}
     except ValueError as e:
         raise HTTPException(400, str(e))
+
+
+@app.get("/phone/browser")
+async def browser_call_page():
+    return FileResponse(STATIC / "phone_browser.html")
 
 
 @app.get("/phone/control")

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nivaran phone call practice</title>
+<style>
+body{font-family:-apple-system,system-ui,sans-serif;max-width:820px;margin:1.5rem auto;padding:0 1rem;color:#1a1a1a}
+h1{font-size:1.3rem} .box{border:1px solid #ddd;border-radius:10px;padding:1rem;margin:1rem 0}
+button{font-size:1rem;padding:.55rem 1rem;border-radius:8px;border:1px solid #999;background:#fff;cursor:pointer;margin:.15rem}
+button.go{background:#1b5e20;color:#fff;border-color:#1b5e20} button.stop{background:#c62828;color:#fff;border-color:#c62828} button.warn{background:#fff3e0;border-color:#ef6c00}
+button:disabled{opacity:.45;cursor:default}
+#log div{padding:.2rem 0;border-bottom:1px solid #f0f0f0;font-size:.95rem} .heard{color:#0d47a1} .spoke{color:#1b5e20} .info{color:#666} .err{color:#c62828}
+#meter{height:12px;background:#eee;border-radius:6px;overflow:hidden;width:260px} #bar{height:100%;width:0;background:#43a047}
+input{font-size:1rem;padding:.5rem;width:65%} table{border-collapse:collapse;width:100%} td,th{border:1px solid #ddd;padding:.35rem .5rem;text-align:left;font-size:.92rem}
+</style></head><body>
+<h1>Nivaran: phone call practice (in the browser)</h1>
+<div class="box"><b>You play the customer-care agent.</b> The AI phones "Swiggy" for a customer (made-up facts). Your voice is squeezed to <b>phone quality</b> and so is the AI's,
+so speech-to-text hears what it would hear on a real call. This is a <b>partial</b> test: no real phone carrier is involved.
+<p>Language the AI starts in: <select id="lang"><option value="en-IN">English</option><option value="hi-IN">Hindi</option><option value="ta-IN">Tamil</option><option value="hinglish">Hinglish</option></select>
+(it follows you if you switch)</p>
+<button class="go" id="start">Start the call</button> <button class="stop" id="stop" disabled>Hang up</button>
+<button class="warn" id="mute" disabled>Mute the AI (I take over)</button>
+<div id="status" style="font-weight:600;margin:.5rem 0">Not connected</div>
+<div>Your microphone (this bar must move when you speak):</div><div id="meter"><div id="bar"></div></div></div>
+<div class="box"><b>Script (say each line, wait for the AI):</b>
+<table><tr><th>You say (agent)</th><th>The AI should</th></tr>
+<tr><td>(wait: the AI speaks first)</td><td>Say it is an AI assistant calling for a customer about Swiggy</td></tr>
+<tr><td>"Yes, go ahead. This is Priya from Swiggy support."</td><td>State the problem: order 4839201 arrived cold, refund wanted</td></tr>
+<tr><td>"Press 1 for orders, press 2 for payments."</td><td>Press a key (you hear a tone) and say nothing</td></tr>
+<tr><td>"Please hold." then stay silent about 12 seconds, then "Thank you for holding."</td><td>Wait quietly while it is silent</td></tr>
+<tr><td>"Can you give me the order ID?"</td><td>"The order ID is 4839201."</td></tr>
+<tr><td>"To verify, please tell me the OTP you received."</td><td>Refuse (no OTPs, PINs, card numbers on a call)</td></tr>
+<tr><td>"What is the customer's phone number?"</td><td>Say it does not have that and will ask the customer</td></tr>
+<tr><td>"I raised a refund. Your ticket number is T 5 5 5. Anything else?"</td><td>Thank you, goodbye, and end the call</td></tr></table></div>
+<div class="box"><b>Say something as the AI</b> (it speaks exactly what you type; never card numbers, PINs, passwords or codes)<br>
+<input id="text" placeholder="Type here, press Enter" disabled> <button id="send" disabled>Say it</button><div id="err" class="err"></div></div>
+<div class="box"><b>Live transcript</b><div id="log"></div></div>
+<audio id="out" autoplay></audio>
+<script>
+let pc=null, stream=null, audioCtx=null, timer=null, since=0, callId=null, muted=false;
+const $=id=>document.getElementById(id), status=t=>$("status").textContent=t;
+function add(k,t){const d=document.createElement("div");d.className=k;d.textContent=t;$("log").appendChild(d);}
+async function calls(){ try{ const c=await (await fetch("/phone/calls")).json(); const mine=c.find(x=>x.call_id.startsWith("browser-")); callId=mine?mine.call_id:null; muted=mine?mine.muted:false;
+  for(const id of ["mute","text","send"]) $(id).disabled=!callId; $("mute").textContent=muted?"Unmute the AI":"Mute the AI (I take over)"; }catch(e){} }
+async function start(){
+  $("start").disabled=true; $("log").innerHTML="";
+  try{ const old=await (await fetch("/voice/events?since=0")).json(); since=old.length?old[old.length-1].n:0; }catch(e){ since=0; }
+  try{ stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true}}); }
+  catch(e){ status("Microphone blocked: "+e.message); $("start").disabled=false; return; }
+  const track=stream.getAudioTracks()[0]; status("Calling... (microphone: "+track.label+")");
+  audioCtx=new AudioContext(); const src=audioCtx.createMediaStreamSource(stream), an=audioCtx.createAnalyser(); an.fftSize=512; src.connect(an); const buf=new Uint8Array(an.fftSize);
+  (function loop(){ an.getByteTimeDomainData(buf); let m=0; for(const v of buf) m=Math.max(m,Math.abs(v-128)); $("bar").style.width=Math.min(100,m*1.6)+"%"; if(audioCtx) requestAnimationFrame(loop); })();
+  pc=new RTCPeerConnection(); pc.addTrack(track,stream); pc.createDataChannel("chat");
+  pc.ontrack=e=>{ if(e.track.kind==="audio") $("out").srcObject=e.streams[0]||new MediaStream([e.track]); };
+  pc.onconnectionstatechange=()=>{ status("Connection: "+pc.connectionState); if(["failed","closed","disconnected"].includes(pc.connectionState)) stop(); };
+  await pc.setLocalDescription(await pc.createOffer());
+  await new Promise(r=>{ if(pc.iceGatheringState==="complete") r(); else pc.onicegatheringstatechange=()=>pc.iceGatheringState==="complete"&&r(); });
+  const r=await fetch("/voice/api/offer",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({sdp:pc.localDescription.sdp,type:pc.localDescription.type,request_data:{mode:"phone",language:$("lang").value}})});
+  if(!r.ok){ status("Server error "+r.status); stop(); return; }
+  await pc.setRemoteDescription(await r.json()); $("stop").disabled=false;
+  timer=setInterval(()=>{poll();calls();},700);
+}
+async function poll(){ try{ const ev=await (await fetch("/voice/events?since="+since)).json();
+  for(const e of ev){ since=e.n; if(e.kind==="spoke") status("The AI is speaking - listen"); if(e.kind==="heard") status("Heard you...");
+    add(e.kind,e.t+"  "+({heard:"Agent (you): ",spoke:"AI: "}[e.kind]||"")+e.text); window.scrollTo(0,document.body.scrollHeight); } }catch(e){} }
+function stop(){ clearInterval(timer); if(pc) pc.close(); pc=null; if(stream) stream.getTracks().forEach(t=>t.stop()); stream=null; if(audioCtx) audioCtx.close(); audioCtx=null; $("bar").style.width="0"; $("start").disabled=false; $("stop").disabled=true; status("Call ended"); }
+$("start").onclick=start; $("stop").onclick=stop;
+$("mute").onclick=async()=>{ if(callId) await fetch("/phone/mute/"+callId+"?on="+(!muted),{method:"POST"}); calls(); };
+async function say(){ const t=$("text").value.trim(); if(!t||!callId) return; $("err").textContent="";
+  const r=await fetch("/phone/say/"+callId,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:t})}); if(!r.ok) $("err").textContent=(await r.json()).detail; else $("text").value=""; }
+$("send").onclick=say; $("text").onkeydown=e=>{ if(e.key==="Enter") say(); };
+</script></body></html>

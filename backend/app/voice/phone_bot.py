@@ -28,6 +28,8 @@ from app.voice.hold import HoldProcessor
 from app.voice.services import NivaranSTTService, NivaranTTSService
 from app.voice.spike_echo_bot import InterruptOnSpeech
 
+DEFAULT_CASE = {"company": "Swiggy", "problem_summary": "The order arrived cold and no refund was given.", "user_goal": "refund",
+                "details_known": [{"name": "order_id", "value": "4839201"}]}      # the practice case (made-up facts)
 PENDING_CALLS: dict[str, dict] = {}       # case_id -> {"case": ..., "language": ...}; set by the "start a call" endpoint, read when Twilio connects
 ACTIVE: dict[str, "CallProcessor"] = {}   # call id -> running call (so the user's Stop button can end it)
 
