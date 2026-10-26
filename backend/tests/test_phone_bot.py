@@ -156,3 +156,14 @@ def test_the_twiml_page_streams_to_our_websocket_only_for_a_call_we_asked_for(mo
     stranger = c.post("/phone/twiml?case_id=unknown").text
     assert "<Stream" not in stranger and "Hangup" in stranger
     PENDING_CALLS.pop("case1", None)
+
+
+def test_line_test_returns_a_spoken_sentence_and_no_audio_stream(monkeypatch):
+    from starlette.testclient import TestClient
+
+    import app.voice.server as srv
+    from app.voice.phone_bot import PENDING_CALLS
+    monkeypatch.setenv("PUBLIC_BASE_URL", "https://abc.trycloudflare.com")
+    PENDING_CALLS["line1"] = {"case": {}, "language": "en-IN", "say_only": True}
+    x = TestClient(srv.app).post("/phone/twiml?case_id=line1").text
+    assert "<Say>" in x and "<Stream" not in x and "Hangup" in x

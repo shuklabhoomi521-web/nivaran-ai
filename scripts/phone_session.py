@@ -2,7 +2,7 @@
 
   python scripts/phone_session.py start    # tunnel + voice server in REAL mode (Sarvam hears the call). Places NO call.
   python scripts/phone_session.py status   # what is running
-  python scripts/phone_session.py call     # place the test call (needs `start` first; rings the allowed number from .env)
+  python scripts/phone_session.py call     # place the test call (add --say for a line test: the phone just speaks one sentence) (needs `start` first; rings the allowed number from .env)
   python scripts/phone_session.py stop     # close the tunnel and the server
   python scripts/phone_session.py check    # can this network carry a tunnel? (10 seconds, no call)
 
@@ -106,6 +106,7 @@ def status() -> None:
 
 
 def call() -> None:
+    say_only = "--say" in sys.argv
     s = _state()
     if not s or not _alive(s["server_pid"]) or not _alive(s["tunnel_pid"]):
         sys.exit("Run `start` first (the tunnel and server are not both running).")
@@ -114,9 +115,11 @@ def call() -> None:
         sys.exit("PHONE_ALLOWED_NUMBERS must hold exactly one number for this test.")
     case = {"company": "Swiggy", "problem_summary": "The order arrived cold and no refund was given.", "user_goal": "refund",
             "details_known": [{"name": "order_id", "value": "4839201"}]}
-    r = httpx.post(f"{LOCAL}/phone/call", json={"to_number": numbers[0], "case": case, "language": "en-IN", "confirm": True}, timeout=30)
+    r = httpx.post(f"{LOCAL}/phone/call", json={"to_number": numbers[0], "case": case, "language": "en-IN", "confirm": True, "say_only": say_only}, timeout=30)
     if r.status_code != 200:
         sys.exit(f"The call was NOT placed: {r.status_code} {r.text[:300]}")
+    if say_only:
+        print("LINE TEST: the phone will just say one sentence (no AI). Answer, press any key if Twilio asks.")
     print("Calling now. Answer the phone, press any key if Twilio plays its trial message, and play the customer-care agent.")
     print(f"Live transcript and the Hang up button: {LOCAL}/phone/control")
 

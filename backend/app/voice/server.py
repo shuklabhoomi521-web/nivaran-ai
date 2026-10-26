@@ -96,6 +96,7 @@ class CallRequest(BaseModel):
     case: dict                       # company, problem_summary, user_goal, details_known
     language: str = "en-IN"
     confirm: bool = False            # the user must say yes to THIS call
+    say_only: bool = False           # line test: the phone just speaks a short sentence (no AI, no audio stream) to prove the call itself works
 
 
 REHEARSAL_CASE = {"company": "Swiggy", "problem_summary": "The order arrived cold and no refund was given.", "user_goal": "refund",
@@ -113,7 +114,7 @@ async def start_call(req: CallRequest):
     if not base.startswith("https://"):
         raise HTTPException(400, "PUBLIC_BASE_URL (the public https address of this server) is not set.")
     case_id = uuid.uuid4().hex
-    PENDING_CALLS[case_id] = {"case": req.case, "language": req.language}
+    PENDING_CALLS[case_id] = {"case": req.case, "language": req.language, "say_only": req.say_only}
     try:
         call_id = await TwilioPhone().place_call(req.to_number, f"{base}/phone/twiml?case_id={case_id}")
     except PhoneError as e:
@@ -132,6 +133,9 @@ async def twiml(case_id: str = ""):
     base = os.getenv("PUBLIC_BASE_URL", "").strip().rstrip("/")
     if case_id not in PENDING_CALLS or not base.startswith("https://"):
         return Response("<Response><Say>Sorry, this call is not set up.</Say><Hangup/></Response>", media_type="text/xml")
+    if PENDING_CALLS[case_id].get("say_only"):         # line test: no AI, no audio stream
+        PENDING_CALLS.pop(case_id, None)
+        return Response("<Response><Say>Hello. This is the Nivaran line test. The call works. Goodbye.</Say><Hangup/></Response>", media_type="text/xml")
     return Response(stream_twiml(base.replace("https://", "wss://") + "/phone/ws", {"case_id": case_id}), media_type="text/xml")
 
 
