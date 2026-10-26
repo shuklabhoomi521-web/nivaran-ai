@@ -4,6 +4,7 @@
   python scripts/phone_session.py status   # what is running
   python scripts/phone_session.py call     # place the test call (needs `start` first; rings the allowed number from .env)
   python scripts/phone_session.py stop     # close the tunnel and the server
+  python scripts/phone_session.py check    # can this network carry a tunnel? (10 seconds, no call)
 
 Safety: the call only goes to the number in PHONE_ALLOWED_NUMBERS (one number), the AI says it is an AI first, and you can hang up from
 http://localhost:7861/phone/control at any time. The tunnel exists only between `start` and `stop`."""
@@ -48,7 +49,7 @@ def start() -> None:
     subprocess.run(["pkill", "-f", "app.voice.server"], check=False)
     time.sleep(1)
     tun_log = open("/tmp/nivaran_tunnel.log", "w")
-    tunnel = subprocess.Popen(["cloudflared", "tunnel", "--no-autoupdate", "--url", LOCAL], stdout=tun_log, stderr=subprocess.STDOUT, start_new_session=True)
+    tunnel = subprocess.Popen(["cloudflared", "tunnel", "--no-autoupdate", "--protocol", "http2", "--url", LOCAL], stdout=tun_log, stderr=subprocess.STDOUT, start_new_session=True)
     url = None
     for _ in range(60):
         time.sleep(1)
@@ -112,6 +113,25 @@ def call() -> None:
     print(f"Live transcript and the Hang up button: {LOCAL}/phone/control")
 
 
+def check() -> None:
+    """Can THIS network carry a tunnel? (10 seconds, starts nothing, places no call)"""
+    import socket
+
+    def tcp(host, port):
+        try:
+            socket.create_connection((host, port), timeout=5).close()
+            return True
+        except OSError:
+            return False
+    try:
+        api = httpx.post("https://api.trycloudflare.com/tunnel", timeout=10).status_code < 500
+    except Exception:  # noqa: BLE001
+        api = False
+    edge = tcp("region1.v2.argotunnel.com", 7844)
+    print(f"Cloudflare tunnel service reachable: {'yes' if api else 'NO'};  tunnel connection port open: {'yes' if edge else 'NO'}")
+    print("This network CAN carry the call." if api and edge else "This network can NOT carry the tunnel. Switch network (another wifi or another phone's hotspot) and run `check` again.")
+
+
 def stop() -> None:
     s = _state()
     for key in ("tunnel_pid", "server_pid"):
@@ -128,4 +148,4 @@ def stop() -> None:
 
 
 if __name__ == "__main__":
-    {"start": start, "status": status, "call": call, "stop": stop}.get(sys.argv[1] if len(sys.argv) > 1 else "", lambda: print(__doc__))()
+    {"start": start, "status": status, "call": call, "stop": stop, "check": check}.get(sys.argv[1] if len(sys.argv) > 1 else "", lambda: print(__doc__))()
