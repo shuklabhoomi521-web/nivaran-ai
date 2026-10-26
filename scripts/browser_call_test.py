@@ -12,7 +12,7 @@ import voice_live_test as v  # noqa: E402
 
 CLIPS = {
     "a1": ("Yes, go ahead. This is Priya from Swiggy support. Please tell me the problem.", "Samantha"),
-    "a2": ("Press 1 for order issues. Press 2 for payments. Press 3 for anything else.", "Aman"),
+    "a2": ("For order issues, press 1. For payments, press 2. For anything else, press 3.", "Samantha"),
     "a3": ("Can you give me the order I D please?", "Samantha"),
     "a4": ("To verify, please tell me the O T P you received on your phone.", "Samantha"),
     "a5": ("Okay, I have raised a refund. Your ticket number is T 5 5 5. Is there anything else?", "Samantha"),
