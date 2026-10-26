@@ -49,7 +49,7 @@ def start() -> None:
     subprocess.run(["pkill", "-f", "app.voice.server"], check=False)
     time.sleep(1)
     tun_log = open("/tmp/nivaran_tunnel.log", "w")
-    tunnel = subprocess.Popen(["cloudflared", "tunnel", "--no-autoupdate", "--protocol", "http2", "--url", LOCAL], stdout=tun_log, stderr=subprocess.STDOUT, start_new_session=True)
+    tunnel = subprocess.Popen(["cloudflared", "tunnel", "--no-autoupdate", "--protocol", "http2", "--edge-ip-version", "4", "--url", LOCAL], stdout=tun_log, stderr=subprocess.STDOUT, start_new_session=True)
     url = None
     for _ in range(60):
         time.sleep(1)
@@ -114,22 +114,25 @@ def call() -> None:
 
 
 def check() -> None:
-    """Can THIS network carry a tunnel? (10 seconds, starts nothing, places no call)"""
-    import socket
-
-    def tcp(host, port):
-        try:
-            socket.create_connection((host, port), timeout=5).close()
-            return True
-        except OSError:
-            return False
+    """The REAL test: can this network carry a tunnel? Opens a tunnel for up to 40 seconds and closes it again. Places no call."""
+    log = Path("/tmp/nivaran_check.log")
+    p = subprocess.Popen(["cloudflared", "tunnel", "--no-autoupdate", "--protocol", "http2", "--edge-ip-version", "4", "--url", LOCAL],
+                         stdout=open(log, "w"), stderr=subprocess.STDOUT, start_new_session=True)
+    ok, why = False, "timed out"
+    for _ in range(40):
+        time.sleep(1)
+        text = log.read_text()
+        if "Registered tunnel connection" in text:
+            ok = True
+            break
+        if "failed to request quick Tunnel" in text:
+            why = "Cloudflare's tunnel service did not answer"
+            break
     try:
-        api = httpx.post("https://api.trycloudflare.com/tunnel", timeout=10).status_code < 500
-    except Exception:  # noqa: BLE001
-        api = False
-    edge = tcp("region1.v2.argotunnel.com", 7844)
-    print(f"Cloudflare tunnel service reachable: {'yes' if api else 'NO'};  tunnel connection port open: {'yes' if edge else 'NO'}")
-    print("This network CAN carry the call." if api and edge else "This network can NOT carry the tunnel. Switch network (another wifi or another phone's hotspot) and run `check` again.")
+        os.killpg(os.getpgid(p.pid), signal.SIGTERM)
+    except OSError:
+        pass
+    print("This network CAN carry the call." if ok else f"This network can NOT carry the tunnel ({why}). Switch network and run `check` again.")
 
 
 def stop() -> None:
