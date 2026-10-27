@@ -1,0 +1,87 @@
+[
+ {
+  "n": 1,
+  "name": "Plain call",
+  "ok": true,
+  "why": [],
+  "events": [
+   {
+    "n": 1,
+    "t": "23:12:45",
+    "kind": "info",
+    "text": "practice phone call connected (browser, phone-quality sound) (en-IN)",
+    "at": 1.0
+   },
+   {
+    "n": 2,
+    "t": "23:12:45",
+    "kind": "spoke",
+    "text": "Hello. I am an AI assistant calling on behalf of a customer about Swiggy. May I explain the problem?",
+    "at": 1.0
+   },
+   {
+    "n": 3,
+    "t": "23:13:00",
+    "kind": "heard",
+    "text": "Yes, go ahead. This is Priya from Swiggy support. Please tell me the problem.",
+    "at": 16.1
+   },
+   {
+    "n": 4,
+    "t": "23:13:01",
+    "kind": "spoke",
+    "text": "The order #4839201 arrived cold and the customer has not received a refund.",
+    "at": 17.1
+   },
+   {
+    "n": 5,
+    "t": "23:13:01",
+    "kind": "spoke",
+    "text": "We would like to request a refund and a reference number for this case.",
+    "at": 17.1
+   },
+   {
+    "n": 6,
+    "t": "23:13:24",
+    "kind": "heard",
+    "text": "Can you give me the order ID please?",
+    "at": 39.2
+   },
+   {
+    "n": 7,
+    "t": "23:13:25",
+    "kind": "spoke",
+    "text": "The order ID is 4839201.",
+    "at": 40.2
+   },
+   {
+    "n": 8,
+    "t": "23:13:52",
+    "kind": "heard",
+    "text": "Okay, I have raised a refund. Your ticket number is T555. Is there anything else?",
+    "at": 67.3
+   },
+   {
+    "n": 9,
+    "t": "23:13:53",
+    "kind": "spoke",
+    "text": "No, thank you.",
+    "at": 68.3
+   },
+   {
+    "n": 10,
+    "t": "23:13:53",
+    "kind": "spoke",
+    "text": "Have a good day!",
+    "at": 68.3
+   },
+   {
+    "n": 11,
+    "t": "23:13:53",
+    "kind": "info",
+    "text": "call ended by the AI",
+    "at": 68.3
+   }
+  ]
+ }
+]

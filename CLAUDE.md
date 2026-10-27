@@ -1,6 +1,6 @@
 # Nivaran — project guide for Claude
 
-**Current phase: 3 DONE (tag phase-3-done). Next: Phase 4 (first real phone call, Twilio trial) when the founder says so. Phase 3.5 (7 more languages) is planned after Phase 3. Voice page: Chrome, /voice. See docs/notes/phase-3.md.**
+**Current phase: 4 (first phone call), PARTIAL: phone layer, call brain, practice mode built; 9 of 10 practice calls handled well; the real Twilio call is NOT done (see docs/notes/phase-4.md and docs/FOUNDER-TODO.md). Not tagged. Phases 0-3 tagged done.**
 
 Founder: ECE student. Explain in simple words, short sentences. One line for each hard term.
 Full plan: `docs/PLAN.md` (the master prompt). Follow it.

@@ -2,7 +2,7 @@ from app.config import ConfigError, get_settings
 from app.speech.base import SpeechToText, TextToSpeech
 
 STT_NAMES = ("sarvam", "gemini", "gemini_prompt", "groq", "local")
-TTS_NAMES = ("sarvam", "gemini")
+TTS_NAMES = ("sarvam", "gemini", "mac")
 
 
 def _check(name: str, allowed: tuple, what: str) -> None:
@@ -33,6 +33,9 @@ def _tts(name: str) -> TextToSpeech:
     if name == "sarvam":
         from app.speech.sarvam import SarvamTTS
         return SarvamTTS()
+    if name == "mac":
+        from app.speech.macsay import MacSayTTS
+        return MacSayTTS()
     from app.speech.gemini import GeminiTTS
     return GeminiTTS()
 
@@ -57,6 +60,8 @@ def make_stt(fallback: bool = True) -> SpeechToText:
 
 def make_tts(fallback: bool = True) -> TextToSpeech:
     s = get_settings()
+    if s.tts_provider == "mac":                      # free Mac voices: practice runs only; the picks below are for real use
+        return _tts("mac")
     if s.tts_by_language and fallback:
         for name in s.tts_by_language.values():
             _check(name, TTS_NAMES, "TTS_BY_LANGUAGE")
@@ -69,6 +74,9 @@ def make_tts(fallback: bool = True) -> TextToSpeech:
     return FallbackTTS(lambda: _tts(s.tts_provider), lambda: _tts(s.tts_fallback), "text-to-speech", _ledger(s.tts_provider))
 
 
+_SKIP_UNTIL: dict = {}      # provider name -> time until which we skip it (shared, so each new call does not wait for the same broken voice again)
+
+
 class RoutedTTS:
     """The founder's voice picks: each language has its own voice provider; if that one fails, the other speaks instead."""
 
@@ -76,7 +84,7 @@ class RoutedTTS:
         self.picks, self.default = picks, default
         self._cache: dict = {}
         self.fallbacks_used = 0
-        self._skip_until: dict = {}        # a voice that just failed is not tried again for a while
+        self._skip_until = _SKIP_UNTIL     # shared by every call: a voice that just failed is not tried again for a while
 
     def _provider(self, name: str):
         if name not in self._cache:

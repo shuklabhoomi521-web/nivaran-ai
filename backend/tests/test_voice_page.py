@@ -14,3 +14,11 @@ def test_the_server_start_line_is_the_last_thing_in_server_py():
     # when run as `python -m app.voice.server`, routes defined AFTER the start line would silently not exist (phone routes were missing once)
     src = (Path(__file__).resolve().parents[1] / "app" / "voice" / "server.py").read_text(encoding="utf-8")
     assert src.count("@app.") > 0 and "@app." not in src[src.index('if __name__ == "__main__":'):]
+
+
+def test_every_bot_greets_only_once_even_if_the_connection_is_announced_twice():
+    root = Path(__file__).resolve().parents[1] / "app" / "voice"
+    for name in ("voice_bot.py", "browser_call.py", "phone_bot.py"):
+        src = (root / name).read_text(encoding="utf-8")
+        handler = src[src.index('on_client_connected'):src.index('on_client_disconnected')]
+        assert 'started["done"]' in handler, name

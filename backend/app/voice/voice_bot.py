@@ -149,8 +149,13 @@ async def bot(runner_args: RunnerArguments):
     ])
     task = PipelineTask(pipeline, params=PipelineParams(enable_metrics=True))
 
+    started = {"done": False}
+
     @transport.event_handler("on_client_connected")
     async def _connected(_t, _c):
+        if started["done"]:                      # the transport sometimes announces the same connection twice: greet only once
+            return
+        started["done"] = True
         log_event("info", f"connected ({language})")
         log_event("spoke", conv.greeting())
         await task.queue_frames([TTSSpeakFrame(conv.greeting())])

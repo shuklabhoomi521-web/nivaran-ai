@@ -330,6 +330,8 @@ def test_auto_language_lets_sarvam_find_the_language_itself():
 
 
 def test_a_voice_that_just_failed_is_skipped_for_a_while():
+    from app.speech import factory
+    factory._SKIP_UNTIL.clear()
     from app.speech.base import SpeechAudio
     from app.speech.factory import RoutedTTS
 
@@ -420,3 +422,41 @@ def test_local_model_turns_audio_into_text_without_loading_the_real_model(monkey
     t = s.transcribe(buf.getvalue(), "audio/wav", "hinglish")
     assert t.text == "mera order late hai" and t.provider == "local"
     assert seen["rate"] == 16000 and seen["n"] == 16000          # 8 kHz phone audio is resampled to 16 kHz
+
+
+def test_a_broken_voice_is_skipped_by_the_next_call_too(monkeypatch):
+    from app.speech import factory
+    from app.speech.base import SpeechAudio
+
+    factory._SKIP_UNTIL.clear()
+    calls = []
+
+    class P:
+        def __init__(self, name, fail=False):
+            self.name, self.fail = name, fail
+
+        def synthesize(self, text, language=None, voice=None):
+            calls.append(self.name)
+            if self.fail:
+                raise RuntimeError("down")
+            return SpeechAudio(data=b"x", mime_type="audio/wav", sample_rate=1, provider=self.name)
+
+    first = factory.RoutedTTS({"en-IN": "gemini"}, "sarvam"); first._cache = {"gemini": P("gemini", True), "sarvam": P("sarvam")}
+    first.synthesize("a", "en-IN")
+    second = factory.RoutedTTS({"en-IN": "gemini"}, "sarvam"); second._cache = {"gemini": P("gemini", True), "sarvam": P("sarvam")}   # a NEW call
+    second.synthesize("b", "en-IN")
+    assert calls == ["gemini", "sarvam", "sarvam"]          # the second call did not try the broken voice again
+    factory._SKIP_UNTIL.clear()
+
+
+def test_mac_voice_makes_a_wav_and_is_chosen_by_tts_provider_mac(monkeypatch):
+    import wave
+    from io import BytesIO
+
+    from app.speech.factory import make_tts
+    monkeypatch.setenv("TTS_PROVIDER", "mac")
+    monkeypatch.setenv("TTS_BY_LANGUAGE", "en-IN:gemini")      # even with voice picks, "mac" wins (practice mode)
+    a = make_tts().synthesize("Hello, this is a test.", "en-IN")
+    assert a.provider == "mac"
+    with wave.open(BytesIO(a.data)) as w:
+        assert w.getnframes() > 1000

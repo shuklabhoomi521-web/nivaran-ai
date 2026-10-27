@@ -1,0 +1,61 @@
+[
+ {
+  "n": 9,
+  "name": "Agent speaks Hindi",
+  "ok": false,
+  "why": [
+   "P4: never answered in Hindi"
+  ],
+  "events": [
+   {
+    "n": 1,
+    "t": "23:40:29",
+    "kind": "info",
+    "text": "practice phone call connected (browser, phone-quality sound) (en-IN)",
+    "at": 1.0
+   },
+   {
+    "n": 2,
+    "t": "23:40:29",
+    "kind": "spoke",
+    "text": "Hello. I am an AI assistant calling on behalf of a customer about Swiggy. May I explain the problem?",
+    "at": 1.0
+   },
+   {
+    "n": 3,
+    "t": "23:40:48",
+    "kind": "heard",
+    "text": "Namaste, main priya bol rahi hoon Swiggy se. Bataie kya samasya hai?",
+    "at": 19.1
+   },
+   {
+    "n": 4,
+    "t": "23:40:49",
+    "kind": "spoke",
+    "text": "Mere paas order ID 4839201 hai, aur order thanda aaya tha, isliye refund chahiye.",
+    "at": 20.1
+   },
+   {
+    "n": 5,
+    "t": "23:40:49",
+    "kind": "spoke",
+    "text": "Kripya aage ki prakriya aur ticket number batayenge?",
+    "at": 20.1
+   },
+   {
+    "n": 6,
+    "t": "23:41:12",
+    "kind": "heard",
+    "text": "Thik hai, kya aap order number bata sakte hain?",
+    "at": 43.2
+   },
+   {
+    "n": 7,
+    "t": "23:41:12",
+    "kind": "spoke",
+    "text": "Order number 4839201 hai, kripya refund ki prakriya aur ticket number batayenge?",
+    "at": 44.2
+   }
+  ]
+ }
+]

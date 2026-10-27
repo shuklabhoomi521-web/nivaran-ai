@@ -6,6 +6,7 @@ import re
 
 _SENTENCE_END = re.compile(r"(?<=[.!?।])\s+")
 _ACTION = re.compile(r'"action"\s*:\s*"(\w+)"')
+_LANGUAGE = re.compile(r'"reply_language"\s*:\s*"([\w-]+)"')
 
 
 class SayStreamer:
@@ -19,12 +20,16 @@ class SayStreamer:
         self._pending = ""          # decoded text not yet handed out
         self.closed = False         # the closing quote has arrived
         self.action: str | None = None
+        self.language: str | None = None     # the "reply_language" field, when the AI writes one
 
     def feed(self, chunk: str) -> list[str]:
         self.text += chunk
         if self.action is None:
             m = _ACTION.search(self.text)
             self.action = m.group(1) if m else None
+        if self.language is None:
+            m = _LANGUAGE.search(self.text)
+            self.language = m.group(1) if m else None
         if self._read is None:
             m = self._key.search(self.text)
             if not m:

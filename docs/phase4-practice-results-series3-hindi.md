@@ -1,0 +1,9 @@
+# Phase 4 practice series results
+
+Rules fixed in advance: `docs/phase4-practice-rules.md`. Browser path, phone-quality sound, a computer voice as the agent. PARTIAL stand-in for calls with a friend.
+
+**Handled well: 0 of 1**
+
+| # | Scenario | Result | Why not |
+|---|---|---|---|
+| 9 | Agent speaks Hindi | FAILED | P5: line 2 answered too late (22.1 s); P4: never answered in Hindi |

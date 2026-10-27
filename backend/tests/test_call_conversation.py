@@ -15,8 +15,8 @@ class Scripted:
         return self.answers.pop(0)
 
 
-def turn(say, action="continue", digits=""):
-    return {"say": say, "action": action, "digits": digits}
+def turn(say, action="continue", digits="", lang="en-IN"):
+    return {"say": say, "action": action, "digits": digits, "reply_language": lang}
 
 
 @pytest.mark.parametrize("lang", ["en-IN", "hi-IN", "ta-IN", "hinglish"])
@@ -132,7 +132,7 @@ class Streaming:
 
 
 def test_speaking_starts_before_the_ai_has_finished_writing():
-    ai = Streaming({"action": "continue", "digits": "", "say": "My customer's order ID is 4839201. They want a refund. Thank you."})
+    ai = Streaming({"action": "continue", "digits": "", "reply_language": "en-IN", "say": "My customer's order ID is 4839201. They want a refund. Thank you."})
     c = CallConversation(CASE, "en-IN", ai)
     c.opening()
     said = ai.sentences = []
@@ -142,7 +142,7 @@ def test_speaking_starts_before_the_ai_has_finished_writing():
 
 
 def test_a_key_press_is_never_spoken_even_when_streaming():
-    ai = Streaming({"action": "press_digits", "digits": "1", "say": "Pressing one."})
+    ai = Streaming({"action": "press_digits", "digits": "1", "reply_language": "en-IN", "say": "Pressing one."})
     c = CallConversation(CASE, "en-IN", ai)
     c.opening(); said = ai.sentences = []
     c.respond("Press 1 for orders", said.append)
@@ -150,7 +150,7 @@ def test_a_key_press_is_never_spoken_even_when_streaming():
 
 
 def test_a_secret_is_never_streamed_out():
-    ai = Streaming({"action": "continue", "digits": "", "say": "Sure. Please share the OTP now. Thanks."})
+    ai = Streaming({"action": "continue", "digits": "", "reply_language": "en-IN", "say": "Sure. Please share the OTP now. Thanks."})
     c = CallConversation(CASE, "en-IN", ai)
     c.opening(); said = ai.sentences = []
     c.respond("Anything else?", said.append)
@@ -158,7 +158,7 @@ def test_a_secret_is_never_streamed_out():
 
 
 def test_streaming_text_is_cleaned_like_normal_text():
-    ai = Streaming({"action": "continue", "digits": "", "say": "They paid with card 4111 1111 1111 1111. Thanks."})
+    ai = Streaming({"action": "continue", "digits": "", "reply_language": "en-IN", "say": "They paid with card 4111 1111 1111 1111. Thanks."})
     c = CallConversation(CASE, "en-IN", ai)
     c.opening(); said = ai.sentences = []
     c.respond("How did they pay?", said.append)
@@ -168,7 +168,7 @@ def test_streaming_text_is_cleaned_like_normal_text():
 def test_a_stream_that_breaks_midway_does_not_add_a_second_confusing_sentence():
     class Breaks(Streaming):
         def stream_json(self, **kw):
-            yield '{"action": "continue", "digits": "", "say": "First sentence. Sec'
+            yield '{"action": "continue", "digits": "", "reply_language": "en-IN", "say": "First sentence. Sec'
             raise RuntimeError("connection lost")
     ai = Breaks({})
     c = CallConversation(CASE, "en-IN", ai)
@@ -177,6 +177,15 @@ def test_a_stream_that_breaks_midway_does_not_add_a_second_confusing_sentence():
 
 
 def test_a_key_press_with_no_words_is_a_key_press_not_a_missing_fact():
-    c = CallConversation(CASE, "en-IN", Scripted({"action": "press_digits", "digits": "1", "say": ""}))
+    c = CallConversation(CASE, "en-IN", Scripted({"action": "press_digits", "digits": "1", "reply_language": "en-IN", "say": ""}))
     c.opening()
     assert c.respond("Press 1 for orders") == "" and c.last_action == "press_digits" and c.last_digits == "1"
+
+
+def test_the_ai_follows_the_agent_into_another_language_even_while_streaming():
+    ai = Streaming({"action": "continue", "digits": "", "reply_language": "hi-IN", "say": "जी, ऑर्डर नंबर 4839201 है। कृपया रिफंड कर दीजिए।"})
+    c = CallConversation(CASE, "en-IN", ai)
+    c.opening(); said = ai.sentences = []
+    c.respond("जी बताइए, क्या समस्या है?", said.append)
+    assert c.language == "hi-IN" and said[0].startswith("जी, ऑर्डर")
+    assert c._fixed(REFUSE_SECRET) == REFUSE_SECRET["hi-IN"]          # fixed sentences switch too

@@ -21,6 +21,7 @@ class CallTurnOutput(BaseModel):
     # and can start speaking while the rest is still being written.
     action: Literal["continue", "press_digits", "wait", "need_user", "end_call"]
     digits: str                                # keypad digits to press when action is press_digits, otherwise an empty string
+    reply_language: Literal["en-IN", "hi-IN", "ta-IN", "hinglish"]     # the language of the agent's LAST message: we answer in it
     say: str                                   # what to say next (empty when pressing keys)
 
 
@@ -54,14 +55,14 @@ _SECRET_ASK = re.compile(
 SYSTEM_PROMPT = """You are Nivaran, an AI assistant that phones a company's customer care on behalf of a customer in India.
 You have already said that you are an AI assistant calling for a customer. You are NOT the customer; never say you are.
 You get: the case (company, problem, what the customer wants, facts the customer gave), the language, the conversation so far,
-and what the agent just said. Reply with ONE short spoken turn (one or two short sentences, in the language given; Hindi in Devanagari,
+and what the agent just said. Reply with ONE short spoken turn (one or two short sentences, in reply_language, which is the language the agent used in the LAST message (en-IN, hi-IN, ta-IN, or hinglish = Hindi mixed with English); keep the language you were given if the agent said nothing clear; Hindi in Devanagari,
 Tamil in Tamil script, hinglish = Hindi in English letters).
 Rules:
 1. Use only the facts in details_known. Never invent an order number, name, address, phone number or amount. If the agent asks for a fact you do not have, set action need_user.
 2. Never give or ask for a card number, CVV, PIN, password or OTP. If the agent asks, politely say the customer will handle it, action continue.
 3. State the problem and the wanted outcome plainly and ask for a clear next step (refund, replacement, ticket number, timeline). Ask for a ticket or reference number before the call ends.
 4. If a keypad menu is read out ("press 1 for ..."), choose the option that fits the problem and set action press_digits with the digits (for example "1") and leave say empty. Otherwise digits is an empty string.
-5. If the agent asks you to hold or wait, say a short thanks and set action wait. If the issue is solved or the agent says goodbye, set action end_call with a short polite goodbye.
+5. If the agent asks you to hold or wait, say a short thanks and set action wait. If the issue is solved or the agent says goodbye, set action end_call with a short polite goodbye. Once you have a ticket or reference number and the agent asks whether there is anything else, say no thank you and set action end_call; do not open new questions.
 6. Be polite and brief. Do not argue. Never promise anything on the customer's behalf (no payments, no cancellations)."""
 
 
@@ -104,7 +105,10 @@ class CallConversation:
             on_sentence(safe)
 
         for piece in self.llm.stream_json(system=SYSTEM_PROMPT, user=user, schema=schema):
-            for sentence in st.feed(piece):
+            sentences = st.feed(piece)
+            if st.language in DISCLOSURE:
+                self.language = st.language                      # known before the first word of `say`, so the voice can switch in time
+            for sentence in sentences:
                 if st.action is None:
                     held.append(sentence)                       # the AI wrote say before action: keep it until we know the action
                 else:
@@ -138,6 +142,7 @@ class CallConversation:
         payload = {"language": self.language, "case": {k: self.case.get(k) for k in ("company", "problem_summary", "user_goal", "details_known")},
                    "conversation": [{"who": w, "text": t} for w, t in self.history[-12:]], "agent_just_said": agent_said}
         import json
+        payload["language"] = self.language
         user = json.dumps(payload, ensure_ascii=False)
         schema = CallTurnOutput.model_json_schema()
         try:
@@ -151,6 +156,8 @@ class CallConversation:
                 self.last_action, self.last_digits = "continue", ""
                 return ""
             return self._fixed(NEED_USER, "need_user")
+        if out.reply_language in DISCLOSURE:                     # the agent switched language: we follow
+            self.language = out.reply_language
         say = scrub({"t": out.say})[0]["t"].strip()
         if _SECRET_ASK.search(say) and not _is_refusal(say):       # the AI itself must not ask for or offer secrets
             return self._fixed(REFUSE_SECRET)

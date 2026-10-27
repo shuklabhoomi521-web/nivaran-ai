@@ -1,0 +1,76 @@
+[
+ {
+  "n": 9,
+  "name": "Agent speaks Hindi",
+  "ok": false,
+  "why": [
+   "P5: line 2 answered too late (22.1 s)",
+   "P4: never answered in Hindi"
+  ],
+  "events": [
+   {
+    "n": 1,
+    "t": "23:15:50",
+    "kind": "info",
+    "text": "practice phone call connected (browser, phone-quality sound) (en-IN)",
+    "at": 1.0
+   },
+   {
+    "n": 2,
+    "t": "23:15:50",
+    "kind": "spoke",
+    "text": "Hello. I am an AI assistant calling on behalf of a customer about Swiggy. May I explain the problem?",
+    "at": 1.0
+   },
+   {
+    "n": 3,
+    "t": "23:15:50",
+    "kind": "info",
+    "text": "practice phone call connected (browser, phone-quality sound) (en-IN)",
+    "at": 1.0
+   },
+   {
+    "n": 4,
+    "t": "23:15:50",
+    "kind": "spoke",
+    "text": "Hello. I am an AI assistant calling on behalf of a customer about Swiggy. May I explain the problem?",
+    "at": 1.0
+   },
+   {
+    "n": 5,
+    "t": "23:16:10",
+    "kind": "heard",
+    "text": "Namaste, main priya bol rahi hoon Swiggy se. Bataie kya samasya hai?",
+    "at": 21.1
+   },
+   {
+    "n": 6,
+    "t": "23:16:12",
+    "kind": "spoke",
+    "text": "Mere paas order ID 4839201 hai, aur order thanda aaya tha, isliye refund chahiye.",
+    "at": 23.1
+   },
+   {
+    "n": 7,
+    "t": "23:16:12",
+    "kind": "spoke",
+    "text": "Kripya iske liye ticket number ya reference den.",
+    "at": 23.1
+   },
+   {
+    "n": 8,
+    "t": "23:16:45",
+    "kind": "heard",
+    "text": "Thik hai, kya aap order number bata sakte hain?",
+    "at": 56.3
+   },
+   {
+    "n": 9,
+    "t": "23:16:45",
+    "kind": "spoke",
+    "text": "Order number 4839201 hai.",
+    "at": 56.3
+   }
+  ]
+ }
+]

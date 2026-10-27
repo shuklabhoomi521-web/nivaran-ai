@@ -52,8 +52,13 @@ async def browser_call_bot(runner_args: RunnerArguments, llm=None, stt_provider=
     ACTIVE[call_id] = proc
     proc.stop = lambda: task.cancel()
 
+    started = {"done": False}
+
     @transport.event_handler("on_client_connected")
     async def _connected(_t, _c):
+        if started["done"]:                      # the transport sometimes announces the same connection twice: greet only once
+            return
+        started["done"] = True
         log_event("info", f"practice phone call connected (browser, phone-quality sound) ({language})")
         opening = call.opening()                                          # fixed text: "I am an AI assistant calling on behalf of a customer ..."
         proc.note("ai", opening)

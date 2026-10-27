@@ -142,6 +142,8 @@ class CallProcessor(FrameProcessor):
 
     async def _speak(self, text: str, who: str = "ai"):
         self.note(who, text)
+        if self._tts is not None and who == "ai":
+            self._tts.locale = self.call.language            # the voice follows the language of the conversation
         await self.push_frame(TTSSpeakFrame(text))
 
     async def _say_filler_if_slow(self):
@@ -193,8 +195,13 @@ async def run_call_bot(websocket, llm=None, stt_provider=None, tts_provider=None
     call_id = call_data["call_id"]
     ACTIVE[call_id] = proc
 
+    started = {"done": False}
+
     @transport.event_handler("on_client_connected")
     async def _connected(_t, _c):
+        if started["done"]:                      # the transport sometimes announces the same connection twice: greet only once
+            return
+        started["done"] = True
         log_event("info", f"phone call connected ({language})")
         opening = call.opening()                         # fixed text: "I am an AI assistant calling on behalf of a customer ..."
         proc.note("ai", opening)
