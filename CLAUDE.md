@@ -1,6 +1,6 @@
 # Nivaran — project guide for Claude
 
-**Current phase: 4 (first phone call), PARTIAL: phone layer, call brain, practice mode built; 9 of 10 practice calls handled well; the real Twilio call is NOT done (see docs/notes/phase-4.md and docs/FOUNDER-TODO.md). Not tagged. Phases 0-3 tagged done.**
+**Current phase: 4 DONE AS PARTIAL (tag phase-4-done, founder's choice 2026-10-28): phone layer, call brain and browser practice mode built, 9 of 10 practice calls handled well; the REAL Twilio phone call is still missing (docs/notes/phase-4.md, docs/FOUNDER-TODO.md). Next: Phase 5 only when the founder says so. Phases 0-3 tagged done.**
 
 Founder: ECE student. Explain in simple words, short sentences. One line for each hard term.
 Full plan: `docs/PLAN.md` (the master prompt). Follow it.

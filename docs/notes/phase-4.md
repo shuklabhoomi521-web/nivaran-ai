@@ -1,4 +1,4 @@
-# Phase 4 notes: first phone call (status: PARTIAL, not tagged yet)
+# Phase 4 notes: first phone call (status: PARTIAL, tagged phase-4-done on 2026-10-28 by the founder's choice)
 
 ## Summary (5 lines)
 - Built: the AI "caller" brain (fixed AI disclosure first, never gives or accepts card numbers/OTPs/PINs, only uses facts the user gave, presses keypad buttons, waits on hold, follows the agent's language), Twilio dialer with a one-number allow-list, phone audio pipeline, hold-music detection, keypad tones, encrypted transcripts, Stop/mute/type-to-say control page, browser practice mode with phone-quality sound.
