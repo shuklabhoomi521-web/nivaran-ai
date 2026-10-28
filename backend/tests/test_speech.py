@@ -449,6 +449,7 @@ def test_a_broken_voice_is_skipped_by_the_next_call_too(monkeypatch):
     factory._SKIP_UNTIL.clear()
 
 
+@pytest.mark.skipif(sys.platform != "darwin" or not shutil.which("say"), reason="needs the Mac's own voices")
 def test_mac_voice_makes_a_wav_and_is_chosen_by_tts_provider_mac(monkeypatch):
     import wave
     from io import BytesIO

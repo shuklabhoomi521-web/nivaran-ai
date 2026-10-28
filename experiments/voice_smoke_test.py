@@ -1,5 +1,5 @@
 """Plays a recorded WAV into the running voice server over real WebRTC (like a browser would) and prints what the bot heard and said.
-Usage: python scripts/voice_smoke_test.py speech_test/recordings/english/english-02.wav [en-IN] [http://localhost:7861]"""
+Usage: python experiments/voice_smoke_test.py speech_test/recordings/english/english-02.wav [en-IN] [http://localhost:7861]"""
 import asyncio
 import json
 import sys

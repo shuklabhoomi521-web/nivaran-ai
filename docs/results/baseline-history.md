@@ -32,7 +32,7 @@ The table above is run 3 (the latest).
 ## Run 5 re-scored with a new grading rule (founder's decision, no new API calls)
 - Rule change (the prompt was NOT changed): exact copy is required only for ids, order/booking/claim numbers, phone numbers, amounts and dates.
   Other facts (product names, descriptions, payment method names) pass if they keep the same meaning (fixed typos and translated words are fine).
-- Same 30 saved answers: **strict 28/30 (93%)**, **meaning-based 30/30 (100%)**. Both are kept in `docs/baseline-phase1.md`.
+- Same 30 saved answers: **strict 28/30 (93%)**, **meaning-based 30/30 (100%)**. Both are kept in `docs/results/baseline-phase1.md`.
 - The "same meaning" test is a cheap word-overlap check (no AI judge), so it is lenient. It would miss a wrong word if another word of the fact matches.
 
 ## Run-to-run drift (note for Phase 9)

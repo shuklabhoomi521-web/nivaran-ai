@@ -1,7 +1,7 @@
 # Speech settings: frozen on 2026-10-19, and the new-clips test
 
 ## Why this file exists
-Sarvam's scores in `docs/speech-compare.md` are **optimistic**. We looked at results on the same 38 clips (your 10 recordings,
+Sarvam's scores in `docs/results/speech-compare.md` are **optimistic**. We looked at results on the same 38 clips (your 10 recordings,
 18 FLEURS clips, 20 computer-voice sentences) and changed Sarvam's settings until it did well on them. That is like practising on
 the exam paper. Gemini was tuned much less (only the language hint). Fair comparison needs audio the settings never saw.
 

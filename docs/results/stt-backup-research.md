@@ -3,7 +3,7 @@
 Why: Sarvam credit is about Rs 36 left; Gemini's speech-to-text is unreliable (hangs, writes Hindi in English letters).
 
 ## Groq free Whisper (`whisper-large-v3`, no card): tested, NOT good enough as the Hinglish/Hindi backup
-Word error rate, lower is better. Same old clips, language hint given (page language). Sarvam and Gemini numbers are from `docs/speech-compare.md` (sentence-inside score for own clips).
+Word error rate, lower is better. Same old clips, language hint given (page language). Sarvam and Gemini numbers are from `docs/results/speech-compare.md` (sentence-inside score for own clips).
 
 | Voices (quiet clips, clean) | Groq Whisper | Sarvam | Gemini |
 |---|---|---|---|

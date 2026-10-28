@@ -162,7 +162,7 @@ def redaction_selfcheck(problems: list[dict]) -> list[str]:
 
 
 def baseline_markdown(problems: list[dict], responses: dict, meta: dict, stale: list[str] | None = None) -> tuple[str, list[Result], list[Result]]:
-    """Score the same answers two ways and build docs/baseline-phase1.md.
+    """Score the same answers two ways and build docs/results/baseline-phase1.md.
     strict = every fact copied exactly. meaning = exact only for ids, numbers, amounts, dates; same meaning is enough otherwise."""
     strict = [evaluate(p, responses[p["id"]], strict=True) for p in problems]
     meaning = [evaluate(p, responses[p["id"]], strict=False) for p in problems]

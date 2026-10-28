@@ -46,32 +46,32 @@ Weak: none notable. Phone provider interface exists as an abstract class only (`
 Built: `POST /cases/understand` (message → `Case`), `POST /cases/plan`, `/chat` test page, card-number guard, rate limiter, scoring code, a 30-problem test set.
 - AI: Gemini free tier, `gemini-3.5-flash-lite` (config in `.env`; Claude is an optional provider via `LLM_PROVIDER=anthropic`, **never run live**).
 - Test set: 25 problems written by Claude + 5 messages written by the founder (`backend/tests/data/problems_core25.json`, `problems_founder5.json`). Languages: English, Hindi, Tamil, Hinglish.
-- **Headline numbers (docs/baseline-phase1.md):** meaning-based **30/30**, strict **28/30**, from the same 30 saved answers of one run.
-**Things a skeptical checker should weigh (all disclosed in docs/baseline-history.md):**
+- **Headline numbers (docs/results/baseline-phase1.md):** meaning-based **30/30**, strict **28/30**, from the same 30 saved answers of one run.
+**Things a skeptical checker should weigh (all disclosed in docs/results/baseline-history.md):**
 1. The grading rule was **loosened after seeing the results** (founder's decision): strict ("copy every fact exactly") 28/30 → meaning-based 30/30. The meaning check is a cheap word-overlap test with spelling tolerance (`backend/app/evaluation.py`, `fact_ok`), not a real judge; it can pass a fact if any one word overlaps.
 2. A prompt rule about categories was added after a failure (laptop bought online counted as ecommerce). A `category_confidence` field (high/low, low must ask a question) was added at the founder's request, and one test's expected answer was widened by the founder (`f-04` accepts `railways` if confidence is low).
 3. Results **drift between runs** (same prompt, same model): `f-04`, `ta-06`, `f-02` flipped. One run of 30 is not a stable score.
 4. Small set, mostly author-written, so it may be easy. 30 problems cannot support "97%/100%" as real accuracy.
-5. The saved AI answers (`docs/.live-cache-*.json`) are **not in git**, so the meaning-based re-score cannot be reproduced from the repo alone. `docs/baseline-phase1.json` has per-problem pass/fail and notes only.
+5. The saved AI answers (`docs/.live-cache-*.json`) are **not in git**, so the meaning-based re-score cannot be reproduced from the repo alone. `docs/results/baseline-phase1.json` has per-problem pass/fail and notes only.
 6. `/cases/plan` has only ever run with a **fake AI** in tests. It was never called live. The `/chat` page was never opened in a browser by Claude (only `GET /chat` → 200).
-How to check: `cd backend && python -m pytest -q`; read `app/evaluation.py` and `tests/test_evaluation.py`; run `python -m pytest -m live_api -s -q` (needs `GEMINI_API_KEY`, uses ~30 free requests, slow-limited, resumable) and compare to `docs/baseline-phase1.md`.
+How to check: `cd backend && python -m pytest -q`; read `app/evaluation.py` and `tests/test_evaluation.py`; run `python -m pytest -m live_api -s -q` (needs `GEMINI_API_KEY`, uses ~30 free requests, slow-limited, resumable) and compare to `docs/results/baseline-phase1.md`.
 
 ### Phase 2: company directory (tag `phase-2-done`)
-Built: `companies.json` (40 companies), builder `scripts/build_directory.py` from hand-written `scripts/directory_src.py`, lookup by name/alias, picker (`app/directory/picker.py`), `/cases/plan` now returns the official contact and fixes impossible channels, verification checklist for the founder (`docs/directory-verification.md`), contact check on the 30 problems (`docs/phase2-contact-check.md`: 30/30 right company, 25/25 named-company problems have a verified contact).
+Built: `companies.json` (40 companies), builder `scripts/build_directory.py` from hand-written `scripts/directory_src.py`, lookup by name/alias, picker (`app/directory/picker.py`), `/cases/plan` now returns the official contact and fixes impossible channels, verification checklist for the founder (`docs/results/directory-verification.md`), contact check on the 30 problems (`docs/results/phase2-contact-check.md`: 30/30 right company, 25/25 named-company problems have a verified contact).
 How it works: each contact has `sources[]` with an official-domain URL and the **exact line** copied from the page; tests check HTTPS, official domain, date, that the number/email really appears inside its quote, and that every company has a contact or a `needs_check`.
 **Weak / verify:**
 1. A test that a number appears in its own quote cannot tell whether the quote is real. Only the builder's re-fetch (`machine_checked`, 81/124) or a human can. **Spot-check 10 random contacts against the live official pages**, especially the 43 browser-read ones. `python scripts/build_directory.py --refresh` re-fetches (network; many sites block scripts and will fail; that is expected).
 2. The founder said they checked the list by hand (they confirmed Myntra and Ola personally). I cannot prove which boxes they ticked.
-3. An "independent second check" file from the founder (`docs/second-check-2026-10-15.md`) was applied. One of its claims (old BSNL emails/number) **could not be reproduced**: that page now redirects to BSNL's home page. Those contacts were deliberately NOT added.
+3. An "independent second check" file from the founder (`docs/archive/second-check-2026-10-15.md`) was applied. One of its claims (old BSNL emails/number) **could not be reproduced**: that page now redirects to BSNL's home page. Those contacts were deliberately NOT added.
 4. Swiggy, Zomato and Zepto officially say they have **no customer phone line**; this is recorded with the exact sentences. This is a product-level limit (the AI cannot phone them).
 5. The picker is simple: first suitable phone by `role`/label. It does not look at the problem type (BSNL broadband vs mobile, etc.). Logged in `docs/TODO-research.md` for before Phase 5.
 6. Numbers/names change; nothing monitors staleness.
 7. Some entries came from search-assisted discovery of *page URLs*, but every stored contact was re-read from the official page. Please check `directory_src.py` has no number without a source tuple.
 
 ### Phase 3: voice in the browser (IN PROGRESS, not tagged, voice page NOT built)
-Built so far: `app/speech/` (interfaces `SpeechToText`/`TextToSpeech`, Gemini providers, fakes, factory, audio conversion with macOS `afconvert`, scoring), `scripts/speech_bakeoff.py`, `scripts/prepare_public_clips.py`, `speech_test/` (sentences, README).
+Built so far: `app/speech/` (interfaces `SpeechToText`/`TextToSpeech`, Gemini providers, fakes, factory, audio conversion with macOS `afconvert`, scoring), `scripts/speech_bakeoff.py`, `experiments/prepare_public_clips.py`, `speech_test/` (sentences, README).
 What the bake-off did: each clip heard 3 ways: clean 16 kHz, phone 8 kHz, phone mu-law. Clip sets: **own** (founder's 10 phone recordings: 5 Hinglish + 5 Indian English, 1 noisy each), **public** (Google FLEURS dev clips, CC-BY-4.0: 5 per language for Hindi, Tamil, US English, +1 noisy copy each made by adding other speakers' babble at 10 dB), **synthetic** (computer voice reads sentences, STT hears them back).
-Latest results (docs/speech-bakeoff.md; STT = `gemini-3.5-flash-lite` prompted to transcribe, **with a language hint**):
+Latest results (docs/results/speech-bakeoff.md; STT = `gemini-3.5-flash-lite` prompted to transcribe, **with a language hint**):
 | Real voices, quiet clips (WER) | Clean | 8 kHz | mu-law |
 |---|---|---|---|
 | Hinglish (own, 4 clips) | 77% (30% if extra words are ignored) | 83% (31%) | 83% (32%) |
@@ -81,10 +81,10 @@ Latest results (docs/speech-bakeoff.md; STT = `gemini-3.5-flash-lite` prompted t
 | US English (FLEURS, 5) | 3% | 3% | 5% |
 Numbers (4839201, 299, 1500, 2000, 40) were heard right in **30 of 30** checks across all three audio types. Noisy clips: Indian English 8%, Hinglish ~93-100% (the IRCTC clip was heard as "34077 ticket"/"University").
 **Weak / verify (important):**
-1. **Hinglish ground truth is soft.** In clips 1-3 the founder said extra or different words from the listed sentence, and I cannot listen to audio. The plain WER there is not meaningful; I added a "sentence found inside what was heard" score and a "phone vs clean transcript" agreement score (needs no ground truth). A human who speaks Hindi should read the transcripts in `docs/speech-bakeoff.json`.
+1. **Hinglish ground truth is soft.** In clips 1-3 the founder said extra or different words from the listed sentence, and I cannot listen to audio. The plain WER there is not meaningful; I added a "sentence found inside what was heard" score and a "phone vs clean transcript" agreement score (needs no ground truth). A human who speaks Hindi should read the transcripts in `docs/results/speech-bakeoff.json`.
 2. **Tiny sample:** 4-5 clips per group. Treat percentages as rough.
 3. **Tamil word error is inflated by Tamil's long words; character error is ~10-13%.** Also FLEURS sentences are formal Wikipedia-style read speech, not phone complaints.
-4. **The language hint is an assumption:** the run tells the STT which language the user picked. Without the hint Tamil/Hindi were often written in the wrong script (see `docs/speech-bakeoff-no-hint.md`). The future app must supply the language (Phase 6 UI); phone calls in Phase 4 may not know it.
+4. **The language hint is an assumption:** the run tells the STT which language the user picked. Without the hint Tamil/Hindi were often written in the wrong script (see `docs/results/speech-bakeoff-no-hint.md`). The future app must supply the language (Phase 6 UI); phone calls in Phase 4 may not know it.
 5. **Speed figures are wrong as a latency measure:** "median 10.1 s per call" includes our own rate-limit sleep (6 requests/minute). Real latency was not measured. The 1.5-second target is untested; non-streaming calls are likely too slow, streaming (Gemini Live) not tried.
 6. **Dedicated Google speech models hang intermittently** (`gemini-3.5-transcribe`, `gemini-3.8-flash-tts`): calls sometimes never return and Google's own timeout setting did not stop them. A hard 75 s limit in a daemon thread was added (`app/speech/gemini.py`). A full run on the dedicated STT model was started and abandoned after hangs, so the two STT options were **not compared fairly**. The bake-off results above use the general model with a transcription prompt (`STT_PROVIDER=gemini_prompt`).
 7. Computer-voice samples for Hindi/Tamil were generated with `gemini-3.8-flash-tts`; english/hinglish samples were regenerated after the founder's sentences replaced mine. Mixed generation dates; not important but note it.
@@ -107,9 +107,9 @@ Numbers (4839201, 299, 1500, 2000, 40) were heard right in **30 of 30** checks a
 3. Try to break the card/PIN stripper (`app/safety/redact.py`): card numbers written with words, in other digit scripts, with dots, split over lines, inside Hindi/Tamil sentences, CVV/PIN words in Hindi/Tamil. Known limit: ASCII digits and English keywords only.
 4. Spot-check 10 directory contacts against the live official pages (pick from the `machine_checked: false` ones). Check no contact lacks a source.
 5. Read `app/evaluation.py`: is the meaning-based fact check too lenient? Try inventing a fact that shares one word with the message.
-6. Re-run `python scripts/rescore_from_cache.py` only if you have the cache (not in git); otherwise re-run the live Phase 1 test (30 free requests) and see whether the score drifts.
-7. Have someone who reads Hindi, Tamil and Hinglish read the transcripts in `docs/speech-bakeoff.json` against the audio and decide which errors are real.
-8. Re-run the bake-off with a different seed/clips to see if the conclusions hold: `python scripts/prepare_public_clips.py` uses seed 17 and needs the FLEURS dev files re-downloaded (they were deleted).
+6. Re-run `python experiments/rescore_from_cache.py` only if you have the cache (not in git); otherwise re-run the live Phase 1 test (30 free requests) and see whether the score drifts.
+7. Have someone who reads Hindi, Tamil and Hinglish read the transcripts in `docs/results/speech-bakeoff.json` against the audio and decide which errors are real.
+8. Re-run the bake-off with a different seed/clips to see if the conclusions hold: `python experiments/prepare_public_clips.py` uses seed 17 and needs the FLEURS dev files re-downloaded (they were deleted).
 
 ## 7. Known gaps and honesty notes (summary)
 - No end-to-end test through a real browser, phone or microphone.

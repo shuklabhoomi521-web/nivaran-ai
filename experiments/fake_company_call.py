@@ -1,8 +1,8 @@
 """PRACTICE call: a pretend company phone line (menu, hold music, an agent) talks to our phone bot over the same websocket Twilio uses.
 No real phone, no Twilio, no money. Computer voices come from the Mac's own `say` (free).
 Run the server in practice mode first:   cd backend && PHONE_REHEARSAL=1 python -m app.voice.server
-Then:                                      python scripts/fake_company_call.py
-Writes docs/call-rehearsal.md (what each side said, key presses, the delays)."""
+Then:                                      python experiments/fake_company_call.py
+Writes docs/archive/call-rehearsal.md (what each side said, key presses, the delays)."""
 import asyncio
 import audioop
 import base64
@@ -189,10 +189,10 @@ async def main():
           "Computer voices from the Mac. Speech-to-text, brain and voice are the real ones configured in .env.", "",
           f"Result: {json.dumps(results)}", "", "## What the bot's side logged", ""]
     md += [f"- `{e['t']}` **{ {'heard': 'agent (heard)', 'spoke': 'AI said', 'info': 'info', 'err': 'ERROR'}.get(e['kind'], e['kind']) }**: {e['text']}" for e in ev]
-    (ROOT / "docs" / "call-rehearsal.md").write_text("\n".join(md) + "\n", encoding="utf-8")
+    (ROOT / "docs" / "archive" / "call-rehearsal.md").write_text("\n".join(md) + "\n", encoding="utf-8")
     results["bot_audio_seconds"] = round(len(p.out_pcm) / 2 / SR, 1)
     print(json.dumps(results))
-    (ROOT / "docs" / ".call-rehearsal.json").write_text(json.dumps({"results": results, "log": p.log}, ensure_ascii=False, indent=1))
+    (ROOT / "docs" / "results" / ".call-rehearsal.json").write_text(json.dumps({"results": results, "log": p.log}, ensure_ascii=False, indent=1))
 
 
 if __name__ == "__main__":

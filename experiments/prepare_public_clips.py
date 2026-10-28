@@ -4,7 +4,7 @@ Reads speech_test/_download/<lang>/dev.tsv + dev.tar.gz, picks N clips of 5-11 s
 speech_test/public/<language>/<id>.wav with the exact reference text in speech_test/public/references.json.
 Clip 5 of each language also gets a NOISY copy: other speakers' voices mixed in as background chatter (babble) at 10 dB
 signal-to-noise. That noise is synthetic (made from other FLEURS speakers), and the report says so.
-Usage: python scripts/prepare_public_clips.py [--n 5]
+Usage: python experiments/prepare_public_clips.py [--n 5]
 """
 import argparse
 import csv

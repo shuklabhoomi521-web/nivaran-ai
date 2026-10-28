@@ -4,7 +4,7 @@ Run only when you choose:  python -m pytest -m live_api -s
 - Slows itself down to stay inside the free limits (GEMINI_RPM / GEMINI_RPD in .env).
 - Saves each answer in a cache file, so if the daily limit stops the run, running it again
   tomorrow continues where it stopped.
-- Writes the baseline score table to docs/baseline-phase1.md (+ .json).
+- Writes the baseline score table to docs/results/baseline-phase1.md (+ .json).
 """
 import json
 import os
@@ -64,8 +64,8 @@ def results():
     meta = {"date": str(date.today()), "provider": provider, "model": model}
     md, strict, meaning = baseline_markdown(PROBLEMS, responses, meta, stale)
     DOCS.mkdir(exist_ok=True)
-    (DOCS / "baseline-phase1.md").write_text(md, encoding="utf-8")
-    (DOCS / "baseline-phase1.json").write_text(json.dumps(
+    (DOCS / "results" / "baseline-phase1.md").write_text(md, encoding="utf-8")
+    (DOCS / "results" / "baseline-phase1.json").write_text(json.dumps(
         {**meta, "results_meaning_based": [r.__dict__ for r in meaning], "results_strict": [r.__dict__ for r in strict]},
         indent=2, ensure_ascii=False), encoding="utf-8")
     print("\n" + md)

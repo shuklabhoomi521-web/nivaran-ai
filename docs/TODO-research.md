@@ -18,14 +18,14 @@ Research and write down, with official sources (trai.gov.in, not vendor blogs):
 ## Phase 9: bigger test set
 - The 30-problem set is small and mostly written by us. In Phase 9, build a much bigger one (100+ problems, real anonymised cases, more languages and messy spellings).
 - Run each problem several times, because the same prompt can give a different answer on a different run (seen in Phase 1: `f-04` flipped between runs).
-- Use it to compare our own models against Gemini (`docs/baseline-phase1.md` is the Phase 1 starting point).
+- Use it to compare our own models against Gemini (`docs/results/baseline-phase1.md` is the Phase 1 starting point).
 
 ## Supabase (skipped for now, founder's decision)
 - The company directory lives in `backend/app/directory/companies.json` until Phase 6. No Supabase table or seed script yet.
 - Revisit at Phase 6 (mobile app needs login and a shared database).
 
 ## Phase 9: run-to-run drift and meaning check
-- Same prompt and model gave different answers on different runs (see `docs/baseline-history.md`). Score each problem 3-5 times and report mean and spread.
+- Same prompt and model gave different answers on different runs (see `docs/results/baseline-history.md`). Score each problem 3-5 times and report mean and spread.
 - The meaning-based fact check is a cheap word-overlap test (lenient). Add a stronger judge (a small model or careful rules) and compare.
 
 ## Exotel KYC (founder emailed 2026-10-15/16)
@@ -45,7 +45,7 @@ Research and write down, with official sources (trai.gov.in, not vendor blogs):
 - Note: Language values already exist in the case model (telugu, kannada, malayalam, bengali, marathi, gujarati, punjabi), so no model change is needed.
 
 ## Before Phase 3 is done: new-clips test (founder records 5 NEW clips)
-- See `docs/speech-settings-frozen.md`. Settings were tuned on the scored clips, so Sarvam's scores are optimistic until this test.
+- See `docs/results/speech-settings-frozen.md`. Settings were tuned on the scored clips, so Sarvam's scores are optimistic until this test.
 
 ## Voice recordings in git history: purged 2026-10-19 (founder's OK)
 - The 10 raw .aac recordings were committed once by mistake (old commit 9dec69a). History was rewritten without them (also removed: any .aac/.m4a/.wav/.mp3/.zip ever committed) and force-pushed: main is now 3d2b3dc; the three phase tags are unchanged. 30 commits kept; the files at HEAD are identical.

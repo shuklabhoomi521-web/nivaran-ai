@@ -1,4 +1,4 @@
-"""Builds backend/app/directory/companies.json and docs/directory-verification.md from scripts/directory_src.py.
+"""Builds backend/app/directory/companies.json and docs/results/directory-verification.md from scripts/directory_src.py.
 
 For every source (url, needle[, "browser"]) it re-fetches the official page and looks for a line containing the needle.
  - Found: the whole page line becomes the quote, machine_checked = True.
@@ -22,7 +22,7 @@ from fetch_text import page_lines  # noqa: E402
 ROOT = Path(__file__).resolve().parents[1]
 CACHE = ROOT / "scripts" / ".page_cache.json"
 OUT_JSON = ROOT / "backend" / "app" / "directory" / "companies.json"
-OUT_DOC = ROOT / "docs" / "directory-verification.md"
+OUT_DOC = ROOT / "docs" / "results" / "directory-verification.md"
 TODAY = date.today().isoformat()
 
 

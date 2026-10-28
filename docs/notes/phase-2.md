@@ -3,7 +3,7 @@
 ## Summary (5 lines)
 - Built: 40-company directory (10 categories) in `backend/app/directory/companies.json`, built by `scripts/build_directory.py` from `scripts/directory_src.py`; every contact has its exact line from an official page.
 - Built: lookup by name/alias/spelling, a contact picker (channels from what the directory really has), and `/cases/plan` now returns the official contact and fixes impossible channels (no call for Swiggy, Zomato, Zepto).
-- Result: all 30 problems match the right company; 25 of 25 named-company problems get a verified contact (`docs/phase2-contact-check.md`). 269 free tests pass.
+- Result: all 30 problems match the right company; 25 of 25 named-company problems get a verified contact (`docs/results/phase2-contact-check.md`). 269 free tests pass.
 - Broke: many official sites block scripts or hide contacts behind JavaScript/login; search summaries and an AI "second check" were sometimes wrong or stale (BSNL's page no longer exists). Fixed by reading pages in a real browser and keeping exact quotes.
 - Learned: top Indian apps (Swiggy, Zomato, Zepto) officially have no customer phone line, so "AI phones the company" is not possible for them. Only 10 of 63 phone numbers are confirmed on 2 official pages.
 
@@ -12,7 +12,7 @@
 |---|---|---|
 | 40 companies, every entry has an official source link and checked date | **Done** | `test_forty_companies_across_ten_categories`, `test_every_source_is_official_https_and_dated` (host must be an official domain, https, dated, quote present). Indian Railways has only its main page, no contacts yet. |
 | No contact taken from random search results | **Done** (founder verified) | Every contact has an exact quote and an official-domain source, checked by tests; founder checked the list by hand (Myntra and Ola personally). 81 of 124 sources were also re-found on the live page by script; the other 43 were read in a real browser. |
-| The brain picks the right contact for all 30 test problems | **Done** | `docs/phase2-contact-check.md`: 30/30 right company; 25/25 named-company problems have a verified contact; the 5 problems with no company get a question and no contact. Uses saved AI answers (no new API calls). |
+| The brain picks the right contact for all 30 test problems | **Done** | `docs/results/phase2-contact-check.md`: 30/30 right company; 25/25 named-company problems have a verified contact; the 5 problems with no company get a question and no contact. Uses saved AI answers (no new API calls). |
 | Tagged `phase-2-done` | Done | tag pushed |
 
 ## 3 weakest parts
@@ -25,4 +25,4 @@ Open `http://127.0.0.1:8000/chat`. Type "Swiggy ne mera order cancel kar diya, p
 
 ## Open items
 - Exotel KYC answer (founder emailed hello@exotel.com): see `docs/TODO-research.md`.
-- Remaining `needs_check` items: see `docs/directory-verification.md` (search "NEEDS CHECK").
+- Remaining `needs_check` items: see `docs/results/directory-verification.md` (search "NEEDS CHECK").

@@ -10,8 +10,8 @@
 ## Done-when check
 | Item | Status | Proof |
 |---|---|---|
-| 10 test calls with a friend, at least 8 handled well | **Partial** | 10 practice calls, 9 handled well (`docs/phase4-practice-results.md`); zero real phone calls, no friend |
-| The AI gets through the fake menu every time | **Done in practice** | calls 2, 3, 4 in all three series pressed the right key (tones decoded through phone encoding in `scripts/fake_company_call.py`) |
+| 10 test calls with a friend, at least 8 handled well | **Partial** | 10 practice calls, 9 handled well (`docs/results/phase4-practice-results.md`); zero real phone calls, no friend |
+| The AI gets through the fake menu every time | **Done in practice** | calls 2, 3, 4 in all three series pressed the right key (tones decoded through phone encoding in `experiments/fake_company_call.py`) |
 | Starts every call by saying it is an AI assistant | **Done** | fixed text, tests in all 4 languages, every practice call |
 | Hold music: wait quietly | **Done in practice** | `app/voice/hold.py`, call 5; real music not tested |
 | Full transcript of every call | **Done** | encrypted text, secrets removed (`app/voice/transcripts.py`), no audio stored |

@@ -10,10 +10,10 @@
 ## Done-when check
 | Item | Status | Proof |
 |---|---|---|
-| A full conversation works in all 4 languages | **Done, with a limit** | `docs/voice-live-test.md`: English, Hinglish, Hindi, Tamil each heard right and answered right over real WebRTC. Founder chatted live and switched English -> Hindi; Tamil start -> English worked after a fix. The founder cannot speak Tamil, so Tamil was tested only with a computer voice. Hindi and Tamil fixed sentences were written by Claude and are not yet checked by native speakers. |
+| A full conversation works in all 4 languages | **Done, with a limit** | `docs/results/voice-live-test.md`: English, Hinglish, Hindi, Tamil each heard right and answered right over real WebRTC. Founder chatted live and switched English -> Hindi; Tamil start -> English worked after a fix. The founder cannot speak Tamil, so Tamil was tested only with a computer voice. Hindi and Tamil fixed sentences were written by Claude and are not yet checked by native speakers. |
 | Interrupt the AI mid-sentence; it stops and listens | **Done** | Scenario 5 (speech starts while the greeting plays): greeting stops, answer comes. The unfinished answer is no longer lost when interrupted. |
 | Reply delay measured and written down | **Done (goal missed, as a goal)** | End of speech to first sound of the ANSWER, Sarvam voice: Hinglish 3.4 s, Hindi 3.6 s, Tamil 5.0 s, English 4.7 s (7.2 s on the final two-sentence answer). Target was ~1.5 s: not met. Before the fixes it was 15-30 s. Brain part is now ~1.5 s; the rest is voice detection (0.5 s), speech-to-text (0.4-1 s), voice (1-2 s), network. |
-| New-clips test (holdout) | **Done** | `docs/holdout-result.md`: Sarvam average WER 0.05, Gemini 0.42 (Gemini is partly unfairly penalised for writing Hindi in English letters). Numbers and company names right in nearly all variants. Reference text was first drafted by Sarvam then corrected by the founder, so Sarvam may look slightly better; noise is artificial. |
+| New-clips test (holdout) | **Done** | `docs/results/holdout-result.md`: Sarvam average WER 0.05, Gemini 0.42 (Gemini is partly unfairly penalised for writing Hindi in English letters). Numbers and company names right in nearly all variants. Reference text was first drafted by Sarvam then corrected by the founder, so Sarvam may look slightly better; noise is artificial. |
 | Tagged `phase-3-done` | Done | tag pushed |
 
 ## 3 weakest parts
@@ -28,4 +28,4 @@ Sarvam: about Rs 37 left of Rs 100 (our own estimate). Groq and Gemini are free 
 Open `/voice` in Chrome. Say in English: "My Swiggy order came cold, I want a refund." The bot asks for the order ID. Answer in Hindi. Show the bot switching to Hindi and saying what it understood and that nothing has been sent. Then say a card number out loud and show "[CARD NUMBER REMOVED]" in the log. Interrupt the bot once.
 
 ## Not in this phase
-Phase 3.5: Telugu, Kannada, Malayalam, Bengali, Marathi, Gujarati, Punjabi (text first, then speech, checked by native speakers). Later: contact picker must understand problem types before Phase 5. Founder to send the GitHub Support message (`docs/github-support-request.md`).
+Phase 3.5: Telugu, Kannada, Malayalam, Bengali, Marathi, Gujarati, Punjabi (text first, then speech, checked by native speakers). Later: contact picker must understand problem types before Phase 5. Founder to send the GitHub Support message (`docs/archive/github-support-request.md`).

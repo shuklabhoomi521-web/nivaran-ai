@@ -3,7 +3,7 @@
 Last updated: 2026-10-27
 
 ## Waiting for you
-1. **Send the GitHub Support message** (text in `docs/github-support-request.md`). It asks GitHub to clean up old cached files after the recordings purge. Do not create a new repo.
+1. **Send the GitHub Support message** (text in `docs/archive/github-support-request.md`). It asks GitHub to clean up old cached files after the recordings purge. Do not create a new repo.
 2. **Exotel reply.** Tell me when Exotel answers about KYC with a Udyam registration (needed before Phase 5 real company calls). I record it in `docs/TODO-research.md`.
 3. **The first real Twilio phone call (skipped for now, your decision on 2026-10-27).** When you want it:
    - be on a network that holds the tunnel (run `python scripts/phone_session.py check` first; other Wi-Fi or another phone's hotspot);

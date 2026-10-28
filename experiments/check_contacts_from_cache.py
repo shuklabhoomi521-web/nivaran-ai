@@ -1,5 +1,5 @@
 """Step 7: for each of the 30 problems, take the AI's saved understand answer (no API calls), look the company up in the
-directory and show which official contact we would use. Writes docs/phase2-contact-check.md."""
+directory and show which official contact we would use. Writes docs/results/phase2-contact-check.md."""
 import json
 import sys
 from pathlib import Path
@@ -45,5 +45,5 @@ md = ["# Phase 2: contact check on the 30 problems", "",
       f"- Problems with no company that were correctly left for a question: **{asked}**", "",
       "| Problem | Expected company | AI company | Channels available | Contact we would use | Result |", "|---|---|---|---|---|---|"]
 md += [f"| {a} | {b} | {c} | {d} | {e} | {f} |" for a, b, c, d, e, f in rows]
-(ROOT / "docs" / "phase2-contact-check.md").write_text("\n".join(md) + "\n", encoding="utf-8")
+(ROOT / "docs" / "results" / "phase2-contact-check.md").write_text("\n".join(md) + "\n", encoding="utf-8")
 print("\n".join(md))

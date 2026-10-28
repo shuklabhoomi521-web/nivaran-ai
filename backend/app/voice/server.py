@@ -160,7 +160,7 @@ async def phone_ws(websocket: WebSocket):
     from app.voice.events import log_event
     await websocket.accept()
     log_event("info", "phone: Twilio opened the audio connection")
-    if os.getenv("PHONE_REHEARSAL"):             # practice mode: a pretend company on a pretend phone (scripts/fake_company_call.py), no real call
+    if os.getenv("PHONE_REHEARSAL"):             # practice mode: a pretend company on a pretend phone (experiments/fake_company_call.py), no real call
         await run_call_bot(websocket, case=REHEARSAL_CASE, language="en-IN", auto_hang_up=False)
     else:
         try:

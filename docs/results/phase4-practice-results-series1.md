@@ -1,6 +1,6 @@
 # Phase 4 practice series results (see the file name for which series)
 
-Rules fixed in advance: `docs/phase4-practice-rules.md`. Browser path, phone-quality sound, a computer voice as the agent. PARTIAL stand-in for calls with a friend.
+Rules fixed in advance: `docs/results/phase4-practice-rules.md`. Browser path, phone-quality sound, a computer voice as the agent. PARTIAL stand-in for calls with a friend.
 
 **Handled well: 7 of 9**
 

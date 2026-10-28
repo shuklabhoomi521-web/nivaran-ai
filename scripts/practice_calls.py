@@ -1,4 +1,4 @@
-"""The 10-call practice series (rules: docs/phase4-practice-rules.md, written before running). Needs the server running:
+"""The 10-call practice series (rules: docs/results/phase4-practice-rules.md, written before running). Needs the server running:
    English calls:  cd backend && STT_PROVIDER=groq STT_FALLBACK=local python -m app.voice.server
    Hindi call (9): cd backend && STT_PROVIDER=local python -m app.voice.server
 Run:  python scripts/practice_calls.py [1 2 3 ...]   (default: all)"""
@@ -162,12 +162,12 @@ def main():
                 print(f"   [{e['at']:6.1f}s] {e['kind']:6} {e['text'][:110]}")
         print(f"   => {'HANDLED WELL' if ok else 'FAILED'} {'; '.join(why)}", flush=True)
         results.append({"n": n, "name": sc["name"], "ok": ok, "why": why, "events": res["events"]})
-    (ROOT / "docs" / f".phase4-practice-{tag}.json").write_text(json.dumps(results, ensure_ascii=False, indent=1))
+    (ROOT / "docs" / "results" / f".phase4-practice-{tag}.json").write_text(json.dumps(results, ensure_ascii=False, indent=1))
     good = sum(r["ok"] for r in results)
-    md = ["# Phase 4 practice series results", "", "Rules fixed in advance: `docs/phase4-practice-rules.md`. Browser path, phone-quality sound, a computer voice as the agent. PARTIAL stand-in for calls with a friend.", "",
+    md = ["# Phase 4 practice series results", "", "Rules fixed in advance: `docs/results/phase4-practice-rules.md`. Browser path, phone-quality sound, a computer voice as the agent. PARTIAL stand-in for calls with a friend.", "",
           f"**Handled well: {good} of {len(results)}**", "", "| # | Scenario | Result | Why not |", "|---|---|---|---|"]
     md += [f"| {r['n']} | {r['name']} | {'handled well' if r['ok'] else 'FAILED'} | {'; '.join(r['why'])} |" for r in results]
-    (ROOT / "docs" / f"phase4-practice-results-{tag}.md").write_text("\n".join(md) + "\n", encoding="utf-8")
+    (ROOT / "docs" / "results" / f"phase4-practice-results-{tag}.md").write_text("\n".join(md) + "\n", encoding="utf-8")
     print(f"\nHandled well: {good} of {len(results)}")
     from app.speech.credits import CreditLedger  # noqa: E402
     print(CreditLedger().session_line())

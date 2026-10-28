@@ -1,6 +1,6 @@
 """Live test of the running voice server over real WebRTC, like a browser, but with recorded audio instead of a microphone.
 Scenarios cover the four languages, a two-turn chat, talking over the bot (barge-in) and a spoken card number.
-Writes docs/voice-live-test.md. Usage: python scripts/voice_live_test.py [scenario names...]   (server: python -m app.voice.server)"""
+Writes docs/results/voice-live-test.md. Usage: python scripts/voice_live_test.py [scenario names...]   (server: python -m app.voice.server)"""
 import asyncio
 import json
 import sys
@@ -159,7 +159,7 @@ def main():
         for e in res["events"]:
             print(f"   [{e['at']:5.1f}s] {e['kind']:5} {e['text'][:110]}" + (f"  ({e['secs']}s)" if e.get('secs') else ""), flush=True)
         print(f"   user clip(s) at {[(round(a, 1), round(b, 1)) for a, b in res['spans']]}; bot made sound at {[(round(a, 1), round(b, 1)) for a, b in res['bot_segments']]}", flush=True)
-    (ROOT / "docs" / ".voice-live-test.json").write_text(json.dumps(results, ensure_ascii=False, indent=1))
+    (ROOT / "docs" / "results" / ".voice-live-test.json").write_text(json.dumps(results, ensure_ascii=False, indent=1))
     write_report(results)
     _credit_line()
 
@@ -180,7 +180,7 @@ def write_report(results):
             delays.append("-" if t is None else f"{t - end:.1f} s")
         md.append(f"| {r['name']} ({r['note']}) | " + "<br>".join(e["text"][:90] for e in heard) + " | "
                   + "<br>".join(e["text"][:90] for e in notes) + " | " + "<br>".join(e["text"][:80] for e in spoke) + " | " + ", ".join(delays) + " |")
-    (ROOT / "docs" / "voice-live-test.md").write_text("\n".join(md) + "\n", encoding="utf-8")
+    (ROOT / "docs" / "results" / "voice-live-test.md").write_text("\n".join(md) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":

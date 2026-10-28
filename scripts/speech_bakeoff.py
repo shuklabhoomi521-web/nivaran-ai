@@ -3,7 +3,7 @@
 Every clip is heard 3 ways: clean (16 kHz), phone 8 kHz, and phone mu-law (8 kHz squeezed like a real phone line).
 Three kinds of clips:
   OWN    = your own recordings: speech_test/recordings/<language>/<language>-NN.(wav|m4a|aac|mp3|aiff|caf)
-  PUBLIC = real human clips from Google FLEURS (CC-BY-4.0): speech_test/public/ (made by scripts/prepare_public_clips.py)
+  PUBLIC = real human clips from Google FLEURS (CC-BY-4.0): speech_test/public/ (made by experiments/prepare_public_clips.py)
   SYNTH  = a computer voice reads the sentences and the speech-to-text hears them back (too clean, so it counts less)
 Answers are cached (a re-run only makes the missing calls), calls are slowed to the free limits, the Mac is kept awake,
 and a hung call becomes a recorded failure instead of freezing the run.
@@ -31,8 +31,8 @@ TEST_DIR = ROOT / "speech_test"
 REC_DIR = TEST_DIR / "recordings"
 TTS_DIR = TEST_DIR / "tts_samples"
 CACHE = ROOT / "docs" / ".speech-cache.json"
-OUT_MD = ROOT / "docs" / "speech-bakeoff.md"
-OUT_JSON = ROOT / "docs" / "speech-bakeoff.json"
+OUT_MD = ROOT / "docs" / "results" / "speech-bakeoff.md"
+OUT_JSON = ROOT / "docs" / "results" / "speech-bakeoff.json"
 AUDIO_EXT = (".wav", ".m4a", ".aac", ".mp3", ".aiff", ".aif", ".caf")
 W_REAL, W_SYNTH = 0.7, 0.3
 LANG_HINT = {"english": "en-IN", "hindi": "hi-IN", "tamil": "ta-IN", "hinglish": "hinglish"}
@@ -167,7 +167,7 @@ def report(rows, s, stt_id, hint, stopped) -> None:
           "- 'Two thousand' and '2000', or 'forty' and '40', count as the same when scoring words; the number check below is strict.", ""]
     if s.stt_provider == "sarvam":
         md += ["- **Caution: Sarvam's settings (model saaras:v4, Hinglish mode 'codemix', company-name key terms, language hints) were chosen by looking at "
-               "results on THESE SAME clips, so its scores here are optimistic. The fair test is on new clips it has never heard (see docs/speech-settings-frozen.md).**", ""]
+               "results on THESE SAME clips, so its scores here are optimistic. The fair test is on new clips it has never heard (see docs/results/speech-settings-frozen.md).**", ""]
     if stopped:
         md += [f"- **Stopped early:** {stopped} Run again later to continue (answers are cached).", ""]
 

@@ -1,4 +1,4 @@
-"""The new-clips (holdout) test: run ONCE, frozen settings, no tuning afterwards (see docs/speech-settings-frozen.md).
+"""The new-clips (holdout) test: run ONCE, frozen settings, no tuning afterwards (see docs/results/speech-settings-frozen.md).
 Each founder recording is heard clean, with artificial street noise (8 dB), and as a phone call (8 kHz mu-law).
 Both providers hear it with language = auto (what the live voice bot does). Long clips are cut at the quietest point (limit ~25 s per call).
 Usage: python scripts/holdout_test.py [sarvam gemini groq]   (default: sarvam gemini; a third provider can be added later and gets its own result file)"""
@@ -49,7 +49,7 @@ def main():
     refs = json.loads((H / "sentences.json").read_text())
     wanted = sys.argv[1:] or ["sarvam", "gemini"]
     providers = {NAMES[w][0]: _stt(NAMES[w][1]) for w in wanted}
-    OUT = ROOT / "docs" / ("holdout-result.md" if wanted == ["sarvam", "gemini"] else f"holdout-result-{'-'.join(wanted)}.md")
+    OUT = ROOT / "docs" / "results" / ("holdout-result.md" if wanted == ["sarvam", "gemini"] else f"holdout-result-{'-'.join(wanted)}.md")
     variants = [("clean", "{i}.wav", "clean"), ("noisy 8 dB", "{i}_noisy.wav", "clean"), ("phone mu-law", "{i}.wav", "phone_mulaw")]
     rows, raw = [], {}
     for i, ref in refs.items():

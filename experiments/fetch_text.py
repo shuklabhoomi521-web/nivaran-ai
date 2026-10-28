@@ -1,6 +1,6 @@
 """Fetch an official page and print its visible text, one line per block.
 Used to copy EXACT lines into the company directory (and to re-check them later).
-Usage: python scripts/fetch_text.py URL [--grep word1,word2]"""
+Usage: python experiments/fetch_text.py URL [--grep word1,word2]"""
 import re
 import sys
 

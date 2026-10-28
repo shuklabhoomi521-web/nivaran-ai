@@ -1,4 +1,4 @@
-# Phase 4 practice series: results (rules fixed in advance in `docs/phase4-practice-rules.md`)
+# Phase 4 practice series: results (rules fixed in advance in `docs/results/phase4-practice-rules.md`)
 
 Browser path, phone-quality sound (8 kHz mu-law both ways), a computer voice plays the agent. A PARTIAL stand-in for "10 calls with a friend": no real phone carrier, no human agent.
 
