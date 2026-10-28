@@ -1,3 +1,4 @@
+import re
 import pytest
 
 from app.voice.call_conversation import (DISCLOSURE, GOODBYE, NEED_USER, REFUSE_SECRET, CallConversation)
@@ -38,7 +39,8 @@ def test_when_the_agent_asks_for_a_secret_we_refuse_in_fixed_words_and_do_not_as
     llm = Scripted()
     c = CallConversation(CASE, "en-IN", llm)
     c.opening()
-    assert c.respond(ask) == REFUSE_SECRET["en-IN"] and not llm.calls
+    lang = "hi-IN" if re.search(r"[\u0900-\u097F]", ask) else "ta-IN" if re.search(r"[\u0B80-\u0BFF]", ask) else "en-IN"
+    assert c.respond(ask) == REFUSE_SECRET[lang] and not llm.calls          # the refusal is in the agent's own language
 
 
 def test_normal_turn_uses_one_ai_call_and_only_known_facts():
@@ -189,3 +191,85 @@ def test_the_ai_follows_the_agent_into_another_language_even_while_streaming():
     c.respond("जी बताइए, क्या समस्या है?", said.append)
     assert c.language == "hi-IN" and said[0].startswith("जी, ऑर्डर")
     assert c._fixed(REFUSE_SECRET) == REFUSE_SECRET["hi-IN"]          # fixed sentences switch too
+
+
+# ---- the Hindi bug: the agent speaks Hindi, the AI must answer in Devanagari (or proper hinglish when the call is set up as hinglish)
+def test_the_prompt_tells_the_ai_which_script_to_use():
+    from app.voice.call_conversation import SYSTEM_PROMPT
+    assert "language_setting" in SYSTEM_PROMPT and "Devanagari" in SYSTEM_PROMPT and "hinglish ONLY when" in SYSTEM_PROMPT
+
+
+def test_roman_hindi_from_the_agent_is_answered_as_hindi_unless_the_call_is_set_up_as_hinglish():
+    for setting, expected in (("en-IN", "hi-IN"), ("hi-IN", "hi-IN"), ("hinglish", "hinglish")):
+        ai = Scripted(turn("जी, ऑर्डर नंबर 4839201 है।" if expected == "hi-IN" else "Ji, order number 4839201 hai.", lang="hinglish"))
+        c = CallConversation(CASE, setting, ai)
+        c.opening(); c.respond("Namaste, main priya bol rahi hoon. Bataiye kya samasya hai?")
+        assert c.language == expected, (setting, c.language)
+
+
+def test_the_payload_carries_the_language_setting():
+    ai = Scripted(turn("ok"))
+    c = CallConversation(CASE, "hi-IN", ai)
+    c.opening(); c.respond("hello")
+    assert '"language_setting": "hi-IN"' in ai.calls[0]
+
+
+def test_hindi_written_in_english_letters_is_rewritten_into_devanagari_once():
+    class Two:
+        calls = 0
+
+        def complete_json(self, *, system, user, schema):
+            Two.calls += 1
+            if "text" in schema.get("properties", {}):                       # the rewrite request
+                return {"text": "जी, ऑर्डर नंबर 4839201 है।"}
+            return turn("Ji, order number 4839201 hai, refund chahiye.", lang="hi-IN")
+    c = CallConversation(CASE, "hi-IN", Two())
+    c.opening()
+    reply = c.respond("नमस्ते, बताइए क्या समस्या है?")
+    assert re.search(r"[ऀ-ॿ]", reply) and "4839201" in reply and Two.calls == 2
+
+
+def test_if_the_rewrite_fails_the_original_words_are_kept_not_lost():
+    class Broken:
+        def complete_json(self, *, system, user, schema):
+            if "text" in schema.get("properties", {}):
+                raise RuntimeError("down")
+            return turn("Ji, order number 4839201 hai, refund chahiye.", lang="hi-IN")
+    c = CallConversation(CASE, "hi-IN", Broken())
+    c.opening()
+    assert "4839201" in c.respond("नमस्ते")
+
+
+def test_streamed_hindi_sentences_are_checked_for_script_before_they_are_spoken():
+    class Streams(Streaming):
+        def complete_json(self, **kw):
+            return {"text": "जी, ऑर्डर नंबर 4839201 है।"}
+    ai = Streams({"action": "continue", "digits": "", "reply_language": "hi-IN", "say": "Ji, order number 4839201 hai, refund chahiye."})
+    c = CallConversation(CASE, "hi-IN", ai)
+    c.opening(); said = ai.sentences = []
+    c.respond("नमस्ते", said.append)
+    assert said and re.search(r"[ऀ-ॿ]", said[0])
+
+
+def test_the_agents_language_is_detected_in_code_from_script_and_common_words():
+    d = CallConversation.detect_language
+    assert d("नमस्ते, बताइए क्या समस्या है?") == "hi-IN" and d("வணக்கம், என்ன பிரச்சனை?") == "ta-IN"
+    assert d("Namaste, main priya bol rahi hoon. Bataiye kya samasya hai?") == "hi-IN"
+    assert d("Hello, this is Priya from Swiggy support. How can I help you?") is None
+    assert d("Please hold, ji") is None                      # one stray word is not enough
+
+
+def test_when_the_agent_speaks_hindi_the_ai_answers_in_hindi_even_if_the_call_started_in_english_and_the_ai_picks_english():
+    ai = Scripted(turn("जी, ऑर्डर नंबर 4839201 है।", lang="en-IN"))           # the AI wrongly says en-IN
+    c = CallConversation(CASE, "en-IN", ai)
+    c.opening()
+    reply = c.respond("Namaste, main priya bol rahi hoon. Bataiye kya samasya hai?")
+    assert c.language == "hi-IN" and re.search(r"[ऀ-ॿ]", reply)
+    assert '"language": "hi-IN"' in ai.calls[0]                                # the AI was already told Hindi
+
+
+def test_hinglish_setting_keeps_roman_letters_when_the_agent_speaks_hindi():
+    ai = Scripted(turn("Ji, order number 4839201 hai.", lang="hinglish"))
+    c = CallConversation(CASE, "hinglish", ai)
+    c.opening(); c.respond("Namaste, main priya bol rahi hoon. Bataiye kya samasya hai?")
+    assert c.language == "hinglish"                 # a call set up as hinglish stays in English letters

@@ -132,6 +132,8 @@ async def twiml(case_id: str = ""):
 
     from app.channels.phone.twilio import stream_twiml
     from app.voice.phone_bot import PENDING_CALLS
+    from app.voice.events import log_event
+    log_event("info", "phone: Twilio asked our server what to do with the call (call instructions requested)")
     base = os.getenv("PUBLIC_BASE_URL", "").strip().rstrip("/")
     if case_id not in PENDING_CALLS or not base.startswith("https://"):
         return Response("<Response><Say>Sorry, this call is not set up.</Say><Hangup/></Response>", media_type="text/xml")
@@ -155,11 +157,16 @@ async def hang_up(call_id: str):
 @app.websocket("/phone/ws")
 async def phone_ws(websocket: WebSocket):
     from app.voice.phone_bot import run_call_bot
+    from app.voice.events import log_event
     await websocket.accept()
+    log_event("info", "phone: Twilio opened the audio connection")
     if os.getenv("PHONE_REHEARSAL"):             # practice mode: a pretend company on a pretend phone (scripts/fake_company_call.py), no real call
         await run_call_bot(websocket, case=REHEARSAL_CASE, language="en-IN", auto_hang_up=False)
     else:
-        await run_call_bot(websocket, require_pending=True)
+        try:
+            await run_call_bot(websocket, require_pending=True)
+        finally:
+            log_event("info", "phone: audio connection closed")
 
 
 class SayRequest(BaseModel):

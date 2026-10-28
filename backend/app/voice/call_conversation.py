@@ -48,6 +48,12 @@ GOODBYE = {"en-IN": "Thank you for your help. Goodbye.", "hi-IN": "आपकी 
 HOLD_TEXT = {"en-IN": "Yes, I am still here.", "hi-IN": "जी, मैं यहीं हूँ।", "ta-IN": "ஆம், நான் இங்கே இருக்கிறேன்.", "hinglish": "Ji, main yahin hoon."}
 
 # the agent is asking for something we must never give: card number, CVV, PIN, password, OTP / one time code
+_TAMIL = re.compile(r"[\u0B80-\u0BFF]")
+# common Hindi words as the speech-to-text writes them in English letters
+_ROMAN_HINDI = {"hai", "hain", "kya", "aap", "main", "mein", "mera", "meri", "ke", "ka", "ki", "ko", "se", "ne", "nahi", "nahin", "namaste", "kripya", "bataiye", "bataie",
+                "batayein", "batao", "thik", "theek", "samasya", "ji", "haan", "hoon", "rahi", "raha", "kijiye", "sakte", "sakti", "chahiye", "kaise", "kab", "kitna", "aur", "par", "lekin"}
+_DEVANAGARI = re.compile(r"[\u0900-\u097F]")
+_LATIN_WORDS = re.compile(r"\b[A-Za-z]{3,}\b")
 _SECRET_ASK = re.compile(
     r"(\botp\b|one[- ]?time (pass(word|code)|code)|\bcvv\b|\bpin\b|card number|credit card|debit card|password|passcode|"
     r"ओटीपी|\bओ\.?टी\.?पी\b|सीवीवी|पिन|कार्ड (का )?नंबर|पासवर्ड|ஓடிபி|ஒன் டைம்|பின் நம்பர்|கார்டு (எண்|நம்பர்)|பாஸ்வேர்ட்)", re.I)
@@ -58,6 +64,7 @@ You get: the case (company, problem, what the customer wants, facts the customer
 and what the agent just said. Reply with ONE short spoken turn (one or two short sentences, in reply_language, which is the language the agent used in the LAST message (en-IN, hi-IN, ta-IN, or hinglish = Hindi mixed with English); keep the language you were given if the agent said nothing clear; Hindi in Devanagari,
 Tamil in Tamil script, hinglish = Hindi in English letters).
 Rules:
+0. Language and script: reply_language is hinglish ONLY when language_setting is hinglish. If the agent speaks Hindi (in Devanagari OR in English letters, the speech-to-text may write it either way) and language_setting is not hinglish, reply_language is hi-IN and say MUST be written in Devanagari script (numbers may stay as digits, company names may stay in English letters). For hinglish write Hindi in English letters.
 1. Use only the facts in details_known. Never invent an order number, name, address, phone number or amount. If the agent asks for a fact you do not have, set action need_user.
 2. Never give or ask for a card number, CVV, PIN, password or OTP. If the agent asks, politely say the customer will handle it, action continue.
 3. State the problem and the wanted outcome plainly and ask for a clear next step (refund, replacement, ticket number, timeline). Ask for a ticket or reference number before the call ends.
@@ -77,6 +84,11 @@ class CallConversation:
     last_action: str = "continue"
     last_digits: str = ""
     streamed: bool = False
+    _heard_language: str | None = None
+    setting: str = ""              # the language the call was set up with (never changes); "" = same as `language` at the start
+
+    def __post_init__(self) -> None:
+        self.setting = self.setting or self.language
 
     @property
     def company(self) -> str:
@@ -97,7 +109,7 @@ class CallConversation:
             nonlocal blocked
             if blocked or st.action in (None, "press_digits"):
                 return
-            safe = scrub({"t": sentence})[0]["t"].strip()
+            safe = self._in_script(scrub({"t": sentence})[0]["t"].strip())
             if not safe or (_SECRET_ASK.search(safe) and not _is_refusal(safe)):
                 blocked = True                                  # never say a secret; stop speaking this turn
                 return
@@ -107,7 +119,7 @@ class CallConversation:
         for piece in self.llm.stream_json(system=SYSTEM_PROMPT, user=user, schema=schema):
             sentences = st.feed(piece)
             if st.language in DISCLOSURE:
-                self.language = st.language                      # known before the first word of `say`, so the voice can switch in time
+                self.language = self._settle_language(st.language)      # known before the first word of `say`, so the voice can switch in time
             for sentence in sentences:
                 if st.action is None:
                     held.append(sentence)                       # the AI wrote say before action: keep it until we know the action
@@ -120,6 +132,39 @@ class CallConversation:
         for h in held:
             emit(h)
         return st.full_json()
+
+    @staticmethod
+    def detect_language(text: str) -> str | None:
+        """What the AGENT's words are, by their script or common words (more reliable than asking the AI): hi-IN, ta-IN, or None (unclear)."""
+        if _TAMIL.search(text):
+            return "ta-IN"
+        if _DEVANAGARI.search(text):
+            return "hi-IN"
+        words = re.findall(r"[a-z]+", text.lower())
+        if sum(w in _ROMAN_HINDI for w in words) >= 2 and sum(w in _ROMAN_HINDI for w in words) >= len(words) * 0.15:
+            return "hi-IN"
+        return None
+
+    def _settle_language(self, said: str) -> str:
+        if self._heard_language:                                  # decided by the agent's words in code: the AI cannot flip it back
+            return self._heard_language
+        """Roman-letter Hindi is "hinglish" only when the call was SET UP as hinglish; otherwise it is Hindi and is answered in Devanagari."""
+        if said == "hinglish" and self.setting != "hinglish":
+            return "hi-IN"
+        return said
+
+    def _in_script(self, text: str) -> str:
+        """If we are speaking Hindi (hi-IN) the words must be in Devanagari. If the AI wrote Hindi in English letters, ask it once to rewrite
+        (a rare path: the prompt already asks for Devanagari). On any problem we keep the text we have."""
+        if self.language != "hi-IN" or not text or _DEVANAGARI.search(text) or len(_LATIN_WORDS.findall(text)) < 2:
+            return text
+        try:
+            raw = self.llm.complete_json(system="Rewrite the sentence in Devanagari Hindi. Keep digits and company names as they are. Output only JSON.",
+                                         user=text, schema={"type": "object", "properties": {"text": {"type": "string"}}, "required": ["text"]})
+            fixed = str(raw.get("text", "")).strip()
+            return fixed if _DEVANAGARI.search(fixed) else text
+        except Exception:  # noqa: BLE001
+            return text
 
     def _fixed(self, table: dict, action: str = "continue") -> str:
         text = table.get(self.language, table["en-IN"])
@@ -134,6 +179,11 @@ class CallConversation:
         self.streamed = False
         agent_said = agent_said.strip()
         self.history.append(("agent", agent_said))
+        self._heard_language = self.detect_language(agent_said)
+        if self._heard_language == "hi-IN" and self.setting == "hinglish":
+            self._heard_language = "hinglish"                        # a call set up as hinglish stays in English letters
+        if self._heard_language and self._heard_language != self.language:
+            self.language = self._heard_language                  # switch BEFORE thinking, so the voice and the AI's prompt already know
         if len([1 for who, _ in self.history if who == "ai"]) >= self.max_turns:
             self.ended = True
             return self._fixed(GOODBYE, "end_call")
@@ -143,6 +193,7 @@ class CallConversation:
                    "conversation": [{"who": w, "text": t} for w, t in self.history[-12:]], "agent_just_said": agent_said}
         import json
         payload["language"] = self.language
+        payload["language_setting"] = self.setting
         user = json.dumps(payload, ensure_ascii=False)
         schema = CallTurnOutput.model_json_schema()
         try:
@@ -157,8 +208,8 @@ class CallConversation:
                 return ""
             return self._fixed(NEED_USER, "need_user")
         if out.reply_language in DISCLOSURE:                     # the agent switched language: we follow
-            self.language = out.reply_language
-        say = scrub({"t": out.say})[0]["t"].strip()
+            self.language = self._settle_language(out.reply_language)
+        say = self._in_script(scrub({"t": out.say})[0]["t"].strip()) if not self.streamed else scrub({"t": out.say})[0]["t"].strip()
         if _SECRET_ASK.search(say) and not _is_refusal(say):       # the AI itself must not ask for or offer secrets
             return self._fixed(REFUSE_SECRET)
         if self.streamed:                                       # already spoken sentence by sentence (each one was checked before it left)

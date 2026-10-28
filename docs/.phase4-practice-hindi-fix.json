@@ -1,0 +1,56 @@
+[
+ {
+  "n": 9,
+  "name": "Agent speaks Hindi",
+  "ok": false,
+  "why": [
+   "P5: line 1 answered too late (17.8 s)",
+   "P5: line 2 answered too late (20.4 s)",
+   "P4: never answered in Hindi"
+  ],
+  "events": [
+   {
+    "n": 1,
+    "t": "19:40:57",
+    "kind": "info",
+    "text": "practice phone call connected (browser, phone-quality sound) (en-IN)",
+    "at": 1.0
+   },
+   {
+    "n": 2,
+    "t": "19:40:57",
+    "kind": "spoke",
+    "text": "Hello. I am an AI assistant calling on behalf of a customer about Swiggy. May I explain the problem?",
+    "at": 1.0
+   },
+   {
+    "n": 3,
+    "t": "19:41:25",
+    "kind": "heard",
+    "text": "Namaste, main priya bol rahi hoon Swiggy se. Bataie kya samasya hai?",
+    "at": 29.5
+   },
+   {
+    "n": 4,
+    "t": "19:41:27",
+    "kind": "spoke",
+    "text": "The order #4839201 arrived cold and the customer was not given a refund; we would like a refund and a reference number for this request.",
+    "at": 30.5
+   },
+   {
+    "n": 5,
+    "t": "19:41:52",
+    "kind": "heard",
+    "text": "Thik hai, kya aap order number bata sakte hain?",
+    "at": 55.5
+   },
+   {
+    "n": 6,
+    "t": "19:41:53",
+    "kind": "spoke",
+    "text": "The order number is 4839201.",
+    "at": 56.5
+   }
+  ]
+ }
+]

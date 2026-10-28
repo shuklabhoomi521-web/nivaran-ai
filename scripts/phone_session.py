@@ -4,6 +4,7 @@
   python scripts/phone_session.py status   # what is running
   python scripts/phone_session.py call     # place the test call (add --say for a line test: the phone just speaks one sentence) (needs `start` first; rings the allowed number from .env)
   python scripts/phone_session.py stop     # close the tunnel and the server
+  python scripts/phone_session.py report   # after a call: what Twilio says and what our side saw
   python scripts/phone_session.py check    # can this network carry a tunnel? (10 seconds, no call)
 
 Safety: the call only goes to the number in PHONE_ALLOWED_NUMBERS (one number), the AI says it is an AI first, and you can hang up from
@@ -51,6 +52,7 @@ def start() -> None:
     url, tunnel = None, None
     for attempt in range(1, 9):                       # this network resets connections now and then: try again a few times
         log = Path("/tmp/nivaran_tunnel.log")
+        archive = Path(f"/tmp/nivaran_tunnel_{time.strftime('%H%M%S')}_try{attempt}.log")      # every try keeps its own log (the evidence is not overwritten)
         tunnel = subprocess.Popen(["cloudflared", "tunnel", "--no-autoupdate", "--protocol", "http2", "--edge-ip-version", "4", "--url", LOCAL],
                                   stdout=open(log, "w"), stderr=subprocess.STDOUT, start_new_session=True)
         for _ in range(40):
@@ -64,6 +66,7 @@ def start() -> None:
                 break
         if url:
             break
+        archive.write_text(log.read_text())
         print(f"tunnel attempt {attempt} failed, trying again...", flush=True)
         try:
             os.killpg(os.getpgid(tunnel.pid), signal.SIGTERM)
@@ -146,6 +149,23 @@ def check() -> None:
     print("This network CAN carry the call." if ok else f"This network can NOT carry the tunnel ({why}). Switch network and run `check` again.")
 
 
+def report() -> None:
+    """After a call: what Twilio says happened and what OUR side saw (so a call that ends early can be explained)."""
+    import os as _os
+    sid, tok = _os.getenv("TWILIO_ACCOUNT_SID", ""), _os.getenv("TWILIO_AUTH_TOKEN", "")
+    c = httpx.get(f"https://api.twilio.com/2010-04-01/Accounts/{sid}/Calls.json?PageSize=1", auth=(sid, tok), timeout=20).json()["calls"][0]
+    print(f"Twilio says: status={c['status']}, duration={c['duration']} s, started {c['start_time']}")
+    try:
+        ev = httpx.get(f"{LOCAL}/voice/events", params={"since": 0}, timeout=10).json()
+        for e in ev[-25:]:
+            print(f"  {e['t']}  {e['kind']:6} {e['text'][:110]}")
+    except Exception as e:  # noqa: BLE001
+        print("our server is not running:", type(e).__name__)
+    seen = "Twilio asked our server" in json.dumps(ev if 'ev' in dir() else "")
+    print("\nHow to read this: instructions requested but no 'opened the audio connection' = Twilio never connected the stream (or hung up first);\n"
+          "connection opened then closed within seconds = the bot or the line closed it; no instructions at all = Twilio could not reach our tunnel.")
+
+
 def stop() -> None:
     s = _state()
     for key in ("tunnel_pid", "server_pid"):
@@ -162,4 +182,4 @@ def stop() -> None:
 
 
 if __name__ == "__main__":
-    {"start": start, "status": status, "call": call, "stop": stop, "check": check}.get(sys.argv[1] if len(sys.argv) > 1 else "", lambda: print(__doc__))()
+    {"start": start, "status": status, "call": call, "stop": stop, "check": check, "report": report}.get(sys.argv[1] if len(sys.argv) > 1 else "", lambda: print(__doc__))()
