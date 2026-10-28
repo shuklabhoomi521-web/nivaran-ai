@@ -4,8 +4,8 @@ Real public clips already cover Hindi and Tamil (Google FLEURS) but not Indian-a
 
 | Folder (already exists) | File names to use |
 |---|---|
-| `~/nivaran/speech_test/recordings/english/` | `english-01.m4a`, `english-02.m4a`, `english-03.m4a`, `english-04.m4a`, `english-05.m4a` |
-| `~/nivaran/speech_test/recordings/hinglish/` | `hinglish-01.m4a`, `hinglish-02.m4a`, `hinglish-03.m4a`, `hinglish-04.m4a`, `hinglish-05.m4a` |
+| `./speech_test/recordings/english/` | `english-01.m4a`, `english-02.m4a`, `english-03.m4a`, `english-04.m4a`, `english-05.m4a` |
+| `./speech_test/recordings/hinglish/` | `hinglish-01.m4a`, `hinglish-02.m4a`, `hinglish-03.m4a`, `hinglish-04.m4a`, `hinglish-05.m4a` |
 
 - Speak in your natural Indian accent, at your normal speed.
 - Clip **05** in each folder is the one **with background noise** (TV, fan, street). Clips 01-04 in a quiet room.
@@ -27,7 +27,7 @@ You record **5 short clips in each of 4 languages (20 clips)**. These count 70% 
 4. Save each clip with the **exact file name** shown below (QuickTime saves `.m4a`; that is fine; `.wav` and `.mp3` also work).
 5. Put the files in the folder for that language.
 
-**Where to save:** `~/nivaran/speech_test/recordings/<language>/`
+**Where to save:** `./speech_test/recordings/<language>/`
 
 The folders already exist: `english`, `hindi`, `tamil`, `hinglish`. These files are never uploaded to GitHub (they are in `.gitignore`).
 

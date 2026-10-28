@@ -2,7 +2,7 @@
 
 Last updated: 2026-10-27
 
-## Waiting for you
+1. **GitHub Support message for the OLD private repo (now optional).** The public repo is a new one (Step 3c), so cached recordings in the old repo no longer matter if it stays private. The draft was removed from the repo; ask me if you still want it.
 1. **Send the GitHub Support message** (text in `docs/archive/github-support-request.md`). It asks GitHub to clean up old cached files after the recordings purge. Do not create a new repo.
 2. **Exotel reply.** Tell me when Exotel answers about KYC with a Udyam registration (needed before Phase 5 real company calls). I record it in `docs/TODO-research.md`.
 3. **The first real Twilio phone call (skipped for now, your decision on 2026-10-27).** When you want it:
