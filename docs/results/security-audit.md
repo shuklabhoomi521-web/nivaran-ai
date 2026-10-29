@@ -14,7 +14,7 @@ Scope: all 68 commits on all branches and tags, before making anything public. M
 | Email addresses | Public company grievance emails from the directory, plus the commit author (below). |
 
 ## Found and fixed in this commit
-- `speech_test/README.md` contained the founder's local folder path (`/Users/…`): replaced with relative paths.
+- `speech_test/README.md` contained the founder's local folder path (a home-folder path): replaced with relative paths.
 - `docs/archive/github-support-request.md` (internal note with the old repo name and hashes of purged files) removed from the tree.
 
 ## Still true after the fix (needs a founder decision)
