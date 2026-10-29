@@ -26,7 +26,7 @@ Tests that call the real LLM carry the `live_api` marker and run only on request
 4. Tests for everything. Tests that call the real LLM carry the `live_api` marker and run only on request (`pytest -m live_api`).
 5. Explain new concepts in one simple line.
 6. Secrets only in `.env`. Never in code, logs, or git.
-7. Git/GitHub handled by Claude: clean commits, push after each working step, tag `phase-N-done`, private repo `nivaran`. Never force-push, never delete the repo.
+7. Git/GitHub handled by Claude: clean commits, push after each working step, tag `phase-N-done`. Public repo: `shuklabhoomi521-web/nivaran-ai` (the older repo `nivaran` stays private and is not used). Never force-push or delete a repo without asking the founder first.
 8. End of phase: check each "Done when" (done/partly/missing + proof), list 3 weakest parts, write `docs/notes/phase-N.md`, suggest a 30s demo clip, update this file, commit, tag, push, STOP.
 9. Ask the founder only for: account sign-ups and keys, payment/KYC, phone permissions, OK before each real company call.
 10. Design for the future, build for now.
@@ -42,8 +42,14 @@ Tests that call the real LLM carry the `live_api` marker and run only on request
 - Reading emails/SMS/apps is read-only. Never buy, pay, cancel or change anything. Show findings, wait for yes.
 
 ## Run
+Needs Python 3.12. The free tests need no keys.
 ```
-source .venv/bin/activate
-cd backend && uvicorn app.main:app --reload
-cd backend && python -m pytest
+python3.12 -m venv .venv && source .venv/bin/activate
+pip install -r backend/requirements.txt
+cd backend && python -m pytest -q            # 417 pass, 5 skipped, 30 live_api deselected
+cd backend && python -m app.voice.server     # voice bot: http://localhost:7861/voice (needs GROQ_API_KEY, GEMINI_API_KEY in .env)
+cd backend && uvicorn app.main:app           # text chat: http://127.0.0.1:8000/chat
+python scripts/phone_session.py check        # phone test tunnel (only when the founder asks for a call)
 ```
+Keys go only in `.env` (copy `.env.example`). Read `README.md` (status, results), `docs/WRITEUP.md`, `docs/notes/phase-*.md` and `docs/FOUNDER-TODO.md` first.
+Open items: the real Twilio call (Phase 4 partial); Phase 5 only when the founder says so.
