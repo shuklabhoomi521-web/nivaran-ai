@@ -3,7 +3,7 @@
 **Current phase: 4 DONE AS PARTIAL (tag phase-4-done, founder's choice 2026-10-28): phone layer, call brain and browser practice mode built, 9 of 10 practice calls handled well; the REAL Twilio phone call is still missing (docs/notes/phase-4.md, docs/FOUNDER-TODO.md). Next: Phase 5 only when the founder says so. Phases 0-3 tagged done.**
 
 Founder: ECE student. Explain in simple words, short sentences. One line for each hard term.
-Full plan: `docs/PLAN.md` (the master prompt). Follow it.
+Full plan: `docs/PLAN.md` (the master prompt). Follow it. New here? Read `docs/REVIEW-BRIEF.md` first.
 
 ## What Nivaran is
 One app that handles any company's customer care for the user. User states the problem once, in their language. The app finds the official contact, calls or emails, and escalates until solved.
@@ -46,7 +46,7 @@ Needs Python 3.12. The free tests need no keys.
 ```
 python3.12 -m venv .venv && source .venv/bin/activate
 pip install -r backend/requirements.txt
-cd backend && python -m pytest -q            # 417 pass, 5 skipped, 30 live_api deselected
+cd backend && python -m pytest -q            # 418 pass, 5 skipped, 30 live_api deselected
 cd backend && python -m app.voice.server     # voice bot: http://localhost:7861/voice (needs GROQ_API_KEY, GEMINI_API_KEY in .env)
 cd backend && uvicorn app.main:app           # text chat: http://127.0.0.1:8000/chat
 python scripts/phone_session.py check        # phone test tunnel (only when the founder asks for a call)
