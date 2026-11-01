@@ -20,6 +20,11 @@
 
 > **Honest status in one line:** the brain, the verified directory, the voice assistant (4 languages) and the phone-call logic work and are tested. **No real company has been called yet**, and the one real Twilio phone call we tried did not complete (see [Status](#status)).
 
+## About the builder
+
+**Bhoomi Shukla**, B.Tech in Electronics and Communication Engineering (ECE), SRM Institute of Science and Technology. I designed, built and tested Nivaran myself, phase by phase, with an AI coding assistant (Claude Code) for pair-programming.
+Email: [shuklabhoomi521@gmail.com](mailto:shuklabhoomi521@gmail.com) · LinkedIn: [bhoomi-shukla](https://www.linkedin.com/in/bhoomi-shukla-3327b6340)
+
 ---
 
 ## Status
