@@ -4,13 +4,17 @@
 [![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 ![python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)
 
-**An AI customer-care agent for India: you state a problem once, in your own language, and it finds the company's official contact and handles the call for you.** (*Nivaran* means "solution" in Hindi.)
+**An AI customer-care agent for India: you state a problem once, in your own language, and it finds the company's official contact and is built to handle the call for you.** (*Nivaran* means "solution" in Hindi.)
 
 **The problem.** Getting a refund or a fix from an Indian company means hunting for the right helpline, waiting on hold, repeating yourself in a language the agent may not speak, and starting over when nobody follows up. Many big apps (Swiggy, Zomato, Zepto) officially have no customer phone line at all, so the right move is a verified grievance email, not a call. People give up or get scammed by fake "customer care" numbers found on web search.
 
 **The idea.** One agent that understands the problem in English, Hindi, Tamil or Hinglish, looks the company up in a **verified directory** (never in web search), picks the real channel, speaks for you on a call, and never touches your OTP, PIN or card.
 
 ![Practice-call demo: menu keys, hold music, refusing an OTP](docs/demo/practice-call.gif)
+
+**Demo videos** (v0.4 release, [all files](https://github.com/shuklabhoomi521-web/nivaran-ai/releases/tag/v0.4)):
+- [Voice assistant, 54 s](https://github.com/shuklabhoomi521-web/nivaran-ai/releases/download/v0.4/01_phase3_voice_demo_swiggy_hinglish.mp4): a Swiggy refund problem in English, then Hindi; the spoken card number is removed before the AI sees it.
+- [Practice phone call, 3 min 49 s](https://github.com/shuklabhoomi521-web/nivaran-ai/releases/download/v0.4/02_phase4_phone_call_practice_swiggy_agent.mp4): the AI calls, says it is an AI, presses a menu key, waits on hold and refuses an OTP. A person plays the Swiggy agent; it is not a real company.
 
 *The GIF is a replay of real logs from our recorded practice calls (a computer voice plays the company agent, in the browser, with phone-quality sound). It is not a call to a real company.*
 
@@ -74,9 +78,9 @@ Everything outside the core sits behind small interfaces (`app/speech/`, `app/br
 | **Understanding**: 30 test problems (English, Hindi, Tamil, Hinglish; company, category, goal, facts copied exactly) | **28/30 (93%)** strict full re-run; 30/30 under the later meaning-based rule on the same answers | [history](docs/results/baseline-history.md) | Set is small and mostly written by us. The meaning-based rule was relaxed *after* seeing the two misses (approved, but note it). Same prompt can flip a problem between runs. |
 | **Directory** | **40 companies**, 10 categories; every contact has an official source link, a quote and a checked-on date. 25/25 problems that name a company get a verified contact. | [checks](docs/results/phase2-contact-check.md) | Only 10 of 63 phone numbers are confirmed on two official pages; the rest are one official source. Real helplines change, so this goes stale. |
 | **Speech-to-text, 4 new clips never used for tuning** (12 variants: clean, 8 dB street noise, phone line) | Word error: **Sarvam 0.05**, Gemini 0.42, local Whisper-Hindi2Hinglish 0.45, Groq Whisper 0.51 | [holdout](docs/results/holdout-result.md) | 4 clips, one speaker, artificial noise. Roman-vs-Devanagari spelling inflates the Hindi scores of Gemini and the local model. |
-| **Phone calls**, 10 practice calls (rules written before running) | **9 of 10 handled well**; keypad menus passed every time; refused OTP and card requests every time | [results](docs/results/phase4-practice-results.md) | A computer voice plays the agent, in the browser. Zero real phone calls. The failing call (Hindi) was a speed miss with the slow free local model. |
+| **Phone calls**, 10 practice calls (rules written before running) | **9 of 10 handled well**; keypad menus passed every time; refused OTP and card requests every time | [results](docs/results/phase4-practice-results.md) | A computer voice plays the agent, in the browser. Zero real phone calls. The one failed call (Hindi) failed on speed: the language bug was fixed (the latest run answered in Devanagari), but the reply came 12.4 s late (rule P5) because the free local Hindi model is slow. |
 | **Reply speed** | 2-4 s after the other person stops talking (brain 0.5-1.5 s) | [Phase 3 notes](docs/notes/phase-3.md) | Goal was 1.5 s: **not met**. Free tiers can be slow. |
-| **Safety tests** | 16 redaction tests, 31 secret/OTP/card/PIN tests, AI disclosure tests in 4 languages; 422 free tests run on every push (CI) | [tests](backend/tests) | Tests prove the rules in code, not that every real-world phrasing is caught. |
+| **Safety tests** | 16 redaction tests, 31 secret/OTP/card/PIN tests, AI disclosure tests in 4 languages; 423 free tests (418 on a fresh install) run on every push (CI) | [tests](backend/tests) | Tests prove the rules in code, not that every real-world phrasing is caught. |
 
 ## Safety and ethics
 

@@ -46,7 +46,7 @@ Needs Python 3.12. The free tests need no keys.
 ```
 python3.12 -m venv .venv && source .venv/bin/activate
 pip install -r backend/requirements.txt
-cd backend && python -m pytest -q            # 418 pass, 5 skipped, 30 live_api deselected
+cd backend && python -m pytest -q            # 423 free tests (418 on a fresh install); 30 live_api tests off by default
 cd backend && python -m app.voice.server     # voice bot: http://localhost:7861/voice (needs GROQ_API_KEY, GEMINI_API_KEY in .env)
 cd backend && uvicorn app.main:app           # text chat: http://127.0.0.1:8000/chat
 python scripts/phone_session.py check        # phone test tunnel (only when the founder asks for a call)

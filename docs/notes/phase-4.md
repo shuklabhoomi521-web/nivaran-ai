@@ -21,7 +21,7 @@
 ## 3 weakest parts
 1. **No real call yet.** Unknown why Twilio dropped the answered calls; the line test (`phone_session.py call --say`) is built to tell a Twilio problem from a streaming problem, but needs a network that holds a tunnel. Next: line test, then the real call; check Twilio's error log.
 2. **Speed and hearing.** 2-4 s per answer at best (English, Groq); Hindi/Hinglish need the slow local model or paid Sarvam (about Rs 22 left, paused below Rs 15); the first menu option was once missed by speech-to-text.
-3. **Hindi script and test realism.** The AI answers Hindi in English letters when the hearing model writes it that way; all practice agents were computer voices in quiet rooms.
+3. **Hindi call and test realism.** The Hindi practice call still fails, on speed (12.4 s late, rule P5, free local model). The earlier English-letters bug was fixed in code (the latest run answered in Devanagari); all practice agents were computer voices in quiet rooms.
 
 ## Demo clip (30 seconds)
 Open `/phone/browser`, you play the agent: the AI introduces itself as an AI assistant, you read a menu and it presses the right key (you hear the tone), you say "please hold" and stay silent (it waits), you ask for the OTP (it refuses), you give a ticket number (it says goodbye and hangs up).
