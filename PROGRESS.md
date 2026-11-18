@@ -11,6 +11,8 @@ Plan and day-by-day calendar live outside the repo in `~/nivaran-plan` (PLAN.md,
 
 - 19 Nov: `TelerPhone` provider (initiate, DTMF, hang up, allow-list) written from the public docs with 5 tests against a fake server (428 free tests pass). Not tested against the real Teler: FreJun's platform was unreachable (connection reset) and an email is out to their support.
 
+- 19 Nov: read the TRAI Gazette text (scanned, read with OCR): A2P is defined by how the call is started, so our calls count technically; declaration goes through the provider. Wrote `docs/notes/dpdp-basics.md` (core duties from about May 2027; we design to them now).
+
 ## Next
 - Day 1 rest: founder makes FreJun Teler, GitHub Student Pack and Bhashini accounts. 19 Nov: tests, TRAI rules, map Teler to the phone layer. 20-22 Nov: phone first, incl. the real test call on your own number (21 Nov).
 
