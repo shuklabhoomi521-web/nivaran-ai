@@ -15,6 +15,8 @@ Plan and day-by-day calendar live outside the repo in `~/nivaran-plan` (PLAN.md,
 
 - 19 Nov: applied to Peakflo (ML Engineer Intern, paid remote) through the YC form with a tailored resume (`resume_peakflo.pdf`). Founder pressed Submit.
 
+- 19 Nov: applied to Lexsi Labs (AI Agent Engineer Intern) via their portal; emailed SuperKalam at join@superkalam.com (the address their YC page invites); Peakflo applied earlier.
+
 ## Next
 - Day 1 rest: founder makes FreJun Teler, GitHub Student Pack and Bhashini accounts. 19 Nov: tests, TRAI rules, map Teler to the phone layer. 20-22 Nov: phone first, incl. the real test call on your own number (21 Nov).
 
