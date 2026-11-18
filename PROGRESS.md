@@ -4,10 +4,12 @@ Plan and day-by-day calendar live outside the repo in `~/nivaran-plan` (PLAN.md,
 
 ## Done
 - Phases 0-4 (Phase 4 partial: no real phone call). Public repo, CI, README, WRITEUP, REVIEW-BRIEF, release v0.4 with demo videos.
-- Outreach: 20 emails sent 2026-11-01 (see ~/nivaran-outreach/tracker.csv).
+- Outreach: 20 emails 1 Nov, 16 follow-ups and 15 new companies 16 Nov, 4 new companies 18 Nov (see ~/nivaran-outreach/tracker.csv).
+- 18 Nov (Day 1): Groq and Gemini keys checked (both work). Phone vendors: MyOperator declined; FreJun says free Teler test credits exist (Sales to say if an individual can verify); Exotel Sales pending.
 
 ## Next
-- C0 Day 1: free accounts (GitHub Student Pack, Bhashini key), see ~/nivaran-plan/CALENDAR.md.
+- Day 1 rest: founder makes FreJun Teler, GitHub Student Pack and Bhashini accounts. 19 Nov: tests, TRAI rules, map Teler to the phone layer. 20-22 Nov: phone first, incl. the real test call on your own number (21 Nov).
 
 ## Blocked / waiting
-- Exam dates to confirm (exams.txt). Follow-up and new outreach emails wait for the founder's OK.
+- FreJun Sales answer on individual verification; Exotel Sales reply.
+- Progress-update emails to all mailed companies wait for the real call result (about 23 Nov).
