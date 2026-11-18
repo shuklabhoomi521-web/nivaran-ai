@@ -25,3 +25,9 @@ Last updated: 2026-10-27
 - Free tools first. Local free speech model (`STT_PROVIDER=local`) for development; Groq's free Whisper for English practice calls; Sarvam only for real calls and the final demo.
 - Shruti (needs a third-party engine program): skipped.
 - The first real call to be placed only when you say so.
+
+## Open (added 2026-11-19)
+- [ ] Register for a Bhashini key at https://bhashini.gov.in (site said "server busy" on 19 Nov; retry 20 Nov). Put the key only in `.env`.
+- [ ] FreJun Teler account: sign-in failed because their server was down (support emailed 19 Nov). Retry after they reply.
+- [ ] Optional: GitHub Student Developer Pack at https://education.github.com/pack
+- [ ] Peakflo ML Intern application (YC Work at a Startup), text in `~/nivaran-outreach/apply_by_hand_texts.md`
