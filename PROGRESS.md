@@ -7,7 +7,9 @@ Plan and day-by-day calendar live outside the repo in `~/nivaran-plan` (PLAN.md,
 - Outreach: 20 emails 1 Nov, 16 follow-ups and 15 new companies 16 Nov, 4 new companies 18 Nov (see ~/nivaran-outreach/tracker.csv).
 - 18 Nov (Day 1): Groq and Gemini keys checked (both work). Phone vendors: MyOperator declined; FreJun says free Teler test credits exist (Sales to say if an individual can verify); Exotel Sales pending.
 
-- 19 Nov (Day 2): 423 tests pass. Read Teler docs and TRAI summaries: `docs/notes/phone-teler-and-trai.md` (mapping, open questions, rules). Founder created a FreJun account (email code worked; the welcome form crashes with a JavaScript error, dashboard not yet confirmed).
+- 19 Nov (Day 2): Read Teler docs and TRAI summaries: `docs/notes/phone-teler-and-trai.md` (mapping, open questions, rules). Founder created a FreJun account (email code worked; the welcome form crashes with a JavaScript error, dashboard not yet confirmed).
+
+- 19 Nov: `TelerPhone` provider (initiate, DTMF, hang up, allow-list) written from the public docs with 5 tests against a fake server (428 free tests pass). Not tested against the real Teler: FreJun's platform was unreachable (connection reset) and an email is out to their support.
 
 ## Next
 - Day 1 rest: founder makes FreJun Teler, GitHub Student Pack and Bhashini accounts. 19 Nov: tests, TRAI rules, map Teler to the phone layer. 20-22 Nov: phone first, incl. the real test call on your own number (21 Nov).
