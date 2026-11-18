@@ -13,6 +13,8 @@ Plan and day-by-day calendar live outside the repo in `~/nivaran-plan` (PLAN.md,
 
 - 19 Nov: read the TRAI Gazette text (scanned, read with OCR): A2P is defined by how the call is started, so our calls count technically; declaration goes through the provider. Wrote `docs/notes/dpdp-basics.md` (core duties from about May 2027; we design to them now).
 
+- 19 Nov: applied to Peakflo (ML Engineer Intern, paid remote) through the YC form with a tailored resume (`resume_peakflo.pdf`). Founder pressed Submit.
+
 ## Next
 - Day 1 rest: founder makes FreJun Teler, GitHub Student Pack and Bhashini accounts. 19 Nov: tests, TRAI rules, map Teler to the phone layer. 20-22 Nov: phone first, incl. the real test call on your own number (21 Nov).
 
