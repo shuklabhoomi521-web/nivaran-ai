@@ -23,6 +23,7 @@ def _today() -> date:
 
 class CreateRequest(BaseModel):
     case: Case                     # what the AI understood and the user confirmed
+    user_name: str | None = None   # signs the letters the user approves
 
 
 class NextResponse(BaseModel):
@@ -33,7 +34,7 @@ class NextResponse(BaseModel):
 @router.post("", response_model=TrackedCase)
 def create(req: CreateRequest, store: CaseStore = Depends(get_store)):
     try:
-        case = engine.new_case(req.case, _today())
+        case = engine.new_case(req.case, _today(), user_name=req.user_name)
     except engine.CaseError as e:
         raise HTTPException(status_code=422, detail=str(e))
     if find_company(case.company) is None:

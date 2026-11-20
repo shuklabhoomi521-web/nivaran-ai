@@ -34,3 +34,6 @@ speech_test/holdout/*.m4a
 .cases.json
 .cases.tmp
 backend/.cases.json
+.drafts.json
+.drafts.tmp
+backend/.drafts.json

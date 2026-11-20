@@ -27,6 +27,8 @@ Plan and day-by-day calendar live outside the repo in `~/nivaran-plan` (PLAN.md,
 
 - 21 Nov (Sprint D3 work done early): case engine built: states, day 0/3/7/15 ladder, next action from the verified directory, JSON store, API, 11 tests (`docs/notes/case-engine.md`). 482 free tests pass.
 
+- 21 Nov: letter writer and send-with-approval built (templates only, no AI; approval hash; directory-only recipients; card/PIN block; fake SMTP tests; `docs/notes/letter-writer.md`). FreJun email asking for a reset link and a sandbox key sent. 492 free tests pass.
+
 ## Next
 - Day 1 rest: founder makes FreJun Teler, GitHub Student Pack and Bhashini accounts. 19 Nov: tests, TRAI rules, map Teler to the phone layer. 20-22 Nov: phone first, incl. the real test call on your own number (21 Nov).
 

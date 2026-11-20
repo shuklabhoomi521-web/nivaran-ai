@@ -55,6 +55,7 @@ class TrackedCase(Strict):
     category: Category
     problem_summary: str
     user_goal: UserGoal
+    user_name: str | None = None                        # used only to sign letters the user approves
     facts: list[Fact] = Field(default_factory=list)     # only facts the user gave: letters may use nothing else
     created_on: date
     state: CaseState = CaseState.new
