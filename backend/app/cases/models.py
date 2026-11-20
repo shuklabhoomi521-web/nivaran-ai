@@ -47,6 +47,7 @@ class Event(Strict):
     channel: str | None = None         # "email", "call", "portal", "chat"
     text: str = ""                     # short note: what was sent, what they said, the docket number
     docket: str | None = None          # a complaint or docket number, if one was given
+    source_id: str | None = None       # for replies read from the inbox: the email's Message-ID, so it is never recorded twice
 
 
 class TrackedCase(Strict):
