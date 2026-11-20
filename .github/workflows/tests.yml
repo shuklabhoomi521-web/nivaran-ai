@@ -22,3 +22,20 @@ jobs:
       - name: Run the free tests
         working-directory: backend
         run: python -m pytest -q
+
+  mobile-tests:
+    # The mobile app: type check and unit tests. No phone, no network.
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mobile
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: mobile/package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - run: npx tsc --noEmit
+      - run: npx jest --ci

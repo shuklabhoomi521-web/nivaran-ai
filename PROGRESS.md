@@ -33,6 +33,8 @@ Plan and day-by-day calendar live outside the repo in `~/nivaran-plan` (PLAN.md,
 
 - 21 Nov: portal kits built (steps with exact official quotes or labelled as ours, complaint text, checklist, warnings, needs-check list; `docs/notes/portal-kits.md`). e-Daakhil replaced by e-Jagriti (unverified). 505 free tests pass.
 
+- 21 Nov: mobile app first version built in `mobile/` (Expo SDK 58, TypeScript): cases list, new case, case screen with ladder, letter approve-and-send, portal kit, reply check, delete. Type check clean, 14 jest tests, iOS bundle builds; CI job added. Not run on a real phone yet. FreJun answered: call their support (+91 8035 301 939) for account help.
+
 ## Next
 - Day 1 rest: founder makes FreJun Teler, GitHub Student Pack and Bhashini accounts. 19 Nov: tests, TRAI rules, map Teler to the phone layer. 20-22 Nov: phone first, incl. the real test call on your own number (21 Nov).
 

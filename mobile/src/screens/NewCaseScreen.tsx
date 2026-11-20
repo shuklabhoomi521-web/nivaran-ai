@@ -1,0 +1,77 @@
+import React, { useState } from 'react';
+import { ScrollView, Text, TextInput, View } from 'react-native';
+import type { Api } from '../api';
+import { GOAL_LABEL, categoryLabel } from '../format';
+import { s } from '../theme';
+import type { UnderstandResponse } from '../types';
+import { Button, Card, ErrorText } from '../ui';
+
+export default function NewCaseScreen({ api, onBack, onCreated }: { api: Api; onBack: () => void; onCreated: (id: string) => void }) {
+  const [text, setText] = useState('');
+  const [name, setName] = useState('');
+  const [company, setCompany] = useState('');
+  const [result, setResult] = useState<UnderstandResponse | null>(null);
+  const [err, setErr] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+
+  async function understand() {
+    setBusy(true); setErr(null);
+    try {
+      const r = await api.understand(text.trim());
+      setResult(r);
+      setCompany(r.case.company ?? '');
+    } catch (e) {
+      setErr((e as Error).message);
+    } finally { setBusy(false); }
+  }
+
+  async function create() {
+    if (!result) return;
+    setBusy(true); setErr(null);
+    try {
+      const t = await api.createCase({ ...result.case, company: company.trim() || null }, name.trim() || null);
+      onCreated(t.id);
+    } catch (e) {
+      setErr((e as Error).message);
+    } finally { setBusy(false); }
+  }
+
+  return (
+    <View style={s.screen}>
+      <View style={s.header}>
+        <Button label="Back" kind="ghost" onPress={onBack} />
+        <Text style={s.title}>New case</Text>
+      </View>
+      <ScrollView contentContainerStyle={s.body} keyboardShouldPersistTaps="handled">
+        {!result ? (
+          <>
+            <Text style={s.text}>Tell us the problem once, in your own words and your own language.</Text>
+            <TextInput accessibilityLabel="Describe your problem" style={[s.input, s.area]} multiline value={text} onChangeText={setText}
+              placeholder="For example: my Swiggy order 4839201 arrived cold and I got no refund" />
+            <Text style={s.soft}>Do not type a card number, PIN, CVV or OTP. We remove them, and Nivaran never needs them.</Text>
+            <ErrorText message={err} />
+            <Button label="Understand my problem" onPress={understand} disabled={text.trim().length < 5} busy={busy} />
+          </>
+        ) : (
+          <>
+            {result.redacted.length > 0 && <Text style={s.soft}>Private data was removed before the AI read your text ({result.redacted.join(', ')}).</Text>}
+            <Card title="Is this right?">
+              <Text style={s.text}>{result.case.problem_summary}</Text>
+              <Text style={s.soft}>Category: {categoryLabel(result.case.category)} · You want: {GOAL_LABEL[result.case.user_goal] ?? result.case.user_goal}</Text>
+              {result.case.details_known.map((f) => <Text key={f.name} style={s.text}>• {f.name.replace(/_/g, ' ')}: {f.value}</Text>)}
+              {result.case.details_missing.length > 0 && <Text style={s.soft}>Still missing: {result.case.details_missing.join(', ')}</Text>}
+              {result.follow_up_question ? <Text style={s.text}>{result.follow_up_question}</Text> : null}
+            </Card>
+            <Text style={s.soft}>Company (we only write to companies in our verified list):</Text>
+            <TextInput accessibilityLabel="Company name" style={s.input} value={company} onChangeText={setCompany} placeholder="Company name" />
+            <Text style={s.soft}>Your name, used only to sign letters you approve:</Text>
+            <TextInput accessibilityLabel="Your name" style={s.input} value={name} onChangeText={setName} placeholder="Your name" />
+            <ErrorText message={err} />
+            <Button label="Create case" onPress={create} disabled={!company.trim()} busy={busy} />
+            <Button label="Change my text" kind="ghost" onPress={() => setResult(null)} />
+          </>
+        )}
+      </ScrollView>
+    </View>
+  );
+}
