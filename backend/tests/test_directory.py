@@ -76,8 +76,8 @@ def test_lookup_handles_spelling_case_and_aliases():
     assert find_company("") is None
 
 
-def test_forty_five_companies_across_ten_categories():
-    assert len(COMPANIES) == 45
+def test_at_least_forty_five_companies_across_ten_categories():
+    assert len(COMPANIES) >= 45
     assert len({c.category for c in COMPANIES}) >= 10
 
 

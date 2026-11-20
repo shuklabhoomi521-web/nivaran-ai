@@ -63,7 +63,7 @@ flowchart LR
     S3 --> G1
     S4 --> G1
     G1["Safety guard (in)<br/>card, OTP, PIN removed<br/>before any AI sees the text"] --> BR
-    BR["Brain<br/>Groq gpt-oss-120b, Gemini backup<br/>one AI call per turn, streamed"] <--> D[("Verified directory<br/>45 companies, official<br/>source link and quote each")]
+    BR["Brain<br/>Groq gpt-oss-120b, Gemini backup<br/>one AI call per turn, streamed"] <--> D[("Verified directory<br/>49 companies, official<br/>source link and quote each")]
     BR --> G2["Safety guard (out)<br/>never says or asks for secrets,<br/>fixed AI disclosure first"]
     G2 --> T{"Text to speech"}
     T --> T1["Sarvam"]
@@ -81,11 +81,11 @@ Everything outside the core sits behind small interfaces (`app/speech/`, `app/br
 | What was measured | Result | Where | Limit |
 |---|---|---|---|
 | **Understanding**: 30 test problems (English, Hindi, Tamil, Hinglish; company, category, goal, facts copied exactly) | **28/30 (93%)** strict full re-run; 30/30 under the later meaning-based rule on the same answers | [history](docs/results/baseline-history.md) | Set is small and mostly written by us. The meaning-based rule was relaxed *after* seeing the two misses (approved, but note it). Same prompt can flip a problem between runs. |
-| **Directory** | **45 companies** (40 hand-checked in Phase 2, 5 added in the 10-day sprint, see `docs/notes/directory-v2.md`), 10 categories; every contact has an official source link, a quote and a checked-on date. 25/25 problems that name a company get a verified contact. | [checks](docs/results/phase2-contact-check.md) | Only 10 of 63 phone numbers are confirmed on two official pages; the rest are one official source. Real helplines change, so this goes stale. |
+| **Directory** | **49 companies** (40 hand-checked in Phase 2, 9 added in the 10-day sprint, see `docs/notes/directory-v2.md`), 10 categories; every contact has an official source link, a quote and a checked-on date. 25/25 problems that name a company get a verified contact. | [checks](docs/results/phase2-contact-check.md) | Only 10 of 63 phone numbers are confirmed on two official pages; the rest are one official source. Real helplines change, so this goes stale. |
 | **Speech-to-text, 4 new clips never used for tuning** (12 variants: clean, 8 dB street noise, phone line) | Word error: **Sarvam 0.05**, Gemini 0.42, local Whisper-Hindi2Hinglish 0.45, Groq Whisper 0.51 | [holdout](docs/results/holdout-result.md) | 4 clips, one speaker, artificial noise. Roman-vs-Devanagari spelling inflates the Hindi scores of Gemini and the local model. |
 | **Phone calls**, 10 practice calls (rules written before running) | **9 of 10 handled well**; keypad menus passed every time; refused OTP and card requests every time | [results](docs/results/phase4-practice-results.md) | A computer voice plays the agent, in the browser. Zero real phone calls. The one failed call (Hindi) failed on speed: the language bug was fixed (the latest run answered in Devanagari), but the reply came 12.4 s late (rule P5) because the free local Hindi model is slow. |
 | **Reply speed** | 2-4 s after the other person stops talking (brain 0.5-1.5 s) | [Phase 3 notes](docs/notes/phase-3.md) | Goal was 1.5 s: **not met**. Free tiers can be slow. |
-| **Safety tests** | 16 redaction tests, 31 secret/OTP/card/PIN tests, AI disclosure tests in 4 languages; 456 free tests (451 on a fresh install) run on every push (CI) | [tests](backend/tests) | Tests prove the rules in code, not that every real-world phrasing is caught. |
+| **Safety tests** | 16 redaction tests, 31 secret/OTP/card/PIN tests, AI disclosure tests in 4 languages; 471 free tests (466 on a fresh install) run on every push (CI) | [tests](backend/tests) | Tests prove the rules in code, not that every real-world phrasing is caught. |
 
 ## Safety and ethics
 

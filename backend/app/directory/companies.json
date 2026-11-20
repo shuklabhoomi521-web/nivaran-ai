@@ -3348,5 +3348,321 @@
     "needs_check": [
       "CGRF and nodal officer details were not read; zone offices are linked on the contact page"
     ]
+  },
+  {
+    "name": "Canara Bank",
+    "aliases": [
+      "Canara"
+    ],
+    "category": "banking_upi",
+    "official_domains": [
+      "canarabank.bank.in",
+      "canarabank.com"
+    ],
+    "source_url": "https://www.canarabank.bank.in/contactus",
+    "checked_on": "2026-11-20",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "1800 1030",
+        "label": "Call centre toll free",
+        "hours": "24*7",
+        "role": "complaints",
+        "sources": [
+          {
+            "url": "https://www.canarabank.bank.in/contactus",
+            "kind": "website",
+            "quote": "Toll Free No. (24*7) 18001030",
+            "checked_on": "2026-11-20",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "hocss1@canarabank.com",
+        "label": "Customer related queries and complaints (head office)",
+        "hours": null,
+        "role": null,
+        "sources": [
+          {
+            "url": "https://www.canarabank.bank.in/contactus",
+            "kind": "website",
+            "quote": "E-mail : hocss1@canarabank.com",
+            "checked_on": "2026-11-20",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "grievance_officer": {
+      "name": "Sri T K Venugopal (Chief General Manager and Principal Nodal Officer)",
+      "email": null,
+      "phone": "08022239011",
+      "address": "Customer Service Vertical, Operations Wing, Head Office, 112 JC Road, Bengaluru 560002",
+      "sources": [
+        {
+          "url": "https://www.canarabank.bank.in/details-of-principal-nodal-officer-at-head-office",
+          "kind": "website",
+          "quote": "CHIEF GENERAL MANAGER & PRINCIPAL NODAL OFFICER",
+          "checked_on": "2026-11-20",
+          "machine_checked": false
+        }
+      ]
+    },
+    "appellate_authority": {
+      "name": "Shri S K Majumdar (Executive Director), Sub Appellate Authority",
+      "email": null,
+      "phone": null,
+      "address": null,
+      "sources": [
+        {
+          "url": "https://www.canarabank.bank.in/details-of-nodal-grievance-officer-sub-appellate-authority",
+          "kind": "website",
+          "quote": "SHRI S K MAJUMDAR",
+          "checked_on": "2026-11-20",
+          "machine_checked": false
+        }
+      ]
+    },
+    "working_hours": null,
+    "channel_notes": "Online complaint portal printed on the grievance pages: https://canarites.canarabank.bank.in/GRSCRM. Officer names change; re-check before relying on them.",
+    "official_no_phone": null,
+    "needs_check": [
+      "no email printed for the nodal officer or the sub appellate authority",
+      "general customer-care hours not printed beyond 24*7 on the toll-free line"
+    ]
+  },
+  {
+    "name": "ACT Fibernet",
+    "aliases": [
+      "ACT",
+      "Atria Convergence Technologies",
+      "ACT Broadband"
+    ],
+    "category": "telecom",
+    "official_domains": [
+      "actcorp.in"
+    ],
+    "source_url": "https://www.actcorp.in/contact-us/customer-care",
+    "checked_on": "2026-11-20",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "1800 1022 836",
+        "label": "Customer support, toll free",
+        "hours": "07:30 AM to 12:00 AM (all days)",
+        "role": "complaints",
+        "sources": [
+          {
+            "url": "https://www.actcorp.in/contact-us/customer-care",
+            "kind": "website",
+            "quote": "Toll Free: : 1800 1022 836",
+            "checked_on": "2026-11-20",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "+91 9945999459",
+        "label": "Customer support",
+        "hours": "07:30 AM to 12:00 AM (all days)",
+        "role": "complaints",
+        "sources": [
+          {
+            "url": "https://www.actcorp.in/contact-us/customer-care",
+            "kind": "website",
+            "quote": "+91 9945999459",
+            "checked_on": "2026-11-20",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "helpdesk@actcorp.in",
+        "label": "Customer support",
+        "hours": null,
+        "role": null,
+        "sources": [
+          {
+            "url": "https://www.actcorp.in/contact-us/customer-care",
+            "kind": "website",
+            "quote": "helpdesk@actcorp.in",
+            "checked_on": "2026-11-20",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "grievance_officer": {
+      "name": "Mrs. Mounika Yellamilli, Nodal Officer",
+      "email": "Nodalofficer@actcorp.in",
+      "phone": null,
+      "address": null,
+      "sources": [
+        {
+          "url": "https://www.actcorp.in/contact-us/customer-care",
+          "kind": "website",
+          "quote": "Nodalofficer@actcorp.in",
+          "checked_on": "2026-11-20",
+          "machine_checked": false
+        }
+      ]
+    },
+    "appellate_authority": {
+      "name": "Mr. Pottabathini Arun, Appellate Authority",
+      "email": "appellate.authority@actcorp.in",
+      "phone": null,
+      "address": null,
+      "sources": [
+        {
+          "url": "https://www.actcorp.in/contact-us/customer-care",
+          "kind": "website",
+          "quote": "appellate.authority@actcorp.in",
+          "checked_on": "2026-11-20",
+          "machine_checked": false
+        }
+      ]
+    },
+    "working_hours": "Customer support 07:30 AM to 12:00 AM, all days; nodal officer and appellate authority 09:30 AM to 06:30 PM, Monday to Friday (as printed)",
+    "channel_notes": "The same page offers a chatbot ('Instant support? Our chatbot will guide you 24/7'). Telecom order: support, then nodal officer, then appellate authority, then the TRAI route.",
+    "official_no_phone": null,
+    "chat_channels": [
+      {
+        "kind": "web_chat",
+        "value": "https://www.actcorp.in/contact-us/customer-care",
+        "label": "Chatbot on the customer-care page",
+        "sources": [
+          {
+            "url": "https://www.actcorp.in/contact-us/customer-care",
+            "kind": "website",
+            "quote": "Instant support? Our chatbot will guide you 24/7",
+            "checked_on": "2026-11-20",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "needs_check": [
+      "the printed number is 1800 1022 836 while the page's tel link ends in 9; confirm before calling"
+    ]
+  },
+  {
+    "name": "Indraprastha Gas Limited",
+    "aliases": [
+      "IGL",
+      "Indraprastha Gas"
+    ],
+    "category": "utilities",
+    "official_domains": [
+      "iglonline.net"
+    ],
+    "source_url": "https://www.iglonline.net/contactus",
+    "checked_on": "2026-11-20",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "011-41387000",
+        "label": "IGL 24*7 customer care",
+        "hours": "24*7",
+        "role": "complaints",
+        "sources": [
+          {
+            "url": "https://www.iglonline.net/contactus",
+            "kind": "website",
+            "quote": "011-41387000 / 011-49835100",
+            "checked_on": "2026-11-20",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "011-49835100",
+        "label": "IGL 24*7 customer care",
+        "hours": "24*7",
+        "role": "complaints",
+        "sources": [
+          {
+            "url": "https://www.iglonline.net/contactus",
+            "kind": "website",
+            "quote": "011-41387000 / 011-49835100",
+            "checked_on": "2026-11-20",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "emails": [],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": "Gas leak: the page prints 155216 as the centralized emergency leakage number (use it for emergencies, not complaints). Office hours at some offices: 09:15AM TO 05:45PM.",
+    "official_no_phone": null,
+    "chat_channels": [
+      {
+        "kind": "whatsapp",
+        "value": "7065511111",
+        "label": "IGL WhatsApp self service",
+        "sources": [
+          {
+            "url": "https://www.iglonline.net/",
+            "kind": "website",
+            "quote": "Please save IGL's WhatsApp No 7065511111.",
+            "checked_on": "2026-11-20",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "needs_check": [
+      "no customer-support email printed (the site's email link goes to a login page)",
+      "no grievance officer for customer complaints found on the pages read"
+    ]
+  },
+  {
+    "name": "HP Gas (HPCL)",
+    "aliases": [
+      "HPCL",
+      "HP Gas",
+      "Hindustan Petroleum"
+    ],
+    "category": "utilities",
+    "official_domains": [
+      "hindustanpetroleum.com",
+      "myhpgas.in",
+      "hpcl.co.in"
+    ],
+    "source_url": "https://hindustanpetroleum.com/pages/Public-Grievance-Redressal",
+    "checked_on": "2026-11-20",
+    "helplines": [],
+    "emails": [],
+    "grievance_officer": {
+      "name": "Shri Tushar Mehta (Deputy General Manager, Public Grievances)",
+      "email": null,
+      "phone": "+91-22-22788409",
+      "address": null,
+      "sources": [
+        {
+          "url": "https://hindustanpetroleum.com/pages/Public-Grievance-Redressal",
+          "kind": "website",
+          "quote": "Tel No.: +91-22-22788409",
+          "checked_on": "2026-11-20",
+          "machine_checked": false
+        }
+      ]
+    },
+    "working_hours": "Public grievance line during office hours (as printed on the page)",
+    "channel_notes": "LPG gas leak: the site prints 1906 as the 24x7 LPG Emergency Helpline; it is for leaks, not complaints. Complaints through the toll-free number or web portal are answered within fourteen days (site text). Online: the 'Lodge a Complaint' link on myhpgas.in.",
+    "official_no_phone": null,
+    "needs_check": [
+      "customer-care toll-free number for distributors is not printed on the pages read (the LPG service cell list is a PDF, not opened)",
+      "grievance officer email not found"
+    ]
   }
 ]

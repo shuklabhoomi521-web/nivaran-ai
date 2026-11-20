@@ -23,6 +23,8 @@ Plan and day-by-day calendar live outside the repo in `~/nivaran-plan` (PLAN.md,
 
 - 21 Nov (Sprint D1 cont.): directory grew to 45 companies (ICICI, PNB, Bank of Baroda, Tata Power-DDL, BESCOM added from official pages with quotes). 10 more planned companies could not be read from their sites (forbidden, moved or empty pages) and were NOT added; list and next steps in `docs/notes/directory-v2.md`. 456 free tests pass.
 
+- 21 Nov: directory now 49 companies (4 more: Canara Bank, ACT Fibernet, IGL, HP Gas). 11 more candidates were unreadable and are listed in `docs/notes/directory-v2.md`. 471 free tests pass.
+
 ## Next
 - Day 1 rest: founder makes FreJun Teler, GitHub Student Pack and Bhashini accounts. 19 Nov: tests, TRAI rules, map Teler to the phone layer. 20-22 Nov: phone first, incl. the real test call on your own number (21 Nov).
 
