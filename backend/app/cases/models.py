@@ -56,6 +56,7 @@ class TrackedCase(Strict):
     category: Category
     problem_summary: str
     user_goal: UserGoal
+    owner_id: str | None = None                         # who the case belongs to; None means made before accounts existed (the builder's)
     user_name: str | None = None                        # used only to sign letters the user approves
     consent_version: str | None = None                  # which privacy notice the user accepted
     consent_on: date | None = None

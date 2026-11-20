@@ -53,6 +53,8 @@ Plan and day-by-day calendar live outside the repo in `~/nivaran-plan` (PLAN.md,
 
 - 21 Nov: accounts and hosting planned (`docs/plan/ACCOUNTS-HOSTING.md`): token per person first, Azure for Students VM as the target (to be confirmed), Supabase Auth later. Free-tier facts re-checked; several are uncertain and listed.
 
+- 21 Nov: Step 0 of accounts built: personal tokens, owner on every case, every endpoint limited to the owner of the case (foreign id = same 404 as missing), calls owner-only, access-code screen in the app, `scripts/pilot_users.py`. 584 backend tests, 38 app tests. Pilot guide and consent form updated (letters go from the builder's email).
+
 ## Next
 - Day 1 rest: founder makes FreJun Teler, GitHub Student Pack and Bhashini accounts. 19 Nov: tests, TRAI rules, map Teler to the phone layer. 20-22 Nov: phone first, incl. the real test call on your own number (21 Nov).
 

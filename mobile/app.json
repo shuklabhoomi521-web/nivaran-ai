@@ -30,7 +30,8 @@
           "microphonePermission": "Nivaran uses the microphone only when you tap \"Speak instead of typing\". Recordings are not kept."
         }
       ],
-      "expo-notifications"
+      "expo-notifications",
+      "expo-secure-store"
     ],
     "scheme": "nivaran"
   }

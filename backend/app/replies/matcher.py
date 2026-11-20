@@ -77,16 +77,19 @@ def sent_message_ids(drafts) -> set[str]:
     return {d.message_id for d in drafts if getattr(d, "message_id", None)}
 
 
-def track(case: TrackedCase, messages: list[InboxMessage], company: Company | None, sent_ids: set[str], today: date) -> tuple[TrackedCase, list[Match]]:
+def track(case: TrackedCase, messages: list[InboxMessage], company: Company | None, sent_ids: set[str], today: date,
+          strong_only: bool = False) -> tuple[TrackedCase, list[Match]]:
     """Add one `reply_received` event per new matched message. Returns the updated case and the new matches.
-    The case state does not change (a reply is not a solution); `looks_resolved` is only a hint for the user."""
+    The case state does not change (a reply is not a solution); `looks_resolved` is only a hint for the user.
+    strong_only=True keeps weak matches (sender looks like the company) out: used for people other than the inbox owner, so one company's mail to the
+    builder can never show up in a volunteer's case."""
     seen = {e.source_id for e in case.events if e.source_id}
     new: list[Match] = []
     for msg in sorted(messages, key=lambda m: m.on):
         if msg.message_id in seen:
             continue
         match = classify(case, msg, company, sent_ids)
-        if match is None:
+        if match is None or (strong_only and match.strength != Strength.strong):
             continue
         snippet, _ = redact(msg.snippet.strip().replace("\n", " "))
         label = "automatic acknowledgement" if match.auto_acknowledgement else "reply"

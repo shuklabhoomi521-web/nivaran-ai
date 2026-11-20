@@ -26,7 +26,7 @@ Goal: stay at zero cost, keep private data safe, and make the pilot work for peo
 **Decision:** run the pilot on A. Build B as the real home once the builder confirms the student offer works. Keep the app and backend free of anything tied to one provider.
 
 ## Accounts, in three small steps
-- **Step 0, built next (small, no outside service): a token per person.** Each volunteer gets their own secret token. The backend maps the token to a user id, stores the owner on every case and draft, and every read, write and delete is limited to that owner. A wrong owner gets "not found". Tests: person A cannot read, change, send from or delete person B's case, and cannot see B's drafts or call B's transcripts. This is enough for a 3-person pilot.
+- **Step 0, BUILT (21 Nov, small, no outside service): a token per person.** Each volunteer gets their own secret token. The backend maps the token to a user id, stores the owner on every case and draft, and every read, write and delete is limited to that owner. A wrong owner gets "not found". Tests: person A cannot read, change, send from or delete person B's case, and cannot see B's drafts or call B's transcripts. This is enough for a 3-person pilot.
 - **Step 1: real login with Supabase Auth.** Email and password, handled by Supabase (the free plan allows 50,000 users). The app signs in through Supabase's web interface and sends the user's login token; the backend checks its signature. Password reset comes from Supabase. **No phone-number OTP login:** it costs money for texts and it is the one thing Nivaran tells users never to share.
 - **Step 2: a real database.** Move the encrypted file to Postgres with row-level rules so the database itself refuses cross-user reads. Do it when there are more users than one laptop can hold, and not before.
 
@@ -55,3 +55,8 @@ Exams are 25 Nov, 30 Nov, 1 Dec and 4 Dec; 24 Nov, 29 Nov and 3 Dec are rest day
 1. Before 7 Dec: Step 0 (per-person tokens) and the pilot on the laptop.
 2. After 4 Dec: confirm the student offer, build the VM setup script, move the pilot server there if it works.
 3. January: Supabase Auth and real accounts, then Postgres only if needed.
+
+## Status of Step 0 (built 2026-11-21)
+- `backend/app/users.py`, `app/auth.py`, `scripts/pilot_users.py`; tests in `backend/tests/test_isolation.py` (11): one person cannot read, change, approve, send from, delete, call about or even detect another person's case or draft (a foreign id answers exactly like a missing one); only the owner can place calls; sender-only reply matches are for the owner; tokens are stored hashed (the file never holds a token); revoking works at once; speech-to-text works for any signed-in person.
+- App: an "enter your access code" screen, the code kept in the phone's secure storage, and a Sign out button.
+- **Limits, honestly:** this is not a login system (no email, no password reset, no expiry; a lost code needs the builder). The builder can read every case on the laptop. Letters go out from one shared sender account. A full login comes with Step 1.

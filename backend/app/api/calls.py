@@ -13,12 +13,14 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 
 from app.api.tracked import _today, get_store
+from app.auth import current_user, is_owner
 from app.cases import engine
 from app.cases.models import Event, EventKind
 from app.cases.store import CaseStore
 from app.directory.lookup import find_company
 from app.directory.picker import pick_contact
 from app.safety.redact import redact
+from app.users import LEGACY_OWNER
 from app.voice.call_conversation import DISCLOSURE
 
 router = APIRouter(prefix="/tracked-cases", tags=["calls"])
@@ -69,11 +71,16 @@ class StartResponse(BaseModel):
     mode: str
 
 
-def _case(store: CaseStore, case_id: str):
+def _case(store: CaseStore, case_id: str, user: str = LEGACY_OWNER):
     c = store.get(case_id)
-    if c is None:
+    if c is None or (c.owner_id or LEGACY_OWNER) != user:
         raise HTTPException(status_code=404, detail="no such case")
     return c
+
+
+def _owner_only(user: str) -> None:
+    if not is_owner(user):
+        raise HTTPException(status_code=403, detail="calls are only available to the pilot owner: they ring the owner's phone")
 
 
 def _check_lang(language: str) -> None:
@@ -88,14 +95,16 @@ def _target(case):
 
 
 @router.get("/{case_id}/call/preview", response_model=CallPreview)
-def preview(case_id: str, language: str = "en-IN", store: CaseStore = Depends(get_store)):
-    case = _case(store, case_id)
+def preview(case_id: str, language: str = "en-IN", store: CaseStore = Depends(get_store), user: str = Depends(current_user)):
+    case = _case(store, case_id, user)
     _check_lang(language)
     phone = _target(case)
     mode = "real" if real_calls_enabled() else "practice"
     ring = (phone.value if (mode == "real" and phone) else own_number())
     why = None
-    if not case.is_open:
+    if not is_owner(user):
+        why = "Calls are only available to the pilot owner, because they ring the owner's phone."
+    elif not case.is_open:
         why = "This case is closed."
     elif mode == "practice" and own_number() is None:
         why = "Practice calls ring your own phone. Put exactly one number (yours) in PHONE_ALLOWED_NUMBERS in .env first."
@@ -114,8 +123,9 @@ def preview(case_id: str, language: str = "en-IN", store: CaseStore = Depends(ge
 
 
 @router.post("/{case_id}/call", response_model=StartResponse)
-def start(case_id: str, req: StartRequest, store: CaseStore = Depends(get_store), voice: httpx.Client = Depends(get_voice)):
-    case = _case(store, case_id)
+def start(case_id: str, req: StartRequest, store: CaseStore = Depends(get_store), voice: httpx.Client = Depends(get_voice), user: str = Depends(current_user)):
+    case = _case(store, case_id, user)
+    _owner_only(user)
     _check_lang(req.language)
     if not req.confirm:
         raise HTTPException(status_code=422, detail="the user has not confirmed this call")
@@ -144,8 +154,9 @@ def start(case_id: str, req: StartRequest, store: CaseStore = Depends(get_store)
 
 
 @router.post("/{case_id}/call/{call_id}/hangup")
-def hang_up(case_id: str, call_id: str, store: CaseStore = Depends(get_store), voice: httpx.Client = Depends(get_voice)):
-    _case(store, case_id)
+def hang_up(case_id: str, call_id: str, store: CaseStore = Depends(get_store), voice: httpx.Client = Depends(get_voice), user: str = Depends(current_user)):
+    _case(store, case_id, user)
+    _owner_only(user)
     try:
         r = voice.post(f"/phone/hangup/{call_id}")
     except httpx.HTTPError:
@@ -156,8 +167,9 @@ def hang_up(case_id: str, call_id: str, store: CaseStore = Depends(get_store), v
 
 
 @router.get("/{case_id}/call/events")
-def events(case_id: str, since: int = 0, store: CaseStore = Depends(get_store), voice: httpx.Client = Depends(get_voice)):
-    _case(store, case_id)
+def events(case_id: str, since: int = 0, store: CaseStore = Depends(get_store), voice: httpx.Client = Depends(get_voice), user: str = Depends(current_user)):
+    _case(store, case_id, user)
+    _owner_only(user)
     try:
         r = voice.get("/voice/events", params={"since": since})
     except httpx.HTTPError:

@@ -6,7 +6,8 @@ Version 2026-11-21-v1. Read it, then sign at the bottom. You can say no and noth
 
 **What we will do with your details**
 - Use only what you tell us (the problem, order or booking numbers, dates, your name for the signature) to find the company's contact, write letters, and track your case.
-- **Nothing is sent to a company until you have read the exact letter and approved it.** You tap Send yourself.
+- **Nothing is sent to a company until you have read the exact letter and approved it.** You tap Send yourself. During this pilot the email goes out from the builder's email address (signed with your name), and the company's reply comes to the builder, who passes it to you.
+- You get your own access code. Other volunteers cannot see your cases, and you cannot see theirs. The builder can see all cases on the pilot laptop.
 - Store your case encrypted on the builder's laptop. We never ask for, keep or type a card number, PIN, CVV, password or OTP. Do not tell us one.
 - In this test version your text is read by outside AI services (Groq, Gemini) after payment details are removed. Do not share anything you would not want processed.
 - Use the results only as numbers and anonymous examples (for example "case solved in 6 days") in the project write-up. Your name, company and details are not published unless you say so in writing.

@@ -8,6 +8,13 @@ Goal: handle **at least 3 real complaints end to end** with consenting adult vol
 3. Print or share `docs/pilot/CONSENT.md`. **No signed consent, no case.**
 4. Choose volunteers whose company is in the verified directory (`backend/app/directory/companies.json`) and whose complaint is real and current.
 
+## Giving each volunteer their own access code (new)
+1. `python scripts/pilot_users.py add "Volunteer A"` prints a personal code **once**. Give it to that person privately (not in a group chat).
+2. On the volunteer's phone the app asks for the code on first start and keeps it in the phone's secure storage ("Sign out of this phone" removes it).
+3. Each person sees **only their own cases**. A wrong code gets "not right". `python scripts/pilot_users.py revoke u2` stops a code at once. `python scripts/pilot_users.py list` shows ids and labels, never codes.
+4. Only the builder (the "owner": the shared token or this computer) can use "Call for me", because practice calls ring the builder's phone.
+5. **Letters sent from the app go out from the builder's email account** (the pilot sender), signed with the volunteer's name. Tell each volunteer this before they tap Send. Company replies come to the builder's inbox. The volunteer's own cases only show replies that quote the case reference or answer the exact message (not sender-only matches).
+
 ## For each case (do it together, volunteer holds the phone)
 1. New case: the volunteer says or types the problem once. Check "Is this right?" with them. They accept the privacy notice and confirm they are 18 or older.
 2. Read the next step. Write the letter, let the volunteer **read it fully**, edit if they want, approve, then they tap Send.

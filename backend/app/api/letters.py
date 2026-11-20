@@ -5,6 +5,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 
 from app.api.tracked import _today, get_store
+from app.auth import current_user
 from app.cases import engine
 from app.cases.models import Event, EventKind, TrackedCase
 from app.cases.store import CaseStore
@@ -13,6 +14,7 @@ from app.letters import compose as composer
 from app.letters import outbox
 from app.letters.compose import LetterError
 from app.letters.outbox import Draft, DraftStore, MailSender, SmtpSender
+from app.users import LEGACY_OWNER
 
 router = APIRouter(tags=["letters"])
 
@@ -38,23 +40,28 @@ class SendResponse(BaseModel):
     case: TrackedCase
 
 
-def _case(store: CaseStore, case_id: str) -> TrackedCase:
+def _case(store: CaseStore, case_id: str, user: str = LEGACY_OWNER) -> TrackedCase:
     case = store.get(case_id)
-    if case is None:
+    if case is None or (case.owner_id or LEGACY_OWNER) != user:
         raise HTTPException(status_code=404, detail="no such case")
     return case
 
 
-def _draft(drafts: DraftStore, draft_id: str) -> Draft:
+def _draft(drafts: DraftStore, store: CaseStore, draft_id: str, user: str) -> Draft:
+    """The draft, or 404 if it does not exist or its case belongs to someone else."""
     d = drafts.get(draft_id)
     if d is None:
         raise HTTPException(status_code=404, detail="no such draft")
+    try:
+        _case(store, d.case_id, user)
+    except HTTPException:
+        raise HTTPException(status_code=404, detail="no such draft")          # same answer as a draft that does not exist
     return d
 
 
 @router.post("/tracked-cases/{case_id}/drafts", response_model=Draft)
-def make_draft(case_id: str, store: CaseStore = Depends(get_store), drafts: DraftStore = Depends(get_drafts)):
-    case = _case(store, case_id)
+def make_draft(case_id: str, store: CaseStore = Depends(get_store), drafts: DraftStore = Depends(get_drafts), user: str = Depends(current_user)):
+    case = _case(store, case_id, user)
     company = find_company(case.company)
     action = engine.next_action(case, _today(), company)
     if action is None:
@@ -69,12 +76,13 @@ def make_draft(case_id: str, store: CaseStore = Depends(get_store), drafts: Draf
 
 
 @router.get("/tracked-cases/{case_id}/drafts", response_model=list[Draft])
-def list_drafts(case_id: str, drafts: DraftStore = Depends(get_drafts)):
+def list_drafts(case_id: str, store: CaseStore = Depends(get_store), drafts: DraftStore = Depends(get_drafts), user: str = Depends(current_user)):
+    _case(store, case_id, user)
     return drafts.for_case(case_id)
 
 
-def _change(drafts: DraftStore, draft_id: str, fn) -> Draft:
-    d = _draft(drafts, draft_id)
+def _change(drafts: DraftStore, store: CaseStore, draft_id: str, user: str, fn) -> Draft:
+    d = _draft(drafts, store, draft_id, user)
     try:
         d = fn(d)
     except LetterError as e:
@@ -84,26 +92,26 @@ def _change(drafts: DraftStore, draft_id: str, fn) -> Draft:
 
 
 @router.patch("/drafts/{draft_id}", response_model=Draft)
-def edit_draft(draft_id: str, req: EditRequest, drafts: DraftStore = Depends(get_drafts)):
-    return _change(drafts, draft_id, lambda d: outbox.edit(d, req.subject, req.body))
+def edit_draft(draft_id: str, req: EditRequest, store: CaseStore = Depends(get_store), drafts: DraftStore = Depends(get_drafts), user: str = Depends(current_user)):
+    return _change(drafts, store, draft_id, user, lambda d: outbox.edit(d, req.subject, req.body))
 
 
 @router.post("/drafts/{draft_id}/approve", response_model=Draft)
-def approve_draft(draft_id: str, drafts: DraftStore = Depends(get_drafts)):
+def approve_draft(draft_id: str, store: CaseStore = Depends(get_store), drafts: DraftStore = Depends(get_drafts), user: str = Depends(current_user)):
     """The user's explicit yes to exactly this text."""
-    return _change(drafts, draft_id, lambda d: outbox.approve(d, _today()))
+    return _change(drafts, store, draft_id, user, lambda d: outbox.approve(d, _today()))
 
 
 @router.post("/drafts/{draft_id}/reject", response_model=Draft)
-def reject_draft(draft_id: str, drafts: DraftStore = Depends(get_drafts)):
-    return _change(drafts, draft_id, outbox.reject)
+def reject_draft(draft_id: str, store: CaseStore = Depends(get_store), drafts: DraftStore = Depends(get_drafts), user: str = Depends(current_user)):
+    return _change(drafts, store, draft_id, user, outbox.reject)
 
 
 @router.post("/drafts/{draft_id}/send", response_model=SendResponse)
 def send_draft(draft_id: str, store: CaseStore = Depends(get_store), drafts: DraftStore = Depends(get_drafts),
-               sender: MailSender = Depends(get_sender)):
-    d = _draft(drafts, draft_id)
-    case = _case(store, d.case_id)
+               sender: MailSender = Depends(get_sender), user: str = Depends(current_user)):
+    d = _draft(drafts, store, draft_id, user)
+    case = _case(store, d.case_id, user)
     try:
         sent = outbox.send(d, find_company(case.company), sender, _today())
         case = engine.apply(case, Event(on=_today(), kind=EventKind.contacted, rung=d.rung, channel="email", text=f"email sent: {d.subject}"))

@@ -8,7 +8,7 @@ import { GlassSurface } from '../glass';
 import { LANGS, useLang, useT } from '../i18n';
 import { Button, Chip, ErrorText } from '../ui';
 
-export default function CasesScreen({ api, onOpen, onNew }: { api: Api; onOpen: (id: string) => void; onNew: () => void }) {
+export default function CasesScreen({ api, onOpen, onNew, onSignOut }: { api: Api; onOpen: (id: string) => void; onNew: () => void; onSignOut?: () => void }) {
   const t = useT();
   const { lang, setLang } = useLang();
   const [cases, setCases] = useState<TrackedCase[]>([]);
@@ -50,6 +50,7 @@ export default function CasesScreen({ api, onOpen, onNew }: { api: Api; onOpen: 
         keyExtractor={(x) => x.id}
         contentContainerStyle={s.body}
         refreshControl={<RefreshControl refreshing={busy} onRefresh={load} />}
+        ListFooterComponent={onSignOut ? <View style={{ marginTop: 8 }}><Button label="Sign out of this phone" kind="ghost" onPress={onSignOut} /></View> : undefined}
         ListEmptyComponent={<Text style={s.soft}>{busy || err ? '' : t('cases.empty')}</Text>}
         renderItem={({ item }) => (
           <Pressable accessibilityRole="button" accessibilityLabel={caseTitle(item.company, item.state)} onPress={() => onOpen(item.id)} style={{ marginBottom: 12 }}>
