@@ -34,7 +34,8 @@ def test_a_regulator_without_source_must_explain():
 
 def test_existing_companies_still_load_with_v2_fields_empty():
     cs = load_companies()
-    assert len(cs) == 40 and all(c.appellate_authority is None and c.chat_channels == [] for c in cs)
+    first40 = cs[:40]                 # the original entries do not use the new fields
+    assert len(cs) >= 45 and all(c.appellate_authority is None and c.chat_channels == [] for c in first40)
 
 
 def test_chat_channel_needs_a_source():

@@ -21,6 +21,8 @@ Plan and day-by-day calendar live outside the repo in `~/nivaran-plan` (PLAN.md,
 
 - 21 Nov (Sprint D1, started late 20 Nov): Twilio line-test finding written down (our reply was valid; the tunnel path is the weak point). Directory v2 started: optional `appellate_authority` and `chat_channels` on companies, plus a verified regulator table by category (`app/directory/regulators.json`: NCH, RBI CMS, IRDAI Bima Bharosa, TRAI, Rail Madad verified with quotes; AirSewa and e-Daakhil marked needs-check, not invented). 434 free tests pass.
 
+- 21 Nov (Sprint D1 cont.): directory grew to 45 companies (ICICI, PNB, Bank of Baroda, Tata Power-DDL, BESCOM added from official pages with quotes). 10 more planned companies could not be read from their sites (forbidden, moved or empty pages) and were NOT added; list and next steps in `docs/notes/directory-v2.md`. 456 free tests pass.
+
 ## Next
 - Day 1 rest: founder makes FreJun Teler, GitHub Student Pack and Bhashini accounts. 19 Nov: tests, TRAI rules, map Teler to the phone layer. 20-22 Nov: phone first, incl. the real test call on your own number (21 Nov).
 

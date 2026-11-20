@@ -2957,5 +2957,396 @@
     "channel_notes": "Mumbai suburbs only.",
     "official_no_phone": null,
     "needs_check": []
+  },
+  {
+    "name": "ICICI Bank",
+    "aliases": [
+      "ICICI",
+      "ICICI Bank Limited"
+    ],
+    "category": "banking_upi",
+    "official_domains": [
+      "icici.bank.in",
+      "icicibank.com"
+    ],
+    "source_url": "https://www.icici.bank.in/customer-care",
+    "checked_on": "2026-11-20",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "1800 1080",
+        "label": "Customer care",
+        "hours": "24/7 (page heading: Connect with us 24/7 from anywhere)",
+        "role": null,
+        "sources": [
+          {
+            "url": "https://www.icici.bank.in/customer-care",
+            "kind": "website",
+            "quote": "1800 1080 (Toll Free)",
+            "checked_on": "2026-11-20",
+            "machine_checked": false
+          },
+          {
+            "url": "https://www.icici.bank.in/contact-us",
+            "kind": "website",
+            "quote": "Get quick support by contacting ICICI Bank customer care at 1800 1080",
+            "checked_on": "2026-11-20",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "customer.care@icici.bank.in",
+        "label": "Customer care",
+        "hours": null,
+        "role": null,
+        "sources": [
+          {
+            "url": "https://www.icici.bank.in/customer-care",
+            "kind": "website",
+            "quote": "customer.care@icici.bank.in",
+            "checked_on": "2026-11-20",
+            "machine_checked": false
+          },
+          {
+            "url": "https://www.icici.bank.in/contact-us",
+            "kind": "website",
+            "quote": "E-mail : customer.care@icici.bank.in",
+            "checked_on": "2026-11-20",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": "Complaints: use the bank's complaint page, then the bank's grievance policy, then the RBI complaint portal (see the regulator table).",
+    "official_no_phone": null,
+    "needs_check": [
+      "Principal Nodal Officer name and email are inside the grievance-redressal policy PDF; its text could not be read, add by hand",
+      "the contact-us page's mailto link points to icicibank.com while its visible text says icici.bank.in; confirm which address works"
+    ]
+  },
+  {
+    "name": "Punjab National Bank",
+    "aliases": [
+      "PNB"
+    ],
+    "category": "banking_upi",
+    "official_domains": [
+      "pnb.bank.in",
+      "pnbindia.in"
+    ],
+    "source_url": "https://pnb.bank.in/Lodge-Complaint.html",
+    "checked_on": "2026-11-20",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "1800 1800",
+        "label": "Customer care (toll free)",
+        "hours": null,
+        "role": "complaints",
+        "sources": [
+          {
+            "url": "https://pnb.bank.in/Lodge-Complaint.html",
+            "kind": "website",
+            "quote": "1800 1800 (Toll Free)",
+            "checked_on": "2026-11-20",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "1800 2021",
+        "label": "Customer care (toll free)",
+        "hours": null,
+        "role": "complaints",
+        "sources": [
+          {
+            "url": "https://pnb.bank.in/Lodge-Complaint.html",
+            "kind": "website",
+            "quote": "1800 2021 (Toll Free)",
+            "checked_on": "2026-11-20",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "emails": [],
+    "grievance_officer": {
+      "name": "Sh. Ashutosh Kumar Jha (General Manager, Customer Care Centre)",
+      "email": "pno@pnb.bank.in",
+      "phone": "+91-124-4126244",
+      "address": "Customer Care Centre, Plot No. 5, Institutional Area, Sector-32, Gurugram (Haryana) 122001",
+      "sources": [
+        {
+          "url": "https://pnb.bank.in/Lodge-Complaint.html",
+          "kind": "website",
+          "quote": "DETAILS OF PRINCIPAL NODAL OFFICER",
+          "checked_on": "2026-11-20",
+          "machine_checked": false
+        }
+      ]
+    },
+    "working_hours": null,
+    "channel_notes": "The contact page says the toll-free numbers receive calls only. Emails are printed obfuscated on the official page (pno[at]pnb[dot]bank[dot]in); the address here is that text with [at] and [dot] replaced.",
+    "official_no_phone": null,
+    "needs_check": [
+      "customer-care hours not printed on the pages read",
+      "the support email care[at]pnb[dot]bank[dot]in is printed obfuscated, so it is not stored as a checked contact; add by hand if wanted",
+      "officer name, phone and address were read from the lines under the quoted heading; re-verify on the page"
+    ]
+  },
+  {
+    "name": "Bank of Baroda",
+    "aliases": [
+      "BoB",
+      "BOB"
+    ],
+    "category": "banking_upi",
+    "official_domains": [
+      "bankofbaroda.bank.in",
+      "bankofbaroda.in"
+    ],
+    "source_url": "https://bankofbaroda.bank.in/contact-us",
+    "checked_on": "2026-11-20",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "1800 5700",
+        "label": "Toll free customer care",
+        "hours": null,
+        "role": "complaints",
+        "sources": [
+          {
+            "url": "https://bankofbaroda.bank.in/contact-us",
+            "kind": "website",
+            "quote": "Bank of Baroda – Toll Free Customer Care Number 1800 5000 / 1800 5700",
+            "checked_on": "2026-11-20",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "1800 5000",
+        "label": "Toll free customer care",
+        "hours": null,
+        "role": "complaints",
+        "sources": [
+          {
+            "url": "https://bankofbaroda.bank.in/contact-us",
+            "kind": "website",
+            "quote": "Bank of Baroda – Toll Free Customer Care Number 1800 5000 / 1800 5700",
+            "checked_on": "2026-11-20",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "cs.ho@bankofbaroda.bank.in",
+        "label": "Principal Nodal Officer (head office)",
+        "hours": null,
+        "role": null,
+        "sources": [
+          {
+            "url": "https://bankofbaroda.bank.in/contact-us",
+            "kind": "website",
+            "quote": "cs.ho@bankofbaroda.bank.in",
+            "checked_on": "2026-11-20",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "grievance_officer": {
+      "name": "Shri Nikhil Mohan (General Manager, Operations & Services), Nodal Office level",
+      "email": "cs.ho@bankofbaroda.bank.in",
+      "phone": "(0265) 2316719",
+      "address": "Bank of Baroda, Head Office, 7th Floor Baroda Bhavan, R C Dutt Road, Alkapuri, Baroda 390007, Gujarat",
+      "sources": [
+        {
+          "url": "https://bankofbaroda.bank.in/customer-support/grievance-redressal",
+          "kind": "website",
+          "quote": "Level - 3 (Nodal Office Level)",
+          "checked_on": "2026-11-20",
+          "machine_checked": false
+        }
+      ]
+    },
+    "working_hours": null,
+    "channel_notes": "Fraud and card blocking are handled 24x7 on the toll-free line; other help is during contact-centre hours.",
+    "official_no_phone": null,
+    "needs_check": [
+      "the email shown beside the head office entry is also used here for the Level 3 officer; the grievance page prints no email on that line, confirm",
+      "named appellate authority pages were linked but not read"
+    ]
+  },
+  {
+    "name": "Tata Power-DDL",
+    "aliases": [
+      "Tata Power Delhi",
+      "Tata Power DDL",
+      "TPDDL"
+    ],
+    "category": "utilities",
+    "official_domains": [
+      "tatapower-ddl.com"
+    ],
+    "source_url": "https://www.tatapower-ddl.com/contact-us/touchpoints/head-of-department-customer-services",
+    "checked_on": "2026-11-20",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "19124",
+        "label": "24x7 toll free helpline",
+        "hours": "24x7",
+        "role": "complaints",
+        "sources": [
+          {
+            "url": "https://www.tatapower-ddl.com/",
+            "kind": "website",
+            "quote": "Connect on Tata Power-DDL's 24x7 Tollfree helpline number 19124 for more information.",
+            "checked_on": "2026-11-20",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "1800-208-9124",
+        "label": "Toll free number",
+        "hours": "24x7",
+        "role": "complaints",
+        "sources": [
+          {
+            "url": "https://www.tatapower-ddl.com/",
+            "kind": "website",
+            "quote": "Toll Free No - 19124 / 1800-208-9124",
+            "checked_on": "2026-11-20",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "customercare@tatapower-ddl.com",
+        "label": "Customer care",
+        "hours": null,
+        "role": null,
+        "sources": [
+          {
+            "url": "https://www.tatapower-ddl.com/contact-us/touchpoints/head-of-department-customer-services",
+            "kind": "website",
+            "quote": "Email id: customercare@tatapower-ddl.com",
+            "checked_on": "2026-11-20",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "grievance_officer": {
+      "name": "Ms. Dipanwita Ray (Deputy General Manager), ICGRC nodal officer",
+      "email": "icgrc@tatapower-ddl.com",
+      "phone": "011-66382301",
+      "address": "Internal Consumer Grievance Redressal Cell, Tata Power-DDL Office, Keshav Puram, Lawrence Road, New Delhi-110035",
+      "sources": [
+        {
+          "url": "https://www.tatapower-ddl.com/Internal-Grievance-Redressal-Cell",
+          "kind": "website",
+          "quote": "ICGRC: Nodal officer details",
+          "checked_on": "2026-11-20",
+          "machine_checked": false
+        }
+      ]
+    },
+    "working_hours": "24x7 helpline",
+    "channel_notes": "Internal cell first; the consumer grievance redressal forum (CGRF) is the next step.",
+    "official_no_phone": null,
+    "needs_check": [
+      "CGRF (consumer grievance redressal forum) details were not found on the pages read"
+    ]
+  },
+  {
+    "name": "BESCOM",
+    "aliases": [
+      "Bangalore Electricity Supply Company",
+      "Bescom Bangalore"
+    ],
+    "category": "utilities",
+    "official_domains": [
+      "bescom.karnataka.gov.in",
+      "bescom.co.in"
+    ],
+    "source_url": "https://bescom.karnataka.gov.in/new-page/Contact%20Us/kn",
+    "checked_on": "2026-11-20",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "1912",
+        "label": "24x7 helpline",
+        "hours": "24x7",
+        "role": "complaints",
+        "sources": [
+          {
+            "url": "https://bescom.karnataka.gov.in/new-page/Contact%20Us/kn",
+            "kind": "website",
+            "quote": "24x7 Helpline- 1912",
+            "checked_on": "2026-11-20",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "helpline@bescom.co.in",
+        "label": "Helpline email",
+        "hours": null,
+        "role": null,
+        "sources": [
+          {
+            "url": "https://bescom.karnataka.gov.in/new-page/Contact%20Us/kn",
+            "kind": "website",
+            "quote": "helpline@bescom.co.in",
+            "checked_on": "2026-11-20",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "grievance_officer": null,
+    "working_hours": "24x7 helpline",
+    "channel_notes": "WhatsApp helpline and WhatsApp for safety issues are listed on the contact page.",
+    "official_no_phone": null,
+    "chat_channels": [
+      {
+        "kind": "whatsapp",
+        "value": "9449844640",
+        "label": "WhatsApp helpline",
+        "sources": [
+          {
+            "url": "https://bescom.karnataka.gov.in/new-page/Contact%20Us/kn",
+            "kind": "website",
+            "quote": "Whatsapp - 9449844640",
+            "checked_on": "2026-11-20",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "needs_check": [
+      "CGRF and nodal officer details were not read; zone offices are linked on the contact page"
+    ]
   }
 ]

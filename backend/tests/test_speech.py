@@ -185,12 +185,13 @@ def test_sarvam_without_a_key_says_where_to_get_one(monkeypatch):
 
 
 def test_sarvam_v4_gets_company_names_as_keyterms(tmp_path):
+    from app.directory.loader import load_companies
     from app.brain.ratelimit import RateLimiter
     from app.speech.sarvam import SarvamSTT, company_names
     fake = _FakeSarvamSTT()
     SarvamSTT(client=_sarvam(stt=fake), limiter=RateLimiter(0, 0, usage_file=tmp_path / "u.json")).transcribe(b"w", "audio/wav", "hinglish")
     assert "IRCTC" in fake.kwargs["keyterms"] and "Swiggy" in fake.kwargs["keyterms"]
-    assert set(fake.kwargs["keyterms"]) == set(company_names()) and len(company_names()) == 40
+    assert set(fake.kwargs["keyterms"]) == set(company_names()) and len(company_names()) == len(load_companies())
 
 
 # ---- credits and fallback ----
