@@ -1,4 +1,4 @@
-import type { Action, CheckResponse, ConsentNotice, Draft, TranscribeResponse, NextResponse, PortalKit, TrackedCase, UnderstandResponse, UnderstoodCase } from './types';
+import type { Action, CallEvent, CallPreview, CheckResponse, ConsentNotice, Draft, TranscribeResponse, NextResponse, PortalKit, TrackedCase, UnderstandResponse, UnderstoodCase } from './types';
 
 export class ApiError extends Error {
   constructor(message: string, public status?: number) {
@@ -52,6 +52,10 @@ export function makeApi(baseUrl: string, fetchImpl: typeof fetch = fetch, timeou
     understand: (message: string) => request<UnderstandResponse>('POST', '/cases/understand', { message }),
     transcribe: (audioB64: string, mimeType: string, language: string | null = null) =>
       request<TranscribeResponse>('POST', '/speech/transcribe', { audio_b64: audioB64, mime_type: mimeType, language }),
+    callPreview: (id: string, language: string) => request<CallPreview>('GET', `/tracked-cases/${id}/call/preview?language=${encodeURIComponent(language)}`),
+    startCall: (id: string, language: string) => request<{ call_id: string; mode: string }>('POST', `/tracked-cases/${id}/call`, { language, confirm: true }),
+    hangUp: (id: string, callId: string) => request<{ ended: boolean }>('POST', `/tracked-cases/${id}/call/${callId}/hangup`),
+    callEvents: (id: string, since: number) => request<CallEvent[]>('GET', `/tracked-cases/${id}/call/events?since=${since}`),
     consentNotice: () => request<ConsentNotice>('GET', '/tracked-cases/consent-notice'),
     createCase: (c: UnderstoodCase, userName: string | null, consent: boolean, adult: boolean) =>
       request<TrackedCase>('POST', '/tracked-cases', { case: c, user_name: userName, consent, adult }),

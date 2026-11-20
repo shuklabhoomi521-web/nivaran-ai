@@ -69,3 +69,12 @@ export function addDays(iso: string, days: number): string {
   const p = (n: number) => String(n).padStart(2, '0');
   return `${d.getUTCFullYear()}-${p(d.getUTCMonth() + 1)}-${p(d.getUTCDate())}`;
 }
+
+/** The polling cursor for the live transcript: the highest event number seen so far. */
+export function nextSince(events: { n: number }[], since: number): number {
+  return events.reduce((m, e) => (e.n > m ? e.n : m), since);
+}
+
+export const CALL_LANGUAGES: { code: string; label: string }[] = [
+  { code: 'en-IN', label: 'English' }, { code: 'hi-IN', label: 'हिन्दी' }, { code: 'ta-IN', label: 'தமிழ்' }, { code: 'hinglish', label: 'Hinglish' },
+];

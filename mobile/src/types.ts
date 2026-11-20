@@ -108,3 +108,9 @@ export interface Match {
 export interface CheckResponse { new_replies: Match[]; case: TrackedCase }
 
 export interface TranscribeResponse { text: string; language: string | null; provider: string | null; redacted: string[] }
+
+export interface CallPreview {
+  company: string; language: string; disclosure: string; facts: string[]; mode: 'practice' | 'real'; will_ring: string | null;
+  company_number: string | null; company_number_source: string | null; can_start: boolean; why_not: string | null; rules: string[];
+}
+export interface CallEvent { n: number; kind: string; text: string; t: string | null }

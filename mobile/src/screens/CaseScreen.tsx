@@ -7,7 +7,7 @@ import { c, s } from '../theme';
 import type { Draft, Match, NextResponse, PortalKit, TrackedCase } from '../types';
 import { Button, Card, Chip, ErrorText } from '../ui';
 
-export default function CaseScreen({ api, id, onBack }: { api: Api; id: string; onBack: () => void }) {
+export default function CaseScreen({ api, id, onBack, onCall }: { api: Api; id: string; onBack: () => void; onCall: () => void }) {
   const [tc, setTc] = useState<TrackedCase | null>(null);
   const [next, setNext] = useState<NextResponse | null>(null);
   const [draft, setDraft] = useState<Draft | null>(null);
@@ -82,8 +82,11 @@ export default function CaseScreen({ api, id, onBack }: { api: Api; id: string; 
             {action.channel === 'email' && action.target_value && (
               <Button label="Write the letter" busy={busy === 'draft'} onPress={() => run('draft', () => api.makeDraft(id), setDraft)} />
             )}
+            {action.channel === 'call' && (
+              <Button label="Call for me (practice)" busy={false} onPress={onCall} />
+            )}
             {action.channel === 'call' && action.target_value && (
-              <Button label={`Call ${action.target_value}`} kind="ghost" onPress={() => void Linking.openURL(`tel:${action.target_value!.replace(/[^+\d]/g, '')}`)} />
+              <Button label={`Call ${action.target_value} myself`} kind="ghost" onPress={() => void Linking.openURL(`tel:${action.target_value!.replace(/[^+\d]/g, '')}`)} />
             )}
             {action.channel === 'portal' && (
               <Button label="Open the filing kit" busy={busy === 'kit'} onPress={() => run('kit', () => api.portalKit(id), setKit)} />

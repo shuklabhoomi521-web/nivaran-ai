@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.base import BaseHTTPMiddleware
 from fastapi.responses import FileResponse
 
+from app.api.calls import router as calls_router
 from app.api.cases import router as cases_router
 from app.auth import access_guard
 from app.api.letters import router as letters_router
@@ -24,6 +25,7 @@ app.include_router(tracked_router)
 app.include_router(letters_router)
 app.include_router(replies_router)
 app.include_router(speech_router)
+app.include_router(calls_router)
 
 STATIC_DIR = Path(__file__).resolve().parent.parent / "static"
 

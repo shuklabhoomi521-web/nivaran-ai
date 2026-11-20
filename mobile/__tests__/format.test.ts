@@ -1,4 +1,4 @@
-import { actionHeadline, addDays, caseTitle, categoryLabel, prettyDate, reminderLabel, todayIso } from '../src/format';
+import { CALL_LANGUAGES, actionHeadline, addDays, nextSince, caseTitle, categoryLabel, prettyDate, reminderLabel, todayIso } from '../src/format';
 import type { Action, Reminder } from '../src/types';
 
 const action = (over: Partial<Action>): Action => ({
@@ -34,5 +34,16 @@ describe('format helpers', () => {
   it('category and today helpers', () => {
     expect(categoryLabel('food_delivery')).toBe('Food delivery');
     expect(todayIso(new Date(2026, 11, 5))).toBe('2026-12-05');
+  });
+});
+
+describe('call helpers', () => {
+  it('moves the transcript cursor forward only', () => {
+    expect(nextSince([], 3)).toBe(3);
+    expect(nextSince([{ n: 4 }, { n: 6 }, { n: 5 }], 3)).toBe(6);
+    expect(nextSince([{ n: 1 }], 3)).toBe(3);
+  });
+  it('offers the four call languages the backend accepts', () => {
+    expect(CALL_LANGUAGES.map((l) => l.code)).toEqual(['en-IN', 'hi-IN', 'ta-IN', 'hinglish']);
   });
 });

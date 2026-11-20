@@ -84,3 +84,20 @@ describe('speech call', () => {
     expect(JSON.parse(String(cap.init?.body))).toEqual({ audio_b64: 'QUJD', mime_type: 'audio/mp4', language: null });
   });
 });
+
+describe('call calls', () => {
+  it('asks for the preview in a language and starts only with confirm true', async () => {
+    const cap: { url?: string; init?: RequestInit } = {};
+    await makeApi('http://x', fakeFetch(200, {}, cap)).callPreview('c1', 'hi-IN');
+    expect(cap.url).toBe('http://x/tracked-cases/c1/call/preview?language=hi-IN');
+    await makeApi('http://x', fakeFetch(200, { call_id: 'CA1', mode: 'practice' }, cap)).startCall('c1', 'en-IN');
+    expect(JSON.parse(String(cap.init?.body))).toEqual({ language: 'en-IN', confirm: true });
+  });
+  it('hangs up and reads the transcript from a cursor', async () => {
+    const cap: { url?: string; init?: RequestInit } = {};
+    await makeApi('http://x', fakeFetch(200, { ended: true }, cap)).hangUp('c1', 'CA1');
+    expect(cap.url).toBe('http://x/tracked-cases/c1/call/CA1/hangup');
+    await makeApi('http://x', fakeFetch(200, [], cap)).callEvents('c1', 7);
+    expect(cap.url).toBe('http://x/tracked-cases/c1/call/events?since=7');
+  });
+});
