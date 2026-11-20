@@ -4,6 +4,7 @@ import type { Api } from '../api';
 import { GOAL_LABEL, categoryLabel } from '../format';
 import { s } from '../theme';
 import type { UnderstandResponse } from '../types';
+import { useVoiceRecorder } from '../voice';
 import { Button, Card, ErrorText } from '../ui';
 
 export default function NewCaseScreen({ api, onBack, onCreated }: { api: Api; onBack: () => void; onCreated: (id: string) => void }) {
@@ -16,6 +17,8 @@ export default function NewCaseScreen({ api, onBack, onCreated }: { api: Api; on
   const [notice, setNotice] = useState<string | null>(null);
   const [agree, setAgree] = useState(false);
   const [adult, setAdult] = useState(false);
+  const rec = useVoiceRecorder();
+  const [heard, setHeard] = useState<string | null>(null);
 
   useEffect(() => { api.consentNotice().then((n) => setNotice(n.text)).catch((e) => setErr((e as Error).message)); }, [api]);
 
@@ -28,6 +31,25 @@ export default function NewCaseScreen({ api, onBack, onCreated }: { api: Api; on
     } catch (e) {
       setErr((e as Error).message);
     } finally { setBusy(false); }
+  }
+
+  async function transcribe(r: { mime: string; b64: string }) {
+    setBusy(true); setErr(null);
+    try {
+      const t = await api.transcribe(r.b64, r.mime);
+      setText((old) => (old.trim() ? `${old.trim()} ${t.text}` : t.text));
+      setHeard(t.redacted.length ? `We removed payment details we heard (${t.redacted.join(', ')}).` : 'Check the text below and fix any word we heard wrong.');
+    } catch (e) {
+      setErr((e as Error).message);
+    } finally { setBusy(false); }
+  }
+
+  async function toggleMic() {
+    setErr(null);
+    try {
+      if (rec.state === 'idle') await rec.start((r) => void transcribe(r));
+      else await transcribe(await rec.stop());
+    } catch (e) { setErr((e as Error).message); }
   }
 
   async function create() {
@@ -53,7 +75,10 @@ export default function NewCaseScreen({ api, onBack, onCreated }: { api: Api; on
             <Text style={s.text}>Tell us the problem once, in your own words and your own language.</Text>
             <TextInput accessibilityLabel="Describe your problem" style={[s.input, s.area]} multiline value={text} onChangeText={setText}
               placeholder="For example: my Swiggy order 4839201 arrived cold and I got no refund" />
-            <Text style={s.soft}>Do not type a card number, PIN, CVV or OTP. We remove them, and Nivaran never needs them.</Text>
+            <Button label={rec.state === 'recording' ? 'Stop and write it down' : 'Speak instead of typing'} kind="ghost" onPress={toggleMic} busy={busy} />
+            {rec.state === 'recording' ? <Text style={s.soft}>Listening… speak for up to a minute, then tap again.</Text> : null}
+            {heard ? <Text style={s.soft}>{heard}</Text> : null}
+            <Text style={s.soft}>Do not type or say a card number, PIN, CVV or OTP. We remove them, and Nivaran never needs them.</Text>
             <ErrorText message={err} />
             <Button label="Understand my problem" onPress={understand} disabled={text.trim().length < 5} busy={busy} />
           </>

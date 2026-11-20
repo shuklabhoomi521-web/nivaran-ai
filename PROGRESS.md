@@ -41,6 +41,8 @@ Plan and day-by-day calendar live outside the repo in `~/nivaran-plan` (PLAN.md,
 
 - 21 Nov (roadmap step 1, privacy and safety): stored cases and drafts encrypted; consent and 18+ gates; retention cleanup with 48 hour warning; red team of 41 messages (4 known gaps listed, not hidden). `docs/notes/privacy-safety.md`. 558 backend tests (+4 expected failures), 18 app tests.
 
+- 21 Nov (roadmap step 2): voice input: `POST /speech/transcribe` (size and type limits, strict redaction, no audio stored) and a Speak button in the new-case screen. Backend tests added; not tried with a real microphone yet.
+
 ## Next
 - Day 1 rest: founder makes FreJun Teler, GitHub Student Pack and Bhashini accounts. 19 Nov: tests, TRAI rules, map Teler to the phone layer. 20-22 Nov: phone first, incl. the real test call on your own number (21 Nov).
 

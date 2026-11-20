@@ -106,3 +106,5 @@ export interface Match {
   docket: string | null;
 }
 export interface CheckResponse { new_replies: Match[]; case: TrackedCase }
+
+export interface TranscribeResponse { text: string; language: string | null; provider: string | null; redacted: string[] }

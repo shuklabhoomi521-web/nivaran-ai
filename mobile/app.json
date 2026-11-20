@@ -20,6 +20,14 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-audio",
+        {
+          "microphonePermission": "Nivaran uses the microphone only when you tap \"Speak instead of typing\". Recordings are not kept."
+        }
+      ]
+    ]
   }
 }

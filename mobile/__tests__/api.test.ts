@@ -67,3 +67,12 @@ describe('api client, more calls', () => {
     expect(cap.init?.method).toBe('DELETE');
   });
 });
+
+describe('speech call', () => {
+  it('sends the recording as base64 with its type', async () => {
+    const cap: { url?: string; init?: RequestInit } = {};
+    await makeApi('http://x', fakeFetch(200, { text: 'hi', language: 'en-IN', provider: 'fake', redacted: [] }, cap)).transcribe('QUJD', 'audio/mp4');
+    expect(cap.url).toBe('http://x/speech/transcribe');
+    expect(JSON.parse(String(cap.init?.body))).toEqual({ audio_b64: 'QUJD', mime_type: 'audio/mp4', language: null });
+  });
+});

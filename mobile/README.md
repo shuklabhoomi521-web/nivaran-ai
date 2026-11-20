@@ -26,7 +26,11 @@ Checked in a browser preview only. The real iOS 26 glass has not been seen on a 
 - The list screen shows only company and state, not the facts.
 
 ## Checks
-`npm test` (18 unit tests for the API client and formatting), `npm run typecheck`, and CI runs both. `npx expo export --platform ios` builds the bundle.
+`npm test` (22 unit tests for the API client and formatting), `npm run typecheck`, and CI runs both. `npx expo export --platform ios` builds the bundle.
 
 Known: `npm audit` reports 3 moderate issues in `minimatch` inside Expo's own build tools (not shipped in the app); the suggested fix would downgrade Expo to an old major version, so it is left alone.
 Not yet: voice input, push reminders, login, an installable Android build.
+
+## Voice input (new)
+On the New case screen, "Speak instead of typing" records up to one minute, sends it to the backend (`POST /speech/transcribe`), and puts the text in the box for the user to check and fix. The backend uses the speech-to-text with automatic fallback, removes spoken card numbers and PINs (strict mode), and never stores the audio. The microphone is asked for only when the button is tapped.
+Checked: the endpoint and helper functions have tests; the app bundle builds. **Not tested with a real microphone or on a phone yet.**

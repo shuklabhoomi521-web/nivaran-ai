@@ -9,6 +9,7 @@ from fastapi.responses import FileResponse
 from app.api.cases import router as cases_router
 from app.api.letters import router as letters_router
 from app.api.replies import router as replies_router
+from app.api.speech import router as speech_router
 from app.api.tracked import router as tracked_router
 
 app = FastAPI(title="Nivaran")
@@ -19,6 +20,7 @@ app.include_router(cases_router)
 app.include_router(tracked_router)
 app.include_router(letters_router)
 app.include_router(replies_router)
+app.include_router(speech_router)
 
 STATIC_DIR = Path(__file__).resolve().parent.parent / "static"
 
