@@ -27,7 +27,7 @@ Last updated: 2026-10-27
 - The first real call to be placed only when you say so.
 
 ## Open (added 2026-11-19)
-- [ ] Register for a Bhashini key at https://bhashini.gov.in (site said "server busy" on 19 Nov; retry 20 Nov). Put the key only in `.env`.
-- [ ] FreJun Teler account: sign-in failed because their server was down (support emailed 19 Nov). Retry after they reply.
+- [ ] Bhashini: account made, but the form needs a real supervisor/HOD (name, email, phone). Ask a faculty member first; skip otherwise. Put any key only in `.env`.
+- [ ] FreJun Teler: FreJun says the account is active. Use Forgot password on platform.frejun.ai, choose a new password, log in (Chrome or a private window).
 - [ ] Optional: GitHub Student Developer Pack at https://education.github.com/pack
 - [ ] Peakflo ML Intern application (YC Work at a Startup), text in `~/nivaran-outreach/apply_by_hand_texts.md`
