@@ -35,6 +35,8 @@ Plan and day-by-day calendar live outside the repo in `~/nivaran-plan` (PLAN.md,
 
 - 21 Nov: mobile app first version built in `mobile/` (Expo SDK 58, TypeScript): cases list, new case, case screen with ladder, letter approve-and-send, portal kit, reply check, delete. Type check clean, 14 jest tests, iOS bundle builds; CI job added. Not run on a real phone yet. FreJun answered: call their support (+91 8035 301 939) for account help.
 
+- 21 Nov: app checked as a web preview (no full Xcode on this Mac, so no iOS simulator): cases list, case screen with ladder and verified contact, letter draft all work against the real backend; demo servers stopped. Outreach: 30 small startups checked, only Hume AI publishes a usable hiring address; emailed. Others print none or only support/sales inboxes.
+
 ## Next
 - Day 1 rest: founder makes FreJun Teler, GitHub Student Pack and Bhashini accounts. 19 Nov: tests, TRAI rules, map Teler to the phone layer. 20-22 Nov: phone first, incl. the real test call on your own number (21 Nov).
 
