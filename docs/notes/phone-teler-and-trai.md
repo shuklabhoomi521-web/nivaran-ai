@@ -41,3 +41,10 @@ Source: TRAI Gazette notification PDF (a scanned image, read with macOS text rec
 
 ## Decision still to make (22 Nov)
 Which provider, how a student goes live (KYC), and the TRAI declaration. Until then: test only to your own verified number, never to a real company.
+
+## Twilio line test, 2026-11-19 on a phone hotspot (finding)
+- Twilio placed the call, the phone rang, the trial message played, then Twilio said it could not reach the server. Twilio reported status completed, 9 s.
+- Our server DID receive Twilio's request (`POST /phone/twiml`, logged 200 OK). Tested locally afterwards: the reply is valid TwiML, 103 bytes, text/xml, for both POST and GET.
+- Conclusion: our code is right. The reply did not make it back to Twilio in time, so the weak point is the tunnel or the network (the home network also blocks Cloudflare entirely; the hotspot worked for the tunnel check but not reliably for the reply).
+- Twilio's debugger and Voice Insights are not available on a trial account through the API (error 20003), so the exact Twilio-side error code is only visible in the web console debugger.
+- Next experiment (needs a call, so only when the founder says go): before calling, send 20 test requests through the tunnel and check each answers fast; then place the line test again on the steadiest connection.

@@ -19,6 +19,8 @@ Plan and day-by-day calendar live outside the repo in `~/nivaran-plan` (PLAN.md,
 
 - 20 Nov (Day 2): 428 tests pass; public roadmap added at `docs/plan/ROADMAP.md`. FreJun confirmed the account is active and says to reset the password. Twilio line test: our server got Twilio's request and answered 200, yet the call said it could not reach the server; cause still open (read Twilio's error log next). Network matters: the home network blocks Cloudflare's tunnel, a phone hotspot does not. Bhashini needs a supervisor's details, so it is on hold. CallMissed said no.
 
+- 21 Nov (Sprint D1, started late 20 Nov): Twilio line-test finding written down (our reply was valid; the tunnel path is the weak point). Directory v2 started: optional `appellate_authority` and `chat_channels` on companies, plus a verified regulator table by category (`app/directory/regulators.json`: NCH, RBI CMS, IRDAI Bima Bharosa, TRAI, Rail Madad verified with quotes; AirSewa and e-Daakhil marked needs-check, not invented). 434 free tests pass.
+
 ## Next
 - Day 1 rest: founder makes FreJun Teler, GitHub Student Pack and Bhashini accounts. 19 Nov: tests, TRAI rules, map Teler to the phone layer. 20-22 Nov: phone first, incl. the real test call on your own number (21 Nov).
 

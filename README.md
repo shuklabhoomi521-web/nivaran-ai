@@ -85,7 +85,7 @@ Everything outside the core sits behind small interfaces (`app/speech/`, `app/br
 | **Speech-to-text, 4 new clips never used for tuning** (12 variants: clean, 8 dB street noise, phone line) | Word error: **Sarvam 0.05**, Gemini 0.42, local Whisper-Hindi2Hinglish 0.45, Groq Whisper 0.51 | [holdout](docs/results/holdout-result.md) | 4 clips, one speaker, artificial noise. Roman-vs-Devanagari spelling inflates the Hindi scores of Gemini and the local model. |
 | **Phone calls**, 10 practice calls (rules written before running) | **9 of 10 handled well**; keypad menus passed every time; refused OTP and card requests every time | [results](docs/results/phase4-practice-results.md) | A computer voice plays the agent, in the browser. Zero real phone calls. The one failed call (Hindi) failed on speed: the language bug was fixed (the latest run answered in Devanagari), but the reply came 12.4 s late (rule P5) because the free local Hindi model is slow. |
 | **Reply speed** | 2-4 s after the other person stops talking (brain 0.5-1.5 s) | [Phase 3 notes](docs/notes/phase-3.md) | Goal was 1.5 s: **not met**. Free tiers can be slow. |
-| **Safety tests** | 16 redaction tests, 31 secret/OTP/card/PIN tests, AI disclosure tests in 4 languages; 428 free tests (423 on a fresh install) run on every push (CI) | [tests](backend/tests) | Tests prove the rules in code, not that every real-world phrasing is caught. |
+| **Safety tests** | 16 redaction tests, 31 secret/OTP/card/PIN tests, AI disclosure tests in 4 languages; 434 free tests (429 on a fresh install) run on every push (CI) | [tests](backend/tests) | Tests prove the rules in code, not that every real-world phrasing is caught. |
 
 ## Safety and ethics
 

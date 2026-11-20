@@ -5,7 +5,7 @@ from datetime import date
 from enum import Enum
 from urllib.parse import urlparse
 
-from pydantic import BaseModel, ConfigDict, field_validator
+from pydantic import BaseModel, ConfigDict, field_validator, model_validator
 
 from app.models.case import Category
 
@@ -62,6 +62,45 @@ class GrievanceOfficer(Strict):
     sources: list[Source]
 
 
+class ChatKind(str, Enum):
+    in_app = "in_app"
+    web_chat = "web_chat"
+    whatsapp = "whatsapp"
+
+
+class ChatChannel(Strict):
+    kind: ChatKind
+    value: str                    # a link or a number the company itself publishes
+    label: str | None = None
+    sources: list[Source]
+
+
+class Regulator(Strict):
+    """Where a complaint goes when the company does not solve it. Every entry carries the official page and an exact quote;
+    if we could not read the official page, `source` is empty and `needs_check` says what is still unverified."""
+    key: str
+    name: str
+    portal_url: str
+    covers: list[Category]
+    what_for: str
+    helpline: str | None = None
+    source: Source | None = None
+    needs_check: list[str] = []
+
+    @field_validator("portal_url")
+    @classmethod
+    def _https(cls, v: str) -> str:
+        if not v.startswith("https://"):
+            raise ValueError("portal_url must be https")
+        return v
+
+    @model_validator(mode="after")
+    def _honest(self):
+        if self.source is None and not self.needs_check:
+            raise ValueError("a regulator without a verified source must say what is unverified (needs_check)")
+        return self
+
+
 class Company(Strict):
     name: str
     aliases: list[str]
@@ -74,6 +113,8 @@ class Company(Strict):
     grievance_officer: GrievanceOfficer | None = None
     working_hours: str | None = None
     channel_notes: str | None = None
+    appellate_authority: GrievanceOfficer | None = None   # v2: the appellate authority named on the company's official page
+    chat_channels: list[ChatChannel] = []                # v2: in-app, web chat or WhatsApp the company itself publishes
     official_no_phone: Source | None = None   # the official page saying the company has NO customer phone line
     needs_check: list[str] = []   # things we could not confirm: the founder must fill or drop them
 
