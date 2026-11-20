@@ -25,8 +25,10 @@ done
 echo
 echo "Backend address on your Wi-Fi: http://$IP:8000"
 echo "In a second Terminal window run:"
-echo "  cd $(pwd)/mobile && EXPO_PUBLIC_API_URL=http://$IP:8000 EXPO_PUBLIC_API_TOKEN=\$(cat ../.pilot_token) npx expo start"
-echo "Then open the Expo Go app on the phone and scan the code."
+echo "  cd $(pwd)/mobile && EXPO_PUBLIC_API_URL=http://$IP:8000 npx expo start"
+echo "Then open the Expo Go app on the phone and scan the code. The app asks for an access code on first start:"
+echo "  - you (the owner): the text inside the file .pilot_token (open it yourself; it is not printed here)"
+echo "  - each volunteer: their own code from  python scripts/pilot_users.py add \"Name\""
 echo
 
 cd backend
