@@ -128,10 +128,10 @@ def test_api_flow(tmp_path, monkeypatch):
     monkeypatch.setattr(tracked, "_today", lambda: D0 + timedelta(days=4))
     try:
         cl = TestClient(app)
-        r = cl.post("/tracked-cases", json={"case": understood().model_dump(mode="json")})
+        r = cl.post("/tracked-cases", json={"case": understood().model_dump(mode="json"), "consent": True, "adult": True})
         assert r.status_code == 200
         cid = r.json()["id"]
-        assert cl.post("/tracked-cases", json={"case": understood("No Such Company").model_dump(mode="json")}).status_code == 422
+        assert cl.post("/tracked-cases", json={"case": understood("No Such Company").model_dump(mode="json"), "consent": True, "adult": True}).status_code == 422
         n = cl.get(f"/tracked-cases/{cid}/next").json()
         assert n["action"]["rung"] == "first_contact" and len(n["reminders"]) == 5
         ev = {"on": (D0 + timedelta(days=4)).isoformat(), "kind": "contacted", "rung": "first_contact", "channel": "email", "text": "sent"}
@@ -151,3 +151,23 @@ def test_company_with_a_support_line_uses_it_first_and_unknown_company_says_noth
     assert a.target_value and a.source_quote and a.note is None
     unknown = engine.next_action(engine.new_case(understood("Nobody Ltd", Category.other), D0, "c10"), D0, None)
     assert unknown.target_value is None and unknown.rung == Rung.first_contact
+
+
+def test_a_case_needs_consent_and_an_adult_confirmation(tmp_path, monkeypatch):
+    store = CaseStore(tmp_path / "cases.json")
+    app.dependency_overrides[tracked.get_store] = lambda: store
+    monkeypatch.setattr(tracked, "_today", lambda: D0)
+    try:
+        cl = TestClient(app)
+        body = {"case": understood().model_dump(mode="json")}
+        assert cl.post("/tracked-cases", json=body).status_code == 422                                   # no consent
+        r = cl.post("/tracked-cases", json={**body, "consent": True})
+        assert r.status_code == 422 and "18" in r.json()["detail"]                                        # consent but not confirmed adult
+        assert cl.post("/tracked-cases", json={**body, "adult": True}).status_code == 422                 # adult but no consent
+        assert store.list() == []                                                                          # nothing was stored for any refusal
+        ok = cl.post("/tracked-cases", json={**body, "consent": True, "adult": True}).json()
+        assert ok["consent_version"] and ok["consent_on"] == D0.isoformat() and ok["adult_confirmed"] is True
+        n = cl.get("/tracked-cases/consent-notice").json()
+        assert n["version"] == ok["consent_version"] and "never ask for" in n["text"] and "outside AI services" in n["text"]
+    finally:
+        app.dependency_overrides.clear()

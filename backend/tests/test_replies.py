@@ -129,7 +129,7 @@ def test_api_check_replies(tmp_path, monkeypatch):
         cl = TestClient(app)
         cid = cl.post("/tracked-cases", json={"case": {"company": "Swiggy", "category": "food_delivery", "category_confidence": "high",
               "problem_summary": "Cold order.", "user_goal": "refund", "details_known": [], "details_missing": [], "user_language": "english",
-              "urgency": "low", "other_issues": []}}).json()["id"]
+              "urgency": "low", "other_issues": []}, "consent": True, "adult": True}).json()["id"]
         r = cl.post(f"/tracked-cases/{cid}/check-replies").json()
         assert len(r["new_replies"]) == 1 and r["new_replies"][0]["docket"] and r["case"]["events"][-1]["kind"] == "reply_received"
         assert cl.post(f"/tracked-cases/{cid}/check-replies").json()["new_replies"] == []     # second check adds nothing

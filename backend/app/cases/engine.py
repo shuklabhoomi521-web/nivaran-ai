@@ -20,13 +20,15 @@ class CaseError(ValueError):
     pass
 
 
-def new_case(understood: Case, today: date, case_id: str | None = None, user_name: str | None = None) -> TrackedCase:
+def new_case(understood: Case, today: date, case_id: str | None = None, user_name: str | None = None,
+             consent_version: str | None = None, adult_confirmed: bool = False) -> TrackedCase:
     """Start a case file from what the AI understood. The company must be known: we never guess who to write to."""
     if not understood.company:
         raise CaseError("the company is unknown: ask the user first")
     return TrackedCase(id=case_id or uuid.uuid4().hex[:12], company=understood.company, category=understood.category,
                        problem_summary=understood.problem_summary, user_goal=understood.user_goal,
-                       facts=list(understood.details_known), created_on=today, user_name=user_name)
+                       facts=list(understood.details_known), created_on=today, user_name=user_name,
+                       consent_version=consent_version, consent_on=today if consent_version else None, adult_confirmed=adult_confirmed)
 
 
 def apply(case: TrackedCase, event: Event) -> TrackedCase:

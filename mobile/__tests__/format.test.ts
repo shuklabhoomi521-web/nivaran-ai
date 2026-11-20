@@ -1,4 +1,4 @@
-import { actionHeadline, caseTitle, categoryLabel, prettyDate, reminderLabel, todayIso } from '../src/format';
+import { actionHeadline, addDays, caseTitle, categoryLabel, prettyDate, reminderLabel, todayIso } from '../src/format';
 import type { Action, Reminder } from '../src/types';
 
 const action = (over: Partial<Action>): Action => ({
@@ -26,6 +26,10 @@ describe('format helpers', () => {
   });
   it('list titles show only company and state, never the facts', () => {
     expect(caseTitle('Swiggy', 'waiting')).toBe('Swiggy · Waiting for a reply');
+  });
+  it('adds days across month and year ends', () => {
+    expect(addDays('2026-12-30', 2)).toBe('2027-01-01');
+    expect(addDays('2026-02-27', 2)).toBe('2026-03-01');
   });
   it('category and today helpers', () => {
     expect(categoryLabel('food_delivery')).toBe('Food delivery');

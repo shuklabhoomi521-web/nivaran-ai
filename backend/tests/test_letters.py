@@ -163,7 +163,7 @@ def test_api_flow_from_draft_to_sent(tmp_path, monkeypatch):
     monkeypatch.setattr(letters_api, "_today", lambda: D0)
     try:
         cl = TestClient(app)
-        cid = cl.post("/tracked-cases", json={"case": understood().model_dump(mode="json"), "user_name": "Bhoomi Shukla"}).json()["id"]
+        cid = cl.post("/tracked-cases", json={"case": understood().model_dump(mode="json"), "user_name": "Bhoomi Shukla", "consent": True, "adult": True}).json()["id"]
         d = cl.post(f"/tracked-cases/{cid}/drafts").json()
         assert d["status"] == "pending" and "Bhoomi Shukla" in d["body"]
         assert cl.post(f"/drafts/{d['id']}/send").status_code == 409 and sender.sent == []          # not approved: refused

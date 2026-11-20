@@ -57,6 +57,10 @@ class TrackedCase(Strict):
     problem_summary: str
     user_goal: UserGoal
     user_name: str | None = None                        # used only to sign letters the user approves
+    consent_version: str | None = None                  # which privacy notice the user accepted
+    consent_on: date | None = None
+    adult_confirmed: bool = False                       # the user said they are 18 or older
+    purge_notice_on: date | None = None                 # when we warned the user their inactive case will be deleted
     facts: list[Fact] = Field(default_factory=list)     # only facts the user gave: letters may use nothing else
     created_on: date
     state: CaseState = CaseState.new

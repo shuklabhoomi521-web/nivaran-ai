@@ -11,10 +11,10 @@ describe('api client', () => {
   it('sends JSON to the right address and trims the trailing slash', async () => {
     const cap: { url?: string; init?: RequestInit } = {};
     const api = makeApi('http://192.168.1.20:8000/', fakeFetch(200, { id: 'c1' }, cap));
-    await api.createCase({ company: 'Swiggy' } as never, 'Bhoomi');
+    await api.createCase({ company: 'Swiggy' } as never, 'Bhoomi', true, true);
     expect(cap.url).toBe('http://192.168.1.20:8000/tracked-cases');
     expect(cap.init?.method).toBe('POST');
-    expect(JSON.parse(String(cap.init?.body))).toEqual({ case: { company: 'Swiggy' }, user_name: 'Bhoomi' });
+    expect(JSON.parse(String(cap.init?.body))).toEqual({ case: { company: 'Swiggy' }, user_name: 'Bhoomi', consent: true, adult: true });
   });
 
   it('GET calls send no body', async () => {

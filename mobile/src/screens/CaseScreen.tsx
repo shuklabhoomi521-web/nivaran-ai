@@ -2,7 +2,7 @@ import * as Clipboard from 'expo-clipboard';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Alert, Linking, ScrollView, Text, TextInput, View } from 'react-native';
 import type { Api } from '../api';
-import { RUNG_LABEL, STATE_COLOR, STATE_LABEL, actionHeadline, categoryLabel, prettyDate, reminderLabel, todayIso } from '../format';
+import { RUNG_LABEL, STATE_COLOR, STATE_LABEL, actionHeadline, addDays, categoryLabel, prettyDate, reminderLabel, todayIso } from '../format';
 import { c, s } from '../theme';
 import type { Draft, Match, NextResponse, PortalKit, TrackedCase } from '../types';
 import { Button, Card, Chip, ErrorText } from '../ui';
@@ -54,6 +54,11 @@ export default function CaseScreen({ api, id, onBack }: { api: Api; id: string; 
           <Text style={s.soft}>{categoryLabel(tc.category)} · started {prettyDate(tc.created_on)}</Text>
           {tc.facts.map((f) => <Text key={f.name} style={s.text}>• {f.name.replace(/_/g, ' ')}: {f.value}</Text>)}
         </Card>
+        {tc.purge_notice_on ? (
+          <Card title="This case will be deleted">
+            <Text style={s.text}>It has had no activity for a year. It will be deleted on {prettyDate(addDays(tc.purge_notice_on, 2))} unless you do something on it, such as adding a note.</Text>
+          </Card>
+        ) : null}
         <ErrorText message={err} />
 
         {next && (

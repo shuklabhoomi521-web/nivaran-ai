@@ -15,9 +15,9 @@ from typing import Callable, Protocol
 from pydantic import BaseModel, ConfigDict
 
 from app.cases.models import Rung
+from app.cases.vault import Vault
 from app.directory.models import Company
-from app.letters.compose import Letter, LetterError, allowed_recipients
-from app.safety.redact import redact
+from app.letters.compose import Letter, LetterError, allowed_recipients, private_kinds
 
 
 class DraftStatus(str, Enum):
@@ -83,21 +83,17 @@ class SmtpSender:
 
 
 class DraftStore:
-    def __init__(self, path: str | os.PathLike):
+    def __init__(self, path: str | os.PathLike, vault: Vault | None = None):
         self.path = Path(path)
+        self.vault = vault or Vault()
 
     def _read(self) -> dict[str, dict]:
-        try:
-            return json.loads(self.path.read_text(encoding="utf-8"))
-        except FileNotFoundError:
-            return {}
+        return self.vault.read(self.path)
 
     def save(self, d: Draft) -> None:
         data = self._read()
         data[d.id] = json.loads(d.model_dump_json())
-        tmp = self.path.with_suffix(".tmp")
-        tmp.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
-        os.replace(tmp, self.path)
+        self.vault.write(self.path, data)
 
     def get(self, draft_id: str) -> Draft | None:
         raw = self._read().get(draft_id)
@@ -140,7 +136,7 @@ def send(d: Draft, company: Company | None, sender: MailSender, today: date) -> 
         raise LetterError("the text changed after approval; approve it again")
     if d.to.lower() not in allowed_recipients(company):
         raise LetterError(f"{d.to} is not an address in the verified directory for this company")
-    if redact(d.subject + "\n" + d.body)[1]:
+    if private_kinds(d.subject + "\n" + d.body):
         raise LetterError("the letter contains payment data (card, CVV or PIN) and was not sent")
     message_id = sender.send(d.to, d.subject, d.body)
     return d.model_copy(update={"status": DraftStatus.sent, "sent_on": today, "message_id": message_id})

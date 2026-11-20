@@ -1,4 +1,4 @@
-import type { Action, CheckResponse, Draft, NextResponse, PortalKit, TrackedCase, UnderstandResponse, UnderstoodCase } from './types';
+import type { Action, CheckResponse, ConsentNotice, Draft, NextResponse, PortalKit, TrackedCase, UnderstandResponse, UnderstoodCase } from './types';
 
 export class ApiError extends Error {
   constructor(message: string, public status?: number) {
@@ -47,7 +47,9 @@ export function makeApi(baseUrl: string, fetchImpl: typeof fetch = fetch, timeou
 
   return {
     understand: (message: string) => request<UnderstandResponse>('POST', '/cases/understand', { message }),
-    createCase: (c: UnderstoodCase, userName: string | null) => request<TrackedCase>('POST', '/tracked-cases', { case: c, user_name: userName }),
+    consentNotice: () => request<ConsentNotice>('GET', '/tracked-cases/consent-notice'),
+    createCase: (c: UnderstoodCase, userName: string | null, consent: boolean, adult: boolean) =>
+      request<TrackedCase>('POST', '/tracked-cases', { case: c, user_name: userName, consent, adult }),
     listCases: () => request<TrackedCase[]>('GET', '/tracked-cases'),
     getCase: (id: string) => request<TrackedCase>('GET', `/tracked-cases/${id}`),
     nextStep: (id: string) => request<NextResponse>('GET', `/tracked-cases/${id}/next`),

@@ -1,5 +1,7 @@
 """The letter writer. No AI is used here: every sentence is a fixed template filled only with what the user told us and what happened
 on the case. That makes it impossible to invent a fact, a law, a deadline or a promise. The user reads and approves every letter."""
+import re
+import unicodedata
 from datetime import date
 
 from pydantic import BaseModel, ConfigDict
@@ -15,6 +17,14 @@ GOAL_TEXT = {UserGoal.refund: "a refund", UserGoal.repair: "a repair", UserGoal.
 
 class LetterError(ValueError):
     pass
+
+
+def private_kinds(text: str) -> list[str]:
+    """Kinds of payment data in the text (card, CVV, PIN). Digits written in other scripts (Devanagari, Arabic-Indic, full-width) are read as
+    ordinary digits first, so a card number cannot hide in them."""
+    flat = "".join(str(unicodedata.digit(ch)) if ch.isdigit() and ch not in "0123456789" and unicodedata.digit(ch, None) is not None else ch for ch in text)
+    flat = re.sub(r"(?<=\d{4})\.(?=\d{4})", " ", flat)              # 4111.1111.1111.1111 is read as 4111 1111 1111 1111
+    return redact(flat)[1]
 
 
 class Letter(BaseModel):
@@ -88,7 +98,7 @@ def compose(case: TrackedCase, action: Action, today: date) -> Letter:
         subject = f"Complaint text for {action.target_label}: {subject_core}"
         body = (f"Complaint against {case.company}\n\nProblem: {case.problem_summary}\n{_facts(case)}{_history(case)}\n"
                 f"{_ask(case)}\n\n{ref}\nFiled by: {name}\n")
-    cleaned, kinds = redact(body)
+    kinds = private_kinds(body)
     if kinds:
         raise LetterError(f"the letter would contain private payment data ({', '.join(kinds)}); remove it from the case facts first")
     return Letter(channel="email" if action.channel == "email" else "portal", to=action.target_value, subject=subject, body=body, rung=rung)

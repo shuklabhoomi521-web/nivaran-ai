@@ -4,7 +4,7 @@ from datetime import date
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 
-from app.cases import engine
+from app.cases import consent, engine
 from app.cases.kit import PortalKit, build_kit
 from app.cases.models import Action, Event, TrackedCase
 from app.letters.compose import LetterError
@@ -26,6 +26,8 @@ def _today() -> date:
 class CreateRequest(BaseModel):
     case: Case                     # what the AI understood and the user confirmed
     user_name: str | None = None   # signs the letters the user approves
+    consent: bool = False          # the user accepted the privacy notice (see GET /tracked-cases/consent-notice)
+    adult: bool = False            # the user confirmed they are 18 or older
 
 
 class NextResponse(BaseModel):
@@ -33,10 +35,19 @@ class NextResponse(BaseModel):
     reminders: list[dict]
 
 
+@router.get("/consent-notice")
+def consent_notice():
+    return consent.notice()
+
+
 @router.post("", response_model=TrackedCase)
 def create(req: CreateRequest, store: CaseStore = Depends(get_store)):
+    if not req.consent:
+        raise HTTPException(status_code=422, detail="the user has not accepted the privacy notice")
+    if not req.adult:
+        raise HTTPException(status_code=422, detail="Nivaran is for people aged 18 or older; a parent or guardian must start the case")
     try:
-        case = engine.new_case(req.case, _today(), user_name=req.user_name)
+        case = engine.new_case(req.case, _today(), user_name=req.user_name, consent_version=consent.CONSENT_VERSION, adult_confirmed=True)
     except engine.CaseError as e:
         raise HTTPException(status_code=422, detail=str(e))
     if find_company(case.company) is None:

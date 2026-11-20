@@ -37,3 +37,4 @@ backend/.cases.json
 .drafts.json
 .drafts.tmp
 backend/.drafts.json
+.data_key

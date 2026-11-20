@@ -1,26 +1,23 @@
-"""Where tracked cases are kept. For now one JSON file (written atomically); the database comes with hosting.
-The file holds private details, so it is git-ignored and must be encrypted before real users (see docs/notes/dpdp-basics.md)."""
+"""Where tracked cases are kept. For now one encrypted file (written atomically); the database comes with hosting.
+The file holds private details, so it is encrypted at rest (see `vault.py`) and git-ignored."""
 import json
 import os
 from pathlib import Path
 
 from app.cases.models import TrackedCase
+from app.cases.vault import Vault
 
 
 class CaseStore:
-    def __init__(self, path: str | os.PathLike):
+    def __init__(self, path: str | os.PathLike, vault: Vault | None = None):
         self.path = Path(path)
+        self.vault = vault or Vault()
 
     def _read(self) -> dict[str, dict]:
-        try:
-            return json.loads(self.path.read_text(encoding="utf-8"))
-        except FileNotFoundError:
-            return {}
+        return self.vault.read(self.path)
 
     def _write(self, data: dict[str, dict]) -> None:
-        tmp = self.path.with_suffix(".tmp")
-        tmp.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
-        os.replace(tmp, self.path)
+        self.vault.write(self.path, data)
 
     def save(self, case: TrackedCase) -> None:
         data = self._read()

@@ -44,7 +44,10 @@ export interface TrackedCase {
   created_on: string;
   state: CaseState;
   events: CaseEvent[];
+  purge_notice_on: string | null;
 }
+
+export interface ConsentNotice { version: string; text: string }
 
 export interface Action {
   rung: Rung;

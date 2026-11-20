@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ScrollView, Text, TextInput, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import type { Api } from '../api';
 import { GOAL_LABEL, categoryLabel } from '../format';
 import { s } from '../theme';
@@ -13,6 +13,11 @@ export default function NewCaseScreen({ api, onBack, onCreated }: { api: Api; on
   const [result, setResult] = useState<UnderstandResponse | null>(null);
   const [err, setErr] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [notice, setNotice] = useState<string | null>(null);
+  const [agree, setAgree] = useState(false);
+  const [adult, setAdult] = useState(false);
+
+  useEffect(() => { api.consentNotice().then((n) => setNotice(n.text)).catch((e) => setErr((e as Error).message)); }, [api]);
 
   async function understand() {
     setBusy(true); setErr(null);
@@ -29,7 +34,7 @@ export default function NewCaseScreen({ api, onBack, onCreated }: { api: Api; on
     if (!result) return;
     setBusy(true); setErr(null);
     try {
-      const t = await api.createCase({ ...result.case, company: company.trim() || null }, name.trim() || null);
+      const t = await api.createCase({ ...result.case, company: company.trim() || null }, name.trim() || null, agree, adult);
       onCreated(t.id);
     } catch (e) {
       setErr((e as Error).message);
@@ -66,8 +71,17 @@ export default function NewCaseScreen({ api, onBack, onCreated }: { api: Api; on
             <TextInput accessibilityLabel="Company name" style={s.input} value={company} onChangeText={setCompany} placeholder="Company name" />
             <Text style={s.soft}>Your name, used only to sign letters you approve:</Text>
             <TextInput accessibilityLabel="Your name" style={s.input} value={name} onChangeText={setName} placeholder="Your name" />
+            <Card title="Privacy">
+              <Text style={s.soft}>{notice ?? 'Loading the privacy notice…'}</Text>
+              <Pressable accessibilityRole="checkbox" accessibilityState={{ checked: agree }} onPress={() => setAgree(!agree)}>
+                <Text style={s.text}>{agree ? '☑' : '☐'} I have read this and agree.</Text>
+              </Pressable>
+              <Pressable accessibilityRole="checkbox" accessibilityState={{ checked: adult }} onPress={() => setAdult(!adult)}>
+                <Text style={s.text}>{adult ? '☑' : '☐'} I am 18 years old or older.</Text>
+              </Pressable>
+            </Card>
             <ErrorText message={err} />
-            <Button label="Create case" onPress={create} disabled={!company.trim()} busy={busy} />
+            <Button label="Create case" onPress={create} disabled={!company.trim() || !agree || !adult || !notice} busy={busy} />
             <Button label="Change my text" kind="ghost" onPress={() => setResult(null)} />
           </>
         )}
