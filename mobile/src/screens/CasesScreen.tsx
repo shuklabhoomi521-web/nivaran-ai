@@ -4,6 +4,7 @@ import type { Api } from '../api';
 import { STATE_COLOR, caseTitle, categoryLabel, prettyDate } from '../format';
 import { s, c } from '../theme';
 import type { TrackedCase } from '../types';
+import { GlassSurface } from '../glass';
 import { Button, Chip, ErrorText } from '../ui';
 
 export default function CasesScreen({ api, onOpen, onNew }: { api: Api; onOpen: (id: string) => void; onNew: () => void }) {
@@ -41,11 +42,13 @@ export default function CasesScreen({ api, onOpen, onNew }: { api: Api; onOpen: 
         refreshControl={<RefreshControl refreshing={busy} onRefresh={load} />}
         ListEmptyComponent={<Text style={s.soft}>{busy || err ? '' : 'No cases yet. Tap "New case" and tell us the problem once, in your own words.'}</Text>}
         renderItem={({ item }) => (
-          <Pressable accessibilityRole="button" accessibilityLabel={caseTitle(item.company, item.state)} onPress={() => onOpen(item.id)} style={[s.card, { marginBottom: 10 }]}>
+          <Pressable accessibilityRole="button" accessibilityLabel={caseTitle(item.company, item.state)} onPress={() => onOpen(item.id)} style={{ marginBottom: 12 }}>
+            <GlassSurface style={s.card}>
             <Text style={s.h2}>{item.company}</Text>
             <Chip text={caseTitle(item.company, item.state).split(' · ')[1]} color={STATE_COLOR[item.state]} />
             <Text style={s.soft}>{categoryLabel(item.category)} · started {prettyDate(item.created_on)} · {item.events.length} update{item.events.length === 1 ? '' : 's'}</Text>
             <Text style={[s.soft, { color: c.ink }]} numberOfLines={2}>{item.problem_summary}</Text>
+            </GlassSurface>
           </Pressable>
         )}
       />

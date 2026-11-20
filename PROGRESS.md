@@ -37,6 +37,8 @@ Plan and day-by-day calendar live outside the repo in `~/nivaran-plan` (PLAN.md,
 
 - 21 Nov: app checked as a web preview (no full Xcode on this Mac, so no iOS simulator): cases list, case screen with ladder and verified contact, letter draft all work against the real backend; demo servers stopped. Outreach: 30 small startups checked, only Hume AI publishes a usable hiring address; emailed. Others print none or only support/sales inboxes.
 
+- 21 Nov: app restyled in liquid glass (native iOS 26 glass, blur fallback, web blur, opaque when Reduce Transparency is on); checked in a browser preview. 17 app tests. Outreach: 2 more emails from Hacker News hiring posts (Namespace, Typify); HN threads are mostly senior or US-only roles, so yield is low.
+
 ## Next
 - Day 1 rest: founder makes FreJun Teler, GitHub Student Pack and Bhashini accounts. 19 Nov: tests, TRAI rules, map Teler to the phone layer. 20-22 Nov: phone first, incl. the real test call on your own number (21 Nov).
 

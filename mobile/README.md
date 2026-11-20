@@ -12,13 +12,21 @@ First version (sprint day 7 work): list your cases, start a new case, and run a 
 - **New case:** type the problem once; the server removes card, PIN and OTP text, the AI shows what it understood, you confirm the company and your name.
 - **Case:** the ladder (first message, follow-up, grievance officer, appellate authority, regulator), the next step with the verified contact and the official quote, the letter (edit, approve, then send, each a separate tap), the portal filing kit (official steps with quotes, our checklist, complaint text to copy, docket number), inbox check for replies, mark solved or stop, delete my data.
 
+## Design: liquid glass
+Frosted, translucent panes over a soft colour backdrop (`src/glass.tsx`, `src/surface.ts`).
+- iPhone with iOS 26 or newer: Apple's real liquid glass (`expo-glass-effect`).
+- Other phones: a frosted blur (`expo-blur`). Browser preview: a CSS backdrop blur.
+- If the person turns on **Reduce Transparency** (an accessibility setting), every pane becomes opaque and high contrast.
+- Text stays dark on light glass; the primary button is a blue-tinted pane with white text.
+Checked in a browser preview only. The real iOS 26 glass has not been seen on a device (this Mac has no full Xcode).
+
 ## Rules the app follows
 - Nothing is sent without the user approving the exact text and tapping Send, then confirming.
 - The app never types a password, OTP, PIN or card detail anywhere.
 - The list screen shows only company and state, not the facts.
 
 ## Checks
-`npm test` (14 unit tests for the API client and formatting), `npm run typecheck`, and CI runs both. `npx expo export --platform ios` builds the bundle.
+`npm test` (17 unit tests for the API client and formatting), `npm run typecheck`, and CI runs both. `npx expo export --platform ios` builds the bundle.
 
 Known: `npm audit` reports 3 moderate issues in `minimatch` inside Expo's own build tools (not shipped in the app); the suggested fix would downgrade Expo to an old major version, so it is left alone.
 Not yet: voice input, push reminders, login, an installable Android build.
