@@ -49,6 +49,8 @@ Plan and day-by-day calendar live outside the repo in `~/nivaran-plan` (PLAN.md,
 
 - 21 Nov: Call for me built: guarded proxy to the voice server, preview with the fixed AI sentence, practice mode (rings the user's own phone), real company calls off by default, live transcript, always-on hang up (`docs/notes/call-for-me.md`). Looked at in the browser preview. No call placed yet (voice server and provider not working). 573 backend tests, 27 app tests.
 
+- 21 Nov: reminders (local notifications), Hindi and Tamil labels (first draft, unchecked), Android build setup (needs the builder's Expo login). `docs/notes/mobile-i18n.md`. 573 backend tests, 35 app tests.
+
 ## Next
 - Day 1 rest: founder makes FreJun Teler, GitHub Student Pack and Bhashini accounts. 19 Nov: tests, TRAI rules, map Teler to the phone layer. 20-22 Nov: phone first, incl. the real test call on your own number (21 Nov).
 

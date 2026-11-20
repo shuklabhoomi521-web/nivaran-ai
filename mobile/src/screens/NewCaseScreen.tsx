@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import type { Api } from '../api';
 import { GOAL_LABEL, categoryLabel } from '../format';
+import { useT } from '../i18n';
 import { s } from '../theme';
 import type { UnderstandResponse } from '../types';
 import { useVoiceRecorder } from '../voice';
 import { Button, Card, ErrorText } from '../ui';
 
 export default function NewCaseScreen({ api, onBack, onCreated }: { api: Api; onBack: () => void; onCreated: (id: string) => void }) {
+  const t = useT();
   const [text, setText] = useState('');
   const [name, setName] = useState('');
   const [company, setCompany] = useState('');
@@ -36,9 +38,9 @@ export default function NewCaseScreen({ api, onBack, onCreated }: { api: Api; on
   async function transcribe(r: { mime: string; b64: string }) {
     setBusy(true); setErr(null);
     try {
-      const t = await api.transcribe(r.b64, r.mime);
-      setText((old) => (old.trim() ? `${old.trim()} ${t.text}` : t.text));
-      setHeard(t.redacted.length ? `We removed payment details we heard (${t.redacted.join(', ')}).` : 'Check the text below and fix any word we heard wrong.');
+      const heardText = await api.transcribe(r.b64, r.mime);
+      setText((old) => (old.trim() ? `${old.trim()} ${heardText.text}` : heardText.text));
+      setHeard(heardText.redacted.length ? `We removed payment details we heard (${heardText.redacted.join(', ')}).` : 'Check the text below and fix any word we heard wrong.');
     } catch (e) {
       setErr((e as Error).message);
     } finally { setBusy(false); }
@@ -56,8 +58,8 @@ export default function NewCaseScreen({ api, onBack, onCreated }: { api: Api; on
     if (!result) return;
     setBusy(true); setErr(null);
     try {
-      const t = await api.createCase({ ...result.case, company: company.trim() || null }, name.trim() || null, agree, adult);
-      onCreated(t.id);
+      const made = await api.createCase({ ...result.case, company: company.trim() || null }, name.trim() || null, agree, adult);
+      onCreated(made.id);
     } catch (e) {
       setErr((e as Error).message);
     } finally { setBusy(false); }
@@ -66,26 +68,26 @@ export default function NewCaseScreen({ api, onBack, onCreated }: { api: Api; on
   return (
     <View style={s.screen}>
       <View style={s.header}>
-        <Button label="Back" kind="ghost" onPress={onBack} />
-        <Text style={s.title}>New case</Text>
+        <Button label={t('common.back')} kind="ghost" onPress={onBack} />
+        <Text style={s.title}>{t('new.title')}</Text>
       </View>
       <ScrollView contentContainerStyle={s.body} keyboardShouldPersistTaps="handled">
         {!result ? (
           <>
-            <Text style={s.text}>Tell us the problem once, in your own words and your own language.</Text>
+            <Text style={s.text}>{t('new.intro')}</Text>
             <TextInput accessibilityLabel="Describe your problem" style={[s.input, s.area]} multiline value={text} onChangeText={setText}
               placeholder="For example: my Swiggy order 4839201 arrived cold and I got no refund" />
-            <Button label={rec.state === 'recording' ? 'Stop and write it down' : 'Speak instead of typing'} kind="ghost" onPress={toggleMic} busy={busy} />
+            <Button label={rec.state === 'recording' ? t('new.stop') : t('new.speak')} kind="ghost" onPress={toggleMic} busy={busy} />
             {rec.state === 'recording' ? <Text style={s.soft}>Listening… speak for up to a minute, then tap again.</Text> : null}
             {heard ? <Text style={s.soft}>{heard}</Text> : null}
             <Text style={s.soft}>Do not type or say a card number, PIN, CVV or OTP. We remove them, and Nivaran never needs them.</Text>
             <ErrorText message={err} />
-            <Button label="Understand my problem" onPress={understand} disabled={text.trim().length < 5} busy={busy} />
+            <Button label={t('new.understand')} onPress={understand} disabled={text.trim().length < 5} busy={busy} />
           </>
         ) : (
           <>
             {result.redacted.length > 0 && <Text style={s.soft}>Private data was removed before the AI read your text ({result.redacted.join(', ')}).</Text>}
-            <Card title="Is this right?">
+            <Card title={t('new.right')}>
               <Text style={s.text}>{result.case.problem_summary}</Text>
               <Text style={s.soft}>Category: {categoryLabel(result.case.category)} · You want: {GOAL_LABEL[result.case.user_goal] ?? result.case.user_goal}</Text>
               {result.case.details_known.map((f) => <Text key={f.name} style={s.text}>• {f.name.replace(/_/g, ' ')}: {f.value}</Text>)}
@@ -96,18 +98,18 @@ export default function NewCaseScreen({ api, onBack, onCreated }: { api: Api; on
             <TextInput accessibilityLabel="Company name" style={s.input} value={company} onChangeText={setCompany} placeholder="Company name" />
             <Text style={s.soft}>Your name, used only to sign letters you approve:</Text>
             <TextInput accessibilityLabel="Your name" style={s.input} value={name} onChangeText={setName} placeholder="Your name" />
-            <Card title="Privacy">
+            <Card title={t('new.privacy')}>
               <Text style={s.soft}>{notice ?? 'Loading the privacy notice…'}</Text>
               <Pressable accessibilityRole="checkbox" accessibilityState={{ checked: agree }} onPress={() => setAgree(!agree)}>
-                <Text style={s.text}>{agree ? '☑' : '☐'} I have read this and agree.</Text>
+                <Text style={s.text}>{agree ? '☑' : '☐'} {t('new.agree')}</Text>
               </Pressable>
               <Pressable accessibilityRole="checkbox" accessibilityState={{ checked: adult }} onPress={() => setAdult(!adult)}>
-                <Text style={s.text}>{adult ? '☑' : '☐'} I am 18 years old or older.</Text>
+                <Text style={s.text}>{adult ? '☑' : '☐'} {t('new.adult')}</Text>
               </Pressable>
             </Card>
             <ErrorText message={err} />
-            <Button label="Create case" onPress={create} disabled={!company.trim() || !agree || !adult || !notice} busy={busy} />
-            <Button label="Change my text" kind="ghost" onPress={() => setResult(null)} />
+            <Button label={t('new.create')} onPress={create} disabled={!company.trim() || !agree || !adult || !notice} busy={busy} />
+            <Button label={t('new.change')} kind="ghost" onPress={() => setResult(null)} />
           </>
         )}
       </ScrollView>
