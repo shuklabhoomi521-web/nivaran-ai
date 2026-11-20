@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useMemo, useState } from 'react';
 import { makeApi } from './src/api';
-import { API_URL } from './src/config';
+import { API_TOKEN, API_URL } from './src/config';
 import { GlassBackground } from './src/glass';
 import CaseScreen from './src/screens/CaseScreen';
 import CasesScreen from './src/screens/CasesScreen';
@@ -10,7 +10,7 @@ import NewCaseScreen from './src/screens/NewCaseScreen';
 type Screen = { name: 'cases' } | { name: 'new' } | { name: 'case'; id: string };
 
 export default function App() {
-  const api = useMemo(() => makeApi(API_URL), []);
+  const api = useMemo(() => makeApi(API_URL, fetch, 25000, API_TOKEN), []);
   const [screen, setScreen] = useState<Screen>({ name: 'cases' });
   return (
     <GlassBackground>

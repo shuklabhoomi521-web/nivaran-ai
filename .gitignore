@@ -38,3 +38,4 @@ backend/.cases.json
 .drafts.tmp
 backend/.drafts.json
 .data_key
+.pilot_token

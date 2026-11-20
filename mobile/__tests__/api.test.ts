@@ -17,6 +17,14 @@ describe('api client', () => {
     expect(JSON.parse(String(cap.init?.body))).toEqual({ case: { company: 'Swiggy' }, user_name: 'Bhoomi', consent: true, adult: true });
   });
 
+  it('sends the access token when there is one, and no header when there is not', async () => {
+    const cap: { url?: string; init?: RequestInit } = {};
+    await makeApi('http://x', fakeFetch(200, [], cap), 25000, 'secret-token').listCases();
+    expect((cap.init?.headers as Record<string, string>).Authorization).toBe('Bearer secret-token');
+    await makeApi('http://x', fakeFetch(200, [], cap)).listCases();
+    expect((cap.init?.headers as Record<string, string>).Authorization).toBeUndefined();
+  });
+
   it('GET calls send no body', async () => {
     const cap: { url?: string; init?: RequestInit } = {};
     await makeApi('http://x', fakeFetch(200, [], cap)).listCases();

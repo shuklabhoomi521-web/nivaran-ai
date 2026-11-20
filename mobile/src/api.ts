@@ -16,7 +16,7 @@ function detailText(body: unknown, fallback: string): string {
   return fallback;
 }
 
-export function makeApi(baseUrl: string, fetchImpl: typeof fetch = fetch, timeoutMs = 25000) {
+export function makeApi(baseUrl: string, fetchImpl: typeof fetch = fetch, timeoutMs = 25000, token?: string) {
   const base = baseUrl.replace(/\/+$/, '');
 
   async function request<T>(method: string, path: string, body?: unknown): Promise<T> {
@@ -26,7 +26,10 @@ export function makeApi(baseUrl: string, fetchImpl: typeof fetch = fetch, timeou
     try {
       res = await fetchImpl(`${base}${path}`, {
         method,
-        headers: body === undefined ? undefined : { 'Content-Type': 'application/json' },
+        headers: {
+          ...(body === undefined ? {} : { 'Content-Type': 'application/json' }),
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
         body: body === undefined ? undefined : JSON.stringify(body),
         signal: ctrl.signal,
       });

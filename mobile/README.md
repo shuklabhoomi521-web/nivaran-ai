@@ -26,7 +26,7 @@ Checked in a browser preview only. The real iOS 26 glass has not been seen on a 
 - The list screen shows only company and state, not the facts.
 
 ## Checks
-`npm test` (22 unit tests for the API client and formatting), `npm run typecheck`, and CI runs both. `npx expo export --platform ios` builds the bundle.
+`npm test` (23 unit tests for the API client and formatting), `npm run typecheck`, and CI runs both. `npx expo export --platform ios` builds the bundle.
 
 Known: `npm audit` reports 3 moderate issues in `minimatch` inside Expo's own build tools (not shipped in the app); the suggested fix would downgrade Expo to an old major version, so it is left alone.
 Not yet: voice input, push reminders, login, an installable Android build.

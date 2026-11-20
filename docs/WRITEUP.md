@@ -39,7 +39,7 @@ The call brain has a few details that mattered in practice. The JSON field order
 | Hearing, holdout WER | **Sarvam 0.05**, Gemini 0.42, local Hindi2Hinglish 0.45, Groq Whisper 0.51 | 4 clips, one speaker, artificial noise. Spelling a Hindi word in Roman vs Devanagari inflates some scores. |
 | Practice calls | **9 of 10 handled well**; every keypad menu passed; every OTP and card request refused | A computer voice plays the company, in the browser. **Zero real company calls.** The failed call (Hindi) failed on speed: the language bug was fixed, but the reply came 12.4 s late (rule P5) with the slow free local model. |
 | Reply speed | 2-4 s after the other side stops (brain 0.5-1.5 s) | Goal was 1.5 s: **missed**. |
-| Tests | 563 free tests (558 on a fresh install; 4 more are known-gap tests marked as expected failures) on every push (CI); 16 redaction, 31 secret/OTP/card/PIN | They prove the rules in code, not every real-world phrasing. |
+| Tests | 566 free tests (561 on a fresh install; 4 more are known-gap tests marked as expected failures) on every push (CI); 16 redaction, 31 secret/OTP/card/PIN | They prove the rules in code, not every real-world phrasing. |
 
 **Phase status:** 0, 2, 3 done. Phase 1 partial (28/30). **Phase 4 partial:** the phone layer works with simulated phone-quality audio, but the one real Twilio test call we tried failed. Twilio ended two answered calls after 3-6 seconds without opening the audio stream. We never found the cause, and our networks also dropped the tunnel it needs. Phase 5 onward has not started.
 
