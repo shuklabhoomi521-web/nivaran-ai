@@ -29,3 +29,8 @@ speech_test/holdout/*.m4a
 .transcript_key
 .call_transcripts/
 .phone_session.json
+
+# tracked cases hold private details
+.cases.json
+.cases.tmp
+backend/.cases.json

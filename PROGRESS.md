@@ -25,6 +25,8 @@ Plan and day-by-day calendar live outside the repo in `~/nivaran-plan` (PLAN.md,
 
 - 21 Nov: directory now 49 companies (4 more: Canara Bank, ACT Fibernet, IGL, HP Gas). 11 more candidates were unreadable and are listed in `docs/notes/directory-v2.md`. 471 free tests pass.
 
+- 21 Nov (Sprint D3 work done early): case engine built: states, day 0/3/7/15 ladder, next action from the verified directory, JSON store, API, 11 tests (`docs/notes/case-engine.md`). 482 free tests pass.
+
 ## Next
 - Day 1 rest: founder makes FreJun Teler, GitHub Student Pack and Bhashini accounts. 19 Nov: tests, TRAI rules, map Teler to the phone layer. 20-22 Nov: phone first, incl. the real test call on your own number (21 Nov).
 
