@@ -31,6 +31,8 @@ Plan and day-by-day calendar live outside the repo in `~/nivaran-plan` (PLAN.md,
 
 - 21 Nov: reply tracking built (read-only inbox, matches replies to cases, hints only, snippet redacted; `docs/notes/reply-tracking.md`). Inbox checked: no new replies from FreJun, Exotel or the internship companies since 20 Nov. 499 free tests pass.
 
+- 21 Nov: portal kits built (steps with exact official quotes or labelled as ours, complaint text, checklist, warnings, needs-check list; `docs/notes/portal-kits.md`). e-Daakhil replaced by e-Jagriti (unverified). 505 free tests pass.
+
 ## Next
 - Day 1 rest: founder makes FreJun Teler, GitHub Student Pack and Bhashini accounts. 19 Nov: tests, TRAI rules, map Teler to the phone layer. 20-22 Nov: phone first, incl. the real test call on your own number (21 Nov).
 

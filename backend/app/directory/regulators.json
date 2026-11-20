@@ -1,43 +1,344 @@
 [
-  {"key": "nch", "name": "National Consumer Helpline (Department of Consumer Affairs)", "portal_url": "https://consumerhelpline.gov.in/",
-   "covers": ["food_delivery", "ecommerce", "cabs", "electronics_appliances", "utilities", "other"],
-   "what_for": "Register a consumer grievance against any company; the helpline also forwards it to the company.",
-   "helpline": "1915 (toll free, 8AM to 8PM) and 1800114000",
-   "source": {"url": "https://consumerhelpline.gov.in/", "kind": "regulator", "checked_on": "2026-11-20", "machine_checked": false,
-              "quote": "Register your consumer grievance through the NCH Web Portal, Mobile App, UMANG, WhatsApp or Call Centre."}},
-  {"key": "rbi_cms", "name": "RBI Complaint Management System (CMS)", "portal_url": "https://cms.rbi.org.in/",
-   "covers": ["banking_upi"],
-   "what_for": "File a complaint against a bank, NBFC or payment system participant.",
-   "helpline": null,
-   "source": {"url": "https://www.rbi.org.in/Scripts/Complaints.aspx", "kind": "regulator", "checked_on": "2026-11-20", "machine_checked": false,
-              "quote": "Click here to file a complaint against any Regulated Entity (banks, NBFCs, System Participants)"}},
-  {"key": "irdai_bima_bharosa", "name": "IRDAI Bima Bharosa (complaints registration portal)", "portal_url": "https://bimabharosa.irdai.gov.in/",
-   "covers": ["insurance"],
-   "what_for": "Register a complaint against a life, non-life or health insurer.",
-   "helpline": null,
-   "source": {"url": "https://www.irdai.gov.in/", "kind": "regulator", "checked_on": "2026-11-20", "machine_checked": false,
-              "quote": "BIMA BHAROSA (Complaints Registration Portal)"},
-   "needs_check": ["helpline number not printed on the page we read"]},
-  {"key": "trai_telecom", "name": "TRAI: telecom grievance redressal and appellate authority", "portal_url": "https://www.trai.gov.in/consumer-info/telecom/grievance-redressal-mechanism",
-   "covers": ["telecom"],
-   "what_for": "First complain to the provider's complaint centre; if not solved, escalate to the provider's appellate authority.",
-   "helpline": null,
-   "source": {"url": "https://www.trai.gov.in/consumer-info/telecom/grievance-redressal-mechanism", "kind": "regulator", "checked_on": "2026-11-20", "machine_checked": false,
-              "quote": "in case your complaint has not been addressed satisfactorily by the telecom service provider"}},
-  {"key": "rail_madad", "name": "Rail Madad (Indian Railways grievance redressal)", "portal_url": "https://railmadad.indianrailways.gov.in/",
-   "covers": ["railways"],
-   "what_for": "Train, station and other railway complaints.",
-   "helpline": "139 (the page labels it for Security/Medical Assistance)",
-   "source": {"url": "https://railmadad.indianrailways.gov.in/", "kind": "regulator", "checked_on": "2026-11-20", "machine_checked": false,
-              "quote": "A Grievance Redressal Mechanism."}},
-  {"key": "airsewa", "name": "AirSewa (Ministry of Civil Aviation)", "portal_url": "https://www.airsewa.gov.in/",
-   "covers": ["airlines"],
-   "what_for": "Air passenger grievances.",
-   "helpline": null, "source": null,
-   "needs_check": ["the page rendered empty when read by our tool; confirm purpose sentence and helpline by hand"]},
-  {"key": "edaakhil", "name": "e-Daakhil (online consumer cases)", "portal_url": "https://edaakhil.nic.in/",
-   "covers": [],
-   "what_for": "File a consumer case online in a consumer commission, after the company and the helpline fail.",
-   "helpline": null, "source": null,
-   "needs_check": ["the address did not resolve when tested on 2026-11-20; confirm the current official address by hand"]}
+  {
+    "key": "nch",
+    "name": "National Consumer Helpline (Department of Consumer Affairs)",
+    "portal_url": "https://consumerhelpline.gov.in/",
+    "covers": [
+      "food_delivery",
+      "ecommerce",
+      "cabs",
+      "electronics_appliances",
+      "utilities",
+      "other"
+    ],
+    "what_for": "Register a consumer grievance against any company; the helpline also forwards it to the company.",
+    "helpline": "1915 (toll free, 8AM to 8PM) and 1800114000",
+    "source": {
+      "url": "https://consumerhelpline.gov.in/",
+      "kind": "regulator",
+      "quote": "Register your consumer grievance through the NCH Web Portal, Mobile App, UMANG, WhatsApp or Call Centre.",
+      "checked_on": "2026-11-20",
+      "machine_checked": false
+    },
+    "steps": [
+      {
+        "text": "Register once on the portal (or call the helpline): sign up with your details and verify through your email.",
+        "source": {
+          "url": "https://consumerhelpline.gov.in/public/about",
+          "kind": "regulator",
+          "quote": "A one time registration is required for lodging a Grievance.",
+          "checked_on": "2026-11-20",
+          "machine_checked": false
+        },
+        "ours": false
+      },
+      {
+        "text": "Log in and fill in the grievance details, attaching documents if you have them.",
+        "source": {
+          "url": "https://consumerhelpline.gov.in/public/about",
+          "kind": "regulator",
+          "quote": "Using this user id and password, enter into the portal and fill in require details of Grievance attaching necessary documents (if available).",
+          "checked_on": "2026-11-20",
+          "machine_checked": false
+        },
+        "ours": false
+      },
+      {
+        "text": "You get a unique docket number. Write it down and add it to your case.",
+        "source": {
+          "url": "https://consumerhelpline.gov.in/public/about",
+          "kind": "regulator",
+          "quote": "Any grievance received either through online registration or call center is entered in the portal and a unique docket number is generated and given.",
+          "checked_on": "2026-11-20",
+          "machine_checked": false
+        },
+        "ours": false
+      },
+      {
+        "text": "Track it any time under 'Track your Grievance'.",
+        "source": {
+          "url": "https://consumerhelpline.gov.in/public/about",
+          "kind": "regulator",
+          "quote": "The status of the Grievance can be tracked from the portal under the link \"Track your Grievance\" without logging into the portal.",
+          "checked_on": "2026-11-20",
+          "machine_checked": false
+        },
+        "ours": false
+      },
+      {
+        "text": "The portal says it can take up to 30 days to reach a conclusion.",
+        "source": {
+          "url": "https://consumerhelpline.gov.in/public/about",
+          "kind": "regulator",
+          "quote": "It may take up to a maximum of 30 days to arrive at a logical conclusion.",
+          "checked_on": "2026-11-20",
+          "machine_checked": false
+        },
+        "ours": false
+      },
+      {
+        "text": "If you are not satisfied, the next step is a Consumer Commission.",
+        "source": {
+          "url": "https://consumerhelpline.gov.in/public/about",
+          "kind": "regulator",
+          "quote": "In case, the consumer is not satisfied, he/she can approach the appropriate Consumer Commission.",
+          "checked_on": "2026-11-20",
+          "machine_checked": false
+        },
+        "ours": false
+      }
+    ],
+    "attach": [
+      {
+        "text": "Documents are optional on the portal, attach what you have.",
+        "source": {
+          "url": "https://consumerhelpline.gov.in/public/about",
+          "kind": "regulator",
+          "quote": "attaching necessary documents (if available)",
+          "checked_on": "2026-11-20",
+          "machine_checked": false
+        },
+        "ours": false
+      }
+    ],
+    "needs_check": [
+      "no list of specific documents is printed on the pages read",
+      "no filing fee is mentioned on the pages read"
+    ]
+  },
+  {
+    "key": "rbi_cms",
+    "name": "RBI Complaint Management System (CMS)",
+    "portal_url": "https://cms.rbi.org.in/",
+    "covers": [
+      "banking_upi"
+    ],
+    "what_for": "File a complaint against a bank, NBFC or payment system participant.",
+    "helpline": "#14448",
+    "source": {
+      "url": "https://www.rbi.org.in/Scripts/Complaints.aspx",
+      "kind": "regulator",
+      "checked_on": "2026-11-20",
+      "machine_checked": false,
+      "quote": "Click here to file a complaint against any Regulated Entity (banks, NBFCs, System Participants)"
+    },
+    "steps": [
+      {
+        "text": "File the complaint on the RBI Complaint Management System.",
+        "source": {
+          "url": "https://www.rbi.org.in/Scripts/Complaints.aspx",
+          "kind": "regulator",
+          "quote": "Click here to file a complaint against any Regulated Entity (banks, NBFCs, System Participants)",
+          "checked_on": "2026-11-20",
+          "machine_checked": false
+        },
+        "ours": false
+      },
+      {
+        "text": "The contact centre can help: number #14448.",
+        "source": {
+          "url": "https://cms.rbi.org.in/",
+          "kind": "regulator",
+          "quote": "The contact center (#14448) with Interactive Voice Response System (IVRS) is available 24x7",
+          "checked_on": "2026-11-20",
+          "machine_checked": false
+        },
+        "ours": false
+      }
+    ],
+    "needs_check": [
+      "whether you must complain to the bank first, how long to wait, required documents and any fee are in the scheme text, which sat behind a bot check; read the scheme PDF by hand before filing"
+    ]
+  },
+  {
+    "key": "irdai_bima_bharosa",
+    "name": "IRDAI Bima Bharosa (complaints registration portal)",
+    "portal_url": "https://bimabharosa.irdai.gov.in/",
+    "covers": [
+      "insurance"
+    ],
+    "what_for": "Register a complaint against a life, non-life or health insurer.",
+    "helpline": "155255 or 1800 4254 732",
+    "source": {
+      "url": "https://www.irdai.gov.in/",
+      "kind": "regulator",
+      "checked_on": "2026-11-20",
+      "machine_checked": false,
+      "quote": "BIMA BHAROSA (Complaints Registration Portal)"
+    },
+    "needs_check": [
+      "no fixed number of days is stated, only 'a reasonable period of time'",
+      "the insured's own details come from the complaint registration form, which was not read"
+    ],
+    "steps": [
+      {
+        "text": "First complain to the insurer's own grievance cell.",
+        "source": {
+          "url": "https://irdai.gov.in/grievance-redressal-mechanism1",
+          "kind": "regulator",
+          "quote": "Policyholders who have complaints against insurers are required to first approach the Complaints/Grievance Redressal Cell of the insurer concerned.",
+          "checked_on": "2026-11-20",
+          "machine_checked": false
+        },
+        "ours": false
+      },
+      {
+        "text": "If you get no reply in a reasonable time, or you are not satisfied, approach IRDAI's Grievance Redressal Cell.",
+        "source": {
+          "url": "https://irdai.gov.in/grievance-redressal-mechanism1",
+          "kind": "regulator",
+          "quote": "If they do not receive a response from the insurer within a reasonable period of time or are dissatisfied with the response of the company, they may approach the Grievance Redressal Cell",
+          "checked_on": "2026-11-20",
+          "machine_checked": false
+        },
+        "ours": false
+      },
+      {
+        "text": "Register and track the complaint on Bima Bharosa.",
+        "source": {
+          "url": "https://bimabharosa.irdai.gov.in/",
+          "kind": "regulator",
+          "quote": "Track Your Complaint",
+          "checked_on": "2026-11-20",
+          "machine_checked": false
+        },
+        "ours": false
+      }
+    ],
+    "attach": [
+      {
+        "text": "Fill the complaint registration form completely, or IRDAI cannot register the complaint.",
+        "source": {
+          "url": "https://irdai.gov.in/grievance-redressal-mechanism1",
+          "kind": "regulator",
+          "quote": "Without the required information called for in the Complaint Registration Form, IRDAI will not be in a position to register the complaint.",
+          "checked_on": "2026-11-20",
+          "machine_checked": false
+        },
+        "ours": false
+      },
+      {
+        "text": "Only the insured person or the claimant can complain.",
+        "source": {
+          "url": "https://irdai.gov.in/grievance-redressal-mechanism1",
+          "kind": "regulator",
+          "quote": "Only complaints from the insured or the claimants shall be entertained.",
+          "checked_on": "2026-11-20",
+          "machine_checked": false
+        },
+        "ours": false
+      }
+    ]
+  },
+  {
+    "key": "trai_telecom",
+    "name": "TRAI: telecom grievance redressal and appellate authority",
+    "portal_url": "https://www.trai.gov.in/consumer-info/telecom/grievance-redressal-mechanism",
+    "covers": [
+      "telecom"
+    ],
+    "what_for": "First complain to the provider's complaint centre; if not solved, escalate to the provider's appellate authority.",
+    "helpline": null,
+    "source": {
+      "url": "https://www.trai.gov.in/consumer-info/telecom/grievance-redressal-mechanism",
+      "kind": "regulator",
+      "checked_on": "2026-11-20",
+      "machine_checked": false,
+      "quote": "in case your complaint has not been addressed satisfactorily by the telecom service provider"
+    },
+    "steps": [
+      {
+        "text": "Find your provider's complaint centre details through TRAI's page and complain there first.",
+        "source": {
+          "url": "https://www.trai.gov.in/consumer-info/telecom/grievance-redressal-mechanism",
+          "kind": "regulator",
+          "quote": "To get the details of the complaint center for lodging a complaint with your telecom service provider",
+          "checked_on": "2026-11-20",
+          "machine_checked": false
+        },
+        "ours": false
+      },
+      {
+        "text": "If it is not solved, escalate to the provider's appellate authority (details through TRAI's page).",
+        "source": {
+          "url": "https://www.trai.gov.in/consumer-info/telecom/grievance-redressal-mechanism",
+          "kind": "regulator",
+          "quote": "in case your complaint has not been addressed satisfactorily by the telecom service provider",
+          "checked_on": "2026-11-20",
+          "machine_checked": false
+        },
+        "ours": false
+      }
+    ],
+    "needs_check": [
+      "how long to wait before the appellate step, and what to attach, are not stated on the pages read"
+    ]
+  },
+  {
+    "key": "rail_madad",
+    "name": "Rail Madad (Indian Railways grievance redressal)",
+    "portal_url": "https://railmadad.indianrailways.gov.in/",
+    "covers": [
+      "railways"
+    ],
+    "what_for": "Train, station and other railway complaints.",
+    "helpline": "139 (the page labels it for Security/Medical Assistance)",
+    "source": {
+      "url": "https://railmadad.indianrailways.gov.in/",
+      "kind": "regulator",
+      "checked_on": "2026-11-20",
+      "machine_checked": false,
+      "quote": "A Grievance Redressal Mechanism."
+    },
+    "steps": [
+      {
+        "text": "Use the complaint sections for train or station problems.",
+        "source": {
+          "url": "https://railmadad.indianrailways.gov.in/",
+          "kind": "regulator",
+          "quote": "Train Complaints",
+          "checked_on": "2026-11-20",
+          "machine_checked": false
+        },
+        "ours": false
+      }
+    ],
+    "needs_check": [
+      "filing steps and documents were not readable; the portal asks you to sign up and uses a one-time password that you enter yourself (the app never sees it)"
+    ]
+  },
+  {
+    "key": "airsewa",
+    "name": "AirSewa (Ministry of Civil Aviation)",
+    "portal_url": "https://www.airsewa.gov.in/",
+    "covers": [
+      "airlines"
+    ],
+    "what_for": "Air passenger grievances.",
+    "helpline": null,
+    "source": null,
+    "needs_check": [
+      "the page rendered empty when read by our tool; confirm purpose, steps and helpline by hand"
+    ]
+  },
+  {
+    "key": "e_jagriti",
+    "name": "e-Jagriti (online consumer commission filing)",
+    "portal_url": "https://e-jagriti.gov.in/",
+    "covers": [],
+    "what_for": "The online filing platform for consumer commissions, named as a current portal on the National Consumer Helpline site.",
+    "helpline": null,
+    "source": {
+      "url": "https://consumerhelpline.gov.in/",
+      "kind": "regulator",
+      "quote": "e-Jagriti",
+      "checked_on": "2026-11-20",
+      "machine_checked": false
+    },
+    "steps": [],
+    "attach": [],
+    "needs_check": [
+      "the old e-Daakhil address no longer resolves; e-Jagriti's own site showed only its title, so purpose, filing steps and fees are not verified"
+    ]
+  }
 ]

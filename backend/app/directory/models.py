@@ -75,6 +75,22 @@ class ChatChannel(Strict):
     sources: list[Source]
 
 
+class KitItem(Strict):
+    """One line of a portal kit. Either it is backed by an exact quote from an official page (`source`), or it is our own checklist
+    advice and says so (`ours=True`). Nothing else is allowed, so an unverified rule can never look like an official one."""
+    text: str
+    source: Source | None = None
+    ours: bool = False
+
+    @model_validator(mode="after")
+    def _sourced_or_ours(self):
+        if self.source is None and not self.ours:
+            raise ValueError("a kit item needs an official source or must be marked as our own advice")
+        if self.source is not None and self.ours:
+            raise ValueError("a kit item is either official (has a source) or ours, not both")
+        return self
+
+
 class Regulator(Strict):
     """Where a complaint goes when the company does not solve it. Every entry carries the official page and an exact quote;
     if we could not read the official page, `source` is empty and `needs_check` says what is still unverified."""
@@ -85,6 +101,8 @@ class Regulator(Strict):
     what_for: str
     helpline: str | None = None
     source: Source | None = None
+    steps: list[KitItem] = []         # how to file, in order
+    attach: list[KitItem] = []        # what to prepare or attach
     needs_check: list[str] = []
 
     @field_validator("portal_url")

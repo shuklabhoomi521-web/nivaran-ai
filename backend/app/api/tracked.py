@@ -5,7 +5,9 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 
 from app.cases import engine
+from app.cases.kit import PortalKit, build_kit
 from app.cases.models import Action, Event, TrackedCase
+from app.letters.compose import LetterError
 from app.cases.store import CaseStore
 from app.directory.lookup import find_company
 from app.models.case import Case
@@ -83,3 +85,13 @@ def delete_case(case_id: str, store: CaseStore = Depends(get_store)):
     if not store.delete(case_id):
         raise HTTPException(status_code=404, detail="no such case")
     return {"deleted": case_id}
+
+
+@router.get("/{case_id}/portal-kit", response_model=PortalKit)
+def portal_kit(case_id: str, store: CaseStore = Depends(get_store)):
+    """The kit for filing on the regulator's official portal: official steps with quotes, our checklist, and a complaint text to paste."""
+    case = _get(store, case_id)
+    try:
+        return build_kit(case, _today())
+    except LetterError as e:
+        raise HTTPException(status_code=422, detail=str(e))
