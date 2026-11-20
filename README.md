@@ -37,7 +37,7 @@ Email: [shuklabhoomi521@gmail.com](mailto:shuklabhoomi521@gmail.com) · LinkedIn
 | 3 | Voice in the browser, 4 languages, interruptions, speech-model bake-off | **Done** (reply speed goal missed: 2-4 s vs 1.5 s) | [notes](docs/notes/phase-3.md) |
 | 4 | Phone calls: the AI as the caller (AI disclosure, keypad menus, hold, transcripts) | **Partial**: tested with simulated phone-quality audio; the real Twilio call is **missing** | [notes](docs/notes/phase-4.md), [practice results](docs/results/phase4-practice-results.md) |
 | 5 | Real company calls | Planned (needs KYC with a phone provider and TRAI-rule research) | [roadmap](docs/TODO-research.md) |
-| 6-8 | Mobile app, OTP safety, email and escalation | Planned | [plan](docs/PLAN.md) |
+| 6-8 | Mobile app, safe handling of private data, email and escalation | **Partly built (Nov 2026 sprint)**: case tracker with a day 0/3/7/15 ladder, letters sent only after approval, reply tracking, portal complaint kits, Expo app with voice input and a liquid-glass design, encrypted storage, consent and access token. **Not yet:** tried on a real phone, a pilot with real volunteers, hosting | [sprint plan](docs/plan/ROADMAP.md), [notes](docs/notes/privacy-safety.md), [pilot kit](docs/pilot/GUIDE.md) |
 | 9 | Our own fine-tuned models replace the outside brain | Planned | [plan](docs/PLAN.md) |
 | 10 | Real users and launch | Planned | [plan](docs/PLAN.md) |
 
@@ -85,7 +85,7 @@ Everything outside the core sits behind small interfaces (`app/speech/`, `app/br
 | **Speech-to-text, 4 new clips never used for tuning** (12 variants: clean, 8 dB street noise, phone line) | Word error: **Sarvam 0.05**, Gemini 0.42, local Whisper-Hindi2Hinglish 0.45, Groq Whisper 0.51 | [holdout](docs/results/holdout-result.md) | 4 clips, one speaker, artificial noise. Roman-vs-Devanagari spelling inflates the Hindi scores of Gemini and the local model. |
 | **Phone calls**, 10 practice calls (rules written before running) | **9 of 10 handled well**; keypad menus passed every time; refused OTP and card requests every time | [results](docs/results/phase4-practice-results.md) | A computer voice plays the agent, in the browser. Zero real phone calls. The one failed call (Hindi) failed on speed: the language bug was fixed (the latest run answered in Devanagari), but the reply came 12.4 s late (rule P5) because the free local Hindi model is slow. |
 | **Reply speed** | 2-4 s after the other person stops talking (brain 0.5-1.5 s) | [Phase 3 notes](docs/notes/phase-3.md) | Goal was 1.5 s: **not met**. Free tiers can be slow. |
-| **Safety tests** | 16 redaction tests, 31 secret/OTP/card/PIN tests, AI disclosure tests in 4 languages; 566 free tests (561 on a fresh install; 4 more are known-gap tests marked as expected failures) run on every push (CI) | [tests](backend/tests) | Tests prove the rules in code, not that every real-world phrasing is caught. |
+| **Safety tests** | 16 redaction tests, 31 secret/OTP/card/PIN tests, AI disclosure tests in 4 languages; 567 free tests (562 on a fresh install; 4 more are known-gap tests marked as expected failures) run on every push (CI) | [tests](backend/tests) | Tests prove the rules in code, not that every real-world phrasing is caught. |
 
 ## Safety and ethics
 
@@ -111,6 +111,7 @@ Everything outside the core sits behind small interfaces (`app/speech/`, `app/br
 - Speed is 2-4 s per answer; Hindi/Hinglish hearing needs the slow local model or the paid Sarvam.
 - Tamil was only tested with computer voices; the fixed Hindi and Tamil sentences were not checked by native speakers.
 - Small test sets, one voice, quiet-room practice calls.
+- The Nov 2026 sprint work (case engine, letters, replies, portal kits, mobile app, privacy) is tested with fakes and a browser preview only. **It has not been tried on a real phone, with a real microphone, or with real volunteers yet.** Several portal steps are marked "needs check" because the official pages could not be read.
 - **Next:** Phase 5 (real company calls: phone-provider KYC, TRAI rules), Phases 6-8 (mobile app, safe OTP handling, email and escalation), Phase 9 (our own fine-tuned models replace the outside brain), more languages (Telugu, Kannada, Malayalam, Bengali, Marathi, Gujarati, Punjabi).
 
 ## Run it locally (about 5 minutes, all free)

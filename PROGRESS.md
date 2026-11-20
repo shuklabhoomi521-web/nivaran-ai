@@ -45,6 +45,8 @@ Plan and day-by-day calendar live outside the repo in `~/nivaran-plan` (PLAN.md,
 
 - 21 Nov (roadmap step 3-4): backend access guard (token, or this computer only) tested from the Wi-Fi address; `scripts/run_pilot.sh`; app sends the token; pilot kit in `docs/pilot/` (consent form, builder's guide, empty results table: no pilot case has been run). 566 backend tests, 23 app tests.
 
+- 21 Nov: end-to-end journey test (consent to delete, fakes for mail and inbox, no plain text on disk); reply detector widened after the test found a miss. README and CLAUDE.md updated honestly. 567 backend tests (+4 expected failures), 23 app tests.
+
 ## Next
 - Day 1 rest: founder makes FreJun Teler, GitHub Student Pack and Bhashini accounts. 19 Nov: tests, TRAI rules, map Teler to the phone layer. 20-22 Nov: phone first, incl. the real test call on your own number (21 Nov).
 

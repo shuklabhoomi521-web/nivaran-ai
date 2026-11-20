@@ -51,6 +51,8 @@ def test_auto_acknowledgement_resolved_hint_and_docket():
     c = case()
     auto = matcher.classify(c, msg(subject="[Ticket #TKT-48213] Your ticket has been created", snippet="Thank you for contacting us."), SW, set())
     assert auto.auto_acknowledgement and not auto.looks_resolved and auto.docket and "48213" in auto.docket
+    for phrase in ("Ticket number 556677 has been created.", "Your ticket TKT-1 was raised", "Your complaint has been registered.", "We have received your request."):
+        assert matcher.classify(c, msg(snippet=phrase), SW, set()).auto_acknowledgement, phrase
     done = matcher.classify(c, msg(snippet="We have processed a refund of Rs 250 to your account."), SW, set())
     assert done.looks_resolved and not done.auto_acknowledgement
 

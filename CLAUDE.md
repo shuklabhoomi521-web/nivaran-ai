@@ -46,10 +46,12 @@ Needs Python 3.12. The free tests need no keys.
 ```
 python3.12 -m venv .venv && source .venv/bin/activate
 pip install -r backend/requirements.txt
-cd backend && python -m pytest -q            # 566 free tests (561 on a fresh install; 4 more are known-gap tests marked as expected failures); 30 live_api tests off by default
+cd backend && python -m pytest -q            # 567 free tests (562 on a fresh install; 4 more are known-gap tests marked as expected failures); 30 live_api tests off by default
 cd backend && python -m app.voice.server     # voice bot: http://localhost:7861/voice (needs GROQ_API_KEY, GEMINI_API_KEY in .env)
 cd backend && uvicorn app.main:app           # text chat: http://127.0.0.1:8000/chat
 python scripts/phone_session.py check        # phone test tunnel (only when the founder asks for a call)
 ```
 Keys go only in `.env` (copy `.env.example`). Read `README.md` (status, results), `docs/WRITEUP.md`, `docs/notes/phase-*.md` and `docs/FOUNDER-TODO.md` first.
-Open items: the real Twilio call (Phase 4 partial); Phase 5 only when the founder says so.
+Open items: the real Twilio call (Phase 4 partial; the weak point looks like the tunnel/network, see `docs/notes/phone-teler-and-trai.md`); Phase 5 only when the founder says so.
+
+Nov 2026 sprint (founder asked for v1.0 in 10 working days, plan in `docs/plan/ROADMAP.md`): case tracker (`backend/app/cases/`), letters with approval (`app/letters/`), reply tracking (`app/replies/`), portal kits, access guard (`app/auth.py`), encrypted stores, Expo app in `mobile/`. Read `docs/notes/` (case-engine, letter-writer, reply-tracking, portal-kits, privacy-safety, directory-v2) before changing them. Rules: nothing is sent without approval of the exact text; recipients only from the verified directory; no payment data in letters; every portal line is sourced or marked ours; unverified things are listed, never hidden.

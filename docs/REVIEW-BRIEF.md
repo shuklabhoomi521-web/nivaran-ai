@@ -11,7 +11,7 @@
 ```
 python3.12 -m venv .venv && source .venv/bin/activate
 pip install -r backend/requirements.txt
-cd backend && python -m pytest -q          # 566 free tests (561 on a fresh install; 4 more are known-gap tests marked as expected failures); 30 live_api tests off by default
+cd backend && python -m pytest -q          # 567 free tests (562 on a fresh install; 4 more are known-gap tests marked as expected failures); 30 live_api tests off by default
 ```
 Voice bot: copy `.env.example` to `.env`, add `GROQ_API_KEY` and `GEMINI_API_KEY` (both free), then `cd backend && python -m app.voice.server` and open `http://localhost:7861/voice` in Chrome. Phone practice (you play the company): `/phone/browser`.
 

@@ -39,7 +39,8 @@ class Match(BaseModel):
     docket: str | None
 
 
-_AUTO = re.compile(r"ticket (has been )?(created|logged|generated)|request (has been )?(received|logged)|we have (successfully )?received|auto[- ]?reply|"
+_AUTO = re.compile(r"ticket[^.\n]{0,40}\b(created|logged|generated|raised|registered)\b|complaint[^.\n]{0,30}\b(registered|logged|received)\b|"
+                   r"request (has been )?(received|logged)|we have (successfully )?received|auto[- ]?reply|"
                    r"automatic(ally)? generated|do not reply|out of office|thank you for (contacting|reaching)", re.I)
 _RESOLVED = re.compile(r"\b(refund(ed)?|resolved|processed|credited|replacement (has been )?(sent|dispatched)|issue (has been )?fixed|closed your)\b", re.I)
 _DOCKET = re.compile(r"(?:ticket|case|reference|docket|complaint|request)\s*(?:id|no\.?|number|#|:)?\s*[:#-]?\s*([A-Z]{0,6}[-_]?\d{4,}[A-Za-z0-9-]*)", re.I)
