@@ -5,17 +5,23 @@
 - New verified regulator table by category: `backend/app/directory/regulators.json` (official page and exact quote each). AirSewa and e-Daakhil are marked needs-check, not invented.
 - 9 companies added on 2026-11-20 (49 total): ICICI Bank, Punjab National Bank, Bank of Baroda, Tata Power-DDL, BESCOM, Canara Bank, ACT Fibernet, Indraprastha Gas, HP Gas. Quotes were read by a page-reading tool and are marked `machine_checked: false`; our re-check script has not run on them yet. Several entries carry `needs_check` notes (for example PNB's support email is printed obfuscated on the official page, so it is not stored as a checked contact).
 
-## Planned but NOT added (could not be read from the official site on 2026-11-20)
+## Added on 2026-11-22 (58 total)
+Axis Bank, Kotak Mahindra Bank, Bajaj Allianz General Insurance (now Bajaj General Insurance), Niva Bupa, IDBI Bank, Air India Express, BigBasket, Blinkit, Ajio. Read in a real browser; all `machine_checked: false`. Notes:
+- Blinkit has no phone (site says so, stored as `official_no_phone`); only info@blinkit.com is stored.
+- Ajio: only the grievance officer email (from the Terms page); no phone printed.
+- BigBasket's contact page looks like an old layout; confirm the number before relying on it.
+- Removed the alias "Air India Express" from Air India (it is its own entry now).
+
+## Planned but NOT added (checked 2026-11-22)
 | Company | Why not | What to do |
 |---|---|---|
-| Axis Bank | Pages moved to axis.bank.in; contact numbers only came from a summary, not word for word | Read the contact page in a browser, copy the lines |
-| Kotak Mahindra Bank | Emails printed obfuscated; numbers only from a summary | Same |
-| Ajio, Blinkit, SBI Life | Site refuses automated readers (HTTP 403) | Read in a browser |
-| BigBasket | contact page 404, FAQ had no contacts | Find the current help page by hand |
-| Bajaj Allianz | Old pages redirect to bajajgeneralinsurance.com and return 404 | Find the current contact page |
-| Niva Bupa | Page did not render | Read in a browser |
-| Whirlpool India | Old site shows a paused redirect | Use india.whirlpool.in support page by hand |
-| MakeMyTrip | Pages timed out | Retry later |
+| MakeMyTrip | makemytrip.com/support pages return 503; the new support and escalation pages (supportz.makemytrip.com) need a login and show no contact lines | Retry later, or read from a logged-in session by hand |
+| Whirlpool India | whirlpoolindia.com redirect is paused (RedirHub); india.whirlpool.in /support and /contact-us are 404, home page text has no contact lines | Find the Support menu page by hand |
+| Union Bank of India | Browser refused the site (navigation denied/failed) | Retry later or read by hand |
+| Bank of India | Cloudflare bot check ("Just a moment"); not bypassed | Read by hand in a normal browser |
+| OYO | /contact-us is 404; support page is a chat assistant showing only a new-booking number (0124-4208080), not a complaint line; terms page text was empty | Find the grievance officer on the terms page by hand |
+| Kotak and Axis (extra) | Stored phones only; Kotak grievance page and Axis Grievance Redressal tab not opened | Read officer/escalation pages for both |
+| SBI Life | Not retried in this batch | Read in a browser |
 
 Rule kept: no contact enters the directory unless its exact line from an official page is stored with it and the contact appears inside that line (enforced by tests).
 

@@ -695,8 +695,7 @@
   {
     "name": "Air India",
     "aliases": [
-      "AI",
-      "Air India Express"
+      "AI"
     ],
     "category": "airlines",
     "official_domains": [
@@ -3663,6 +3662,682 @@
     "needs_check": [
       "customer-care toll-free number for distributors is not printed on the pages read (the LPG service cell list is a PDF, not opened)",
       "grievance officer email not found"
+    ]
+  },
+  {
+    "name": "Axis Bank",
+    "aliases": [
+      "Axis"
+    ],
+    "category": "banking_upi",
+    "official_domains": [
+      "axis.bank.in",
+      "axisbank.com"
+    ],
+    "source_url": "https://www.axis.bank.in/contact-us",
+    "checked_on": "2026-11-22",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "1800 4030",
+        "label": "Retail phone banking, toll free",
+        "hours": null,
+        "role": null,
+        "sources": [
+          {
+            "url": "https://www.axis.bank.in/contact-us",
+            "kind": "website",
+            "quote": "1800 4030 / 1800 8911",
+            "checked_on": "2026-11-22",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "1800 8911",
+        "label": "Retail phone banking, toll free",
+        "hours": null,
+        "role": null,
+        "sources": [
+          {
+            "url": "https://www.axis.bank.in/contact-us",
+            "kind": "website",
+            "quote": "1800 4030 / 1800 8911",
+            "checked_on": "2026-11-22",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "+91 40 67174100",
+        "label": "24-hour emergency helpline (card blocking), not toll free",
+        "hours": "24 hours",
+        "role": null,
+        "sources": [
+          {
+            "url": "https://www.axis.bank.in/contact-us",
+            "kind": "website",
+            "quote": "In case of emergencies, like needing to block your credit/debit card, you can call our 24-hour Emergency Helpline Number, +91 40 67174100 (This number is not toll free).",
+            "checked_on": "2026-11-22",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "emails": [],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": "Written complaints: the page points to www.axis.bank.in/support. The contact page lists 'Grievance Redressal' and 'Banking Ombudsman' tabs.",
+    "official_no_phone": null,
+    "needs_check": [
+      "grievance officer / appellate details not read (Grievance Redressal tab not opened)",
+      "no customer-care email printed on the contact page"
+    ]
+  },
+  {
+    "name": "Kotak Mahindra Bank",
+    "aliases": [
+      "Kotak",
+      "Kotak Bank",
+      "Kotak 811"
+    ],
+    "category": "banking_upi",
+    "official_domains": [
+      "kotak.bank.in",
+      "kotak.com"
+    ],
+    "source_url": "https://www.kotak.bank.in/en/customer-service/contact-us.html",
+    "checked_on": "2026-11-22",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "1800 4100",
+        "label": "24x7 toll free helpline",
+        "hours": "24x7",
+        "role": null,
+        "sources": [
+          {
+            "url": "https://www.kotak.bank.in/en/customer-service/contact-us.html",
+            "kind": "website",
+            "quote": "✆1800 4100",
+            "checked_on": "2026-11-22",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "1800 209 0000",
+        "label": "24x7 fraud reporting helpline",
+        "hours": "24x7",
+        "role": null,
+        "sources": [
+          {
+            "url": "https://www.kotak.bank.in/en/customer-service/contact-us.html",
+            "kind": "website",
+            "quote": "1800 209 0000",
+            "checked_on": "2026-11-22",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "+91 22 6204 2001",
+        "label": "Calling from outside India (local charges apply)",
+        "hours": null,
+        "role": null,
+        "sources": [
+          {
+            "url": "https://www.kotak.bank.in/en/customer-service/contact-us.html",
+            "kind": "website",
+            "quote": "+91 22 6204 2001",
+            "checked_on": "2026-11-22",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "emails": [],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": "Page says product-wise hours differ (for example 811 account service 8 AM to 8 PM; personal loan Mon-Sat 9 AM to 8 PM).",
+    "official_no_phone": null,
+    "needs_check": [
+      "no email read: the grievance page was not opened",
+      "grievance officer / nodal officer not read (Grievance Redressal link not opened)"
+    ]
+  },
+  {
+    "name": "Bajaj Allianz General Insurance",
+    "aliases": [
+      "Bajaj Allianz",
+      "Bajaj General Insurance",
+      "Bajaj General"
+    ],
+    "category": "insurance",
+    "official_domains": [
+      "bajajgeneralinsurance.com",
+      "bajajgeneral.com"
+    ],
+    "source_url": "https://www.bajajgeneralinsurance.com/about-us/customer-service.html",
+    "checked_on": "2026-11-22",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "1800-209-5858",
+        "label": "Customer service, toll free",
+        "hours": null,
+        "role": "complaints",
+        "sources": [
+          {
+            "url": "https://www.bajajgeneralinsurance.com/about-us/customer-service.html",
+            "kind": "website",
+            "quote": "For service : 1800-209-5858",
+            "checked_on": "2026-11-22",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "1800-103-5858",
+        "label": "24x7 roadside assistance",
+        "hours": "24x7",
+        "role": null,
+        "sources": [
+          {
+            "url": "https://www.bajajgeneralinsurance.com/about-us/customer-service.html",
+            "kind": "website",
+            "quote": "1800-103-5858",
+            "checked_on": "2026-11-22",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "1800-209-7073",
+        "label": "Intermediary (agents) toll free",
+        "hours": null,
+        "role": null,
+        "sources": [
+          {
+            "url": "https://www.bajajgeneralinsurance.com/about-us/customer-service.html",
+            "kind": "website",
+            "quote": "1800-209-7073",
+            "checked_on": "2026-11-22",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "careforyou@bajajgeneral.com",
+        "label": "Customer service",
+        "hours": null,
+        "role": "complaints",
+        "sources": [
+          {
+            "url": "https://www.bajajgeneralinsurance.com/about-us/customer-service.html",
+            "kind": "website",
+            "quote": "Email id: careforyou@bajajgeneral.com",
+            "checked_on": "2026-11-22",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "email",
+        "value": "seniorcitizen@bajajgeneral.com",
+        "label": "Senior citizens",
+        "hours": null,
+        "role": "senior",
+        "sources": [
+          {
+            "url": "https://www.bajajgeneralinsurance.com/about-us/customer-service.html",
+            "kind": "website",
+            "quote": "For senior citizens: seniorcitizen@bajajgeneral.com",
+            "checked_on": "2026-11-22",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "grievance_officer": {
+      "name": "Grievance Redressal Officer (Level 2)",
+      "email": "ggro@bajajgeneral.com",
+      "phone": null,
+      "address": null,
+      "sources": [
+        {
+          "url": "https://www.bajajgeneralinsurance.com/about-us/customer-service.html",
+          "kind": "website",
+          "quote": "In case you are not satisfied with the response given to you by our team, you may write to our Grievance Redressal Officer at ggro@bajajgeneral.com",
+          "checked_on": "2026-11-22",
+          "machine_checked": false
+        }
+      ]
+    },
+    "appellate_authority": {
+      "name": "Head Customer Service (Level 3)",
+      "email": "head.customerservice@bajajgeneral.com",
+      "phone": null,
+      "address": null,
+      "sources": [
+        {
+          "url": "https://www.bajajgeneralinsurance.com/about-us/customer-service.html",
+          "kind": "website",
+          "quote": "write to head.customerservice@bajajgeneral.com",
+          "checked_on": "2026-11-22",
+          "machine_checked": false
+        }
+      ]
+    },
+    "working_hours": null,
+    "channel_notes": "Company is now named Bajaj General Insurance (formerly Bajaj Allianz General). Escalation: Level 1 customer service, Level 2 GRO, Level 3 Head Customer Service, then Insurance Ombudsman. The page also lists a 'Hi' chat number 7507425858 and a missed-call number; neither is stored because the page does not name WhatsApp on that line.",
+    "official_no_phone": null,
+    "needs_check": [
+      "7507425858 'Hi' number: channel type not stated on the page"
+    ]
+  },
+  {
+    "name": "Niva Bupa",
+    "aliases": [
+      "Max Bupa",
+      "Niva Bupa Health Insurance"
+    ],
+    "category": "insurance",
+    "official_domains": [
+      "nivabupa.com"
+    ],
+    "source_url": "https://transactions.nivabupa.com/pages/grievance-redressal.aspx",
+    "checked_on": "2026-11-22",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "1860-500-8888",
+        "label": "Customer helpline",
+        "hours": null,
+        "role": "complaints",
+        "sources": [
+          {
+            "url": "https://transactions.nivabupa.com/pages/grievance-redressal.aspx",
+            "kind": "website",
+            "quote": "Calling the Customer helpline number 1860-500-8888 or",
+            "checked_on": "2026-11-22",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "seniorcitizensupport@nivabupa.com",
+        "label": "Senior citizens priority support",
+        "hours": null,
+        "role": "senior",
+        "sources": [
+          {
+            "url": "https://transactions.nivabupa.com/pages/grievance-redressal.aspx",
+            "kind": "website",
+            "quote": "Senior citizens may write to us at seniorcitizensupport@nivabupa.com for priority assistance.",
+            "checked_on": "2026-11-22",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": "Escalation steps on the page: helpline or InstaAssist (https://rules.nivabupa.com/customer-service/), then the grievance form at https://rules.nivabupa.com/customer-service/?page=grievance, then GRO via the same form, then IRDAI Bima Bharosa, then Insurance Ombudsman. Head office: Customer Services Unit, Logix Infotec Park, D-5, 2nd Floor, Sector-59, Noida 201301.",
+    "official_no_phone": null,
+    "needs_check": [
+      "GRO name and email not printed (form only)",
+      "helpline hours not printed",
+      "contact-us.html redirects to a script-only page with no contact lines"
+    ]
+  },
+  {
+    "name": "IDBI Bank",
+    "aliases": [
+      "IDBI"
+    ],
+    "category": "banking_upi",
+    "official_domains": [
+      "idbi.bank.in",
+      "idbibank.in",
+      "idbi.co.in"
+    ],
+    "source_url": "https://www.idbi.bank.in/contact-us.aspx",
+    "checked_on": "2026-11-22",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "1800-209-4324",
+        "label": "Phone banking, toll free",
+        "hours": "24x7",
+        "role": "complaints",
+        "sources": [
+          {
+            "url": "https://www.idbi.bank.in/contact-us.aspx",
+            "kind": "website",
+            "quote": "Call on our Phone Banking numbers Toll Free - 1800-209-4324 1800-22-1070 (24x7 service)",
+            "checked_on": "2026-11-22",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "1800-22-1070",
+        "label": "Phone banking, toll free",
+        "hours": "24x7",
+        "role": null,
+        "sources": [
+          {
+            "url": "https://www.idbi.bank.in/contact-us.aspx",
+            "kind": "website",
+            "quote": "Call on our Phone Banking numbers Toll Free - 1800-209-4324 1800-22-1070 (24x7 service)",
+            "checked_on": "2026-11-22",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "1800-22-6999",
+        "label": "Debit card blocking",
+        "hours": null,
+        "role": null,
+        "sources": [
+          {
+            "url": "https://www.idbi.bank.in/contact-us.aspx",
+            "kind": "website",
+            "quote": "Call - 1800-22-6999",
+            "checked_on": "2026-11-22",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "+91-22-67719100",
+        "label": "Non-toll-free number",
+        "hours": null,
+        "role": null,
+        "sources": [
+          {
+            "url": "https://www.idbi.bank.in/contact-us.aspx",
+            "kind": "website",
+            "quote": "Non-Toll Free - +91-22-67719100 Outside India - +91-22-67719100 customers",
+            "checked_on": "2026-11-22",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "customercare@idbi.co.in",
+        "label": "Credit card customer care",
+        "hours": null,
+        "role": null,
+        "sources": [
+          {
+            "url": "https://www.idbi.bank.in/contact-us.aspx",
+            "kind": "website",
+            "quote": "Email Id - customercare@idbi.co.in",
+            "checked_on": "2026-11-22",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": "RTGS/NEFT complaints have a separate nodal officer (022 66908401 / 022 66908532) on the same page; not stored as general contacts. The cyber-crime cell numbers are for law enforcement only and are not stored.",
+    "official_no_phone": null,
+    "needs_check": [
+      "email customercare@idbi.co.in is printed under the Credit Card section only",
+      "bank grievance officer / appellate authority not read"
+    ]
+  },
+  {
+    "name": "Air India Express",
+    "aliases": [
+      "AIX",
+      "AI Express",
+      "Air India Express Limited"
+    ],
+    "category": "airlines",
+    "official_domains": [
+      "airindiaexpress.com"
+    ],
+    "source_url": "https://www.airindiaexpress.com/support",
+    "checked_on": "2026-11-22",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "+91 124 443 5600",
+        "label": "Global contact centre",
+        "hours": "24x7",
+        "role": "complaints",
+        "sources": [
+          {
+            "url": "https://www.airindiaexpress.com/support",
+            "kind": "website",
+            "quote": "+91 124 443 5600 +91 124 693 5600",
+            "checked_on": "2026-11-22",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "+91 124 693 5600",
+        "label": "Global contact centre",
+        "hours": "24x7",
+        "role": null,
+        "sources": [
+          {
+            "url": "https://www.airindiaexpress.com/support",
+            "kind": "website",
+            "quote": "+91 124 443 5600 +91 124 693 5600",
+            "checked_on": "2026-11-22",
+            "machine_checked": false
+          }
+        ]
+      },
+      {
+        "kind": "phone",
+        "value": "+91 124 443 5602",
+        "label": "Travel partner (agent) support",
+        "hours": "8 am to 9 pm IST",
+        "role": null,
+        "sources": [
+          {
+            "url": "https://www.airindiaexpress.com/support",
+            "kind": "website",
+            "quote": "+91 124 443 5602",
+            "checked_on": "2026-11-22",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "emails": [],
+    "grievance_officer": null,
+    "chat_channels": [
+      {
+        "kind": "whatsapp",
+        "value": "+91 6360012345",
+        "label": "WhatsApp",
+        "sources": [
+          {
+            "url": "https://www.airindiaexpress.com/support",
+            "kind": "website",
+            "quote": "You may get in touch with us directly via chat channel WhatsApp (+91 6360012345).",
+            "checked_on": "2026-11-22",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "working_hours": null,
+    "channel_notes": "Page also offers a web chat assistant called Tia. Passenger rights page: https://www.airindiaexpress.com/passenger-rights (not read).",
+    "official_no_phone": null,
+    "needs_check": [
+      "no grievance officer or email read",
+      "/contact-us returns page-not-found; support page used instead"
+    ]
+  },
+  {
+    "name": "BigBasket",
+    "aliases": [
+      "bb",
+      "Big Basket",
+      "bigbasket.com"
+    ],
+    "category": "food_delivery",
+    "official_domains": [
+      "bigbasket.com"
+    ],
+    "source_url": "https://www.bigbasket.com/contact/?nc=bt",
+    "checked_on": "2026-11-22",
+    "helplines": [
+      {
+        "kind": "phone",
+        "value": "1860-123-1000",
+        "label": "Customer support",
+        "hours": null,
+        "role": "complaints",
+        "sources": [
+          {
+            "url": "https://www.bigbasket.com/contact/?nc=bt",
+            "kind": "website",
+            "quote": "[All calls to our customer support number 1860-123-1000 will be recorded for internal training and quality purposes.]",
+            "checked_on": "2026-11-22",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "customerservice@bigbasket.com",
+        "label": "Customer service",
+        "hours": null,
+        "role": "complaints",
+        "sources": [
+          {
+            "url": "https://www.bigbasket.com/contact/?nc=bt",
+            "kind": "website",
+            "quote": "customerservice@bigbasket.com",
+            "checked_on": "2026-11-22",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": "Page says calls are recorded. Request form link on the page ('click here').",
+    "official_no_phone": null,
+    "needs_check": [
+      "page looks like an older layout (office address names 'Innovative Retail Concepts Pvt Ltd'); confirm the number still works before relying on it",
+      "no grievance officer read",
+      "hours not printed"
+    ]
+  },
+  {
+    "name": "Blinkit",
+    "aliases": [
+      "Grofers",
+      "Blink It"
+    ],
+    "category": "food_delivery",
+    "official_domains": [
+      "blinkit.com"
+    ],
+    "source_url": "https://blinkit.com/contact",
+    "checked_on": "2026-11-22",
+    "helplines": [],
+    "emails": [
+      {
+        "kind": "email",
+        "value": "info@blinkit.com",
+        "label": "General queries",
+        "hours": null,
+        "role": null,
+        "sources": [
+          {
+            "url": "https://blinkit.com/contact",
+            "kind": "website",
+            "quote": "For any queries or assistance, feel free to reach out to us at info@blinkit.com",
+            "checked_on": "2026-11-22",
+            "machine_checked": false
+          }
+        ]
+      }
+    ],
+    "grievance_officer": null,
+    "working_hours": null,
+    "channel_notes": "Use in-app support. The site warns against fake numbers.",
+    "official_no_phone": {
+      "url": "https://blinkit.com/contact",
+      "kind": "website",
+      "quote": "Blinkit does not have any official customer care phone line. Beware of fake numbers! For any issues, please use our in-app support only, where we are available.",
+      "checked_on": "2026-11-22",
+      "machine_checked": false
+    },
+    "needs_check": [
+      "grievance officer not read"
+    ]
+  },
+  {
+    "name": "Ajio",
+    "aliases": [
+      "AJIO",
+      "Ajio Reliance"
+    ],
+    "category": "ecommerce",
+    "official_domains": [
+      "ajio.com"
+    ],
+    "source_url": "https://www.ajio.com/help/termsAndCondition",
+    "checked_on": "2026-11-22",
+    "helplines": [],
+    "emails": [],
+    "grievance_officer": {
+      "name": "Anirban Chatterjee (Grievance Officer)",
+      "email": "grievance.officer@ajio.com",
+      "phone": null,
+      "address": null,
+      "sources": [
+        {
+          "url": "https://www.ajio.com/help/termsAndCondition",
+          "kind": "website",
+          "quote": "Email Address: grievance.officer@ajio.com",
+          "checked_on": "2026-11-22",
+          "machine_checked": false
+        }
+      ]
+    },
+    "working_hours": null,
+    "channel_notes": "Operating entity: Reliance Retail Limited (per Terms). The Terms also name a Nodal Officer, Gurpreet Jolly, nodal.officer@ajio.com, and say account deactivation requests go to customercare@ajio.com. Officer names change; re-check. In-app/web help: https://www.ajio.com/selfcare.",
+    "official_no_phone": null,
+    "needs_check": [
+      "no customer-care phone number printed on the pages read",
+      "customercare@ajio.com appears only inside the account-deactivation sentence, so it is not stored as a general contact",
+      "nodal officer email not stored as a contact"
     ]
   }
 ]
