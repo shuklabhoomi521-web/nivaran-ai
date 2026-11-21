@@ -3,7 +3,7 @@
 Plain status for v1.0. Details sit in `docs/notes/`.
 
 ## Works today (tested, on a laptop)
-- Verified official contacts for 49+ companies, each with its source page and exact quote.
+- Verified official contacts for 58 companies, each with its source page and exact quote.
 - Case ladder (day 0, 3, 7, 15) from first contact to regulator.
 - Grievance letter from the user's own facts, template only, sent after approval to directory addresses only.
 - Read-only reply tracking, portal kits (helpline portal, RBI, IRDAI/AirSewa) with ready complaint text.
