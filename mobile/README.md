@@ -7,6 +7,9 @@ First version (sprint day 7 work): list your cases, start a new case, and run a 
 2. Find the laptop's address on your Wi-Fi (for example `192.168.1.20`). The phone and laptop must be on the same network.
 3. `cd mobile && EXPO_PUBLIC_API_URL=http://192.168.1.20:8000 npx expo start` and open it in the Expo Go app (or press `i` for the iOS simulator).
 
+## On a laptop (Mac or Windows)
+The same app runs in any browser: `cd mobile && EXPO_PUBLIC_API_URL=http://localhost:8000 npx expo start --web`, then open http://localhost:8081 (Chrome, Edge or Safari). On a wide window it shows a centred column (`src/layout.ts`); on a phone it uses the full width. Not available on the web: reminders (they need a phone). Checked on 22 Nov in a browser at laptop width against the real backend (cases list loaded, 200 OK).
+
 ## Screens
 - **My cases:** every case with its state (not sent yet, waiting, escalated, solved, closed).
 - **New case:** type the problem once; the server removes card, PIN and OTP text, the AI shows what it understood, you confirm the company and your name.

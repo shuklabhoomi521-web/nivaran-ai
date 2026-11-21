@@ -1,4 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
+import { View, useWindowDimensions } from 'react-native';
+import { layoutFor } from './src/layout';
 import React, { useEffect, useMemo, useState } from 'react';
 import { makeApi } from './src/api';
 import { Lang, LangProvider } from './src/i18n';
@@ -14,6 +16,16 @@ import NewCaseScreen from './src/screens/NewCaseScreen';
 
 type Screen = { name: 'cases' } | { name: 'new' } | { name: 'case'; id: string } | { name: 'call'; id: string };
 
+function Shell({ children }: { children: React.ReactNode }) {
+  const { width } = useWindowDimensions();
+  const l = layoutFor(width);
+  return (
+    <View style={{ flex: 1, alignItems: 'center', paddingVertical: l.gutter }}>
+      <View style={{ flex: 1, width: '100%', maxWidth: l.maxWidth ?? undefined }}>{children}</View>
+    </View>
+  );
+}
+
 export default function App() {
   const session = useMemo(() => makeSession(secureStore), []);
   const [code, setCode] = useState<string | null | undefined>(API_TOKEN);          // undefined = still looking; null = none yet
@@ -26,7 +38,7 @@ export default function App() {
     return (
       <GlassBackground>
         <StatusBar style="dark" />
-        <CodeScreen baseUrl={API_URL} onAccepted={(c) => { void session.save(c); setCode(c); }} />
+        <Shell><CodeScreen baseUrl={API_URL} onAccepted={(c) => { void session.save(c); setCode(c); }} /></Shell>
       </GlassBackground>
     );
   }
@@ -34,10 +46,12 @@ export default function App() {
     <LangProvider value={{ lang, setLang }}>
     <GlassBackground>
       <StatusBar style="dark" />
+      <Shell>
       {screen.name === 'cases' && <CasesScreen key="cases" api={api} onOpen={(id) => setScreen({ name: 'case', id })} onNew={() => setScreen({ name: 'new' })} onSignOut={API_TOKEN ? undefined : () => { void session.clear(); setCode(null); }} />}
       {screen.name === 'new' && <NewCaseScreen api={api} onBack={() => setScreen({ name: 'cases' })} onCreated={(id) => setScreen({ name: 'case', id })} />}
       {screen.name === 'case' && <CaseScreen key={screen.id} api={api} id={screen.id} onBack={() => setScreen({ name: 'cases' })} onCall={() => setScreen({ name: 'call', id: screen.id })} />}
       {screen.name === 'call' && <CallScreen api={api} id={screen.id} onBack={() => setScreen({ name: 'case', id: screen.id })} />}
+      </Shell>
     </GlassBackground>
     </LangProvider>
   );
