@@ -41,3 +41,6 @@ backend/.drafts.json
 .pilot_token
 .pilot_users.json
 .pilot_users.tmp
+.profiles.json
+.profiles.tmp
+backend/.profiles.json

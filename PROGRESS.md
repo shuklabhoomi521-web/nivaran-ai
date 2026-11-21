@@ -57,6 +57,8 @@ Plan and day-by-day calendar live outside the repo in `~/nivaran-plan` (PLAN.md,
 
 - 22 Nov: `docs/REAL-WORLD.md` written (what works, what is unproven, phone and hosting decisions). Azure Students has no cheap VM size, so the pilot stays on the laptop. A helper is reading 14 more company pages in a browser to grow the directory toward 60 (not added until tests pass).
 
+- 22 Nov: app redesigned to the founder's spec: sign in, details form (new encrypted `/profile` API, 18+ check), pastel palette and new logo, dashboard with greeting/date/time and recent complaints, side bar (chat and call as separate options, complaints split ongoing/resolved with next follow-up, profile with status numbers), laptop and phone layouts. Checked in a browser against the real backend with throwaway test data. Voice-call intake is not built (screen says so). 642 backend tests, 47 app tests.
+
 ## Next
 - Day 1 rest: founder makes FreJun Teler, GitHub Student Pack and Bhashini accounts. 19 Nov: tests, TRAI rules, map Teler to the phone layer. 20-22 Nov: phone first, incl. the real test call on your own number (21 Nov).
 

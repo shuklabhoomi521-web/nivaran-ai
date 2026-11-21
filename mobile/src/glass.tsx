@@ -51,10 +51,10 @@ export function GlassBackground({ children }: { children: React.ReactNode }) {
   if (kind === 'solid') return <View style={[StyleSheet.absoluteFill, { backgroundColor: '#f1f3f6', flex: 1 }]}>{children}</View>;
   return (
     <View style={{ flex: 1, overflow: 'hidden' }}>
-      <LinearGradient colors={['#cfe0ff', '#e6d8ff', '#ffe0ec']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={StyleSheet.absoluteFill} />
-      <View pointerEvents="none" style={[styles.blob, { top: -70, right: -60, backgroundColor: 'rgba(99,179,255,0.55)' }]} />
-      <View pointerEvents="none" style={[styles.blob, { top: 320, left: -110, backgroundColor: 'rgba(190,140,255,0.45)' }]} />
-      <View pointerEvents="none" style={[styles.blob, { bottom: -90, right: -40, backgroundColor: 'rgba(255,150,190,0.5)' }]} />
+      <LinearGradient colors={['#dbe7f6', '#f6dde6', '#eadfd3']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={StyleSheet.absoluteFill} />
+      <View pointerEvents="none" style={[styles.blob, { top: -70, right: -60, backgroundColor: 'rgba(150,185,230,0.55)' }]} />
+      <View pointerEvents="none" style={[styles.blob, { top: 320, left: -110, backgroundColor: 'rgba(205,175,150,0.45)' }]} />
+      <View pointerEvents="none" style={[styles.blob, { bottom: -90, right: -40, backgroundColor: 'rgba(240,170,195,0.5)' }]} />
       {children}
     </View>
   );

@@ -1,4 +1,4 @@
-import type { Action, CallEvent, CallPreview, CheckResponse, ConsentNotice, Draft, TranscribeResponse, NextResponse, PortalKit, TrackedCase, UnderstandResponse, UnderstoodCase } from './types';
+import type { Action, CallEvent, CallPreview, CheckResponse, ConsentNotice, Draft, TranscribeResponse, NextResponse, PortalKit, Profile, TrackedCase, UnderstandResponse, UnderstoodCase } from './types';
 
 export class ApiError extends Error {
   constructor(message: string, public status?: number) {
@@ -74,6 +74,9 @@ export function makeApi(baseUrl: string, fetchImpl: typeof fetch = fetch, timeou
     sendDraft: (draftId: string) => request<{ draft: Draft; case: TrackedCase }>('POST', `/drafts/${draftId}/send`),
     portalKit: (id: string) => request<PortalKit>('GET', `/tracked-cases/${id}/portal-kit`),
     checkReplies: (id: string) => request<CheckResponse>('POST', `/tracked-cases/${id}/check-replies`),
+    getProfile: async () => (await request<{ profile: Profile | null }>('GET', '/profile')).profile,
+    saveProfile: async (p: Profile) => (await request<{ profile: Profile }>('PUT', '/profile', p)).profile,
+    deleteProfile: () => request<{ deleted: boolean }>('DELETE', '/profile'),
     deleteCase: (id: string) => request<{ deleted: string }>('DELETE', `/tracked-cases/${id}`),
   };
 }

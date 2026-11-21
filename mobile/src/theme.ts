@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-export const c = { bg: 'transparent', card: 'transparent', ink: '#0f1216', soft: '#3f4752', line: 'rgba(255,255,255,0.7)', brand: '#1d4ed8', good: '#17692f', warn: '#8f5400', bad: '#a31f18' };
+export const c = { bg: 'transparent', card: 'transparent', ink: '#2B2D33', soft: '#555B66', line: 'rgba(255,255,255,0.7)', brand: '#4A6FA5', pink: '#C4688A', brown: '#7A5A44', grey: '#8A909C', good: '#3F6F8F', warn: '#7A5A44', bad: '#A8456A' };
 
 export const s = StyleSheet.create({
   screen: { flex: 1, paddingTop: 54 },

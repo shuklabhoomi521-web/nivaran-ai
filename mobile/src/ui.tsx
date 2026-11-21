@@ -10,7 +10,7 @@ export function Button({ label, onPress, kind = 'primary', disabled, busy }: { l
   return (
     <Pressable accessibilityRole="button" accessibilityLabel={label} accessibilityState={{ disabled: !!off, busy: !!busy }} disabled={off} onPress={onPress}
       style={({ pressed }) => [off && s.btnOff, pressed && { opacity: 0.8, transform: [{ scale: 0.99 }] }]}>
-      <GlassSurface radius={14} tint={primary ? (solid ? c.brand : 'rgba(29,78,216,0.88)') : undefined} style={s.btnInner}>
+      <GlassSurface radius={14} tint={primary ? (solid ? c.brand : 'rgba(74,111,165,0.92)') : undefined} style={s.btnInner}>
         {busy ? <ActivityIndicator color={primary ? '#fff' : c.ink} /> : <Text style={primary ? s.btnText : s.btnGhostText}>{label}</Text>}
       </GlassSurface>
     </Pressable>

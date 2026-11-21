@@ -1,4 +1,4 @@
-import type { Action, CaseState, Reminder, Rung } from './types';
+import type { Action, CaseState, NextResponse, Reminder, Rung } from './types';
 
 export const RUNG_LABEL: Record<Rung, string> = {
   first_contact: 'First message',
@@ -17,7 +17,7 @@ export const STATE_LABEL: Record<CaseState, string> = {
 };
 
 export const STATE_COLOR: Record<CaseState, string> = {
-  new: '#5b6470', waiting: '#b26a00', escalated: '#b3261e', resolved: '#1b7f3b', closed: '#5b6470',
+  new: '#6B7280', waiting: '#7A5A44', escalated: '#A8456A', resolved: '#3F6F8F', closed: '#6B7280',
 };
 
 export const GOAL_LABEL: Record<string, string> = {
@@ -78,3 +78,15 @@ export function nextSince(events: { n: number }[], since: number): number {
 export const CALL_LANGUAGES: { code: string; label: string }[] = [
   { code: 'en-IN', label: 'English' }, { code: 'hi-IN', label: 'हिन्दी' }, { code: 'ta-IN', label: 'தமிழ்' }, { code: 'hinglish', label: 'Hinglish' },
 ];
+
+/** One honest line about the next follow-up. The ladder dates come from the case engine (day 3, 7, 15 after the last contact). */
+export function followUpText(next: NextResponse | null, state: CaseState): string {
+  if (state === 'resolved') return 'Solved';
+  if (state === 'closed') return 'Stopped by you';
+  if (!next || !next.action) return 'No follow-up planned';
+  const a = next.action;
+  const what = RUNG_LABEL[a.rung];
+  if (state === 'new') return `Waiting for your approval to send the ${what.toLowerCase()}`;
+  if (a.days_overdue > 0) return `Follow-up overdue since ${prettyDate(a.due_on)}: ${what}`;
+  return `Next follow-up on ${prettyDate(a.due_on)}: ${what}`;
+}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ScrollView, Text, TextInput, View } from 'react-native';
 import { makeApi } from '../api';
 import { cleanCode } from '../session';
+import { Logo } from '../logo';
 import { s } from '../theme';
 import { Button, Card, ErrorText } from '../ui';
 
@@ -24,9 +25,9 @@ export default function CodeScreen({ baseUrl, onAccepted }: { baseUrl: string; o
 
   return (
     <View style={s.screen}>
-      <View style={s.header}><Text style={s.title}>Nivaran</Text></View>
+      <View style={{ alignItems: 'center', paddingTop: 8 }}><Logo size={84} caption="Customer care, made easy" /></View>
       <ScrollView contentContainerStyle={s.body} keyboardShouldPersistTaps="handled">
-        <Card title="Your access code">
+        <Card title="Sign in">
           <Text style={s.text}>Type the code you were given for this pilot. It keeps your cases private: nobody else can see them with their own code.</Text>
           <TextInput accessibilityLabel="Access code" style={s.input} value={code} onChangeText={setCode} secureTextEntry autoCapitalize="none" autoCorrect={false} placeholder="Access code" />
           <ErrorText message={err} />

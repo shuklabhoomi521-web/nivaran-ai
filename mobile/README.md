@@ -10,7 +10,13 @@ First version (sprint day 7 work): list your cases, start a new case, and run a 
 ## On a laptop (Mac or Windows)
 The same app runs in any browser: `cd mobile && EXPO_PUBLIC_API_URL=http://localhost:8000 npx expo start --web`, then open http://localhost:8081 (Chrome, Edge or Safari). On a wide window it shows a centred column (`src/layout.ts`); on a phone it uses the full width. Not available on the web: reminders (they need a phone). Checked on 22 Nov in a browser at laptop width against the real backend (cases list loaded, 200 OK).
 
-## Screens
+## Screens (redesign of 22 Nov)
+Sign in with the access code, then fill in your details once (name, gender, date of birth, optional mobile, email, city, language; 18+ only; stored encrypted via `PUT /profile`). Then:
+- **Home:** greeting by time of day with date and time, your recent complaints with status and next follow-up, and the Nivaran logo with "Glad to help" at the bottom.
+- **Side bar (laptop) or menu button (phone):** Home, Tell our AI in chat, Tell our AI on a call (voice calls are NOT available yet: the screen says so and offers practice calls to your own phone), My complaints (Ongoing and Resolved tabs, each with the next follow-up date from the day 3/7/15 schedule), My profile (numbers of complaints by status, your details).
+- Palette: pastel blue, pink, brown and grey. Logo: a tangled loop that relaxes into a calm line ending in a dot (`src/logo.tsx`). Hindi and Tamil text exists only for the older screens; the new screens are English for now.
+
+## Older screens
 - **My cases:** every case with its state (not sent yet, waiting, escalated, solved, closed).
 - **New case:** type the problem once; the server removes card, PIN and OTP text, the AI shows what it understood, you confirm the company and your name.
 - **Case:** the ladder (first message, follow-up, grievance officer, appellate authority, regulator), the next step with the verified contact and the official quote, the letter (edit, approve, then send, each a separate tap), the portal filing kit (official steps with quotes, our checklist, complaint text to copy, docket number), inbox check for replies, mark solved or stop, delete my data.

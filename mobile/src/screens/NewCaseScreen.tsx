@@ -8,10 +8,10 @@ import type { UnderstandResponse } from '../types';
 import { useVoiceRecorder } from '../voice';
 import { Button, Card, ErrorText } from '../ui';
 
-export default function NewCaseScreen({ api, onBack, onCreated }: { api: Api; onBack: () => void; onCreated: (id: string) => void }) {
+export default function NewCaseScreen({ api, onBack, onCreated, defaultName = '' }: { api: Api; onBack: () => void; onCreated: (id: string) => void; defaultName?: string }) {
   const t = useT();
   const [text, setText] = useState('');
-  const [name, setName] = useState('');
+  const [name, setName] = useState(defaultName);
   const [company, setCompany] = useState('');
   const [result, setResult] = useState<UnderstandResponse | null>(null);
   const [err, setErr] = useState<string | null>(null);

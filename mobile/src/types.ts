@@ -114,3 +114,7 @@ export interface CallPreview {
   company_number: string | null; company_number_source: string | null; can_start: boolean; why_not: string | null; rules: string[];
 }
 export interface CallEvent { n: number; kind: string; text: string; t: string | null }
+
+export interface Profile {
+  full_name: string; gender: string; date_of_birth: string; phone: string | null; email: string | null; city: string | null; preferred_language: 'en' | 'hi' | 'ta';
+}
