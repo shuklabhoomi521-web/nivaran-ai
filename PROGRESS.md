@@ -59,6 +59,8 @@ Plan and day-by-day calendar live outside the repo in `~/nivaran-plan` (PLAN.md,
 
 - 22 Nov: app redesigned to the founder's spec: sign in, details form (new encrypted `/profile` API, 18+ check), pastel palette and new logo, dashboard with greeting/date/time and recent complaints, side bar (chat and call as separate options, complaints split ongoing/resolved with next follow-up, profile with status numbers), laptop and phone layouts. Checked in a browser against the real backend with throwaway test data. Voice-call intake is not built (screen says so). 642 backend tests, 47 app tests.
 
+- 22 Nov: logo redrawn as one ribbon forming the letter N (knot at the bottom, smooth diagonal, settled dot). Hindi and Tamil drafts added for the new screens' menus, headings and profile numbers (unchecked by a native speaker; complaint cards, status words and follow-up lines are still English). 48 app tests.
+
 ## Next
 - Day 1 rest: founder makes FreJun Teler, GitHub Student Pack and Bhashini accounts. 19 Nov: tests, TRAI rules, map Teler to the phone layer. 20-22 Nov: phone first, incl. the real test call on your own number (21 Nov).
 

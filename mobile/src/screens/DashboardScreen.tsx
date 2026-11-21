@@ -3,14 +3,15 @@ import { RefreshControl, ScrollView, Text, View } from 'react-native';
 import type { Api } from '../api';
 import { ComplaintCard, useNexts } from '../cards';
 import { greetingFor, niceNow } from '../greeting';
+import { useT } from '../i18n';
 import { Logo } from '../logo';
 import { c, s } from '../theme';
 import type { TrackedCase } from '../types';
 import { Button, ErrorText } from '../ui';
 
-const WORD = { morning: 'Good morning', afternoon: 'Good afternoon', evening: 'Good evening', night: 'Hello' } as const;
 
 export default function DashboardScreen({ api, name, onOpen, onChat, onCall, onAll }: { api: Api; name: string; onOpen: (id: string) => void; onChat: () => void; onCall: () => void; onAll: () => void }) {
+  const t = useT();
   const [now, setNow] = useState(new Date());
   const [cases, setCases] = useState<TrackedCase[]>([]);
   const [err, setErr] = useState<string | null>(null);
@@ -28,19 +29,19 @@ export default function DashboardScreen({ api, name, onOpen, onChat, onCall, onA
     <View style={s.screen}>
       <ScrollView contentContainerStyle={s.body} refreshControl={<RefreshControl refreshing={busy} onRefresh={load} />}>
         <View style={{ gap: 4, paddingTop: 6, paddingRight: 90 }}>
-          <Text style={{ fontSize: 28, fontWeight: '700', color: c.ink }}>{WORD[greetingFor(now)]}{name ? `, ${name}` : ''}</Text>
+          <Text style={{ fontSize: 28, fontWeight: '700', color: c.ink }}>{t(`greet.${greetingFor(now)}` as const)}{name ? `, ${name}` : ''}</Text>
           <Text style={s.soft}>{niceNow(now)}</Text>
         </View>
         <View style={s.row}>
-          <View style={{ flex: 1 }}><Button label="Tell our AI in chat" onPress={onChat} /></View>
-          <View style={{ flex: 1 }}><Button label="Tell our AI on a call" kind="ghost" onPress={onCall} /></View>
+          <View style={{ flex: 1 }}><Button label={t('nav.chat')} onPress={onChat} /></View>
+          <View style={{ flex: 1 }}><Button label={t('nav.call')} kind="ghost" onPress={onCall} /></View>
         </View>
         <ErrorText message={err} />
-        <Text style={[s.h2, { marginTop: 8 }]}>Your recent complaints</Text>
-        {recent.length === 0 && !busy && !err ? <Text style={s.soft}>Nothing yet. When you tell our AI about a problem, you can follow it here.</Text> : null}
+        <Text style={[s.h2, { marginTop: 8 }]}>{t('home.recent')}</Text>
+        {recent.length === 0 && !busy && !err ? <Text style={s.soft}>{t('home.none')}</Text> : null}
         {recent.map((item) => <ComplaintCard key={item.id} item={item} next={nexts[item.id]} onOpen={() => onOpen(item.id)} />)}
         {cases.length > 5 ? <Button label="See all my complaints" kind="ghost" onPress={onAll} /> : null}
-        <View style={{ marginTop: 28, marginBottom: 12 }}><Logo size={64} caption="Glad to help" /></View>
+        <View style={{ marginTop: 28, marginBottom: 12 }}><Logo size={64} caption={t('home.glad')} /></View>
       </ScrollView>
     </View>
   );

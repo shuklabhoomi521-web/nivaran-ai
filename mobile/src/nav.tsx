@@ -3,27 +3,29 @@ import { Pressable, Text, View, useWindowDimensions } from 'react-native';
 import { GlassSurface } from './glass';
 import { layoutFor } from './layout';
 import { LogoMark } from './logo';
+import { useT, type Key } from './i18n';
 import { c } from './theme';
 
 export type Tab = 'home' | 'chat' | 'callhome' | 'complaints' | 'profile';
-const ITEMS: { tab: Tab; label: string; hint: string }[] = [
-  { tab: 'home', label: 'Home', hint: 'Your dashboard' },
-  { tab: 'chat', label: 'Tell our AI in chat', hint: 'Type or speak your problem' },
-  { tab: 'callhome', label: 'Tell our AI on a call', hint: 'Talk to it by voice' },
-  { tab: 'complaints', label: 'My complaints', hint: 'Ongoing and resolved' },
-  { tab: 'profile', label: 'My profile', hint: 'Your details and numbers' },
+const ITEMS: { tab: Tab; label: Key; hint: Key }[] = [
+  { tab: 'home', label: 'nav.home', hint: 'nav.home.hint' },
+  { tab: 'chat', label: 'nav.chat', hint: 'nav.chat.hint' },
+  { tab: 'callhome', label: 'nav.call', hint: 'nav.call.hint' },
+  { tab: 'complaints', label: 'nav.complaints', hint: 'nav.complaints.hint' },
+  { tab: 'profile', label: 'nav.profile', hint: 'nav.profile.hint' },
 ];
 
 function Menu({ current, onGo }: { current: Tab | null; onGo: (t: Tab) => void }) {
+  const t = useT();
   return (
     <View style={{ gap: 6 }}>
       {ITEMS.map((i) => {
         const on = current === i.tab;
         return (
-          <Pressable key={i.tab} accessibilityRole="button" accessibilityState={{ selected: on }} accessibilityLabel={i.label} onPress={() => onGo(i.tab)}
+          <Pressable key={i.tab} accessibilityRole="button" accessibilityState={{ selected: on }} accessibilityLabel={t(i.label)} onPress={() => onGo(i.tab)}
             style={{ paddingVertical: 10, paddingHorizontal: 12, borderRadius: 12, backgroundColor: on ? 'rgba(74,111,165,0.16)' : 'transparent' }}>
-            <Text style={{ fontSize: 15, fontWeight: on ? '700' : '600', color: on ? c.brand : c.ink }}>{i.label}</Text>
-            <Text style={{ fontSize: 12, color: c.soft }}>{i.hint}</Text>
+            <Text style={{ fontSize: 15, fontWeight: on ? '700' : '600', color: on ? c.brand : c.ink }}>{t(i.label)}</Text>
+            <Text style={{ fontSize: 12, color: c.soft }}>{t(i.hint)}</Text>
           </Pressable>
         );
       })}
@@ -34,7 +36,7 @@ function Menu({ current, onGo }: { current: Tab | null; onGo: (t: Tab) => void }
 function Brand() {
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 18 }}>
-      <LogoMark size={46} />
+      <LogoMark size={44} />
       <Text style={{ fontSize: 17, fontWeight: '700', letterSpacing: 2, color: c.ink }}>NIVARAN</Text>
     </View>
   );
@@ -43,6 +45,7 @@ function Brand() {
 /** Laptop: a permanent side bar. Phone and tablet: a top bar with a menu button that opens the side bar. */
 export function AppFrame({ current, onGo, children }: { current: Tab | null; onGo: (t: Tab) => void; children: React.ReactNode }) {
   const { width } = useWindowDimensions();
+  const t = useT();
   const [open, setOpen] = useState(false);
   const wide = layoutFor(width).kind === 'desktop';
   const go = (t: Tab) => { setOpen(false); onGo(t); };
@@ -58,7 +61,7 @@ export function AppFrame({ current, onGo, children }: { current: Tab | null; onG
     <View style={{ flex: 1 }}>
       <View style={{ position: 'absolute', top: 12, right: 14, zIndex: 5 }}>
         <Pressable accessibilityRole="button" accessibilityLabel="Open the menu" onPress={() => setOpen(true)}>
-          <GlassSurface radius={14} style={{ paddingVertical: 8, paddingHorizontal: 14 }}><Text style={{ fontSize: 15, fontWeight: '700', color: c.ink }}>☰ Menu</Text></GlassSurface>
+          <GlassSurface radius={14} style={{ paddingVertical: 8, paddingHorizontal: 14 }}><Text style={{ fontSize: 15, fontWeight: '700', color: c.ink }}>☰ {t('nav.menu')}</Text></GlassSurface>
         </Pressable>
       </View>
       <View style={{ flex: 1, maxWidth: layoutFor(width).maxWidth ?? undefined, width: '100%', alignSelf: 'center' }}>{children}</View>

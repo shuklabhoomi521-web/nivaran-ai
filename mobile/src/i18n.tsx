@@ -6,6 +6,12 @@ export const LANGS: { code: Lang; label: string }[] = [{ code: 'en', label: 'Eng
 // First draft of the Hindi and Tamil text: it has NOT been checked by a native speaker yet (see docs/notes/mobile-i18n.md).
 export const STRINGS = {
   en: {
+    'nav.home': 'Home', 'nav.home.hint': 'Your dashboard', 'nav.chat': 'Tell our AI in chat', 'nav.chat.hint': 'Type or speak your problem', 'nav.call': 'Tell our AI on a call', 'nav.call.hint': 'Talk to it by voice',
+    'nav.complaints': 'My complaints', 'nav.complaints.hint': 'Ongoing and resolved', 'nav.profile': 'My profile', 'nav.profile.hint': 'Your details and numbers', 'nav.menu': 'Menu',
+    'home.recent': 'Your recent complaints', 'home.none': 'Nothing yet. When you tell our AI about a problem, you can follow it here.', 'home.glad': 'Glad to help',
+    'greet.morning': 'Good morning', 'greet.afternoon': 'Good afternoon', 'greet.evening': 'Good evening', 'greet.night': 'Hello',
+    'cmp.title': 'My complaints', 'cmp.ongoing': 'Ongoing', 'cmp.resolved': 'Resolved',
+    'prof.title': 'My profile', 'prof.numbers': 'My complaints in numbers', 'prof.total': 'Total', 'prof.ongoing': 'Ongoing', 'prof.resolved': 'Resolved', 'prof.escalated': 'Escalated', 'prof.stopped': 'Stopped by me', 'prof.details': 'My details', 'prof.edit': 'Edit my details', 'prof.signout': 'Sign out',
     'common.back': 'Back',
     'cases.title': 'My cases', 'cases.new': 'New case', 'cases.empty': 'No cases yet. Tap "New case" and tell us the problem once, in your own words.',
     'new.title': 'New case', 'new.intro': 'Tell us the problem once, in your own words and your own language.', 'new.understand': 'Understand my problem',
@@ -16,6 +22,12 @@ export const STRINGS = {
     'case.call': 'Call for me (practice)', 'case.kit': 'Open the filing kit', 'case.did': 'I did this step myself',
   },
   hi: {
+    'nav.home': 'होम', 'nav.home.hint': 'आपका डैशबोर्ड', 'nav.chat': 'चैट में AI को बताएँ', 'nav.chat.hint': 'लिखकर या बोलकर समस्या बताएँ', 'nav.call': 'कॉल पर AI को बताएँ', 'nav.call.hint': 'आवाज़ में बात करें',
+    'nav.complaints': 'मेरी शिकायतें', 'nav.complaints.hint': 'चल रही और हल हुई', 'nav.profile': 'मेरी प्रोफ़ाइल', 'nav.profile.hint': 'आपकी जानकारी और आँकड़े', 'nav.menu': 'मेनू',
+    'home.recent': 'आपकी हाल की शिकायतें', 'home.none': 'अभी कुछ नहीं। जब आप AI को समस्या बताएँगे, तो उसे यहाँ देख सकेंगे।', 'home.glad': 'मदद करके खुशी हुई',
+    'greet.morning': 'सुप्रभात', 'greet.afternoon': 'नमस्कार', 'greet.evening': 'शुभ संध्या', 'greet.night': 'नमस्ते',
+    'cmp.title': 'मेरी शिकायतें', 'cmp.ongoing': 'चल रही', 'cmp.resolved': 'हल हुई',
+    'prof.title': 'मेरी प्रोफ़ाइल', 'prof.numbers': 'मेरी शिकायतें आँकड़ों में', 'prof.total': 'कुल', 'prof.ongoing': 'चल रही', 'prof.resolved': 'हल हुई', 'prof.escalated': 'आगे बढ़ाई गई', 'prof.stopped': 'मैंने रोकी', 'prof.details': 'मेरी जानकारी', 'prof.edit': 'जानकारी बदलें', 'prof.signout': 'साइन आउट',
     'common.back': 'वापस',
     'cases.title': 'मेरी शिकायतें', 'cases.new': 'नई शिकायत', 'cases.empty': 'अभी कोई शिकायत नहीं है। "नई शिकायत" दबाएँ और अपनी भाषा में समस्या एक बार बताइए।',
     'new.title': 'नई शिकायत', 'new.intro': 'अपनी समस्या अपनी भाषा में, अपने शब्दों में, बस एक बार बताइए।', 'new.understand': 'मेरी समस्या समझें',
@@ -26,6 +38,12 @@ export const STRINGS = {
     'case.call': 'मेरी तरफ़ से कॉल करें (अभ्यास)', 'case.kit': 'शिकायत दर्ज करने की किट खोलें', 'case.did': 'यह कदम मैंने खुद किया',
   },
   ta: {
+    'nav.home': 'முகப்பு', 'nav.home.hint': 'உங்கள் டாஷ்போர்டு', 'nav.chat': 'அரட்டையில் AI-யிடம் சொல்லுங்கள்', 'nav.chat.hint': 'எழுதி அல்லது பேசிச் சொல்லுங்கள்', 'nav.call': 'அழைப்பில் AI-யிடம் சொல்லுங்கள்', 'nav.call.hint': 'குரலில் பேசுங்கள்',
+    'nav.complaints': 'என் புகார்கள்', 'nav.complaints.hint': 'நடப்பவை மற்றும் தீர்ந்தவை', 'nav.profile': 'என் சுயவிவரம்', 'nav.profile.hint': 'உங்கள் விவரங்களும் எண்களும்', 'nav.menu': 'மெனு',
+    'home.recent': 'உங்கள் சமீபத்திய புகார்கள்', 'home.none': 'இன்னும் எதுவும் இல்லை. AI-யிடம் பிரச்சினையைச் சொன்னால் இங்கே பின்தொடரலாம்.', 'home.glad': 'உதவ மகிழ்ச்சி',
+    'greet.morning': 'காலை வணக்கம்', 'greet.afternoon': 'மதிய வணக்கம்', 'greet.evening': 'மாலை வணக்கம்', 'greet.night': 'வணக்கம்',
+    'cmp.title': 'என் புகார்கள்', 'cmp.ongoing': 'நடப்பவை', 'cmp.resolved': 'தீர்ந்தவை',
+    'prof.title': 'என் சுயவிவரம்', 'prof.numbers': 'என் புகார்கள் எண்களில்', 'prof.total': 'மொத்தம்', 'prof.ongoing': 'நடப்பவை', 'prof.resolved': 'தீர்ந்தவை', 'prof.escalated': 'மேலே எடுத்துச்சென்றவை', 'prof.stopped': 'நான் நிறுத்தியவை', 'prof.details': 'என் விவரங்கள்', 'prof.edit': 'விவரங்களை மாற்று', 'prof.signout': 'வெளியேறு',
     'common.back': 'பின்',
     'cases.title': 'என் புகார்கள்', 'cases.new': 'புதிய புகார்', 'cases.empty': 'இன்னும் புகார் இல்லை. "புதிய புகார்" என்பதைத் தொட்டு, உங்கள் மொழியில் பிரச்சினையை ஒருமுறை சொல்லுங்கள்.',
     'new.title': 'புதிய புகார்', 'new.intro': 'உங்கள் பிரச்சினையை உங்கள் மொழியில், உங்கள் வார்த்தைகளில் ஒருமுறை சொல்லுங்கள்.', 'new.understand': 'என் பிரச்சினையைப் புரிந்துகொள்',

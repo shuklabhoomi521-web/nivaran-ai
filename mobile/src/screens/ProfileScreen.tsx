@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import type { Api } from '../api';
+import { useT } from '../i18n';
 import { dobToInput, countCases, type Counts } from '../profileUtil';
 import { GlassSurface } from '../glass';
 import { c, s } from '../theme';
@@ -19,6 +20,7 @@ function Tile({ n, label, color }: { n: number; label: string; color: string }) 
 }
 
 export default function ProfileScreen({ api, profile, onEdit, onSignOut }: { api: Api; profile: Profile; onEdit: () => void; onSignOut?: () => void }) {
+  const t = useT();
   const [counts, setCounts] = useState<Counts | null>(null);
   const [err, setErr] = useState<string | null>(null);
   useEffect(() => { api.listCases().then((cs) => setCounts(countCases(cs))).catch((e) => setErr((e as Error).message)); }, [api]);
@@ -28,24 +30,24 @@ export default function ProfileScreen({ api, profile, onEdit, onSignOut }: { api
   ];
   return (
     <View style={s.screen}>
-      <View style={s.header}><Text style={s.title}>My profile</Text></View>
+      <View style={s.header}><Text style={s.title}>{t('prof.title')}</Text></View>
       <ScrollView contentContainerStyle={s.body}>
-        <Text style={s.h2}>My complaints in numbers</Text>
+        <Text style={s.h2}>{t('prof.numbers')}</Text>
         <ErrorText message={err} />
         {counts ? (
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 12 }}>
-            <Tile n={counts.total} label="Total" color={c.ink} />
-            <Tile n={counts.ongoing} label="Ongoing" color={c.brand} />
-            <Tile n={counts.resolved} label="Resolved" color={c.good} />
-            <Tile n={counts.escalated} label="Escalated" color={c.pink} />
-            <Tile n={counts.closed} label="Stopped by me" color={c.grey} />
+            <Tile n={counts.total} label={t('prof.total')} color={c.ink} />
+            <Tile n={counts.ongoing} label={t('prof.ongoing')} color={c.brand} />
+            <Tile n={counts.resolved} label={t('prof.resolved')} color={c.good} />
+            <Tile n={counts.escalated} label={t('prof.escalated')} color={c.pink} />
+            <Tile n={counts.closed} label={t('prof.stopped')} color={c.grey} />
           </View>
         ) : <Text style={s.soft}>{err ? '' : 'Loading…'}</Text>}
-        <Card title="My details">
+        <Card title={t('prof.details')}>
           {rows.map(([k, v]) => (<View key={k} style={{ flexDirection: 'row', gap: 8 }}><Text style={[s.soft, { width: 110 }]}>{k}</Text><Text style={[s.text, { flex: 1 }]}>{v}</Text></View>))}
-          <Button label="Edit my details" kind="ghost" onPress={onEdit} />
+          <Button label={t('prof.edit')} kind="ghost" onPress={onEdit} />
         </Card>
-        {onSignOut ? <Button label="Sign out" kind="ghost" onPress={onSignOut} /> : null}
+        {onSignOut ? <Button label={t('prof.signout')} kind="ghost" onPress={onSignOut} /> : null}
       </ScrollView>
     </View>
   );

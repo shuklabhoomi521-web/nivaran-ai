@@ -3,12 +3,14 @@ import { Pressable, RefreshControl, ScrollView, Text, View } from 'react-native'
 import type { Api } from '../api';
 import { ComplaintCard, useNexts } from '../cards';
 import { GlassSurface } from '../glass';
+import { useT } from '../i18n';
 import { countCases, isOngoing, isResolved } from '../profileUtil';
 import { c, s } from '../theme';
 import type { TrackedCase } from '../types';
 import { Button, ErrorText } from '../ui';
 
 export default function ComplaintsScreen({ api, onOpen, onChat }: { api: Api; onOpen: (id: string) => void; onChat: () => void }) {
+  const t = useT();
   const [cases, setCases] = useState<TrackedCase[]>([]);
   const [tab, setTab] = useState<'ongoing' | 'resolved'>('ongoing');
   const [err, setErr] = useState<string | null>(null);
@@ -23,9 +25,9 @@ export default function ComplaintsScreen({ api, onOpen, onChat }: { api: Api; on
   const shown = cases.filter((x) => (tab === 'ongoing' ? isOngoing(x.state) : isResolved(x.state))).sort((a, b) => (a.created_on < b.created_on ? 1 : -1));
   return (
     <View style={s.screen}>
-      <View style={s.header}><Text style={s.title}>My complaints</Text></View>
+      <View style={s.header}><Text style={s.title}>{t('cmp.title')}</Text></View>
       <View style={[s.row, { paddingHorizontal: 16, paddingBottom: 8 }]}>
-        {([['ongoing', `Ongoing (${n.ongoing})`], ['resolved', `Resolved (${n.resolved + n.closed})`]] as const).map(([k, label]) => (
+        {([['ongoing', `${t('cmp.ongoing')} (${n.ongoing})`], ['resolved', `${t('cmp.resolved')} (${n.resolved + n.closed})`]] as const).map(([k, label]) => (
           <Pressable key={k} accessibilityRole="button" accessibilityState={{ selected: tab === k }} onPress={() => setTab(k)} style={{ flex: 1 }}>
             <GlassSurface radius={14} tint={tab === k ? 'rgba(74,111,165,0.92)' : undefined} style={s.btnInner}>
               <Text style={tab === k ? s.btnText : s.btnGhostText}>{label}</Text>

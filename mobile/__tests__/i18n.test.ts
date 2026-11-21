@@ -27,3 +27,8 @@ describe('app text in three languages', () => {
     }
   });
 });
+
+test('every English key has Hindi and Tamil text', () => {
+  const { STRINGS } = require('../src/i18n');
+  for (const k of Object.keys(STRINGS.en)) { expect(STRINGS.hi[k]).toBeTruthy(); expect(STRINGS.ta[k]).toBeTruthy(); }
+});
