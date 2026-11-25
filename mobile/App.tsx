@@ -35,7 +35,9 @@ export default function App() {
   const session = useMemo(() => makeSession(secureStore), []);
   const [code, setCode] = useState<string | null | undefined>(API_TOKEN);          // undefined = still looking; null = none yet
   useEffect(() => { if (API_TOKEN) return; void session.load().then(setCode); }, [session]);
-  const api = useMemo(() => makeApi(API_URL, fetch, 25000, code ?? undefined), [code]);
+  const [server, setServer] = useState<string>(API_URL);
+  useEffect(() => { void session.loadServer().then((v) => { if (v) setServer(v); }); }, [session]);
+  const api = useMemo(() => makeApi(server, fetch, 25000, code ?? undefined), [server, code]);
   const [profile, setProfile] = useState<Profile | null | undefined>(undefined);      // undefined = loading; null = not filled in yet
   const [profileErr, setProfileErr] = useState<string | null>(null);
   useEffect(() => {
@@ -51,7 +53,7 @@ export default function App() {
   if (code === null) {
     return (
       <GlassBackground><StatusBar style="dark" />
-        <Plain><CodeScreen baseUrl={API_URL} onAccepted={(c) => { void session.save(c); setCode(c); }} /></Plain>
+        <Plain><CodeScreen baseUrl={server} onAccepted={(c, where) => { void session.save(c); void session.saveServer(where); setServer(where); setCode(c); }} /></Plain>
       </GlassBackground>
     );
   }
