@@ -21,7 +21,8 @@
       "package": "app.nivaran.mobile"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "output": "single"
     },
     "plugins": [
       [
@@ -33,6 +34,9 @@
       "expo-notifications",
       "expo-secure-store"
     ],
-    "scheme": "nivaran"
+    "scheme": "nivaran",
+    "experiments": {
+      "baseUrl": "/app"
+    }
   }
 }

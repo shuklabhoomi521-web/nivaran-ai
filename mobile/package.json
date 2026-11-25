@@ -32,7 +32,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "build:web": "EXPO_PUBLIC_API_URL= expo export --platform web"
   },
   "private": true,
   "jest": {

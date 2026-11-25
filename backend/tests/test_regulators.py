@@ -19,10 +19,11 @@ def test_specific_regulators_are_chosen_where_verified():
     assert regulator_for(Category.food_delivery).key == FALLBACK_KEY
 
 
-def test_unverified_regulator_is_skipped_and_says_why():
+def test_airsewa_is_used_for_airlines_and_still_lists_what_is_unverified():
     airsewa = next(r for r in load_regulators() if r.key == "airsewa")
-    assert airsewa.source is None and airsewa.needs_check
-    assert regulator_for(Category.airlines).key == FALLBACK_KEY      # falls back to the helpline until AirSewa is verified by hand
+    assert airsewa.source is not None and "AirSewa enables travelers" in airsewa.source.quote and airsewa.needs_check
+    assert regulator_for(Category.airlines).key == "airsewa"
+    assert all(st.ours or st.source for st in airsewa.steps)          # every step is an official line or labelled as ours
 
 
 def test_a_regulator_without_source_must_explain():

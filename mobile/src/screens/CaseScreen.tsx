@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Alert, Linking, ScrollView, Text, TextInput, View } from 'react-native';
 import type { Api } from '../api';
 import { RUNG_LABEL, STATE_COLOR, STATE_LABEL, actionHeadline, addDays, categoryLabel, prettyDate, reminderLabel, todayIso } from '../format';
-import { useT } from '../i18n';
+import { useT, type Key } from '../i18n';
 import { c, s } from '../theme';
 import type { Draft, Match, NextResponse, PortalKit, TrackedCase } from '../types';
 import { cancelReminders, syncReminders } from '../reminders';
@@ -53,7 +53,7 @@ export default function CaseScreen({ api, id, onBack, onCall }: { api: Api; id: 
       <View style={s.header}><Button label={tr('common.back')} kind="ghost" onPress={onBack} /><Text style={s.title}>{tc.company}</Text></View>
       <ScrollView contentContainerStyle={s.body} keyboardShouldPersistTaps="handled">
         <Card>
-          <Chip text={STATE_LABEL[tc.state]} color={STATE_COLOR[tc.state]} />
+          <Chip text={tr(`state.${tc.state}` as Key)} color={STATE_COLOR[tc.state]} />
           <Text style={s.text}>{tc.problem_summary}</Text>
           <Text style={s.soft}>{categoryLabel(tc.category)} · started {prettyDate(tc.created_on)}</Text>
           {tc.facts.map((f) => <Text key={f.name} style={s.text}>• {f.name.replace(/_/g, ' ')}: {f.value}</Text>)}

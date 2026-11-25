@@ -144,7 +144,9 @@ class FakeSMTP:
         FakeSMTP.log.append(("quit",))
 
 
-def test_smtp_sender_talks_to_a_fake_server():
+def test_smtp_sender_talks_to_a_fake_server(monkeypatch):
+    monkeypatch.delenv("SMTP_USER", raising=False)        # never depend on the developer's real .env
+    monkeypatch.delenv("SMTP_PASSWORD", raising=False)
     FakeSMTP.log = []
     s = SmtpSender(host="smtp.test", port=587, user="me@test.example", password="app-password-not-real", from_name="Bhoomi", factory=FakeSMTP)
     mid = s.send("grievances@swiggy.in", "Subject", "Body")

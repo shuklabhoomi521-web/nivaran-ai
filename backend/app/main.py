@@ -6,6 +6,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.base import BaseHTTPMiddleware
 from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
 from app.api.calls import router as calls_router
 from app.api.cases import router as cases_router
@@ -30,6 +31,7 @@ app.include_router(calls_router)
 app.include_router(profile_router)
 
 STATIC_DIR = Path(__file__).resolve().parent.parent / "static"
+WEB_DIST = Path(os.getenv("WEB_DIST", str(Path(__file__).resolve().parents[2] / "mobile" / "dist")))
 
 
 @app.get("/health")
@@ -40,3 +42,7 @@ def health() -> dict:
 @app.get("/chat", include_in_schema=False)
 def chat_page() -> FileResponse:
     return FileResponse(STATIC_DIR / "chat.html")
+
+
+if (WEB_DIST / "index.html").exists():          # one link for everything: the web build of the app, built with `npm run build:web` in mobile/
+    app.mount("/app", StaticFiles(directory=WEB_DIST, html=True), name="web-app")

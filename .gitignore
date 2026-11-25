@@ -44,3 +44,4 @@ backend/.drafts.json
 .profiles.json
 .profiles.tmp
 backend/.profiles.json
+mobile/dist/

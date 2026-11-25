@@ -63,6 +63,8 @@ Plan and day-by-day calendar live outside the repo in `~/nivaran-plan` (PLAN.md,
 
 - 25 Nov: status words, ladder steps and follow-up lines on the complaint cards translated to Hindi and Tamil (draft, unchecked by a native speaker); checked in the browser in Hindi. 49 app tests.
 
+- 26 Nov: AirSewa and e-Jagriti portal kits filled from the official pages (read in a real browser, exact quotes stored, gaps listed). Airline cases now use AirSewa. One-link app: the backend serves the web build at /app (public files only; data still needs the code). New encrypted /profile API. Outreach: 8 follow-ups going out; 4 new startup emails sent 25 Nov.
+
 ## Next
 - Day 1 rest: founder makes FreJun Teler, GitHub Student Pack and Bhashini accounts. 19 Nov: tests, TRAI rules, map Teler to the phone layer. 20-22 Nov: phone first, incl. the real test call on your own number (21 Nov).
 

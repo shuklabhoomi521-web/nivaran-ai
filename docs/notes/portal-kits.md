@@ -17,8 +17,8 @@ The regulator for the case's category (National Consumer Helpline, RBI CMS, IRDA
 | RBI CMS | Portal purpose; contact centre #14448 | Bank-first rule, waiting period, documents, fee: the scheme text was behind a bot check |
 | TRAI (telecom) | Complain to the provider's complaint centre; then the appellate authority | Waiting time, documents |
 | Rail Madad | Portal name and complaint sections | Filing steps and documents |
-| AirSewa | nothing readable | everything; airline cases use the National Consumer Helpline and show this note |
-| e-Jagriti | Named as a current portal on the NCH site (e-Daakhil's address no longer resolves) | Purpose, steps, fees |
+| AirSewa | Read on 2026-11-26 in a real browser: purpose, the Grievances section, the #AirSewa route on X and the AirSewa query numbers (quotes stored) | The step-by-step form instructions (Help and FAQ pages did not load), documents, time limits, whether to complain to the airline first. Airline cases now use AirSewa and still show these gaps |
+| e-Jagriti | Read on 2026-11-26: onboarding steps (Register, Profile, Complaint), the district fee row (nil up to Rs 5 lakh), Help Document pointer, draft deletion | Which commission to use, state and national fees, the documents list (in the portal's Help Document) |
 
 ## Not yet
-Reading the RBI scheme text, AirSewa and e-Jagriti by hand and adding their quotes; the kit screen in the mobile app.
+Reading the RBI scheme text by hand and adding its quotes; reading AirSewa's Help and FAQ pages when they load; the e-Jagriti Help Document.

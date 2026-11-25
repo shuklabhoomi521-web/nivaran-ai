@@ -25,7 +25,7 @@ def is_owner(user: str) -> bool:
 
 
 async def access_guard(request: Request, call_next):
-    if request.method == "OPTIONS" or request.url.path in OPEN_PATHS:
+    if request.method == "OPTIONS" or request.url.path in OPEN_PATHS or request.url.path == "/app" or request.url.path.startswith("/app/"):
         return await call_next(request)
     shared = os.getenv("NIVARAN_API_TOKEN", "").strip()
     users = load_users()

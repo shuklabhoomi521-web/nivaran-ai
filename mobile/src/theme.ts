@@ -4,7 +4,7 @@ export const c = { bg: 'transparent', card: 'transparent', ink: '#2B2D33', soft:
 
 export const s = StyleSheet.create({
   screen: { flex: 1, paddingTop: 54 },
-  header: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingBottom: 10, gap: 12 },
+  header: { flexDirection: 'row', alignItems: 'center', paddingLeft: 16, paddingRight: 104, paddingBottom: 10, gap: 12 },
   title: { fontSize: 22, fontWeight: '700', color: c.ink, flex: 1 },
   body: { padding: 16, gap: 12, paddingBottom: 48 },
   card: { padding: 14, gap: 6 },

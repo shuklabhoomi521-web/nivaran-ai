@@ -35,3 +35,12 @@ def test_browser_preflight_is_not_blocked(monkeypatch):
     r = client("192.168.1.50").options("/tracked-cases", headers={"Origin": "http://localhost:8081", "Access-Control-Request-Method": "POST",
                                                                   "Access-Control-Request-Headers": "authorization,content-type"})
     assert r.status_code == 200 and "authorization" in r.headers.get("access-control-allow-headers", "").lower()
+
+
+def test_web_app_files_are_public_but_data_is_not(monkeypatch):
+    monkeypatch.setenv("NIVARAN_API_TOKEN", "pilot-secret-not-real")
+    c = client("192.168.1.50")
+    assert c.get("/app/anything").status_code != 401            # public files (404 if the web build is not made yet, never 401)
+    assert c.get("/application-data").status_code == 401        # a look-alike path is NOT open
+    assert c.get("/tracked-cases").status_code == 401
+    assert c.get("/profile").status_code == 401

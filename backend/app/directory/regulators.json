@@ -314,11 +314,48 @@
     "covers": [
       "airlines"
     ],
-    "what_for": "Air passenger grievances.",
-    "helpline": null,
-    "source": null,
+    "what_for": "Complaints against an airline or airport, and air-travel information, run by the Ministry of Civil Aviation.",
+    "helpline": "+91 11 20819472 and +91 11 20819467 (for questions about AirSewa itself, not a complaint line)",
+    "source": {
+      "url": "https://www.airsewa.gov.in/",
+      "kind": "regulator",
+      "quote": "AirSewa enables travelers to submit grievances and seek information on air travel in India. It is an initiative by MoCA, Govt. of India",
+      "checked_on": "2026-11-26",
+      "machine_checked": false
+    },
     "needs_check": [
-      "the page rendered empty when read by our tool; confirm purpose, steps and helpline by hand"
+      "the step-by-step filing instructions (Help section and FAQs) did not load when read, so the form fields, documents and time limits are not verified",
+      "whether you must complain to the airline first is not stated on the pages read (our third step is a suggestion)",
+      "the two phone numbers are for questions about AirSewa itself, not a stated complaint line"
+    ],
+    "steps": [
+      {
+        "text": "Open the Grievances section of AirSewa (website or app) and file your complaint there.",
+        "source": {
+          "url": "https://www.airsewa.gov.in/#/read-more/contact",
+          "kind": "regulator",
+          "quote": "To report a complaint against an airline, airport or an issue related to air travel to Ministry of Civil Aviation, please use Grievance section in AirSewa.",
+          "checked_on": "2026-11-26",
+          "machine_checked": false
+        },
+        "ours": false
+      },
+      {
+        "text": "You can also post your complaint on X (Twitter) with the tag #AirSewa; the Ministry says such posts are tracked, acknowledged and addressed.",
+        "source": {
+          "url": "https://www.airsewa.gov.in/#/home",
+          "kind": "regulator",
+          "quote": "Grievances reported with #AirSewa on Twitter/X shall be tracked, acknowledged and addressed.",
+          "checked_on": "2026-11-26",
+          "machine_checked": false
+        },
+        "ours": false
+      },
+      {
+        "text": "Complain to the airline first and keep its reply or complaint number, then attach it to your AirSewa complaint.",
+        "source": null,
+        "ours": true
+      }
     ]
   },
   {
@@ -326,19 +363,72 @@
     "name": "e-Jagriti (online consumer commission filing)",
     "portal_url": "https://e-jagriti.gov.in/",
     "covers": [],
-    "what_for": "The online filing platform for consumer commissions, named as a current portal on the National Consumer Helpline site.",
+    "what_for": "Filing a consumer case online before the District, State or National Consumer Commission (a formal step after the helpline and the company). Run by the Department of Consumer Affairs.",
     "helpline": null,
     "source": {
-      "url": "https://consumerhelpline.gov.in/",
+      "url": "https://e-jagriti.gov.in/",
       "kind": "regulator",
-      "quote": "e-Jagriti",
-      "checked_on": "2026-11-20",
+      "quote": "Approved case lifecycle tracking across DCDRC, SCDRC and NCDRC is available.",
+      "checked_on": "2026-11-26",
       "machine_checked": false
     },
-    "steps": [],
+    "steps": [
+      {
+        "text": "Sign up on e-Jagriti, complete your profile, then file the complaint: these are the three onboarding steps the portal shows.",
+        "source": {
+          "url": "https://e-jagriti.gov.in/",
+          "kind": "regulator",
+          "quote": "Onboarding Made Simple 1 Register 2 Profile 3 Complaint",
+          "checked_on": "2026-11-26",
+          "machine_checked": false
+        },
+        "ours": false
+      },
+      {
+        "text": "Read the portal's Help Document first; it shows the filing flow for every case type.",
+        "source": {
+          "url": "https://e-jagriti.gov.in/",
+          "kind": "regulator",
+          "quote": "Check out the Help Document to view the filing flow of all case types.",
+          "checked_on": "2026-11-26",
+          "machine_checked": false
+        },
+        "ours": false
+      },
+      {
+        "text": "Fee shown on the portal (district commission table): nothing up to Rs 5 lakh paid for the goods or service, Rs 200 above 5 lakh and up to 10 lakh.",
+        "source": {
+          "url": "https://e-jagriti.gov.in/",
+          "kind": "regulator",
+          "quote": "Upto Rupees Five Lakh Nil",
+          "checked_on": "2026-11-26",
+          "machine_checked": false
+        },
+        "ours": false
+      },
+      {
+        "text": "A wrongly started draft can be deleted before you submit it.",
+        "source": {
+          "url": "https://e-jagriti.gov.in/",
+          "kind": "regulator",
+          "quote": "Draft Case Deletion option enabled to remove unnecessary or incorrectly created draft cases before final submission.",
+          "checked_on": "2026-11-26",
+          "machine_checked": false
+        },
+        "ours": false
+      },
+      {
+        "text": "Try the company and the helpline first, and keep all replies and complaint numbers; this is a formal case, not a quick complaint.",
+        "source": null,
+        "ours": true
+      }
+    ],
     "attach": [],
     "needs_check": [
-      "the old e-Daakhil address no longer resolves; e-Jagriti's own site showed only its title, so purpose, filing steps and fees are not verified"
+      "which commission (district, state or national) to file in depends on the value of the claim and where you live; the app does not work this out",
+      "the fee table read is the one the page shows first (district); state and national fees were not read",
+      "the documents needed are in the portal's Help Document, which was not read",
+      "the portal asks you to register with your own details and a one-time password that you enter yourself"
     ]
   }
 ]

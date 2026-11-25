@@ -54,9 +54,11 @@ def test_insurance_and_bank_kits_pick_their_regulators_and_flag_what_is_unverifi
     assert bank.regulator_key == "rbi_cms" and bank.helpline == "#14448" and any("scheme" in n for n in bank.needs_check)    # bank-first rule NOT claimed
 
 
-def test_unverified_regulator_is_shown_not_hidden():
+def test_airsewa_kit_has_official_lines_and_still_shows_what_is_unverified():
     air = build_kit(case(Category.airlines, company="IndiGo"), D0)
-    assert air.regulator_key == "nch" and any("AirSewa" in n and "could not be verified" in n for n in air.needs_check)
+    assert air.regulator_key == "airsewa"
+    assert any("Grievances section" in st.text and st.source and st.source.quote for st in air.steps)
+    assert any("step-by-step filing instructions" in n for n in air.needs_check)      # not hidden
 
 
 def test_card_data_never_reaches_the_portal_text():
