@@ -18,7 +18,13 @@
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "app.nivaran.mobile"
+      "package": "app.nivaran.mobile",
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS",
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png",
@@ -37,6 +43,12 @@
     "scheme": "nivaran",
     "experiments": {
       "baseUrl": "/app"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "6a1ba01a-6468-4a98-b680-b75cb6bb541c"
+      }
+    },
+    "owner": "bhoomishukla"
   }
 }
