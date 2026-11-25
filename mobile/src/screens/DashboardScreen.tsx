@@ -36,7 +36,7 @@ export default function DashboardScreen({ api, name, onOpen, onChat, onCall, onA
           <Text style={s.soft}>{niceNow(now)}</Text>
         </View>
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10 }}>
-          {([[counts.ongoing, 'Open complaints', c.brand], [cases.filter((x) => x.state === 'new').length + cases.filter((x) => { const n = nexts[x.id]; return !!(n && n.action && n.action.days_overdue > 0 && x.state !== 'new' && isOngoing(x.state)); }).length, 'Need your attention', c.pink], [counts.escalated, 'Escalated', c.brown], [counts.resolved, 'Resolved', c.good]] as [number, string, string][]).map(([n, label, color]) => (
+          {([[counts.ongoing, t('kpi.open'), c.brand], [cases.filter((x) => x.state === 'new').length + cases.filter((x) => { const n = nexts[x.id]; return !!(n && n.action && n.action.days_overdue > 0 && x.state !== 'new' && isOngoing(x.state)); }).length, t('kpi.attention'), c.pink], [counts.escalated, t('kpi.escalated'), c.brown], [counts.resolved, t('kpi.resolved'), c.good]] as [number, string, string][]).map(([n, label, color]) => (
             <GlassSurface key={label} style={{ flexBasis: '47%', flexGrow: 1, paddingVertical: 12, paddingHorizontal: 14, borderTopWidth: 3, borderTopColor: color }}>
               <Text style={{ fontFamily: font, fontSize: 26, fontWeight: '600', color: c.ink }}>{n}</Text>
               <Text style={s.soft}>{label}</Text>

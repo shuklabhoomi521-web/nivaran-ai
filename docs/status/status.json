@@ -1,54 +1,221 @@
 {
- "updated": "2026-11-26 01:20",
+ "updated": "2026-11-26 02:10",
  "headline": "v1.0 target: Mon 7 Dec 2026. Backend and app are built and tested; the open items are the demo video, the pilot, and anything that needs a phone provider.",
  "groups": [
-  {"name": "Backend (Python, FastAPI)", "items": [
-   {"s": "done", "t": "Case tracker with the day 0 / 3 / 7 / 15 escalation ladder", "d": "Engine plus API, owner-only access"},
-   {"s": "done", "t": "Verified company directory: 58 companies", "d": "Every contact has its official page and exact quote. 5 sites refused to be read (Union Bank, Bank of India, MakeMyTrip, Whirlpool, OYO)"},
-   {"s": "done", "t": "Letters from the user's own facts, approve before send", "d": "Template only, no AI text, sent only to directory addresses"},
-   {"s": "done", "t": "Reply tracking (read-only inbox)", "d": "Strong and weak matches; weak ones go to the owner only"},
-   {"s": "done", "t": "Portal kits: helpline, RBI, IRDAI, TRAI, Rail Madad, AirSewa, e-Jagriti", "d": "AirSewa and e-Jagriti filled from the official pages on 26 Nov (case type, documents list, fee table). Gaps are listed, not hidden"},
-   {"s": "done", "t": "Privacy and safety", "d": "Encrypted storage, consent notice, 18+ check, retention, personal access codes, encrypted user profile"},
-   {"s": "done", "t": "One link: the backend serves the web app at /app", "d": "http://localhost:8000/app/ while the backend runs"},
-   {"s": "done", "t": "643 automated backend tests pass", "d": "Plus 4 known gaps recorded as expected failures"},
-   {"s": "next", "t": "Court-ready summary from the case timeline", "d": "e-Jagriti asks for a 'Synopsis with List of Dates and Events'; our timeline already holds those dates"},
-   {"s": "next", "t": "Per-company response times", "d": "Today follow-up dates use the standard 3 / 7 / 15 day ladder, not each company's own stated time"},
-   {"s": "next", "t": "Read RBI scheme text and Rail Madad steps by hand", "d": "Both kits are partial"}
-  ]},
-  {"name": "App and front end (React Native + web)", "items": [
-   {"s": "done", "t": "Professional redesign (26 Nov)", "d": "Navy navigation, flat white panels, summary figures, status badges; glass and blur removed"},
-   {"s": "done", "t": "Sign-in, one-time details form, dashboard, ongoing and resolved complaints, profile with numbers", "d": "Laptop (side bar) and phone (top bar) layouts"},
-   {"s": "done", "t": "Case screen: ladder, verified contact with source, letter, filing kit, reminders", "d": "49 app tests pass"},
-   {"s": "done", "t": "Hindi and Tamil text (first draft)", "d": "Menus, dashboard, complaint cards. Not checked by a native speaker"},
-   {"s": "you", "t": "Try the app on a real phone", "d": "bash scripts/run_pilot.sh, then Expo Go. Only browser checks so far"},
-   {"s": "you", "t": "Get a native speaker to check the Hindi and Tamil text", "d": ""},
-   {"s": "next", "t": "Android app file (APK)", "d": "Needs your free Expo account (npx eas-cli login)"}
-  ]},
-  {"name": "Phone calls and voice", "items": [
-   {"s": "done", "t": "Voice agent, practice mode, safety rules in code", "d": "9 of 10 practice calls passed; speech test 0.05 word error vs 0.42-0.51"},
-   {"s": "you", "t": "Call FreJun support (+91 8035 301 939) for dashboard access and a sandbox key", "d": "You said you would call. Tell me what they say"},
-   {"s": "blocked", "t": "Real phone call proof", "d": "No provider works yet; Twilio could not reach our server through the tunnel"},
-   {"s": "done", "t": "Real calls to companies stay OFF by design", "d": "Needs a verified provider and TRAI declaration first"}
-  ]},
-  {"name": "Hosting and accounts", "items": [
-   {"s": "done", "t": "Pilot runs on your laptop", "d": "scripts/run_pilot.sh"},
-   {"s": "blocked", "t": "Cloud server on Azure for Students", "d": "No cheap VM size allowed in South India; other regions not tested. Revisit later"},
-   {"s": "next", "t": "Real accounts (Supabase Auth) instead of access codes", "d": "After the pilot"}
-  ]},
-  {"name": "Internship outreach", "items": [
-   {"s": "done", "t": "76 companies emailed, plus 24 follow-ups", "d": "Only publicly posted hiring addresses. 8 follow-ups went out on 26 Nov"},
-   {"s": "doing", "t": "More follow-ups, 8 a day", "d": "About 12 companies are still due their first follow-up"},
-   {"s": "waiting", "t": "Replies: none positive yet", "d": "SuperKalam says it will revert in 1-3 days if shortlisted; CallMissed said no politely"},
-   {"s": "you", "t": "Send the LinkedIn messages (10 people)", "d": "Pack and 7 tailored resume PDFs are in LinkedIn_Outreach_Pack.zip on your Desktop"},
-   {"s": "you", "t": "Apply to SuperKalam's React Native internship", "d": "Needs your own Y Combinator login; use the SuperKalam resume"},
-   {"s": "doing", "t": "Find more startups with a public hiring address", "d": "Only 5 verified so far; most use forms"}
-  ]},
-  {"name": "Demo, docs and release", "items": [
-   {"s": "doing", "t": "Demo video of the redesigned app (phone format, fake user 'Asha Rao')", "d": "Frames captured: dashboard, case with ladder and source, letter draft. Left: filing kit, complaints list, profile, captions, voice-over, assembly"},
-   {"s": "done", "t": "LinkedIn pack and tailored resumes saved", "d": "docs in ~/nivaran-outreach (private)"},
-   {"s": "next", "t": "README and docs match the final app", "d": ""},
-   {"s": "you", "t": "Pilot with 3 volunteers who sign the consent form", "d": "Kit is ready in docs/pilot/. Zero real pilot cases so far"},
-   {"s": "next", "t": "Tag v1.0 and push", "d": "After the video and at least a first pilot case"}
-  ]}
+  {
+   "name": "Backend (Python, FastAPI)",
+   "items": [
+    {
+     "s": "done",
+     "t": "Case tracker with the day 0 / 3 / 7 / 15 escalation ladder",
+     "d": "Engine plus API, owner-only access"
+    },
+    {
+     "s": "done",
+     "t": "Verified company directory: 58 companies",
+     "d": "Every contact has its official page and exact quote. 5 sites refused to be read (Union Bank, Bank of India, MakeMyTrip, Whirlpool, OYO)"
+    },
+    {
+     "s": "done",
+     "t": "Letters from the user's own facts, approve before send",
+     "d": "Template only, no AI text, sent only to directory addresses"
+    },
+    {
+     "s": "done",
+     "t": "Reply tracking (read-only inbox)",
+     "d": "Strong and weak matches; weak ones go to the owner only"
+    },
+    {
+     "s": "done",
+     "t": "Portal kits: helpline, RBI, IRDAI, TRAI, Rail Madad, AirSewa, e-Jagriti",
+     "d": "AirSewa and e-Jagriti filled from the official pages on 26 Nov (case type, documents list, fee table). Gaps are listed, not hidden"
+    },
+    {
+     "s": "done",
+     "t": "Privacy and safety",
+     "d": "Encrypted storage, consent notice, 18+ check, retention, personal access codes, encrypted user profile"
+    },
+    {
+     "s": "done",
+     "t": "One link: the backend serves the web app at /app",
+     "d": "http://localhost:8000/app/ while the backend runs"
+    },
+    {
+     "s": "done",
+     "t": "643 automated backend tests pass",
+     "d": "Plus 4 known gaps recorded as expected failures"
+    },
+    {
+     "s": "next",
+     "t": "Court-ready summary from the case timeline",
+     "d": "e-Jagriti asks for a 'Synopsis with List of Dates and Events'; our timeline already holds those dates"
+    },
+    {
+     "s": "next",
+     "t": "Per-company response times",
+     "d": "Today follow-up dates use the standard 3 / 7 / 15 day ladder, not each company's own stated time"
+    },
+    {
+     "s": "next",
+     "t": "Read RBI scheme text and Rail Madad steps by hand",
+     "d": "Both kits are partial"
+    }
+   ]
+  },
+  {
+   "name": "App and front end (React Native + web)",
+   "items": [
+    {
+     "s": "done",
+     "t": "Professional redesign (26 Nov)",
+     "d": "Navy navigation, flat white panels, summary figures, status badges; glass and blur removed"
+    },
+    {
+     "s": "done",
+     "t": "Sign-in, one-time details form, dashboard, ongoing and resolved complaints, profile with numbers",
+     "d": "Laptop (side bar) and phone (top bar) layouts"
+    },
+    {
+     "s": "done",
+     "t": "Case screen: ladder, verified contact with source, letter, filing kit, reminders",
+     "d": "49 app tests pass"
+    },
+    {
+     "s": "done",
+     "t": "Hindi and Tamil text (first draft)",
+     "d": "Menus, dashboard, complaint cards. Not checked by a native speaker"
+    },
+    {
+     "s": "you",
+     "t": "Try the app on a real phone",
+     "d": "bash scripts/run_pilot.sh, then Expo Go. Only browser checks so far"
+    },
+    {
+     "s": "you",
+     "t": "Get a native speaker to check the Hindi and Tamil text",
+     "d": ""
+    },
+    {
+     "s": "next",
+     "t": "Android app file (APK)",
+     "d": "Needs your free Expo account (npx eas-cli login)"
+    }
+   ]
+  },
+  {
+   "name": "Phone calls and voice",
+   "items": [
+    {
+     "s": "done",
+     "t": "Voice agent, practice mode, safety rules in code",
+     "d": "9 of 10 practice calls passed; speech test 0.05 word error vs 0.42-0.51"
+    },
+    {
+     "s": "you",
+     "t": "Call FreJun support (+91 8035 301 939) for dashboard access and a sandbox key",
+     "d": "You said you would call. Tell me what they say"
+    },
+    {
+     "s": "blocked",
+     "t": "Real phone call proof",
+     "d": "No provider works yet; Twilio could not reach our server through the tunnel"
+    },
+    {
+     "s": "done",
+     "t": "Real calls to companies stay OFF by design",
+     "d": "Needs a verified provider and TRAI declaration first"
+    }
+   ]
+  },
+  {
+   "name": "Hosting and accounts",
+   "items": [
+    {
+     "s": "done",
+     "t": "Pilot runs on your laptop",
+     "d": "scripts/run_pilot.sh"
+    },
+    {
+     "s": "blocked",
+     "t": "Cloud server on Azure for Students",
+     "d": "No cheap VM size allowed in South India; other regions not tested. Revisit later"
+    },
+    {
+     "s": "next",
+     "t": "Real accounts (Supabase Auth) instead of access codes",
+     "d": "After the pilot"
+    }
+   ]
+  },
+  {
+   "name": "Internship outreach",
+   "items": [
+    {
+     "s": "done",
+     "t": "76 companies emailed, plus 24 follow-ups",
+     "d": "Only publicly posted hiring addresses. 8 follow-ups went out on 26 Nov"
+    },
+    {
+     "s": "doing",
+     "t": "More follow-ups, 8 a day",
+     "d": "All 8 follow-ups of 26 Nov are sent (24 follow-ups in total). About 12 companies are still due their first follow-up"
+    },
+    {
+     "s": "waiting",
+     "t": "Replies: none positive yet",
+     "d": "SuperKalam says it will revert in 1-3 days if shortlisted; CallMissed said no politely"
+    },
+    {
+     "s": "you",
+     "t": "Send the LinkedIn messages (10 people)",
+     "d": "Pack and 7 tailored resume PDFs are in LinkedIn_Outreach_Pack.zip on your Desktop"
+    },
+    {
+     "s": "you",
+     "t": "Apply to SuperKalam's React Native internship",
+     "d": "Needs your own Y Combinator login; use the SuperKalam resume"
+    },
+    {
+     "s": "doing",
+     "t": "Find more startups with a public hiring address",
+     "d": "Only 5 verified so far; most use forms"
+    },
+    {
+     "s": "next",
+     "t": "Upload the demo video (GitHub release or LinkedIn) and link it in the README",
+     "d": "Your call: public upload is your decision"
+    }
+   ]
+  },
+  {
+   "name": "Demo, docs and release",
+   "items": [
+    {
+     "s": "done",
+     "t": "Demo video of the redesigned app (77 seconds, phone format, voice-over)",
+     "d": "Fake user Asha Rao; shows dashboard, ladder with official source, approve-before-send letter, regulator filing kit, profile, Hindi. File: Desktop/Nivaran Demos/Nivaran_v1_app_demo_26Nov.mp4. Not yet uploaded anywhere"
+    },
+    {
+     "s": "done",
+     "t": "LinkedIn pack and tailored resumes saved",
+     "d": "docs in ~/nivaran-outreach (private)"
+    },
+    {
+     "s": "next",
+     "t": "README and docs match the final app",
+     "d": ""
+    },
+    {
+     "s": "you",
+     "t": "Pilot with 3 volunteers who sign the consent form",
+     "d": "Kit is ready in docs/pilot/. Zero real pilot cases so far"
+    },
+    {
+     "s": "next",
+     "t": "Tag v1.0 and push",
+     "d": "After the video and at least a first pilot case"
+    }
+   ]
+  }
  ]
 }

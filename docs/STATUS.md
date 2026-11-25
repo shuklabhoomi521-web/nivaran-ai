@@ -1,8 +1,8 @@
 # Nivaran project tracker
 
-Updated 2026-11-26 01:20. v1.0 target: Mon 7 Dec 2026. Backend and app are built and tested; the open items are the demo video, the pilot, and anything that needs a phone provider.
+Updated 2026-11-26 02:10. v1.0 target: Mon 7 Dec 2026. Backend and app are built and tested; the open items are the demo video, the pilot, and anything that needs a phone provider.
 
-**17 of 36 items done (47%).** In progress: 3 · Planned next: 7 · Needs you: 6 · Waiting: 1 · Blocked: 2
+**18 of 37 items done (49%).** In progress: 2 · Planned next: 8 · Needs you: 6 · Waiting: 1 · Blocked: 2
 
 
 ## Backend (Python, FastAPI)
@@ -55,17 +55,18 @@ Updated 2026-11-26 01:20. v1.0 target: Mon 7 Dec 2026. Backend and app are built
 | Status | Item | Detail |
 |---|---|---|
 | Done | 76 companies emailed, plus 24 follow-ups | Only publicly posted hiring addresses. 8 follow-ups went out on 26 Nov |
-| In progress | More follow-ups, 8 a day | About 12 companies are still due their first follow-up |
+| In progress | More follow-ups, 8 a day | All 8 follow-ups of 26 Nov are sent (24 follow-ups in total). About 12 companies are still due their first follow-up |
 | Waiting | Replies: none positive yet | SuperKalam says it will revert in 1-3 days if shortlisted; CallMissed said no politely |
 | Needs you | Send the LinkedIn messages (10 people) | Pack and 7 tailored resume PDFs are in LinkedIn_Outreach_Pack.zip on your Desktop |
 | Needs you | Apply to SuperKalam's React Native internship | Needs your own Y Combinator login; use the SuperKalam resume |
 | In progress | Find more startups with a public hiring address | Only 5 verified so far; most use forms |
+| Planned next | Upload the demo video (GitHub release or LinkedIn) and link it in the README | Your call: public upload is your decision |
 
 ## Demo, docs and release
 
 | Status | Item | Detail |
 |---|---|---|
-| In progress | Demo video of the redesigned app (phone format, fake user 'Asha Rao') | Frames captured: dashboard, case with ladder and source, letter draft. Left: filing kit, complaints list, profile, captions, voice-over, assembly |
+| Done | Demo video of the redesigned app (77 seconds, phone format, voice-over) | Fake user Asha Rao; shows dashboard, ladder with official source, approve-before-send letter, regulator filing kit, profile, Hindi. File: Desktop/Nivaran Demos/Nivaran_v1_app_demo_26Nov.mp4. Not yet uploaded anywhere |
 | Done | LinkedIn pack and tailored resumes saved | docs in ~/nivaran-outreach (private) |
 | Planned next | README and docs match the final app |  |
 | Needs you | Pilot with 3 volunteers who sign the consent form | Kit is ready in docs/pilot/. Zero real pilot cases so far |

@@ -6,6 +6,7 @@ export const LANGS: { code: Lang; label: string }[] = [{ code: 'en', label: 'Eng
 // First draft of the Hindi and Tamil text: it has NOT been checked by a native speaker yet (see docs/notes/mobile-i18n.md).
 export const STRINGS = {
   en: {
+    'kpi.open': 'Open complaints', 'kpi.attention': 'Need your attention', 'kpi.escalated': 'Escalated', 'kpi.resolved': 'Resolved',
     'state.new': 'Not sent yet', 'state.waiting': 'Waiting for a reply', 'state.escalated': 'Escalated', 'state.resolved': 'Solved', 'state.closed': 'Closed',
     'rung.first_contact': 'First message', 'rung.follow_up': 'Follow-up', 'rung.grievance_officer': 'Grievance officer', 'rung.appellate': 'Appellate authority', 'rung.regulator': "Regulator's portal",
     'fu.checking': 'Checking the schedule…', 'fu.solved': 'Solved', 'fu.closed': 'Stopped by you', 'fu.none': 'No follow-up planned',
@@ -26,6 +27,7 @@ export const STRINGS = {
     'case.call': 'Call for me (practice)', 'case.kit': 'Open the filing kit', 'case.did': 'I did this step myself',
   },
   hi: {
+    'kpi.open': 'खुली शिकायतें', 'kpi.attention': 'आपके ध्यान की ज़रूरत', 'kpi.escalated': 'आगे बढ़ाई गईं', 'kpi.resolved': 'हल हुईं',
     'state.new': 'अभी भेजी नहीं', 'state.waiting': 'जवाब का इंतज़ार', 'state.escalated': 'आगे बढ़ाई गई', 'state.resolved': 'हल हुई', 'state.closed': 'बंद',
     'rung.first_contact': 'पहला संदेश', 'rung.follow_up': 'फ़ॉलो-अप', 'rung.grievance_officer': 'शिकायत अधिकारी', 'rung.appellate': 'अपीलीय प्राधिकारी', 'rung.regulator': 'नियामक का पोर्टल',
     'fu.checking': 'समय-सारणी देख रहे हैं…', 'fu.solved': 'हल हुई', 'fu.closed': 'आपने रोक दी', 'fu.none': 'कोई फ़ॉलो-अप तय नहीं',
@@ -46,6 +48,7 @@ export const STRINGS = {
     'case.call': 'मेरी तरफ़ से कॉल करें (अभ्यास)', 'case.kit': 'शिकायत दर्ज करने की किट खोलें', 'case.did': 'यह कदम मैंने खुद किया',
   },
   ta: {
+    'kpi.open': 'திறந்த புகார்கள்', 'kpi.attention': 'உங்கள் கவனம் தேவை', 'kpi.escalated': 'மேலே எடுத்துச்சென்றவை', 'kpi.resolved': 'தீர்ந்தவை',
     'state.new': 'இன்னும் அனுப்பவில்லை', 'state.waiting': 'பதிலுக்காகக் காத்திருப்பு', 'state.escalated': 'மேலே எடுத்துச்செல்லப்பட்டது', 'state.resolved': 'தீர்ந்தது', 'state.closed': 'மூடப்பட்டது',
     'rung.first_contact': 'முதல் செய்தி', 'rung.follow_up': 'பின்தொடர்தல்', 'rung.grievance_officer': 'குறைதீர் அலுவலர்', 'rung.appellate': 'மேல்முறையீட்டு அதிகாரி', 'rung.regulator': 'ஒழுங்குமுறை ஆணையத்தின் தளம்',
     'fu.checking': 'அட்டவணையைப் பார்க்கிறோம்…', 'fu.solved': 'தீர்ந்தது', 'fu.closed': 'நீங்கள் நிறுத்தினீர்கள்', 'fu.none': 'பின்தொடர்தல் திட்டமிடப்படவில்லை',
