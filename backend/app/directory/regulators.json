@@ -385,6 +385,17 @@
         "ours": false
       },
       {
+        "text": "After signing in, choose File New Case and pick the case type Consumer Complaint (CC); the filing type is Normal Filing, or Complaints Against Unfair Contract.",
+        "source": {
+          "url": "https://e-jagriti.gov.in/consumer/case-filing",
+          "kind": "regulator",
+          "quote": "Case Type Consumer Complaint CC",
+          "checked_on": "2026-11-26",
+          "machine_checked": false
+        },
+        "ours": false
+      },
+      {
         "text": "Read the portal's Help Document first; it shows the filing flow for every case type.",
         "source": {
           "url": "https://e-jagriti.gov.in/",
@@ -423,12 +434,24 @@
         "ours": true
       }
     ],
-    "attach": [],
+    "attach": [
+      {
+        "text": "Documents the portal lists for a Consumer Complaint: Index; Proforma for Filing Consumer Complaint; Synopsis with List of Dates and Events; Memo of Parties; Consumer Complaint with Notarised affidavit; Annexures / Documents; Application (IA); Vakalatnama.",
+        "source": {
+          "url": "https://e-jagriti.gov.in/consumer/case-filing",
+          "kind": "regulator",
+          "quote": "The following documents are required to file in \"Consumer Complaint\"",
+          "checked_on": "2026-11-26",
+          "machine_checked": false
+        },
+        "ours": false
+      }
+    ],
     "needs_check": [
       "which commission (district, state or national) to file in depends on the value of the claim and where you live; the app does not work this out",
       "the fee table read is the one the page shows first (district); state and national fees were not read",
-      "the documents needed are in the portal's Help Document, which was not read",
-      "the portal asks you to register with your own details and a one-time password that you enter yourself"
+      "the portal asks you to register with your own details and a one-time password that you enter yourself",
+      "what each listed document must contain (the portal links a proforma for each); the fee panel did not open when read, so state and national fees are still unread"
     ]
   }
 ]
