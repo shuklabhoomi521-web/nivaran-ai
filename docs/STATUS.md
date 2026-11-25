@@ -1,8 +1,8 @@
 # Nivaran project tracker
 
-Updated 2026-11-26 02:20. v1.0 target: Mon 7 Dec 2026. Backend and app are built and tested; the open items are the demo video, the pilot, and anything that needs a phone provider.
+Updated 2026-11-26 02:40. v1.0 target: Mon 7 Dec 2026. Backend and app are built and tested; the open items are the demo video, the pilot, and anything that needs a phone provider.
 
-**19 of 40 items done (48%).** In progress: 3 · Planned next: 9 · Needs you: 6 · Waiting: 1 · Blocked: 2
+**19 of 44 items done (43%).** In progress: 3 · Planned next: 13 · Needs you: 6 · Waiting: 1 · Blocked: 2
 
 
 ## Backend (Python, FastAPI)
@@ -74,3 +74,12 @@ Updated 2026-11-26 02:20. v1.0 target: Mon 7 Dec 2026. Backend and app are built
 | Planned next | README and docs match the final app |  |
 | Needs you | Pilot with 3 volunteers who sign the consent form | Kit is ready in docs/pilot/. Zero real pilot cases so far |
 | Planned next | Tag v1.0 and push | After the video and at least a first pilot case |
+
+## Saved plan for the coming days
+
+| Status | Item | Detail |
+|---|---|---|
+| Planned next | Fri 27 Nov: check the downloaded APK, install it on your phone, test one full case, send 8 follow-ups, check replies and LinkedIn acceptances | Full day-by-day list: docs/plan/NEXT-STEPS.md |
+| Planned next | Sat 28 Nov to Wed 2 Dec: 34 follow-ups at 8 a day; LinkedIn follow-ups for accepted people | Laptop must be on; you paste the LinkedIn messages and attach the resume |
+| Planned next | Thu 3 Dec: friends' pilot on your laptop (same Wi-Fi, hotspot or tunnel) | Consent form, own access code, one real complaint each, results in docs/pilot/RESULTS.md |
+| Planned next | From Fri 4 Dec evening: real server (Azure student credit), database, backups | Then v1.0 tag by Mon 7 Dec |

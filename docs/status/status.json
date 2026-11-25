@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26 02:20",
+ "updated": "2026-11-26 02:40",
  "headline": "v1.0 target: Mon 7 Dec 2026. Backend and app are built and tested; the open items are the demo video, the pilot, and anything that needs a phone provider.",
  "groups": [
   {
@@ -229,6 +229,31 @@
      "s": "next",
      "t": "Tag v1.0 and push",
      "d": "After the video and at least a first pilot case"
+    }
+   ]
+  },
+  {
+   "name": "Saved plan for the coming days",
+   "items": [
+    {
+     "s": "next",
+     "t": "Fri 27 Nov: check the downloaded APK, install it on your phone, test one full case, send 8 follow-ups, check replies and LinkedIn acceptances",
+     "d": "Full day-by-day list: docs/plan/NEXT-STEPS.md"
+    },
+    {
+     "s": "next",
+     "t": "Sat 28 Nov to Wed 2 Dec: 34 follow-ups at 8 a day; LinkedIn follow-ups for accepted people",
+     "d": "Laptop must be on; you paste the LinkedIn messages and attach the resume"
+    },
+    {
+     "s": "next",
+     "t": "Thu 3 Dec: friends' pilot on your laptop (same Wi-Fi, hotspot or tunnel)",
+     "d": "Consent form, own access code, one real complaint each, results in docs/pilot/RESULTS.md"
+    },
+    {
+     "s": "next",
+     "t": "From Fri 4 Dec evening: real server (Azure student credit), database, backups",
+     "d": "Then v1.0 tag by Mon 7 Dec"
     }
    ]
   }
