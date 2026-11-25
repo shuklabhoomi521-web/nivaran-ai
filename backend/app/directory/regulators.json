@@ -407,11 +407,11 @@
         "ours": false
       },
       {
-        "text": "Fee shown on the portal (district commission table): nothing up to Rs 5 lakh paid for the goods or service, Rs 200 above 5 lakh and up to 10 lakh.",
+        "text": "Fees the portal lists, by value of the goods or service paid for. District commission (DCDRC): nothing up to Rs 5 lakh, Rs 200 up to Rs 10 lakh, Rs 400 up to Rs 20 lakh, Rs 1,000 up to Rs 50 lakh. State commission (SCDRC): Rs 2,000 from Rs 50 lakh to Rs 1 crore, Rs 2,500 up to Rs 2 crore. National commission (NCDRC): Rs 3,000 up to Rs 4 crore, Rs 4,000 up to Rs 6 crore, Rs 5,000 up to Rs 8 crore, Rs 6,000 up to Rs 10 crore, Rs 7,500 above Rs 10 crore.",
         "source": {
-          "url": "https://e-jagriti.gov.in/",
+          "url": "https://e-jagriti.gov.in/consumer/case-filing",
           "kind": "regulator",
-          "quote": "Upto Rupees Five Lakh Nil",
+          "quote": "Upto ₹ Five Lakh ₹ 0 Above ₹ Five Lakh and Upto ₹ Ten Lakh ₹ 200",
           "checked_on": "2026-11-26",
           "machine_checked": false
         },
@@ -448,10 +448,9 @@
       }
     ],
     "needs_check": [
-      "which commission (district, state or national) to file in depends on the value of the claim and where you live; the app does not work this out",
-      "the fee table read is the one the page shows first (district); state and national fees were not read",
       "the portal asks you to register with your own details and a one-time password that you enter yourself",
-      "what each listed document must contain (the portal links a proforma for each); the fee panel did not open when read, so state and national fees are still unread"
+      "the page lists the fees under DCDRC, SCDRC and NCDRC columns but does not say in words which commission handles which value, so confirm the right commission before filing",
+      "what each listed document must contain (the portal links a proforma for each)"
     ]
   }
 ]

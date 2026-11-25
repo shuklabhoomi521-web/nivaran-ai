@@ -18,7 +18,7 @@ The regulator for the case's category (National Consumer Helpline, RBI CMS, IRDA
 | TRAI (telecom) | Complain to the provider's complaint centre; then the appellate authority | Waiting time, documents |
 | Rail Madad | Portal name and complaint sections | Filing steps and documents |
 | AirSewa | Read on 2026-11-26 in a real browser: purpose, the Grievances section, the #AirSewa route on X and the AirSewa query numbers (quotes stored) | The step-by-step form instructions (Help and FAQ pages did not load), documents, time limits, whether to complain to the airline first. Airline cases now use AirSewa and still show these gaps |
-| e-Jagriti | Read on 2026-11-26: onboarding steps (Register, Profile, Complaint), the district fee row (nil up to Rs 5 lakh), Help Document pointer, draft deletion | Which commission to use, state and national fees, what each listed document must contain. The documents list itself was read from the portal's File New Case page on 2026-11-26 (read-only: no case was filed or saved) |
+| e-Jagriti | Read on 2026-11-26: onboarding steps (Register, Profile, Complaint), the district fee row (nil up to Rs 5 lakh), Help Document pointer, draft deletion | Which commission handles which value (the page shows fee columns only), what each listed document must contain. The full fee table (district, state, national) was read on 2026-11-26. The documents list itself was read from the portal's File New Case page on 2026-11-26 (read-only: no case was filed or saved) |
 
 ## Not yet
 Reading the RBI scheme text by hand and adding its quotes; reading AirSewa's Help and FAQ pages when they load; the e-Jagriti Help Document.
