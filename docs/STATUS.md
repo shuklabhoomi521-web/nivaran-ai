@@ -1,6 +1,6 @@
 # Nivaran project tracker
 
-Updated 2026-11-26 02:10. v1.0 target: Mon 7 Dec 2026. Backend and app are built and tested; the open items are the demo video, the pilot, and anything that needs a phone provider.
+Updated 2026-11-26 12:20. v1.0 target: Mon 7 Dec 2026. Backend and app are built and tested; the open items are the demo video, the pilot, and anything that needs a phone provider.
 
 **18 of 37 items done (49%).** In progress: 2 · Planned next: 8 · Needs you: 6 · Waiting: 1 · Blocked: 2
 
@@ -58,7 +58,7 @@ Updated 2026-11-26 02:10. v1.0 target: Mon 7 Dec 2026. Backend and app are built
 | In progress | More follow-ups, 8 a day | All 8 follow-ups of 26 Nov are sent (24 follow-ups in total). About 12 companies are still due their first follow-up |
 | Waiting | Replies: none positive yet | SuperKalam says it will revert in 1-3 days if shortlisted; CallMissed said no politely |
 | Needs you | Send the LinkedIn messages (10 people) | Pack and 7 tailored resume PDFs are in LinkedIn_Outreach_Pack.zip on your Desktop |
-| Needs you | Apply to SuperKalam's React Native internship | Needs your own Y Combinator login; use the SuperKalam resume |
+| Needs you | SuperKalam React Native internship form (partly filled for you) | Filled: email, name, LinkedIn, graduation year 2028. You still answer phone, joining date, last stipend, '6 months?' and commitments, attach the SuperKalam resume PDF and press Submit. Honest odds are low: the posting wants 6+ months full-time and 4+ months of earlier React Native internships. Better route: email join@superkalam.com with a Loom walkthrough of Nivaran's app |
 | In progress | Find more startups with a public hiring address | Only 5 verified so far; most use forms |
 | Planned next | Upload the demo video (GitHub release or LinkedIn) and link it in the README | Your call: public upload is your decision |
 

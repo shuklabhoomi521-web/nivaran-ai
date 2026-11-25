@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26 02:10",
+ "updated": "2026-11-26 12:20",
  "headline": "v1.0 target: Mon 7 Dec 2026. Backend and app are built and tested; the open items are the demo video, the pilot, and anything that needs a phone provider.",
  "groups": [
   {
@@ -172,8 +172,8 @@
     },
     {
      "s": "you",
-     "t": "Apply to SuperKalam's React Native internship",
-     "d": "Needs your own Y Combinator login; use the SuperKalam resume"
+     "t": "SuperKalam React Native internship form (partly filled for you)",
+     "d": "Filled: email, name, LinkedIn, graduation year 2028. You still answer phone, joining date, last stipend, '6 months?' and commitments, attach the SuperKalam resume PDF and press Submit. Honest odds are low: the posting wants 6+ months full-time and 4+ months of earlier React Native internships. Better route: email join@superkalam.com with a Loom walkthrough of Nivaran's app"
     },
     {
      "s": "doing",
