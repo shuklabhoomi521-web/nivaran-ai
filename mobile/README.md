@@ -21,13 +21,9 @@ Sign in with the access code, then fill in your details once (name, gender, date
 - **New case:** type the problem once; the server removes card, PIN and OTP text, the AI shows what it understood, you confirm the company and your name.
 - **Case:** the ladder (first message, follow-up, grievance officer, appellate authority, regulator), the next step with the verified contact and the official quote, the letter (edit, approve, then send, each a separate tap), the portal filing kit (official steps with quotes, our checklist, complaint text to copy, docket number), inbox check for replies, mark solved or stop, delete my data.
 
-## Design: liquid glass
-Frosted, translucent panes over a soft colour backdrop (`src/glass.tsx`, `src/surface.ts`).
-- iPhone with iOS 26 or newer: Apple's real liquid glass (`expo-glass-effect`).
-- Other phones: a frosted blur (`expo-blur`). Browser preview: a CSS backdrop blur.
-- If the person turns on **Reduce Transparency** (an accessibility setting), every pane becomes opaque and high contrast.
-- Text stays dark on light glass; the primary button is a blue-tinted pane with white text.
-Checked in a browser preview only. The real iOS 26 glass has not been seen on a device (this Mac has no full Xcode).
+## Design: professional and calm (changed 26 Nov 2026)
+Nivaran deals with companies, regulators and money, so the look is serious: deep navy navigation, white panels with fine borders, slate text, one steel-blue accent and muted rose and brown only for status. No gradients, no blur, no playful shapes (`src/theme.ts`, `src/glass.tsx`, `src/ui.tsx`, `src/nav.tsx`). Laptop: a permanent dark side bar. Phone: a navy top bar with a Menu button. The earlier liquid-glass look was removed on purpose.
+The logo is one unbroken ribbon that draws the letter N: a knot (the problem) that resolves into a straight line and a settled dot (`src/logo.tsx`).
 
 ## Rules the app follows
 - Nothing is sent without the user approving the exact text and tapping Send, then confirming.

@@ -12,8 +12,8 @@ function Choice({ options, value, onPick }: { options: { code: string; label: st
     <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
       {options.map((o) => (
         <Pressable key={o.code} accessibilityRole="button" accessibilityState={{ selected: value === o.code }} onPress={() => onPick(o.code)}
-          style={{ paddingVertical: 8, paddingHorizontal: 14, borderRadius: 999, borderWidth: 1, borderColor: value === o.code ? c.brand : 'rgba(0,0,0,0.18)', backgroundColor: value === o.code ? 'rgba(74,111,165,0.16)' : 'rgba(255,255,255,0.6)' }}>
-          <Text style={{ color: value === o.code ? c.brand : c.ink, fontWeight: '600' }}>{o.label}</Text>
+          style={{ paddingVertical: 8, paddingHorizontal: 14, borderRadius: 8, borderWidth: 1, borderColor: value === o.code ? c.navy : '#BFC8D6', backgroundColor: value === o.code ? c.brandSoft : '#FFFFFF' }}>
+          <Text style={{ color: value === o.code ? c.navy : c.ink, fontWeight: '600' }}>{o.label}</Text>
         </Pressable>
       ))}
     </View>

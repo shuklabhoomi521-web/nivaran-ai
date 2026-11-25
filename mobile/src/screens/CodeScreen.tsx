@@ -25,7 +25,7 @@ export default function CodeScreen({ baseUrl, onAccepted }: { baseUrl: string; o
 
   return (
     <View style={s.screen}>
-      <View style={{ alignItems: 'center', paddingTop: 8 }}><Logo size={84} caption="Customer care, made easy" /></View>
+      <View style={{ alignItems: 'center', paddingTop: 8 }}><Logo size={84} caption="Customer care, resolved" /></View>
       <ScrollView contentContainerStyle={s.body} keyboardShouldPersistTaps="handled">
         <Card title="Sign in">
           <Text style={s.text}>Type the code you were given for this pilot. It keeps your cases private: nobody else can see them with their own code.</Text>

@@ -29,7 +29,7 @@ export default function ComplaintsScreen({ api, onOpen, onChat }: { api: Api; on
       <View style={[s.row, { paddingHorizontal: 16, paddingBottom: 8 }]}>
         {([['ongoing', `${t('cmp.ongoing')} (${n.ongoing})`], ['resolved', `${t('cmp.resolved')} (${n.resolved + n.closed})`]] as const).map(([k, label]) => (
           <Pressable key={k} accessibilityRole="button" accessibilityState={{ selected: tab === k }} onPress={() => setTab(k)} style={{ flex: 1 }}>
-            <GlassSurface radius={14} tint={tab === k ? 'rgba(74,111,165,0.92)' : undefined} style={s.btnInner}>
+            <GlassSurface radius={8} tint={tab === k ? c.navy : undefined} style={s.btnInner}>
               <Text style={tab === k ? s.btnText : s.btnGhostText}>{label}</Text>
             </GlassSurface>
           </Pressable>

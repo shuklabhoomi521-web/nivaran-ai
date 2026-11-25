@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Pressable, Text, View, useWindowDimensions } from 'react-native';
-import { GlassSurface } from './glass';
+import { useT, type Key } from './i18n';
 import { layoutFor } from './layout';
 import { LogoMark } from './logo';
-import { useT, type Key } from './i18n';
-import { c } from './theme';
+import { c, font } from './theme';
 
 export type Tab = 'home' | 'chat' | 'callhome' | 'complaints' | 'profile';
 const ITEMS: { tab: Tab; label: Key; hint: Key }[] = [
@@ -18,14 +17,14 @@ const ITEMS: { tab: Tab; label: Key; hint: Key }[] = [
 function Menu({ current, onGo }: { current: Tab | null; onGo: (t: Tab) => void }) {
   const t = useT();
   return (
-    <View style={{ gap: 6 }}>
+    <View style={{ gap: 2 }}>
       {ITEMS.map((i) => {
         const on = current === i.tab;
         return (
           <Pressable key={i.tab} accessibilityRole="button" accessibilityState={{ selected: on }} accessibilityLabel={t(i.label)} onPress={() => onGo(i.tab)}
-            style={{ paddingVertical: 10, paddingHorizontal: 12, borderRadius: 12, backgroundColor: on ? 'rgba(74,111,165,0.16)' : 'transparent' }}>
-            <Text style={{ fontSize: 15, fontWeight: on ? '700' : '600', color: on ? c.brand : c.ink }}>{t(i.label)}</Text>
-            <Text style={{ fontSize: 12, color: c.soft }}>{t(i.hint)}</Text>
+            style={{ paddingVertical: 10, paddingHorizontal: 14, borderRadius: 8, borderLeftWidth: 3, borderLeftColor: on ? '#C9A27A' : 'transparent', backgroundColor: on ? 'rgba(255,255,255,0.10)' : 'transparent' }}>
+            <Text style={{ fontFamily: font, fontSize: 14.5, fontWeight: on ? '600' : '500', color: on ? '#FFFFFF' : '#C9D3E3' }}>{t(i.label)}</Text>
+            <Text style={{ fontFamily: font, fontSize: 12, color: '#8D9BB3', marginTop: 1 }}>{t(i.hint)}</Text>
           </Pressable>
         );
       })}
@@ -33,42 +32,47 @@ function Menu({ current, onGo }: { current: Tab | null; onGo: (t: Tab) => void }
   );
 }
 
-function Brand() {
+function Brand({ dark = true }: { dark?: boolean }) {
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 18 }}>
-      <LogoMark size={44} />
-      <Text style={{ fontSize: 17, fontWeight: '700', letterSpacing: 2, color: c.ink }}>NIVARAN</Text>
+    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+      <LogoMark size={36} />
+      <View>
+        <Text style={{ fontFamily: font, fontSize: 15, fontWeight: '700', letterSpacing: 2.5, color: dark ? '#FFFFFF' : c.ink }}>NIVARAN</Text>
+        <Text style={{ fontFamily: font, fontSize: 11, color: dark ? '#8D9BB3' : c.soft, marginTop: 1 }}>Customer care, resolved</Text>
+      </View>
     </View>
   );
 }
 
-/** Laptop: a permanent side bar. Phone and tablet: a top bar with a menu button that opens the side bar. */
+/** Laptop: a permanent dark side bar. Phone and tablet: a clean top bar with a menu button that opens the same side bar. */
 export function AppFrame({ current, onGo, children }: { current: Tab | null; onGo: (t: Tab) => void; children: React.ReactNode }) {
   const { width } = useWindowDimensions();
   const t = useT();
   const [open, setOpen] = useState(false);
   const wide = layoutFor(width).kind === 'desktop';
-  const go = (t: Tab) => { setOpen(false); onGo(t); };
+  const go = (tab: Tab) => { setOpen(false); onGo(tab); };
+  const rail = <View style={{ width: 268, backgroundColor: c.navy, paddingVertical: 22, paddingHorizontal: 14, gap: 26 }}><View style={{ paddingHorizontal: 6 }}><Brand /></View><Menu current={current} onGo={go} /></View>;
   if (wide) {
     return (
-      <View style={{ flex: 1, flexDirection: 'row', padding: 16, gap: 16 }}>
-        <GlassSurface style={{ width: 260, padding: 18 }}><Brand /><Menu current={current} onGo={go} /></GlassSurface>
-        <View style={{ flex: 1, alignItems: 'center' }}><View style={{ flex: 1, width: '100%', maxWidth: 820 }}>{children}</View></View>
+      <View style={{ flex: 1, flexDirection: 'row' }}>
+        {rail}
+        <View style={{ flex: 1, alignItems: 'center' }}><View style={{ flex: 1, width: '100%', maxWidth: 900, paddingTop: 8 }}>{children}</View></View>
       </View>
     );
   }
   return (
     <View style={{ flex: 1 }}>
-      <View style={{ position: 'absolute', top: 12, right: 14, zIndex: 5 }}>
-        <Pressable accessibilityRole="button" accessibilityLabel="Open the menu" onPress={() => setOpen(true)}>
-          <GlassSurface radius={14} style={{ paddingVertical: 8, paddingHorizontal: 14 }}><Text style={{ fontSize: 15, fontWeight: '700', color: c.ink }}>☰ {t('nav.menu')}</Text></GlassSurface>
+      <View style={{ height: 58, backgroundColor: c.navy, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 16 }}>
+        <Brand />
+        <Pressable accessibilityRole="button" accessibilityLabel="Open the menu" onPress={() => setOpen(true)} style={{ paddingVertical: 8, paddingHorizontal: 12, borderRadius: 8, borderWidth: 1, borderColor: 'rgba(255,255,255,0.35)' }}>
+          <Text style={{ fontFamily: font, fontSize: 14, fontWeight: '600', color: '#fff' }}>{t('nav.menu')}</Text>
         </Pressable>
       </View>
       <View style={{ flex: 1, maxWidth: layoutFor(width).maxWidth ?? undefined, width: '100%', alignSelf: 'center' }}>{children}</View>
       {open ? (
         <View style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, zIndex: 10, flexDirection: 'row' }}>
-          <GlassSurface radius={0} style={{ width: 290, padding: 18, paddingTop: 54 }}><Brand /><Menu current={current} onGo={go} /></GlassSurface>
-          <Pressable accessibilityRole="button" accessibilityLabel="Close the menu" onPress={() => setOpen(false)} style={{ flex: 1, backgroundColor: 'rgba(43,45,51,0.28)' }} />
+          <View style={{ width: 290, backgroundColor: c.navy, paddingTop: 22, paddingHorizontal: 14, gap: 26 }}><View style={{ paddingHorizontal: 6 }}><Brand /></View><Menu current={current} onGo={go} /></View>
+          <Pressable accessibilityRole="button" accessibilityLabel="Close the menu" onPress={() => setOpen(false)} style={{ flex: 1, backgroundColor: 'rgba(14,27,48,0.45)' }} />
         </View>
       ) : null}
     </View>

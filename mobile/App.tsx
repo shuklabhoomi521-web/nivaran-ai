@@ -28,7 +28,7 @@ type Screen = { name: Tab } | { name: 'case'; id: string; from: Tab } | { name: 
 function Plain({ children }: { children: React.ReactNode }) {   // sign-in and first-time details: no side bar yet
   const { width } = useWindowDimensions();
   const l = layoutFor(width);
-  return <View style={{ flex: 1, alignItems: 'center', paddingVertical: l.gutter }}><View style={{ flex: 1, width: '100%', maxWidth: l.maxWidth ?? undefined }}>{children}</View></View>;
+  return <View style={{ flex: 1, alignItems: 'center', paddingVertical: Math.max(l.gutter, 12) }}><View style={{ flex: 1, width: '100%', maxWidth: l.maxWidth ?? undefined }}>{children}</View></View>;
 }
 
 export default function App() {

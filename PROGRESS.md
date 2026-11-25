@@ -65,6 +65,8 @@ Plan and day-by-day calendar live outside the repo in `~/nivaran-plan` (PLAN.md,
 
 - 26 Nov: AirSewa and e-Jagriti portal kits filled from the official pages (read in a real browser, exact quotes stored, gaps listed). Airline cases now use AirSewa. One-link app: the backend serves the web build at /app (public files only; data still needs the code). New encrypted /profile API. Outreach: 8 follow-ups going out; 4 new startup emails sent 25 Nov.
 
+- 26 Nov: front end redesigned to look professional (founder's request): navy navigation, flat white panels, summary figures on the dashboard, clean complaint rows with status badges and follow-up dates, navy top bar on phones, new logo tile. Glass and blur removed. Checked in a browser at laptop and phone width with a fake demo user.
+
 ## Next
 - Day 1 rest: founder makes FreJun Teler, GitHub Student Pack and Bhashini accounts. 19 Nov: tests, TRAI rules, map Teler to the phone layer. 20-22 Nov: phone first, incl. the real test call on your own number (21 Nov).
 

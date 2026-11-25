@@ -1,28 +1,26 @@
 import React from 'react';
 import { ActivityIndicator, Pressable, Text, View } from 'react-native';
-import { GlassSurface, useSurfaceKind } from './glass';
+import { GlassSurface } from './glass';
 import { c, s } from './theme';
 
 export function Button({ label, onPress, kind = 'primary', disabled, busy }: { label: string; onPress: () => void; kind?: 'primary' | 'ghost'; disabled?: boolean; busy?: boolean }) {
   const off = disabled || busy;
-  const solid = useSurfaceKind() === 'solid';
   const primary = kind === 'primary';
   return (
     <Pressable accessibilityRole="button" accessibilityLabel={label} accessibilityState={{ disabled: !!off, busy: !!busy }} disabled={off} onPress={onPress}
-      style={({ pressed }) => [off && s.btnOff, pressed && { opacity: 0.8, transform: [{ scale: 0.99 }] }]}>
-      <GlassSurface radius={14} tint={primary ? (solid ? c.brand : 'rgba(74,111,165,0.92)') : undefined} style={s.btnInner}>
-        {busy ? <ActivityIndicator color={primary ? '#fff' : c.ink} /> : <Text style={primary ? s.btnText : s.btnGhostText}>{label}</Text>}
+      style={({ pressed }) => [off && s.btnOff, pressed && { opacity: 0.85 }]}>
+      <GlassSurface radius={8} tint={primary ? c.navy : undefined} style={s.btnInner}>
+        {busy ? <ActivityIndicator color={primary ? '#fff' : c.navy} /> : <Text style={primary ? s.btnText : s.btnGhostText}>{label}</Text>}
       </GlassSurface>
     </Pressable>
   );
 }
 
+/** A small status badge: tinted background, thin border, coloured text. */
 export function Chip({ text, color }: { text: string; color: string }) {
   return (
-    <View style={{ alignSelf: 'flex-start' }}>
-      <GlassSurface radius={999} style={[s.chip, { borderColor: color }]}>
-        <Text style={[s.chipText, { color }]}>{text}</Text>
-      </GlassSurface>
+    <View style={{ alignSelf: 'flex-start', borderRadius: 6, borderWidth: 1, borderColor: color, backgroundColor: color + '14', paddingHorizontal: 9, paddingVertical: 3 }}>
+      <Text style={[s.chipText, { color }]}>{text}</Text>
     </View>
   );
 }
@@ -38,8 +36,8 @@ export function Card({ title, children }: { title?: string; children: React.Reac
 
 export function ErrorText({ message }: { message: string | null }) {
   return message ? (
-    <GlassSurface radius={12} tint="rgba(255,235,235,0.7)" style={{ padding: 10 }}>
+    <View style={{ borderRadius: 8, borderWidth: 1, borderColor: '#E4C3CD', backgroundColor: '#FBF2F5', padding: 10 }}>
       <Text style={s.err} accessibilityLiveRegion="polite">{message}</Text>
-    </GlassSurface>
+    </View>
   ) : null;
 }

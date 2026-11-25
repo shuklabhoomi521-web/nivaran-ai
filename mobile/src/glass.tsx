@@ -1,68 +1,30 @@
-import { BlurView } from 'expo-blur';
-import { GlassView, isLiquidGlassAvailable } from 'expo-glass-effect';
-import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect, useState } from 'react';
-import { AccessibilityInfo, Platform, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
-import { SurfaceKind, surfaceKind } from './surface';
+import { AccessibilityInfo, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import { c, s } from './theme';
+import { SurfaceKind } from './surface';
 
-let nativeGlass = false;
-try { nativeGlass = Platform.OS === 'ios' && isLiquidGlassAvailable(); } catch { nativeGlass = false; }
-
+/** Kept for compatibility with the older screens. The look is now flat and professional: solid white panels with a fine border.
+ *  (The earlier glass and blur effects were removed on purpose.) */
 export function useReduceTransparency(): boolean {
   const [reduce, setReduce] = useState(false);
   useEffect(() => {
     let live = true;
     AccessibilityInfo.isReduceTransparencyEnabled?.().then((v) => { if (live) setReduce(!!v); }).catch(() => undefined);
-    const sub = AccessibilityInfo.addEventListener?.('reduceTransparencyChanged', (v: boolean) => setReduce(!!v));
-    return () => { live = false; sub?.remove?.(); };
+    return () => { live = false; };
   }, []);
   return reduce;
 }
 
-export function useSurfaceKind(): SurfaceKind {
-  const reduceTransparency = useReduceTransparency();
-  return surfaceKind({ os: Platform.OS, nativeGlass, reduceTransparency });
+export function useSurfaceKind(): SurfaceKind { return 'solid'; }
+
+/** A panel. `tint` is a solid fill colour (used by the primary button); `radius` is capped so nothing looks bubbly. */
+export function GlassSurface({ children, style, tint, radius = 10 }: { children?: React.ReactNode; style?: StyleProp<ViewStyle>; tint?: string; radius?: number }) {
+  const r = radius >= 100 ? 6 : Math.min(radius, 10);
+  const fill: ViewStyle = tint ? { backgroundColor: tint, borderColor: tint } : { backgroundColor: c.card, borderColor: c.line };
+  return <View style={[{ borderRadius: r, borderWidth: 1, overflow: 'hidden' }, fill, tint ? null : (s.shadow as ViewStyle), style]}>{children}</View>;
 }
 
-const EDGE = 'rgba(255,255,255,0.75)';
-
-/** A pane of liquid glass. `tint` colours it (for a primary button); `children` sit on top. */
-export function GlassSurface({ children, style, tint, radius = 18 }: { children?: React.ReactNode; style?: StyleProp<ViewStyle>; tint?: string; radius?: number }) {
-  const kind = useSurfaceKind();
-  const shape: ViewStyle = { borderRadius: radius, overflow: 'hidden' };
-  if (kind === 'native') {
-    return <GlassView glassEffectStyle="regular" tintColor={tint} style={[shape, style]}>{children}</GlassView>;
-  }
-  if (kind === 'blur') {
-    return (
-      <BlurView intensity={45} tint="light" style={[shape, styles.edge, tint ? { backgroundColor: tint } : styles.milk, style]}>{children}</BlurView>
-    );
-  }
-  if (kind === 'web') {
-    const web = { backdropFilter: 'blur(22px) saturate(170%)', WebkitBackdropFilter: 'blur(22px) saturate(170%)', boxShadow: '0 8px 30px rgba(40,50,120,0.14), inset 0 1px 0 rgba(255,255,255,0.8)' };
-    return <View style={[shape, styles.edge, tint ? { backgroundColor: tint } : styles.milk, web as unknown as ViewStyle, style]}>{children}</View>;
-  }
-  return <View style={[shape, styles.solid, tint ? { backgroundColor: tint } : null, style]}>{children}</View>;   // reduce transparency: opaque and high contrast
-}
-
-/** The colourful backdrop that makes the glass visible. Opaque soft colour when transparency is reduced. */
+/** Plain, calm page background. */
 export function GlassBackground({ children }: { children: React.ReactNode }) {
-  const kind = useSurfaceKind();
-  if (kind === 'solid') return <View style={[StyleSheet.absoluteFill, { backgroundColor: '#f1f3f6', flex: 1 }]}>{children}</View>;
-  return (
-    <View style={{ flex: 1, overflow: 'hidden' }}>
-      <LinearGradient colors={['#dbe7f6', '#f6dde6', '#eadfd3']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={StyleSheet.absoluteFill} />
-      <View pointerEvents="none" style={[styles.blob, { top: -70, right: -60, backgroundColor: 'rgba(150,185,230,0.55)' }]} />
-      <View pointerEvents="none" style={[styles.blob, { top: 320, left: -110, backgroundColor: 'rgba(205,175,150,0.45)' }]} />
-      <View pointerEvents="none" style={[styles.blob, { bottom: -90, right: -40, backgroundColor: 'rgba(240,170,195,0.5)' }]} />
-      {children}
-    </View>
-  );
+  return <View style={[{ flex: 1, backgroundColor: c.bg }, StyleSheet.absoluteFill]}>{children}</View>;
 }
-
-const styles = StyleSheet.create({
-  edge: { borderWidth: 1, borderColor: EDGE },
-  milk: { backgroundColor: 'rgba(255,255,255,0.42)' },
-  solid: { backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#c9ced6' },
-  blob: { position: 'absolute', width: 260, height: 260, borderRadius: 130 },
-});
