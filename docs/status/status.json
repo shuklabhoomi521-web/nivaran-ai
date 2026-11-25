@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26 02:10",
+ "updated": "2026-11-26 02:20",
  "headline": "v1.0 target: Mon 7 Dec 2026. Backend and app are built and tested; the open items are the demo video, the pilot, and anything that needs a phone provider.",
  "groups": [
   {
@@ -144,6 +144,21 @@
      "s": "next",
      "t": "Real accounts (Supabase Auth) instead of access codes",
      "d": "After the pilot"
+    },
+    {
+     "s": "done",
+     "t": "Backup script for the encrypted data files",
+     "d": "bash scripts/backup_data.sh keeps the newest 30 dated copies in ~/Documents/NivaranBackups. The key (.data_key) is kept separate on purpose: save a copy of it in a password manager"
+    },
+    {
+     "s": "next",
+     "t": "Friends pilot from 3 Dec on your laptop, reachable from anywhere through a tunnel",
+     "d": "Needs your choice of tunnel service and your 'go'. Laptop must be on. Each friend gets their own access code and signs the consent form"
+    },
+    {
+     "s": "next",
+     "t": "Always-on free server (Azure student credit, West India or US region test)",
+     "d": "After 4 Dec. Needs a database so data survives restarts, and backups. Free and always-on and zero-loss cannot all be guaranteed; the credit lasts about a year"
     }
    ]
   },

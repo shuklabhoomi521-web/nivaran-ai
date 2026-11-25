@@ -1,8 +1,8 @@
 # Nivaran project tracker
 
-Updated 2026-11-26 02:10. v1.0 target: Mon 7 Dec 2026. Backend and app are built and tested; the open items are the demo video, the pilot, and anything that needs a phone provider.
+Updated 2026-11-26 02:20. v1.0 target: Mon 7 Dec 2026. Backend and app are built and tested; the open items are the demo video, the pilot, and anything that needs a phone provider.
 
-**18 of 37 items done (49%).** In progress: 3 · Planned next: 7 · Needs you: 6 · Waiting: 1 · Blocked: 2
+**19 of 40 items done (48%).** In progress: 3 · Planned next: 9 · Needs you: 6 · Waiting: 1 · Blocked: 2
 
 
 ## Backend (Python, FastAPI)
@@ -49,6 +49,9 @@ Updated 2026-11-26 02:10. v1.0 target: Mon 7 Dec 2026. Backend and app are built
 | Done | Pilot runs on your laptop | scripts/run_pilot.sh |
 | Blocked | Cloud server on Azure for Students | No cheap VM size allowed in South India; other regions not tested. Revisit later |
 | Planned next | Real accounts (Supabase Auth) instead of access codes | After the pilot |
+| Done | Backup script for the encrypted data files | bash scripts/backup_data.sh keeps the newest 30 dated copies in ~/Documents/NivaranBackups. The key (.data_key) is kept separate on purpose: save a copy of it in a password manager |
+| Planned next | Friends pilot from 3 Dec on your laptop, reachable from anywhere through a tunnel | Needs your choice of tunnel service and your 'go'. Laptop must be on. Each friend gets their own access code and signs the consent form |
+| Planned next | Always-on free server (Azure student credit, West India or US region test) | After 4 Dec. Needs a database so data survives restarts, and backups. Free and always-on and zero-loss cannot all be guaranteed; the credit lasts about a year |
 
 ## Internship outreach
 
