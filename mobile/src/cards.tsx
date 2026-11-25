@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Pressable, Text } from 'react-native';
 import type { Api } from './api';
-import { STATE_COLOR, caseTitle, categoryLabel, followUpText, prettyDate } from './format';
+import { STATE_COLOR, categoryLabel, followUpLine, prettyDate } from './format';
+import { fill, useT, type Key } from './i18n';
 import { GlassSurface } from './glass';
 import { c, s } from './theme';
 import type { NextResponse, TrackedCase } from './types';
@@ -22,16 +23,18 @@ export function useNexts(api: Api, cases: TrackedCase[]): Record<string, NextRes
 }
 
 export function ComplaintCard({ item, next, onOpen }: { item: TrackedCase; next: NextResponse | null | undefined; onOpen: () => void }) {
+  const t = useT();
   const ongoing = isOngoing(item.state);
-  const line = ongoing && next === undefined ? 'Checking the schedule…' : followUpText(next ?? null, item.state);
+  const line = ongoing && next === undefined ? t('fu.checking') : followUpLine(t, next ?? null, item.state);
+  const status = t(`state.${item.state}` as Key);
   return (
-    <Pressable accessibilityRole="button" accessibilityLabel={caseTitle(item.company, item.state)} onPress={onOpen} style={{ marginBottom: 12 }}>
+    <Pressable accessibilityRole="button" accessibilityLabel={`${item.company} · ${status}`} onPress={onOpen} style={{ marginBottom: 12 }}>
       <GlassSurface style={s.card}>
         <Text style={s.h2}>{item.company}</Text>
-        <Chip text={caseTitle(item.company, item.state).split(' · ')[1]} color={STATE_COLOR[item.state]} />
+        <Chip text={status} color={STATE_COLOR[item.state]} />
         <Text style={[s.soft, { color: c.ink }]} numberOfLines={2}>{item.problem_summary}</Text>
         <Text style={[s.soft, { fontWeight: '600', color: c.brand }]}>{line}</Text>
-        <Text style={s.soft}>{categoryLabel(item.category)} · started {prettyDate(item.created_on)}</Text>
+        <Text style={s.soft}>{categoryLabel(item.category)} · {fill(t('fu.started'), { date: prettyDate(item.created_on) })}</Text>
       </GlassSurface>
     </Pressable>
   );

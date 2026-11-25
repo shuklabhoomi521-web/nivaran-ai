@@ -61,6 +61,8 @@ Plan and day-by-day calendar live outside the repo in `~/nivaran-plan` (PLAN.md,
 
 - 22 Nov: logo redrawn as one ribbon forming the letter N (knot at the bottom, smooth diagonal, settled dot). Hindi and Tamil drafts added for the new screens' menus, headings and profile numbers (unchecked by a native speaker; complaint cards, status words and follow-up lines are still English). 48 app tests.
 
+- 25 Nov: status words, ladder steps and follow-up lines on the complaint cards translated to Hindi and Tamil (draft, unchecked by a native speaker); checked in the browser in Hindi. 49 app tests.
+
 ## Next
 - Day 1 rest: founder makes FreJun Teler, GitHub Student Pack and Bhashini accounts. 19 Nov: tests, TRAI rules, map Teler to the phone layer. 20-22 Nov: phone first, incl. the real test call on your own number (21 Nov).
 

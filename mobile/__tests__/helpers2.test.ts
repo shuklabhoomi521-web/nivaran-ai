@@ -40,3 +40,13 @@ test('follow-up wording', () => {
   expect(followUpText(null, 'waiting')).toBe('No follow-up planned');
   expect(followUpText(null, 'resolved')).toBe('Solved');
 });
+
+import { followUpLine } from '../src/format';
+import { translate, type Key } from '../src/i18n';
+test('follow-up line is translated and filled in', () => {
+  const t = (l: 'en' | 'hi' | 'ta') => (k: Key) => translate(l, k);
+  expect(followUpLine(t('en'), act('grievance_officer', '2026-12-12', 0), 'waiting')).toBe('Next follow-up on 12 Dec 2026: Grievance officer');
+  expect(followUpLine(t('hi'), act('follow_up', '2026-12-08', 2), 'waiting')).toBe('8 Dec 2026 से फ़ॉलो-अप बाकी: फ़ॉलो-अप');
+  expect(followUpLine(t('ta'), null, 'resolved')).toBe('தீர்ந்தது');
+  expect(followUpLine(t('hi'), act('first_contact', '2026-12-05', 0), 'new')).not.toContain('{');
+});

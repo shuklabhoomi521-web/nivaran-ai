@@ -1,3 +1,4 @@
+import { fill, type Key } from './i18n';
 import type { Action, CaseState, NextResponse, Reminder, Rung } from './types';
 
 export const RUNG_LABEL: Record<Rung, string> = {
@@ -89,4 +90,15 @@ export function followUpText(next: NextResponse | null, state: CaseState): strin
   if (state === 'new') return `Waiting for your approval to send the ${what.toLowerCase()}`;
   if (a.days_overdue > 0) return `Follow-up overdue since ${prettyDate(a.due_on)}: ${what}`;
   return `Next follow-up on ${prettyDate(a.due_on)}: ${what}`;
+}
+
+/** Same wording as `followUpText`, but in the chosen language: `t` is the translator from `useT`. */
+export function followUpLine(t: (k: Key) => string, next: NextResponse | null, state: CaseState): string {
+  if (state === 'resolved') return t('fu.solved');
+  if (state === 'closed') return t('fu.closed');
+  if (!next || !next.action) return t('fu.none');
+  const a = next.action;
+  const vars = { what: t(`rung.${a.rung}` as Key), date: prettyDate(a.due_on) };
+  if (state === 'new') return fill(t('fu.approve'), vars);
+  return fill(t(a.days_overdue > 0 ? 'fu.overdue' : 'fu.next'), vars);
 }

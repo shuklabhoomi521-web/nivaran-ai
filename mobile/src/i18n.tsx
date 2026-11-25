@@ -6,6 +6,10 @@ export const LANGS: { code: Lang; label: string }[] = [{ code: 'en', label: 'Eng
 // First draft of the Hindi and Tamil text: it has NOT been checked by a native speaker yet (see docs/notes/mobile-i18n.md).
 export const STRINGS = {
   en: {
+    'state.new': 'Not sent yet', 'state.waiting': 'Waiting for a reply', 'state.escalated': 'Escalated', 'state.resolved': 'Solved', 'state.closed': 'Closed',
+    'rung.first_contact': 'First message', 'rung.follow_up': 'Follow-up', 'rung.grievance_officer': 'Grievance officer', 'rung.appellate': 'Appellate authority', 'rung.regulator': "Regulator's portal",
+    'fu.checking': 'Checking the schedule…', 'fu.solved': 'Solved', 'fu.closed': 'Stopped by you', 'fu.none': 'No follow-up planned',
+    'fu.approve': 'Waiting for your approval to send: {what}', 'fu.overdue': 'Follow-up overdue since {date}: {what}', 'fu.next': 'Next follow-up on {date}: {what}', 'fu.started': 'started {date}',
     'nav.home': 'Home', 'nav.home.hint': 'Your dashboard', 'nav.chat': 'Tell our AI in chat', 'nav.chat.hint': 'Type or speak your problem', 'nav.call': 'Tell our AI on a call', 'nav.call.hint': 'Talk to it by voice',
     'nav.complaints': 'My complaints', 'nav.complaints.hint': 'Ongoing and resolved', 'nav.profile': 'My profile', 'nav.profile.hint': 'Your details and numbers', 'nav.menu': 'Menu',
     'home.recent': 'Your recent complaints', 'home.none': 'Nothing yet. When you tell our AI about a problem, you can follow it here.', 'home.glad': 'Glad to help',
@@ -22,6 +26,10 @@ export const STRINGS = {
     'case.call': 'Call for me (practice)', 'case.kit': 'Open the filing kit', 'case.did': 'I did this step myself',
   },
   hi: {
+    'state.new': 'अभी भेजी नहीं', 'state.waiting': 'जवाब का इंतज़ार', 'state.escalated': 'आगे बढ़ाई गई', 'state.resolved': 'हल हुई', 'state.closed': 'बंद',
+    'rung.first_contact': 'पहला संदेश', 'rung.follow_up': 'फ़ॉलो-अप', 'rung.grievance_officer': 'शिकायत अधिकारी', 'rung.appellate': 'अपीलीय प्राधिकारी', 'rung.regulator': 'नियामक का पोर्टल',
+    'fu.checking': 'समय-सारणी देख रहे हैं…', 'fu.solved': 'हल हुई', 'fu.closed': 'आपने रोक दी', 'fu.none': 'कोई फ़ॉलो-अप तय नहीं',
+    'fu.approve': 'भेजने के लिए आपकी मंज़ूरी का इंतज़ार: {what}', 'fu.overdue': '{date} से फ़ॉलो-अप बाकी: {what}', 'fu.next': 'अगला फ़ॉलो-अप {date} को: {what}', 'fu.started': '{date} को शुरू हुई',
     'nav.home': 'होम', 'nav.home.hint': 'आपका डैशबोर्ड', 'nav.chat': 'चैट में AI को बताएँ', 'nav.chat.hint': 'लिखकर या बोलकर समस्या बताएँ', 'nav.call': 'कॉल पर AI को बताएँ', 'nav.call.hint': 'आवाज़ में बात करें',
     'nav.complaints': 'मेरी शिकायतें', 'nav.complaints.hint': 'चल रही और हल हुई', 'nav.profile': 'मेरी प्रोफ़ाइल', 'nav.profile.hint': 'आपकी जानकारी और आँकड़े', 'nav.menu': 'मेनू',
     'home.recent': 'आपकी हाल की शिकायतें', 'home.none': 'अभी कुछ नहीं। जब आप AI को समस्या बताएँगे, तो उसे यहाँ देख सकेंगे।', 'home.glad': 'मदद करके खुशी हुई',
@@ -38,6 +46,10 @@ export const STRINGS = {
     'case.call': 'मेरी तरफ़ से कॉल करें (अभ्यास)', 'case.kit': 'शिकायत दर्ज करने की किट खोलें', 'case.did': 'यह कदम मैंने खुद किया',
   },
   ta: {
+    'state.new': 'இன்னும் அனுப்பவில்லை', 'state.waiting': 'பதிலுக்காகக் காத்திருப்பு', 'state.escalated': 'மேலே எடுத்துச்செல்லப்பட்டது', 'state.resolved': 'தீர்ந்தது', 'state.closed': 'மூடப்பட்டது',
+    'rung.first_contact': 'முதல் செய்தி', 'rung.follow_up': 'பின்தொடர்தல்', 'rung.grievance_officer': 'குறைதீர் அலுவலர்', 'rung.appellate': 'மேல்முறையீட்டு அதிகாரி', 'rung.regulator': 'ஒழுங்குமுறை ஆணையத்தின் தளம்',
+    'fu.checking': 'அட்டவணையைப் பார்க்கிறோம்…', 'fu.solved': 'தீர்ந்தது', 'fu.closed': 'நீங்கள் நிறுத்தினீர்கள்', 'fu.none': 'பின்தொடர்தல் திட்டமிடப்படவில்லை',
+    'fu.approve': 'அனுப்ப உங்கள் ஒப்புதலுக்காகக் காத்திருப்பு: {what}', 'fu.overdue': '{date} முதல் பின்தொடர்தல் தாமதம்: {what}', 'fu.next': 'அடுத்த பின்தொடர்தல் {date}: {what}', 'fu.started': '{date} அன்று தொடங்கியது',
     'nav.home': 'முகப்பு', 'nav.home.hint': 'உங்கள் டாஷ்போர்டு', 'nav.chat': 'அரட்டையில் AI-யிடம் சொல்லுங்கள்', 'nav.chat.hint': 'எழுதி அல்லது பேசிச் சொல்லுங்கள்', 'nav.call': 'அழைப்பில் AI-யிடம் சொல்லுங்கள்', 'nav.call.hint': 'குரலில் பேசுங்கள்',
     'nav.complaints': 'என் புகார்கள்', 'nav.complaints.hint': 'நடப்பவை மற்றும் தீர்ந்தவை', 'nav.profile': 'என் சுயவிவரம்', 'nav.profile.hint': 'உங்கள் விவரங்களும் எண்களும்', 'nav.menu': 'மெனு',
     'home.recent': 'உங்கள் சமீபத்திய புகார்கள்', 'home.none': 'இன்னும் எதுவும் இல்லை. AI-யிடம் பிரச்சினையைச் சொன்னால் இங்கே பின்தொடரலாம்.', 'home.glad': 'உதவ மகிழ்ச்சி',
@@ -65,3 +77,4 @@ const Ctx = createContext<{ lang: Lang; setLang: (l: Lang) => void }>({ lang: 'e
 export const LangProvider = Ctx.Provider;
 export function useLang() { return useContext(Ctx); }
 export function useT() { const { lang } = useContext(Ctx); return (key: Key) => translate(lang, key); }
+export function fill(text: string, vars: Record<string, string>): string { return text.replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? ''); }
