@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26 02:40",
+ "updated": "2026-11-26 02:50",
  "headline": "v1.0 target: Mon 7 Dec 2026. Backend and app are built and tested; the open items are the demo video, the pilot, and anything that needs a phone provider.",
  "groups": [
   {
@@ -96,9 +96,9 @@
      "d": ""
     },
     {
-     "s": "doing",
-     "t": "Android app file (APK) build is queued at Expo",
-     "d": "Submitted 26 Nov 02:02. Link: https://expo.dev/accounts/bhoomishukla/projects/nivaran/builds/2f268c7e-a26f-45af-9e1c-2a9514ec7c7d . The app now asks for the laptop address on first start, so one APK works on any Wi-Fi. The laptop must still be running run_pilot.sh"
+     "s": "done",
+     "t": "Android app file (APK) built and downloaded",
+     "d": "Saved at Desktop/Nivaran_APK/Nivaran_20261126.apk (75 MB, checked: valid Android package). Expo link expires 9 Dec 2026, so share the FILE, not the link. Still to do: install on your phone and test one full case"
     }
    ]
   },

@@ -1,8 +1,8 @@
 # Nivaran project tracker
 
-Updated 2026-11-26 02:40. v1.0 target: Mon 7 Dec 2026. Backend and app are built and tested; the open items are the demo video, the pilot, and anything that needs a phone provider.
+Updated 2026-11-26 02:50. v1.0 target: Mon 7 Dec 2026. Backend and app are built and tested; the open items are the demo video, the pilot, and anything that needs a phone provider.
 
-**19 of 44 items done (43%).** In progress: 3 · Planned next: 13 · Needs you: 6 · Waiting: 1 · Blocked: 2
+**20 of 44 items done (45%).** In progress: 2 · Planned next: 13 · Needs you: 6 · Waiting: 1 · Blocked: 2
 
 
 ## Backend (Python, FastAPI)
@@ -31,7 +31,7 @@ Updated 2026-11-26 02:40. v1.0 target: Mon 7 Dec 2026. Backend and app are built
 | Done | Hindi and Tamil text (first draft) | Menus, dashboard, complaint cards. Not checked by a native speaker |
 | Needs you | Try the app on a real phone | bash scripts/run_pilot.sh, then Expo Go. Only browser checks so far |
 | Needs you | Get a native speaker to check the Hindi and Tamil text |  |
-| In progress | Android app file (APK) build is queued at Expo | Submitted 26 Nov 02:02. Link: https://expo.dev/accounts/bhoomishukla/projects/nivaran/builds/2f268c7e-a26f-45af-9e1c-2a9514ec7c7d . The app now asks for the laptop address on first start, so one APK works on any Wi-Fi. The laptop must still be running run_pilot.sh |
+| Done | Android app file (APK) built and downloaded | Saved at Desktop/Nivaran_APK/Nivaran_20261126.apk (75 MB, checked: valid Android package). Expo link expires 9 Dec 2026, so share the FILE, not the link. Still to do: install on your phone and test one full case |
 
 ## Phone calls and voice
 

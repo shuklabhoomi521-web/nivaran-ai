@@ -3,7 +3,7 @@
 Rule of the days: Tue 24 Nov, Sun 29 Nov, Thu 3 Dec are rest days in the sprint plan; exams on 25 Nov, 30 Nov, 1 Dec, 4 Dec. "You" = Bhoomi, "Claude" = me.
 
 ## Running by itself now
-- Expo is building the Android app (queued). `scripts/wait_for_apk.sh` downloads it to `~/Desktop/Nivaran_APK/` when it finishes and shows a notification. Keep the laptop on, plugged in, lid open.
+- DONE 26 Nov 02:45: the Android app is built and downloaded to ~/Desktop/Nivaran_APK/Nivaran_20261126.apk (75 MB, valid). Expo link expires 9 Dec 2026: share the file itself.
 
 ## Fri 27 Nov (tomorrow)
 1. Claude: check the APK is in `Nivaran_APK` (if the build failed, read the log and fix).
