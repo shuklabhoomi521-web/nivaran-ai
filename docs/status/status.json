@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26 02:50",
+ "updated": "2026-11-27 11:30",
  "headline": "v1.0 target: Mon 7 Dec 2026. Backend and app are built and tested; the open items are the demo video, the pilot, and anything that needs a phone provider.",
  "groups": [
   {
@@ -172,13 +172,13 @@
     },
     {
      "s": "doing",
-     "t": "More follow-ups, 8 a day",
-     "d": "All 8 follow-ups of 26 Nov are sent (24 follow-ups in total). About 12 companies are still due their first follow-up"
+     "t": "Follow-ups: 8 more going out on 27 Nov (Knowlarity, Gramener, Qure.ai, Hevo Data, Kissflow, Vahan, E2E Networks, AI4Bharat)",
+     "d": "26 follow-ups sent after these 8; about 26 are still due later (18 from 28 Nov, 4 from 2 Dec, 4 left from today)"
     },
     {
      "s": "waiting",
      "t": "Replies: none positive yet",
-     "d": "SuperKalam says it will revert in 1-3 days if shortlisted; CallMissed said no politely"
+     "d": "Cavorite AI answered 25 Nov: only hiring a sales intern now, may write next summer. SuperKalam says it will revert in 1-3 days if shortlisted. No LinkedIn acceptances yet (the 3 \"connect\" emails are other students inviting you)"
     },
     {
      "s": "you",
@@ -192,8 +192,8 @@
     },
     {
      "s": "doing",
-     "t": "Find more startups with a public hiring address",
-     "d": "Only 5 verified so far; most use forms"
+     "t": "15 new companies queued for 27 Nov (first emails to their public careers addresses)",
+     "d": "Rephrase.ai, Wadhwani AI, Tricog, Shadowfax, Freshworks, Darwinbox, BrowserStack, Quantiphi, Moneyview, Mintifi, Simplilearn, Dhruva Space, Cogoport, PolicyBazaar, Infra.Market. The addresses are hiring inboxes, not personal founder emails (none are public)"
     },
     {
      "s": "next",

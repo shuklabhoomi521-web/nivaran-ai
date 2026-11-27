@@ -1,6 +1,6 @@
 # Nivaran project tracker
 
-Updated 2026-11-26 02:50. v1.0 target: Mon 7 Dec 2026. Backend and app are built and tested; the open items are the demo video, the pilot, and anything that needs a phone provider.
+Updated 2026-11-27 11:30. v1.0 target: Mon 7 Dec 2026. Backend and app are built and tested; the open items are the demo video, the pilot, and anything that needs a phone provider.
 
 **20 of 44 items done (45%).** In progress: 2 · Planned next: 13 · Needs you: 6 · Waiting: 1 · Blocked: 2
 
@@ -58,11 +58,11 @@ Updated 2026-11-26 02:50. v1.0 target: Mon 7 Dec 2026. Backend and app are built
 | Status | Item | Detail |
 |---|---|---|
 | Done | 76 companies emailed, plus 24 follow-ups | Only publicly posted hiring addresses. 8 follow-ups went out on 26 Nov |
-| In progress | More follow-ups, 8 a day | All 8 follow-ups of 26 Nov are sent (24 follow-ups in total). About 12 companies are still due their first follow-up |
-| Waiting | Replies: none positive yet | SuperKalam says it will revert in 1-3 days if shortlisted; CallMissed said no politely |
+| In progress | Follow-ups: 8 more going out on 27 Nov (Knowlarity, Gramener, Qure.ai, Hevo Data, Kissflow, Vahan, E2E Networks, AI4Bharat) | 26 follow-ups sent after these 8; about 26 are still due later (18 from 28 Nov, 4 from 2 Dec, 4 left from today) |
+| Waiting | Replies: none positive yet | Cavorite AI answered 25 Nov: only hiring a sales intern now, may write next summer. SuperKalam says it will revert in 1-3 days if shortlisted. No LinkedIn acceptances yet (the 3 "connect" emails are other students inviting you) |
 | Needs you | Send the LinkedIn messages (10 people) | Pack and 7 tailored resume PDFs are in LinkedIn_Outreach_Pack.zip on your Desktop |
 | Needs you | SuperKalam React Native internship form (partly filled for you) | Filled: email, name, LinkedIn, graduation year 2028. You still answer phone, joining date, last stipend, '6 months?' and commitments, attach the SuperKalam resume PDF and press Submit. Honest odds are low: the posting wants 6+ months full-time and 4+ months of earlier React Native internships. Better route: email join@superkalam.com with a Loom walkthrough of Nivaran's app |
-| In progress | Find more startups with a public hiring address | Only 5 verified so far; most use forms |
+| In progress | 15 new companies queued for 27 Nov (first emails to their public careers addresses) | Rephrase.ai, Wadhwani AI, Tricog, Shadowfax, Freshworks, Darwinbox, BrowserStack, Quantiphi, Moneyview, Mintifi, Simplilearn, Dhruva Space, Cogoport, PolicyBazaar, Infra.Market. The addresses are hiring inboxes, not personal founder emails (none are public) |
 | Planned next | Upload the demo video (GitHub release or LinkedIn) and link it in the README | Your call: public upload is your decision |
 
 ## Demo, docs and release
